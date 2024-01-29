@@ -1,9 +1,6 @@
 package com.nofriend.sonmandube.member.controller.request;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,16 +8,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SignupRequest {
-    @Min(8) @Max(20) @NotEmpty
+    @Size(min = 8, max = 20) @NotEmpty
     private String id;
 
-    @Min(8) @Max(20) @NotEmpty
+    @Size(min = 8, max = 20) @NotEmpty
     private String passwod;
 
-    @Min(2) @Max(30) @NotEmpty
+    @Size(min = 2, max = 30) @NotEmpty
     private String name;
 
-    @Min(2) @Max(12) @NotEmpty
+    @Size(min = 2, max = 12) @NotEmpty
     private String nickname;
 
     @Email @NotEmpty

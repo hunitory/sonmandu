@@ -1,12 +1,13 @@
 package com.nofriend.sonmandube.member.controller;
 
 import com.nofriend.sonmandube.member.application.MemberService;
-import com.nofriend.sonmandube.member.controller.request.SigninRequest;
-import com.nofriend.sonmandube.member.controller.request.SignupRequest;
+import com.nofriend.sonmandube.member.controller.request.*;
 import com.nofriend.sonmandube.member.controller.response.TokenResponse;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,37 +15,46 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/member")
 @RequiredArgsConstructor
-@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
 
     //--- PostMapping
     @PostMapping("/login")
-    public ResponseEntity<TokenResponse> signin(@Valid SigninRequest loginRequest) {
+    public ResponseEntity<TokenResponse> signin(@RequestBody @Valid LoginRequest loginRequest) {
         TokenResponse tokenResponse = memberService.signin(loginRequest);
         return ResponseEntity.ok(tokenResponse);
     }
 
-    //TODO
     @PostMapping("/password")
-    public void checkPassword(){}
+    public HttpStatus findPassword(@RequestBody @Valid FindPasswordRequest findPasswordRequest){
+        memberService.findPassword(findPasswordRequest);
+        return HttpStatus.OK;
+    }
 
-    //TODO
     @PostMapping("/id")
-    public void selectId(){}
+    public HttpStatus findId(@RequestBody @Valid FindIdRequest findIdRequest){
+        memberService.findId(findIdRequest);
+        return HttpStatus.OK;
+    }
 
-    //TODO
     @PostMapping("/refresh")
-    public void refreshAccessToken(){}
+    public ResponseEntity<String> refreshAccessToken(){
+        String newToken = memberService.refreshAccessToken();
+        return ResponseEntity.ok(newToken);
+    }
 
-    //TODO
     @PostMapping("/email-token")
-    public void sendEmail(){}
+    public HttpStatus sendEmailToken(@Email String email){
+        memberService.sendEmailToken(email);
+        return HttpStatus.OK;
+    }
 
-    //TODO
-    @PostMapping("/isValidated")
-    public void validateEmail(){}
+    @PostMapping("/is-validated")
+    public HttpStatus validateEmail(@RequestBody @Valid ValidateEmailRequest validateEmailRequest){
+        memberService.validateEmail(validateEmailRequest);
+        return HttpStatus.OK;
+    }
 
     @PostMapping("/signup")
     public HttpStatus signup(@RequestBody @Valid SignupRequest signupRequest) {
@@ -54,20 +64,23 @@ public class MemberController {
 
 //-- GetMapping
 
-    //TODO
-    @GetMapping("/nickname")
-    public void checkNickanme(){}
+    @GetMapping("/nickname/{nickname}")
+    public ResponseEntity<Boolean> checkUniqueNickname(@NotEmpty @Size(min = 2,max = 12) @PathVariable String nickname){
+        boolean isUniqueNickname = memberService.checkUniqueNickname(nickname);
+        return ResponseEntity.ok(isUniqueNickname);
+    }
 
-    //TODO
-    @GetMapping("/password")
-    public void selectPassword(){
-
+    @GetMapping("/password/{password}")
+    public ResponseEntity<Boolean> checkValidPassword(@NotEmpty @Size(min = 8, max = 20) String password){
+        boolean isValidPassword = memberService.checkUniquepassword(password);
+        return ResponseEntity.ok(isValidPassword);
     }
 
     //TODO
     @GetMapping("/id")
-    public void checkId(){
-
+    public ResponseEntity<Boolean> checkUniqueId(@NotEmpty @Size(min = 8, max = 20) String id){
+        boolean isUniqueId = memberService.checkUniqueId(id);
+        return ResponseEntity.ok(isUniqueId);
     }
 
     //TODO
@@ -101,7 +114,7 @@ public class MemberController {
     public void updateEmail(){}
 
     //TODO
-    @PutMapping("/imageUrl")
+    @PutMapping("/image-url")
     public void updateImageUrl(){}
 
     //---DeleteMapping

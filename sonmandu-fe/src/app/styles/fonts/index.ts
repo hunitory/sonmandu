@@ -1,4 +1,4 @@
-import { Noto_Sans_KR } from 'next/font/google'
+import { Noto_Sans_KR } from 'next/font/google';
 
 const black = Noto_Sans_KR({
   weight: '800',
@@ -16,7 +16,7 @@ const black = Noto_Sans_KR({
     'Segoe UI Symbol',
     'sans-serif',
   ],
-})
+});
 
 const extraBold = Noto_Sans_KR({
   weight: '800',
@@ -34,7 +34,7 @@ const extraBold = Noto_Sans_KR({
     'Segoe UI Symbol',
     'sans-serif',
   ],
-})
+});
 
 const bold = Noto_Sans_KR({
   weight: '700',
@@ -52,7 +52,7 @@ const bold = Noto_Sans_KR({
     'Segoe UI Symbol',
     'sans-serif',
   ],
-})
+});
 
 const semiBold = Noto_Sans_KR({
   weight: '600',
@@ -70,7 +70,7 @@ const semiBold = Noto_Sans_KR({
     'Segoe UI Symbol',
     'sans-serif',
   ],
-})
+});
 
 const medium = Noto_Sans_KR({
   weight: '600',
@@ -88,7 +88,7 @@ const medium = Noto_Sans_KR({
     'Segoe UI Symbol',
     'sans-serif',
   ],
-})
+});
 
 const regular = Noto_Sans_KR({
   weight: '400',
@@ -106,7 +106,7 @@ const regular = Noto_Sans_KR({
     'Segoe UI Symbol',
     'sans-serif',
   ],
-})
+});
 
 const light = Noto_Sans_KR({
   weight: '300',
@@ -124,7 +124,7 @@ const light = Noto_Sans_KR({
     'Segoe UI Symbol',
     'sans-serif',
   ],
-})
+});
 
 const extraLight = Noto_Sans_KR({
   weight: '200',
@@ -142,7 +142,7 @@ const extraLight = Noto_Sans_KR({
     'Segoe UI Symbol',
     'sans-serif',
   ],
-})
+});
 
 const thin = Noto_Sans_KR({
   weight: '100',
@@ -160,7 +160,7 @@ const thin = Noto_Sans_KR({
     'Segoe UI Symbol',
     'sans-serif',
   ],
-})
+});
 
 export {
   thin,
@@ -172,4 +172,4 @@ export {
   bold,
   extraBold,
   black,
-}
+};

@@ -1,6 +1,5 @@
-'use client'
+'use client';
 
-import BaseButton from './BaseButton'
-import BaseInput from './BaseInput'
+import BaseHeader from './BaseHeader';
 
-export { BaseButton, BaseInput }
+export { BaseHeader };

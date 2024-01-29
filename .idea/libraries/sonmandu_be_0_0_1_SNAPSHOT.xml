@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="sonmandu-be-0.0.1-SNAPSHOT">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/sonmandu-be/build/libs/sonmandu-be-0.0.1-SNAPSHOT.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

@@ -6,6 +6,7 @@ import com.nofriend.sonmandube.member.controller.response.TokenResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ public class MemberController {
             TokenResponse tokenResponse = memberService.login();
             return ResponseEntity.ok(tokenResponse);
         } catch(Exception exception){
-
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
 }

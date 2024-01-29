@@ -1,8 +1,13 @@
 package com.nofriend.sonmandube.member.domain;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Getter
+@Builder
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

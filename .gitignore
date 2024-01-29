@@ -1,6 +1,5 @@
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,java,windows,linux,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij,java,windows,linux,macos
-.idea
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -130,6 +129,7 @@ fabric.properties
 
 # Package Files #
 *.jar
+!sonmandu-be\gradle\wrapper/gradle-wrapper.jar
 *.war
 *.nar
 *.ear

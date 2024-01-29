@@ -5,4 +5,4 @@ export const PALETTE = {
   MAIN_BLACK: '454545',
   LIGHT_BLACK: 'A0A0A0',
   SUB_WHITE: 'F5F5F5',
-}
+};

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { notoSansKr } from 'styles'
+import { Noto_Sans_KR } from 'next/font/google'
 import {
   StyledComponentsRegistry,
   RecoilRootWrapper,
@@ -19,10 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body
-        className={notoSansKr.regular.className}
-        suppressHydrationWarning={true}
-      >
+      {/* <body suppressHydrationWarning={true}> */}
+      <body suppressHydrationWarning={true}>
         <ReactQueryProvider>
           <RecoilRootWrapper>
             <StyledComponentsRegistry>{children}</StyledComponentsRegistry>

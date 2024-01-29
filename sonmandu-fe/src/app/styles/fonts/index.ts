@@ -3,7 +3,6 @@ import { Noto_Sans_KR } from 'next/font/google'
 const black = Noto_Sans_KR({
   weight: '800',
   display: 'fallback',
-  subsets: ['latin'],
   style: 'normal',
   variable: '--noto-sans_KR-bold',
   fallback: [
@@ -21,7 +20,6 @@ const black = Noto_Sans_KR({
 const extraBold = Noto_Sans_KR({
   weight: '800',
   display: 'fallback',
-  subsets: ['latin'],
   style: 'normal',
   variable: '--noto-sans_KR-bold',
   fallback: [
@@ -39,7 +37,6 @@ const extraBold = Noto_Sans_KR({
 const bold = Noto_Sans_KR({
   weight: '700',
   display: 'fallback',
-  subsets: ['latin'],
   style: 'normal',
   variable: '--noto-sans_KR-bold',
   fallback: [
@@ -57,7 +54,6 @@ const bold = Noto_Sans_KR({
 const semiBold = Noto_Sans_KR({
   weight: '600',
   display: 'fallback',
-  subsets: ['latin'],
   style: 'normal',
   variable: '--noto-sans_KR-medium',
   fallback: [
@@ -75,7 +71,6 @@ const semiBold = Noto_Sans_KR({
 const medium = Noto_Sans_KR({
   weight: '600',
   display: 'fallback',
-  subsets: ['latin'],
   style: 'normal',
   variable: '--noto-sans_KR-medium',
   fallback: [
@@ -93,7 +88,6 @@ const medium = Noto_Sans_KR({
 const regular = Noto_Sans_KR({
   weight: '400',
   display: 'fallback',
-  subsets: ['latin'],
   style: 'normal',
   variable: '--noto-sans_KR-bold',
   fallback: [
@@ -111,7 +105,6 @@ const regular = Noto_Sans_KR({
 const light = Noto_Sans_KR({
   weight: '300',
   display: 'fallback',
-  subsets: ['latin'],
   style: 'normal',
   variable: '--noto-sans_KR-medium',
   fallback: [
@@ -129,7 +122,6 @@ const light = Noto_Sans_KR({
 const extraLight = Noto_Sans_KR({
   weight: '200',
   display: 'fallback',
-  subsets: ['latin'],
   style: 'normal',
   variable: '--noto-sans_KR-bold',
   fallback: [
@@ -147,7 +139,6 @@ const extraLight = Noto_Sans_KR({
 const thin = Noto_Sans_KR({
   weight: '100',
   display: 'fallback',
-  subsets: ['latin'],
   style: 'normal',
   variable: '--noto-sans_KR-medium',
   fallback: [
@@ -163,13 +154,13 @@ const thin = Noto_Sans_KR({
 })
 
 export {
-  thin,
-  extraLight,
-  light,
-  regular,
-  medium,
-  semiBold,
-  bold,
-  extraBold,
-  black,
+  thin as notoSansKrThin,
+  extraLight as notoSansKrExtraLight,
+  light as notoSansKrLight,
+  regular as notoSansKrRegular,
+  medium as notoSansKrMedium,
+  semiBold as notoSansKrSemiBold,
+  bold as notoSansKrBold,
+  extraBold as notoSansKrExtraBold,
+  black as notoSansKrBlack,
 }

@@ -1,15 +1,20 @@
+import { ValueOf } from 'next/dist/shared/lib/constants';
 import styled from 'styled-components';
-import { PaletteType, PALETTE, ValueOfPalette } from 'styles/palette';
+import { PALETTE } from 'styles/palette';
 
-export const ButtonWrapper = styled.button<{
-  $bgColor: ValueOfPalette<PaletteType>;
-}>`
-  width: 120px;
-  height: 42px;
+export const ButtonWrapper = styled.button<{ $needGap: boolean }>`
   border: 0;
+  border-radius: 20px;
   display: flex;
-  background-color: ${({ $bgColor }) => $bgColor};
+  align-items: center;
+  justify-content: ${(props) => (props.$needGap ? 'space-between' : 'center')};
+  background-color: white;
+  color: ${PALETTE.MAIN_BLACK};
+  padding: 0px 8px;
 
-  &:hover {
+  &:disabled {
+    background-color: ${PALETTE.SUB_WHITE};
+    color: ${PALETTE.LIGHT_BLACK};
+    border: 0;
   }
 `;

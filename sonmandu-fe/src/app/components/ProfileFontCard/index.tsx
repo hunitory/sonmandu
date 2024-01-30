@@ -54,7 +54,7 @@ function ProfileFontCard({handwriting, index, isMypage}: { handwriting: Handwrit
             />
             {handwriting.downloadCount}
             </S.DownloadDiv>
-            {/* button */}
+            {/* button예정 */}
           </S.LowerContentsUp>
           <S.LowerContentsDown>
             {handwriting.tags.map((tag) => (

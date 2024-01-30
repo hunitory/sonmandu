@@ -146,7 +146,7 @@ public class MemberController {
 
     //-- PutMapping
 
-    @PostMapping("/email-validation")
+    @GetMapping("/email-validation")
     public HttpStatus updateIsValidated(@RequestBody EmailValidationRequest emailValidationRequest){
         System.out.println(emailValidationRequest.getMemberId());
         System.out.println(emailValidationRequest.getEmailToken());

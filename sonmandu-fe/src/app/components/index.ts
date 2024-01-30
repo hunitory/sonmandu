@@ -2,6 +2,7 @@
 
 import BaseHeader from './BaseHeader';
 import Modal from './Modal';
+import Input from './Input';
 
 
-export { BaseHeader, Modal };
+export { BaseHeader, Modal, Input };

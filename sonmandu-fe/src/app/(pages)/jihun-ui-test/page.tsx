@@ -1,13 +1,12 @@
 import React from 'react'
 import * as Comp from '@/components'
 
-function JihunUipages() {
+function JihunUiTest() {
   return (
-      <Comp.Modal
-      textContent={'로그인'}
-      />
-      
+    <div>
+      <Comp.Input></Comp.Input>
+    </div>
   )
 }
 
-export default JihunUipages
+export default JihunUiTest

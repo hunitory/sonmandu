@@ -8,10 +8,10 @@ interface ModalProps {
 }
 
 const calculateSize = (textContent:string) => {
-  if (textContent === '썸네일 선택') {
-    return modalSize.medium;
-  } else if (textContent === '회원 가입') {
-    return modalSize.large
+  if (textContent === '회원 가입') {
+    return modalSize.large;
+  } else if (textContent === '썸네일 선택') {
+    return modalSize.medium
   } 
   // 로그인, 회원탈퇴, 회원정보 찾기(아이디,비밀번호)
     else {      

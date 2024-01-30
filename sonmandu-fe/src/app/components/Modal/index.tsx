@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Modal from './ModalSub'; // 여기에 모달 컴포넌트를 임포트합니다.
+import ModalSub from './ModalSub';
 
-const ModalState = () => {
+const Modal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
@@ -14,10 +14,10 @@ const ModalState = () => {
 
   return (
     <div>
-      <button onClick={openModal}>눌러</button>
-      {isModalOpen && <Modal onClose={closeModal} />}
+      <button onClick={openModal}>모달 띄워보기</button>
+      {isModalOpen && <ModalSub onClose={closeModal}></ModalSub>}
     </div>
   );
 };
 
-export default ModalState;
+export default Modal;

@@ -1,10 +1,10 @@
 import React from 'react';
 import * as S from './style';
 
-export default function FontStoriesLayout({
+export default function FontGalleryLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <S.FontStoriesWrapper>{children}</S.FontStoriesWrapper>;
+  return <S.FontGalleryMain>{children}</S.FontGalleryMain>;
 }

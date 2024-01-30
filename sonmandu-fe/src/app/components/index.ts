@@ -2,5 +2,6 @@
 
 import BaseHeader from './BaseHeader';
 import BaseButton from './BaseButton';
+import BaseFontCard from './BaseFontCard';
 
-export { BaseHeader, BaseButton };
+export { BaseHeader, BaseButton, BaseFontCard };

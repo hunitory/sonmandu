@@ -2,10 +2,13 @@ package com.nofriend.sonmandube.member.controller;
 
 import com.nofriend.sonmandube.member.application.MemberService;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.nofriend.sonmandube.member.controller.request.LoginRequest;
 import com.nofriend.sonmandube.member.controller.response.TokenResponse;
 import jakarta.validation.Valid;
 =======
+=======
+>>>>>>> e68ec5d (feat: add 1-login interface)
 import com.nofriend.sonmandube.member.controller.request.*;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;

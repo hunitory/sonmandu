@@ -23,7 +23,8 @@ export default function ProfileHamburger() {
         src={'/image/hamburger.svg'}
         alt="드롭박스 열기"
         width={16}
-        height={12}
+        height={16}
+        priority
       />
       <div className="user-img-wrapper">
         <Image
@@ -31,6 +32,7 @@ export default function ProfileHamburger() {
           alt="로그인 안한 유저"
           width={18}
           height={18}
+          priority
         />
       </div>
       {dropBoxView && (

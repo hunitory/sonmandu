@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import * as S from './style';
 import { useGetDeviceSize } from 'customhook';
+import Image from 'next/image';
 
 export default function ProfileHamburger() {
   const [dropBoxView, setDropBoxView] = useState(false);
@@ -12,9 +13,26 @@ export default function ProfileHamburger() {
   };
 
   return (
-    <S.HamburgerWrapper onClick={handleDropBoxView}>
-      <div></div>
-      <div></div>
+    <S.HamburgerWrapper
+      onFocuse={handleDropBoxView}
+      onBlur={handleDropBoxView}
+      disabled={false}
+      type="button"
+    >
+      <Image
+        src={'/image/hamburger.svg'}
+        alt="드롭박스 열기"
+        width={16}
+        height={12}
+      />
+      <div className="user-img-wrapper">
+        <Image
+          src={'/image/unknown-user.svg'}
+          alt="로그인 안한 유저"
+          width={18}
+          height={18}
+        />
+      </div>
       {dropBoxView && (
         <S.DropBoxWrapper>
           <S.DropBoxList>회원가입</S.DropBoxList>

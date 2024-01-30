@@ -4,7 +4,7 @@ import * as Comp from '@/components'
 function JihunUiTest() {
   return (
     <div>
-      <Comp.Input></Comp.Input>
+      <Comp.Modal></Comp.Modal>
     </div>
   )
 }

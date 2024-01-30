@@ -1,8 +1,8 @@
 'use client';
 
 import BaseHeader from './BaseHeader';
-import Modal from './Modal';
-import Input from './Input';
+import BaseButton from './BaseButton';
+import BaseFontCard from './BaseFontCard';
+import Modal from './Modal'
 
-
-export { BaseHeader, Modal, Input };
+export { BaseHeader, BaseButton, BaseFontCard, Modal };

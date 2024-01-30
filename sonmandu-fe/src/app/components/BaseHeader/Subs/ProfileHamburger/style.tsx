@@ -1,27 +1,26 @@
+import Image from 'next/image';
+import BaseButton from '../../../BaseButton';
 import styled from 'styled-components';
-import { PALETTE } from 'styles';
+import { PALETTE, notoSansKr } from 'styles';
 
-export const HamburgerWrapper = styled.div`
+export const HamburgerWrapper = styled(BaseButton)`
   position: relative;
-  width: 80px;
+  width: 72px;
   height: 40px;
   border-radius: 24px;
-  background-color: white;
   border: 1px solid ${PALETTE.LIGHT_BLACK};
-  display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 0px 12px;
+  padding: 0px 8px;
 
-  div:nth-of-type(1) {
+  img:nth-of-type(1) {
     width: 16px;
     height: 16px;
-    background-color: ${PALETTE.LIGHT_BLACK};
   }
 
-  div:nth-of-type(2) {
+  .user-img-wrapper {
     width: 28px;
     height: 28px;
+    padding: 6px;
     background-color: ${PALETTE.SUB_WHITE};
     border-radius: 50%;
   }
@@ -36,6 +35,7 @@ export const DropBoxWrapper = styled.ul`
   border: 1px solid ${PALETTE.LIGHT_BLACK};
   background-color: white;
   border-radius: 12px;
+  font-weight: ${notoSansKr.semiBold.style.fontWeight};
 `;
 
 export const DropBoxList = styled.li`

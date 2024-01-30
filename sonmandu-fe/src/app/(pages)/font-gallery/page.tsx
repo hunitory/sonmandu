@@ -1,3 +1,23 @@
+import * as Comp from '@/components';
+
 export default function FontGalleryPage() {
-  return <div>전시관</div>;
+  return (
+    <>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+      <Comp.BaseFontCard></Comp.BaseFontCard>
+    </>
+  );
 }

@@ -1,7 +1,32 @@
 spring:
+<<<<<<< HEAD
   profiles:
     active: dev
     include: env
+=======
+  # H2 Database 설정
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    driver-class-name: org.h2.Driver
+#    url: 'jdbc:h2:mem:test'   # H2 DB 연결 주소 (In-Memory Mode)
+    #url: 'jdbc:h2:~/test'    # H2 DB 연결 주소 (Embedded Mode)
+    url: jdbc:mysql://i10B111.p.ssafy.io:3306/sonmandu?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: sonmandu
+    password: son0103
+  #    username: user        # H2 DB 접속 ID (사용자 지정)
+#    password: 1234  # H2 DB 접속 PW (사용자 지정)
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: sonmandu0103@gmail.com
+    password: uqoqxuadzaottenr
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+>>>>>>> d2eb2cd (feat: member signup and sendEmail and activate email)
 
 
   jpa:

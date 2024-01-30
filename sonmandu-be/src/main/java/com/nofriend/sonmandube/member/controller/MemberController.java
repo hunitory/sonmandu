@@ -13,6 +13,7 @@ import com.nofriend.sonmandube.member.controller.request.*;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.TokenResponse;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -20,8 +21,13 @@ import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+=======
+import org.springframework.security.core.parameters.P;
+import org.springframework.web.bind.annotation.*;
+>>>>>>> d2eb2cd (feat: member signup and sendEmail and activate email)
 
 @RestController
 @RequestMapping("/members")
@@ -32,6 +38,7 @@ public class MemberController {
     private final MemberService memberService;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ResponseEntity<TokenResponse> login(@Valid LoginRequest loginRequest) {
         try {
             TokenResponse tokenResponse = memberService.login();
@@ -41,11 +48,19 @@ public class MemberController {
         }
     }
 =======
+=======
+    @GetMapping("/test/{msg}")
+    public String test(@PathVariable String msg){
+        System.out.println("hello111");
+        return msg;
+    }
+
+>>>>>>> d2eb2cd (feat: member signup and sendEmail and activate email)
     //--- PostMapping
 
     //회원가입
     @PostMapping("/signup")
-    public HttpStatus signup(@RequestBody @Valid SignupRequest signupRequest) {
+    public HttpStatus signup(@RequestBody @Valid SignupRequest signupRequest) throws MessagingException {
         memberService.signup(signupRequest);
         return HttpStatus.OK;
     }
@@ -68,7 +83,7 @@ public class MemberController {
     //비밀번호 일치 확인
     @PostMapping("/valid-password")
     public ResponseEntity<Boolean>  checkValidPassword(@Size(min = 8, max = 20) String password){
-        boolean checkValidPasswordResponse = memberService.checkVaildPassword(password);
+        boolean checkValidPasswordResponse = memberService.checkValidPassword(password);
         return ResponseEntity.ok(checkValidPasswordResponse);
     }
 
@@ -105,7 +120,7 @@ public class MemberController {
             memberService.findMemberInformationId(email, name);
             return ResponseEntity.ok().build();
         }{
-            memberService.findMemberInfomationPassword(email, name, id);
+            memberService.findMemberInformationPassword(email, name, id);
             return ResponseEntity.ok().build();
         }
     }
@@ -131,8 +146,10 @@ public class MemberController {
 
     //-- PutMapping
 
-    @PutMapping("/email-validation")
-    public HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest){
+    @PostMapping("/email-validation")
+    public HttpStatus updateIsValidated(@RequestBody EmailValidationRequest emailValidationRequest){
+        System.out.println(emailValidationRequest.getMemberId());
+        System.out.println(emailValidationRequest.getEmailToken());
         memberService.updateIsValidated(emailValidationRequest);
         return HttpStatus.OK;
     }

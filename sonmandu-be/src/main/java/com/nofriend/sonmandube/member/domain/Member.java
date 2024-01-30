@@ -35,5 +35,8 @@ public class Member {
 
     private String emailToken;
 
+    public void succeedEmailToken(){
+        this.isValidated = true;
+    }
 
 }

@@ -5,15 +5,16 @@ import com.nofriend.sonmandube.member.controller.request.*;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.TokenResponse;
+import jakarta.mail.MessagingException;
 
 public interface MemberService {
-    void signup(SignupRequest signupRequest);
+    void signup(SignupRequest signupRequest) throws MessagingException;
 
     TokenResponse login(LoginRequest loginRequest);
 
     void logout(Long memberId);
 
-    boolean checkVaildPassword(String password);
+    boolean checkValidPassword(String password);
 
     MeInformationResponse findMeInformation(Long memberId);
 
@@ -21,7 +22,7 @@ public interface MemberService {
 
     void findMemberInformationId(String email, String name);
 
-    void findMemberInfomationPassword(String email, String name, String id);
+    void findMemberInformationPassword(String email, String name, String id);
 
     Boolean checkUniqueId(String id);
 

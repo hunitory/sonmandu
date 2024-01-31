@@ -1,20 +1,16 @@
 import React from 'react';
 import * as S from './style';
 import Image from 'next/image';
+import { BaseHashTags, BaseLatterField } from 'components';
 
 function BaseFontCard() {
   return (
     <S.FontCardWrapper>
       <S.FontCardContainer>
         <S.FontName>글씨 이름</S.FontName>
-
-        <S.LatterImageArea>
-          <Image src={'/image/letter-1.png'} alt="편지지" fill />
-          <S.TextField placeholder="글씨를 편지지에 써보세요!"></S.TextField>
-        </S.LatterImageArea>
-
+        <BaseLatterField latterImgUrl="/image/letter-1.png" />
         <S.EtcInfomationWrapper>
-          <div>
+          <S.EctInfoVerticalContainer>
             <S.IconWithNumberWrapper>
               <Image
                 src={'/image/empty-orange_heart.svg'}
@@ -22,7 +18,7 @@ function BaseFontCard() {
                 width={24}
                 height={20}
               />
-              <span>좋아요 갯수</span>
+              <span>좋아요</span>
             </S.IconWithNumberWrapper>
             <S.IconWithNumberWrapper>
               <Image
@@ -31,9 +27,12 @@ function BaseFontCard() {
                 width={24}
                 height={20}
               />
-              <span>다운 횟수</span>
+              <span>다운로드</span>
             </S.IconWithNumberWrapper>
-          </div>
+          </S.EctInfoVerticalContainer>
+          <S.EctInfoVerticalContainer>
+            <BaseHashTags direction="column" hashTagIdList={[1, 2, 3]} />
+          </S.EctInfoVerticalContainer>
         </S.EtcInfomationWrapper>
       </S.FontCardContainer>
     </S.FontCardWrapper>

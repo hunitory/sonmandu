@@ -49,7 +49,7 @@ const { member, handwritings, handwritingStories } =
 	"member": {
 			"memberId": 1,
 			"nickname": "바다의 여인",
-			"imageUrl": "/image/profile/camera.svg",
+			"imageUrl": "/image/camera.svg",
 			"badge": true,
 			"introduction": "안녕하세요~~",
 			"trophy": [

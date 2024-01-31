@@ -2,6 +2,7 @@
 
 import styled from 'styled-components';
 import { PALETTE } from "styles";
+import { notoSansKr } from 'styles';
 
 export const ProfilePageWapper = styled.div`
 	width: 1920px;
@@ -37,7 +38,7 @@ export const ProfileBoxDiv = styled.div`
 	display: flex;
 	padding: 12px 14px;
 	font-size: 32px;
-	font-weight: bolder;
+	font-weight: ${notoSansKr.black.style.fontWeight};
 	color: ${PALETTE.MAIN_BLACK};
 `
 
@@ -86,7 +87,7 @@ export const ProfileIntroSpan = styled.span`
 	height: fit-content;
 	font-size: 30px;
 	color: ${PALETTE.MAIN_BLACK};
-	font-weight: bolder;
+	font-weight: ${notoSansKr.black.style.fontWeight};
 `
 
 export const ProfileIntroContents = styled.p`
@@ -104,6 +105,8 @@ export const BaseButtonWrapper = styled.div`
 export const BaseButtonDiv = styled.div`
 	width: fit-content;
 	height: fit-content;
+	font-weight: ${notoSansKr.medium.style.fontWeight};
+	color: ${PALETTE.LIGHT_BLACK}
 `
 
 
@@ -136,13 +139,13 @@ export const ProfileHandwritingsSpanDiv = styled.div`
 
 export const ProfileHandwritingsSpan1 = styled.span`
 font-size: 30px;
-font-weight: bolder;
+font-weight: ${notoSansKr.black.style.fontWeight};
 color: ${PALETTE.MAIN_BLACK};
 `
 
 export const ProfileHandwritingsSpan2 = styled.span`
 	font-size: 30px;
-	font-weight: bolder;
+	font-weight: ${notoSansKr.black.style.fontWeight};
 	color: ${PALETTE.MAIN_ORANGE};
 `
 
@@ -169,13 +172,13 @@ export const ProfileHandwritingStoriesSpanDiv = styled.div`
 
 export const ProfileHandwritingStoriesSpan1 = styled.span`
 font-size: 30px;
-font-weight: bolder;
+font-weight: ${notoSansKr.black.style.fontWeight};
 color: ${PALETTE.MAIN_BLACK};
 `
 
 export const ProfileHandwritingStoriesSpan2 = styled.span`
 	font-size: 30px;
-	font-weight: bolder;
+	font-weight: ${notoSansKr.black.style.fontWeight};
 	color: ${PALETTE.MAIN_ORANGE};
 `
 

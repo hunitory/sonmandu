@@ -6,5 +6,5 @@ export default function ProfileLayout({
 }: Readonly<{
 	children: React.ReactNode;
 }>) {
-	return <S.ProfileWapper>{children}</S.ProfileWapper>
+	return <S.ProfilePageWapper>{children}</S.ProfilePageWapper>
 }

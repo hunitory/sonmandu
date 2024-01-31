@@ -1,36 +1,67 @@
 import React from "react"
 import * as S from './style';
-import Link from 'next/link';
 import ProductDate from "./Subs/ProductDate";
 import Image from "next/image";
-import Tag from "components/Tag";
-
-interface Tag {
-  id: number;
-  name: string;
-}
+// import Tag from "components/Tag";
+import { BaseButton } from "components";
+import { useRouter } from "next/navigation";
 
 interface Handwriting {
+  handwritingId: number;
   name: string;
-  createData: string;
-  downloadCount: number;
+  state: number;
   likeCount: number;
-  tags: Tag[];
+  downloadCount: number;
+  downloadUrl: string;
+  tags: number[];
+  createDate: string;
 }
 
-function ProfileFontCard({handwriting, index, isMypage}: { handwriting: Handwriting, index: number, isMypage: boolean}) {
+
+/**
+ * @param handwritingId: 글씨체 번호(pk값)
+ * @param name: 글씨체명
+ * @param state: 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+ * @param likeCount: 좋아요 수
+ * @param downloadCount: 다운로드 수
+ * @param downloadUrl: 다운로드 url
+ * @param createDate: 제작날짜
+ * @param tags: tag 번호 ex) [1, 3, 5]
+ * @returns 
+ */
+
+
+function ProfileFontCard({index, isMypage, handwriting}: { index: number, isMypage: boolean, handwriting: Handwriting}) {
+  const router = useRouter();
+
+  const { handwritingId, name, state, likeCount, downloadCount, downloadUrl, createDate, tags } = handwriting;
+  
+  interface BaseButtonProps {
+    children: React.ReactNode;
+    type: 'submit' | 'button' | 'reset';
+    onClick: () => void;
+    disabled: false;
+    className?: string;
+    $needGap: boolean;
+  }
+  const BaseButtonProps: BaseButtonProps = {
+    children: '다운로드 받기',
+    type: 'button',
+    onClick: () => router.push(downloadUrl),
+    disabled: false,
+    $needGap: false
+  }
+
   return (
     <S.ProfileFontCardWrapper>
       <S.UpperWrapper>
-        <ProductDate date={handwriting.createData}/>
-        <S.imgWrapper>
-          <Image 
-            src={`/image/profile/fontcard/complete-${index}.png`}
-            alt="#"
-            width={100}
-            height={200}
-          />
-        </S.imgWrapper>
+        <ProductDate date={createDate}/>
+        <Image 
+          src={`/image/profile/fontcard/complete-${index}.png`}
+          alt="#"
+          width={148}
+          height={137}
+        />
       </S.UpperWrapper>
       <S.LowerWrapper>
         <S.LowerSpan>{handwriting.name}</S.LowerSpan>
@@ -40,29 +71,31 @@ function ProfileFontCard({handwriting, index, isMypage}: { handwriting: Handwrit
             <Image 
               src={isMypage ? '/image/font_story/orange-heart-fill.png' : '/image/font_story/orange-heart.svg'}
               alt="#"
-              width={100}
-              height={200}
+              width={30}
+              height={30}
             />
-            {handwriting.likeCount}
+            {likeCount}
             </S.LikeDiv>
             <S.DownloadDiv>
             <Image 
               src={'/image/profile/download.png'}
               alt="#"
-              width={100}
-              height={200}
+              width={28}
+              height={28}
             />
-            {handwriting.downloadCount}
+            {downloadCount}
             </S.DownloadDiv>
-            {/* button예정 */}
+            <S.DownloadButton {...BaseButtonProps} />
           </S.LowerContentsUp>
           <S.LowerContentsDown>
-            {handwriting.tags.map((tag) => (
-              <Tag key={tag.id} tag={tag.name} />
-            ))}
+            {/* {tags.map((tag) => (
+              <Tag key={tag} tag={`${tag}번 태그`} />
+            ))} */}
           </S.LowerContentsDown>
         </S.LowerContentsWrapper>
       </S.LowerWrapper>
     </S.ProfileFontCardWrapper>
   )
 }
+
+export default ProfileFontCard;

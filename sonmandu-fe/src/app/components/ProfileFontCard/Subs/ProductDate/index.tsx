@@ -7,7 +7,7 @@ interface ProductDateProps {
 const ProductDate: React.FC<ProductDateProps> = ({ date }) => {
 	return (
 			<ProductDateWrapper>
-				<span>{date}</span>
+				<span>{date} 제작</span>
 			</ProductDateWrapper>
 	)
 }

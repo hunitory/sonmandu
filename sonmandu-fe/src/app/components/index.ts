@@ -7,6 +7,7 @@ import BaseLatterField from './BaseLatterTextField';
 import BaseHashTags from './BaseHashTags';
 import Modal from './Modal';
 import ProfileBox from './ProfileBox';
+import SearchOptions from './SearchOptions';
 
 export {
   BaseHeader,
@@ -16,4 +17,5 @@ export {
   BaseHashTags,
   Modal,
   ProfileBox,
+  SearchOptions,
 };

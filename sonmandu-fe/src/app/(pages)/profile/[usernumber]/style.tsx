@@ -1,12 +1,13 @@
 'use client';
 
 import styled from 'styled-components';
-import { PALETTE } from "styles";
+import { PALETTE, notoSansKr } from "styles";
+import { BaseButton } from 'components';
 
 export const ProfilePageWapper = styled.div`
 	width: 1920px;
 	height: fit-content;
-	padding: 222px 327px 128px 432px;
+	padding: 122px 327px 128px 432px;
 `
 
 export const ProfileWrapper = styled.div`
@@ -24,7 +25,7 @@ export const ProfileLeftWrapper = styled.div`
 
 export const ProfileLeftDiv = styled.div`
 	width: 100%;
-	height: fit-content;
+	height: 2941px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
@@ -33,12 +34,17 @@ export const ProfileLeftDiv = styled.div`
 
 export const ProfileBoxDiv = styled.div`
 	width: 100%;
-	height: 100%;
+	height: fit-content;
 	display: flex;
 	padding: 12px 14px;
 	font-size: 32px;
 	font-weight: bolder;
 	color: ${PALETTE.MAIN_BLACK};
+`
+
+export const ProfileIndexWrapper = styled.div`
+	position: sticky;
+	top: 200px;
 `
 
 export const ProfileIndexDiv = styled.div`
@@ -106,6 +112,19 @@ export const BaseButtonDiv = styled.div`
 	height: fit-content;
 `
 
+export const EditButton = styled(BaseButton)`
+	width: fit-content;
+	height: fit-content;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 9px 20px;
+	border: 1px solid ${PALETTE.LIGHT_BLACK};
+	color: ${PALETTE.LIGHT_BLACK};
+	font-size: 18px;
+	font-weight: ${notoSansKr.medium.style.fontWeight};
+`
+
 
 export const ProfileIntroDivDown = styled.div`
 
@@ -113,7 +132,8 @@ export const ProfileIntroDivDown = styled.div`
 
 export const Line = styled.hr`
 	width: 100%;
-	color: ${PALETTE.MAIN_BLACK};
+	border: 1px solid ${PALETTE.SUB_WHITE};
+	
 `
 
 // 제작한 글씨-------------
@@ -130,7 +150,7 @@ export const ProfileHandwritingsSpanDiv = styled.div`
 	height: fit-content;
 	display: flex;
 	align-items: center;
-	gap: 15px;
+	gap: 8px;
 	padding: 13px 3px;
 `
 
@@ -147,7 +167,11 @@ export const ProfileHandwritingsSpan2 = styled.span`
 `
 
 export const ProfileHandwritingsDiv = styled.div`
-
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	row-gap: 40px;
+	column-gap: 30px;
+	margin: 26px 0 56px 0;
 `
 
 // --------------------손글씨 이야기-------------------------
@@ -163,7 +187,7 @@ export const ProfileHandwritingStoriesSpanDiv = styled.div`
 	height: fit-content;
 	display: flex;
 	align-items: center;
-	gap: 15px;
+	gap: 8px;
 	padding: 13px 3px;
 `
 

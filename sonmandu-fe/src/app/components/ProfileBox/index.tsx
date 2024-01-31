@@ -32,7 +32,7 @@ export default function ProfileBox(props: ProfileBoxProps) {
 			<S.BadgeNameWrapper>
 				{badge && (
 					<Image 
-					src='/image/profile/weekly-medal.svg'
+					src='/image/weekly-medal.svg'
 					alt='#'
 					width={badgesize}
 					height={badgesize}

@@ -11,6 +11,12 @@ export const HeaderWrapper = styled.header`
   align-items: center;
   justify-content: space-between;
   box-shadow: 0px 0px 8px 0px ${PALETTE.MAIN_BLACK};
+  position: relative;
+  z-index: 99;
+
+  @media (max-width: 998px) {
+    font-size: 12px;
+  }
 `;
 
 export const UserInteractionWrapper = styled.nav`
@@ -33,7 +39,7 @@ export const LinkWrapper = styled.div`
   justify-content: space-between;
 
   & > a {
-    width: 82px;
+    width: fit-content;
     font-weight: ${notoSansKr.semiBold.style.fontWeight};
   }
 

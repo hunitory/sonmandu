@@ -24,6 +24,16 @@ a {
   text-decoration: none;
 }
 
-ul {
+ul,
+li {
   list-style-type: none;
+}
+
+input {
+}
+
+textarea {
+  resize: none;
+  outline: none;
+  border: 0;
 }

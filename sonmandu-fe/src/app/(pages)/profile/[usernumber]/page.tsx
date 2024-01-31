@@ -5,6 +5,8 @@ import * as S from './style';
 import ProfileBox from "components/ProfileBox";
 import { BaseButton } from "components";
 import ProfileFontCard from "components/ProfileFontCard";
+import ProfileFontCardMaking from "components/ProfileFontCardMaking";
+import ProfileTrophy from "components/ProfileTrophy";
 import { useRouter } from "next/navigation";
 
 interface ProfileBoxProps {
@@ -16,9 +18,6 @@ interface ProfileBoxProps {
 	badgesize: number;
   noLink: boolean;
 }
-
-const index: number = 0;
-const isMypage: boolean = true;
 
 interface Handwriting {
   handwritingId: number;
@@ -81,9 +80,39 @@ const { member, handwritings, handwritingStories } =
 					"likeCount": 11,
 					"downloadCount": 434,
 					"downloadUrl": "http://son1.com",
-					"tags": [1, 2, 6, 10],
+					"tags": [1, 2, 10],
 					"createDate": '23.07.16'
-			}
+			},
+			{
+				"handwritingId": 2,
+				"name": "손만두체2",
+				"state": 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+				"likeCount": 11,
+				"downloadCount": 434,
+				"downloadUrl": "http://son1.com",
+				"tags": [1, 2, 10],
+				"createDate": '23.07.16'
+		},
+		{
+			"handwritingId": 2,
+			"name": "손만두체2",
+			"state": 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+			"likeCount": 11,
+			"downloadCount": 434,
+			"downloadUrl": "http://son1.com",
+			"tags": [1, 2, 10],
+			"createDate": '23.07.16'
+	},
+	{
+		"handwritingId": 2,
+		"name": "손만두체2",
+		"state": 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+		"likeCount": 11,
+		"downloadCount": 434,
+		"downloadUrl": "http://son1.com",
+		"tags": [1, 2, 10],
+		"createDate": '23.07.16'
+}
 	],
 	"handwritingStories": [
 			{
@@ -110,12 +139,17 @@ const ProfileBoxProps: ProfileBoxProps = {
 	src: member.imageUrl,
 	nickname: member.nickname,
 	vertical: true,
-	badge: member.badge, // ?
+	badge: member.badge,
 	badgesize: 50,
 	noLink: true
 }
 
 const router = useRouter();
+
+const isMypage: boolean = true;  // isMypage 판별하는 식 추가해야함!!
+const filteredHandwriting = handwritings.filter(handwriting => handwriting && handwriting.state > 3);
+const numberOfHandwriting = filteredHandwriting.length;
+const handwritinggroup = isMypage ? handwritings : filteredHandwriting;
 
 	return (
 		<S.ProfileWrapper>
@@ -124,11 +158,13 @@ const router = useRouter();
 					<S.ProfileBoxDiv>
 						<ProfileBox {...ProfileBoxProps}/>
 					</S.ProfileBoxDiv>
-					<S.ProfileIndexDiv>
-						<S.ProfileIndexSpan>소개</S.ProfileIndexSpan>
-						<S.ProfileIndexSpan>제작한 글씨</S.ProfileIndexSpan>
-						<S.ProfileIndexSpan>작성한 이야기</S.ProfileIndexSpan>
-					</S.ProfileIndexDiv>
+					<S.ProfileIndexWrapper>
+						<S.ProfileIndexDiv>
+							<S.ProfileIndexSpan>소개</S.ProfileIndexSpan>
+							<S.ProfileIndexSpan>제작한 글씨</S.ProfileIndexSpan>
+							<S.ProfileIndexSpan>작성한 이야기</S.ProfileIndexSpan>
+						</S.ProfileIndexDiv>
+					</S.ProfileIndexWrapper>
 				</S.ProfileLeftDiv>
 			</S.ProfileLeftWrapper>
 			{/* ----------------좌우 구분--------------- */}
@@ -141,21 +177,19 @@ const router = useRouter();
 						</S.ProfileIntroContents>
 						<S.BaseButtonWrapper>
 							<S.BaseButtonDiv>
-								<BaseButton 
+								<S.EditButton 
 									children={'수정하기'}
 									type = {"button"}
 									onClick = {() => 
-										console.log('happy')
-										// router.push('/profile/usernumber/edit')
+										router.push('/profile/usernumber/edit')
 									}
 									disabled = {false}
-									$needGap = {false}
 								/>
 							</S.BaseButtonDiv>
 						</S.BaseButtonWrapper>
 					</S.ProfileIntroDivUp>
 					<S.ProfileIntroDivDown>
-						{/* 트로피 들어갈 자리 */}
+						<ProfileTrophy Trophies={member.trophy} />
 					</S.ProfileIntroDivDown>
 					<S.Line />
 				</S.ProfileIntroDiv>
@@ -163,19 +197,34 @@ const router = useRouter();
 				<S.ProfileHandwritingsWrapper>
 					<S.ProfileHandwritingsSpanDiv>
 						<S.ProfileHandwritingsSpan1>제작한 글씨</S.ProfileHandwritingsSpan1>
-						<S.ProfileHandwritingsSpan2>제작한 개수</S.ProfileHandwritingsSpan2>
+						{
+							isMypage ?
+							<S.ProfileHandwritingsSpan2>{handwritings.length}</S.ProfileHandwritingsSpan2>
+							: <S.ProfileHandwritingsSpan2>{numberOfHandwriting}</S.ProfileHandwritingsSpan2>
+						}
 					</S.ProfileHandwritingsSpanDiv>
 					<S.ProfileHandwritingsDiv>
 					{
-						handwritings.map((handwriting: Handwriting) => {
-							return(
-								<ProfileFontCard 
-									index={index}
-									isMypage={isMypage}
-									handwriting={handwriting}
-								/>
-							)
-						})
+						handwritinggroup.map((handwriting: Handwriting, index: number) => {
+							const idx = Math.floor(Math.random() * 10)
+							if (handwriting.state > 3) {
+								return(
+										<ProfileFontCard
+											key={index}
+											index={idx}
+											isMypage={isMypage}
+											handwriting={handwriting}
+										/>
+								)
+							} else {
+								return (
+									<ProfileFontCardMaking
+											key={index}
+											isMypage={isMypage}
+											handwriting={handwriting}
+										/>
+								)
+							}})
 					}
 					</S.ProfileHandwritingsDiv>
 					<S.Line />

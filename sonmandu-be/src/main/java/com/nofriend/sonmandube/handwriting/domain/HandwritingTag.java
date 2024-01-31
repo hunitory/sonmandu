@@ -25,6 +25,5 @@ public class HandwritingTag {
     // 연관관계 메서드
     public void setHandwritingApplication(HandwritingApplication handwritingApplication) {
         this.handwritingApplication = handwritingApplication;
-
     }
 }

@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.Optional;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class HandwritingApplication {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,6 +38,7 @@ public class HandwritingApplication {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Builder.Default
     @OneToMany(mappedBy = "handwritingApplication")
     private List<HandwritingTag> handwritingTagList = new ArrayList<>();
 

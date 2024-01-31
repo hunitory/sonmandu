@@ -19,7 +19,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests((requests) -> requests
                     .anyRequest()
                     .permitAll())
-                .csrf(csrf -> csrf.ignoringRequestMatchers(PathRequest.toH2Console()).ignoringRequestMatchers("*"))
+                .csrf(csrf -> csrf.ignoringRequestMatchers(PathRequest.toH2Console()).ignoringRequestMatchers("*/**"))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
         return http.build();
     }

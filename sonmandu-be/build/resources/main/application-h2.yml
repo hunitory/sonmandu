@@ -3,8 +3,8 @@ spring:
   datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
     driver-class-name: org.h2.Driver
-    url: 'jdbc:h2:mem:test'   # H2 DB 연결 주소 (In-Memory Mode)
-    #url: 'jdbc:h2:~/test'    # H2 DB 연결 주소 (Embedded Mode)
+#    url: 'jdbc:h2:mem:test'   # H2 DB 연결 주소 (In-Memory Mode)
+    url: 'jdbc:h2:~/test'    # H2 DB 연결 주소 (Embedded Mode)
 #    url: jdbc:mysql://i10B111.p.ssafy.io:3306/sonmandu?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
 #    username: sonmandu
 #    password: son0103
@@ -21,7 +21,7 @@ spring:
   jpa:
 #    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: create        # DB 초기화 전략 (none, create, create-drop, update, validate)
+      ddl-auto: update        # DB 초기화 전략 (none, create, create-drop, update, validate)
     properties:
       hibernate:
 #        dialect: org.hibernate.dialect.H2Dialect

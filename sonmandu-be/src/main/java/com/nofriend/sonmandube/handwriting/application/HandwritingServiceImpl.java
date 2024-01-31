@@ -1,17 +1,27 @@
 package com.nofriend.sonmandube.handwriting.application;
 
 import com.nofriend.sonmandube.handwriting.controller.request.HandwritingApplicationRequest;
+import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionRequest;
+import com.nofriend.sonmandube.handwriting.controller.response.SimpleHandwritingResponse;
+import com.nofriend.sonmandube.handwriting.domain.Handwriting;
 import com.nofriend.sonmandube.handwriting.domain.HandwritingApplication;
 import com.nofriend.sonmandube.handwriting.domain.HandwritingTag;
 import com.nofriend.sonmandube.handwriting.domain.HandwritingTagId;
 import com.nofriend.sonmandube.handwriting.repository.HandwritingApplicationRepository;
+import com.nofriend.sonmandube.handwriting.repository.HandwritingRepository;
 import com.nofriend.sonmandube.handwriting.repository.HandwritingTagRepository;
 import com.nofriend.sonmandube.util.FileDto;
 import com.nofriend.sonmandube.util.FileUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +29,7 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     private final HandwritingApplicationRepository handwritingApplicationRepository;
     private final HandwritingTagRepository handwritingTagRepository;
+    private final HandwritingRepository handwritingRepository;
 
     @Override
     @Transactional
@@ -44,4 +55,27 @@ public class HandwritingServiceImpl implements HandwritingService{
         // TODO : AI를 활용한 폰트 제작 과정 필요
     }
 
+    @Override
+    public void saveFont(String name, MultipartFile font) {
+        // 폰트 파일 저장
+        FileDto fileDto = FileUtil.uploadFontFile(name, font);
+
+        // TODO : 폰트 지원서 연결
+
+        // 폰트 데이터 저장
+        Handwriting handwriting = Handwriting.builder()
+                .name(name)
+                .downloadUrl(fileDto.getUrl())
+                .build();
+        handwritingRepository.save(handwriting);
+    }
+
+    /*
+    페이지번호, 아이템 개수, 정렬방식, 폰트명 검색에 따른 검색 지원
+     */
+    @Override
+    public List<SimpleHandwritingResponse> searchHandwriting(int start, int count, SearchConditionRequest condition) {
+        List<Handwriting> handwritingList = handwritingRepository.findByDynamicConditions(start, count, condition);
+        return handwritingList.stream().map(SimpleHandwritingResponse::from).toList();
+    }
 }

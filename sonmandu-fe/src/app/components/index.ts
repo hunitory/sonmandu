@@ -7,6 +7,11 @@ import BaseLatterField from './BaseLatterTextField';
 import BaseHashTags from './BaseHashTags';
 import Modal from './Modal';
 import ProfileBox from './ProfileBox';
+import FontStart from './Applications/FontStart';
+import FontFileUpload from './Applications/FontFileUpload';
+import FontInfo from './Applications/FontInfo';
+import FontComplete from './Applications/FontComplete';
+
 
 export {
   BaseHeader,
@@ -16,4 +21,8 @@ export {
   BaseHashTags,
   Modal,
   ProfileBox,
+  FontStart,
+  FontFileUpload,
+  FontInfo,
+  FontComplete,
 };

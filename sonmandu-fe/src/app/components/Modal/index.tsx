@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
-import ModalSub from './ModalSub';
+'use client';
 
-const Modal = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+import React from 'react';
+import * as Styled from './style'
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+interface ModalProps {
+  children: React.ReactNode;
+  size: 'large' | 'medium' | 'small';
+  onClose: () => void;
+}
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+function Modal(props: ModalProps) {
+  const { children, size, onClose } = props;
 
   return (
-    <div>
-      <button onClick={openModal}>모달 띄워보기</button>
-      {isModalOpen && <ModalSub onClose={closeModal}></ModalSub>}
-    </div>
+    <Styled.BackLayOutModal>
+      <Styled.Modal size={size} onClick={(e) => e.stopPropagation()}>
+        <Styled.CloseButton
+            onClick={onClose}
+            disabled={false}
+            type="button"
+        >X</Styled.CloseButton>
+        <Styled.ModalWapper>
+        </Styled.ModalWapper>
+      </Styled.Modal>
+    </Styled.BackLayOutModal>
   );
 };
 

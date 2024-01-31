@@ -48,17 +48,14 @@ public class JwtProvider {
         Date now = new Date();
         Date expiration = new Date(now.getTime() + accessTokenValidTime);
 
-        Member member = memberRepository.findById(authentication.getName())
+        Member member = memberRepository.findById((long) Integer.parseInt(authentication.getName()))
                 .orElseThrow(() -> new RuntimeException("not Found member"));
-
-
 
         return Jwts.builder()
                 .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
-                .claim("memberId", member.getId())
+                .claim("memberId", member.getMemberId())
                 .claim("imageUrl", member.getImageUrl())
-                .setIssuedAt(now)
                 .setExpiration(expiration)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
@@ -77,14 +74,14 @@ public class JwtProvider {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
 
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
-
+        System.out.println(authorities.isEmpty());
         User principal = new User(claims.getSubject(), "", authorities);
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }

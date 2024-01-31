@@ -63,5 +63,9 @@ cloud:
 =======
 
 jwt:
+<<<<<<< HEAD
   secret: dlksjfidsiojfoidsjfoijsdoijfoidsfoidjsoifdij
 >>>>>>> 49f052f (feat: add jwt)
+=======
+  secret: dlksjfidsiojfoidsjfoijsdoijfoidsfoidjsoifdijgldfkgmlsffsdijfoijdsofijsdoijfodisjfoijsdoijfo
+>>>>>>> 5f3a5ef (feat: add spring security ROLE)

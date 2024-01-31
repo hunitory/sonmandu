@@ -1,5 +1,6 @@
 package com.nofriend.sonmandube.member.application;
 
+import com.nofriend.sonmandube.jwt.JwtProvider;
 import com.nofriend.sonmandube.member.controller.request.EmailValidationRequest;
 import com.nofriend.sonmandube.member.controller.request.LoginRequest;
 import com.nofriend.sonmandube.member.controller.request.SignupRequest;
@@ -12,12 +13,16 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,14 +32,13 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtProvider jwtProvider;
-    private final RefreshTokenService refreshTokenService;
 
     @Override
     @Transactional
@@ -61,38 +65,33 @@ public class MemberServiceImpl implements MemberService{
         mimeMessageHelper.setTo(newMember.getEmail());
         mimeMessageHelper.setSubject("[손만두] 이메일 활성화");
         mimeMessageHelper.setText("<html><head></head>" +
-                "<body> <h1> 손만두 </h1> <a href='http://192.168.31.156:8080/members/email-validation" +
+                "<body> <h1> 손만두 </h1> <a href=http://192.168.31.156:8080/members/email-validation" +
                 "?memberId=" + newMember.getMemberId() +
                 "&emailToken=" + newMember.getEmailToken() + "'> 계정 활성화 버튼 </a> </body>" +
                 "</html>", true);
-
-
-        //Post
-//        mimeMessageHelper.setText("<html><head></head>" +
-//                "<body> " +
-//                "<form method='post' action='http://192.168.31.156:8080/members/email-validation'>" +
-//                "<input type='hidden' name='memberId' value='" + newMember.getMemberId() + "'/>" +
-//                "<input type='hidden' name='emailToken' value='" + newMember.getEmailToken() + "'/>" +
-//                "<input type='submit' value='활성화하기'" +
-//                "</form>" +
-//                "</body></html>", true);
 
 
         javaMailSender.send(mimeMailMessage);
     }
 
     @Override
+    @Transactional
     public LoginResponse login(LoginRequest loginRequest) {
+        Member member = memberRepository.findById(loginRequest.getId())
+                .orElseThrow();
+
+        if(!member.isValidated()){
+            return null;
+        }
+
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(loginRequest.getId(), loginRequest.getPassword());
+                new UsernamePasswordAuthenticationToken(member.getMemberId(), loginRequest.getPassword());
         Authentication authentication =  authenticationManagerBuilder.getObject().authenticate(usernamePasswordAuthenticationToken);
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-
         String token = jwtProvider.generateToken(authentication);
         String refreshToken = jwtProvider.generateRefreshToken(authentication);
-        Member member = (Member) authentication.getPrincipal();
 
-        refreshTokenService.saveOrUpdate(member, refreshToken);
+        member.setRefreshToken(refreshToken);
 
         return LoginResponse.builder()
                 .token(token)
@@ -142,13 +141,15 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     @Transactional
-    public void updateIsValidated(EmailValidationRequest emailValidationRequest) {
+    public HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest) {
         //TODO Exception
         Member member = memberRepository.findById(emailValidationRequest.getMemberId()).orElseThrow();
-        System.out.println(member.getEmailToken());
-        if(member.getEmailToken().equals(emailValidationRequest.getEmailToken())){
-            member.succeedEmailToken();
+
+        if(!member.getEmailToken().equals(emailValidationRequest.getEmailToken())){
+            return HttpStatus.BAD_REQUEST;
         }
+        member.succeedEmailToken();
+        return HttpStatus.OK;
     }
 
     @Override
@@ -159,5 +160,14 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void deleteMember(Long memberId) {
 
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Member member = memberRepository.findById((long) Integer.parseInt(username))
+                .orElseThrow(() -> new UsernameNotFoundException(username + "Not Found Member by Id"));
+        member.setUserRole();
+
+        return member;
     }
 }

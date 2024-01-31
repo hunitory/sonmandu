@@ -23,12 +23,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 =======
 import org.springframework.security.core.parameters.P;
 =======
 >>>>>>> 49f052f (feat: add jwt)
+=======
+import org.springframework.security.access.prepost.PreAuthorize;
+>>>>>>> 5f3a5ef (feat: add spring security ROLE)
 import org.springframework.web.bind.annotation.*;
 >>>>>>> d2eb2cd (feat: member signup and sendEmail and activate email)
 
@@ -72,9 +76,13 @@ public class MemberController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
         LoginResponse loginResponse = memberService.login(loginRequest);
+        if(loginResponse == null) {
+            ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.ok(loginResponse);
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping("logout")
     public HttpStatus logout(){
         //TODO memberId in token
@@ -153,8 +161,8 @@ public class MemberController {
     public HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest){
         System.out.println(emailValidationRequest.getMemberId());
         System.out.println(emailValidationRequest.getEmailToken());
-        memberService.updateIsValidated(emailValidationRequest);
-        return HttpStatus.OK;
+
+        return memberService.updateIsValidated(emailValidationRequest);
     }
 
     //-- PatchMapping

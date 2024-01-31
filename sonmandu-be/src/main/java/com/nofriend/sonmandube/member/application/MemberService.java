@@ -6,6 +6,7 @@ import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import jakarta.mail.MessagingException;
+import org.springframework.http.HttpStatus;
 
 public interface MemberService {
     void signup(SignupRequest signupRequest) throws MessagingException;
@@ -28,7 +29,7 @@ public interface MemberService {
 
     Boolean checkUniqueNickname(String nickname);
 
-    void updateIsValidated(EmailValidationRequest emailValidationRequest);
+    HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest);
 
     void updateMemberInformation(Long memberId, String informationType, String value);
 

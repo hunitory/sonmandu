@@ -10,18 +10,16 @@ import com.nofriend.sonmandube.handwriting.domain.HandwritingTagId;
 import com.nofriend.sonmandube.handwriting.repository.HandwritingApplicationRepository;
 import com.nofriend.sonmandube.handwriting.repository.HandwritingRepository;
 import com.nofriend.sonmandube.handwriting.repository.HandwritingTagRepository;
+import com.nofriend.sonmandube.s3.S3UploadService;
 import com.nofriend.sonmandube.util.FileDto;
 import com.nofriend.sonmandube.util.FileUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -30,12 +28,13 @@ public class HandwritingServiceImpl implements HandwritingService{
     private final HandwritingApplicationRepository handwritingApplicationRepository;
     private final HandwritingTagRepository handwritingTagRepository;
     private final HandwritingRepository handwritingRepository;
+    private final S3UploadService s3UploadService;
 
     @Override
     @Transactional
     public void applyHandwriting(HandwritingApplicationRequest handwritingApplicationRequest, MultipartFile image) {
         // 이미지 저장
-        FileDto savedImage = FileUtil.uploadImageFile(image);
+        FileDto savedImage = s3UploadService.saveFile(image, FileUtil.createFileName(image));
 
         // 신청서 저장
         HandwritingApplication handwritingApplication =
@@ -58,7 +57,7 @@ public class HandwritingServiceImpl implements HandwritingService{
     @Override
     public void saveFont(String name, MultipartFile font) {
         // 폰트 파일 저장
-        FileDto fileDto = FileUtil.uploadFontFile(name, font);
+        FileDto fileDto = s3UploadService.saveFile(font, FileUtil.createFontName(name, font));
 
         // TODO : 폰트 지원서 연결
 

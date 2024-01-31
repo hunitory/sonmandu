@@ -1,0 +1,36 @@
+spring:
+  profiles:
+    active: dev
+    include: env
+
+
+  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update        # DB 초기화 전략 (none, create, create-drop, update, validate)
+    properties:
+      hibernate:
+#        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true      # 쿼리 로그 포맷 (정렬)
+        show_sql: true        # 쿼리 로그 출력
+
+  servlet:
+    multipart:
+      enabled: true # 멀티 파트 업로드 지원 여부
+      file-size-threshold: 0B # 파일을 디스크에 저장하지 않고 메모리에 저장하는 최소 크기
+      location: /sonmando-store/temp # 업로드된 파일이 임시로 저장하는 디스크 위치
+      max-file-size: 15MB # 한개 파일의 최대 사이즈
+      max-request-size: 100MB # 한개 요청의 최대 사이즈
+
+cloud:
+  aws:
+    s3:
+      bucket: sonmando
+    credentials:
+      access-key: ${s3.access-key}
+      secret-key: ${s3.secret-key}
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false

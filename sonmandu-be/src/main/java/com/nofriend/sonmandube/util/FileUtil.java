@@ -23,7 +23,7 @@ public class FileUtil {
      */
     public static FileDto uploadFontFile(String fontName, MultipartFile file) {
         String folder = FileFolderType.FONT.value();
-        String filename = changedFontName(fontName, file);
+        String filename = createFontName(fontName, file);
         return uploadFile(folder, filename, file);
     }
 
@@ -32,8 +32,7 @@ public class FileUtil {
      */
     public static FileDto uploadImageFile (MultipartFile file) {
         String folder = FileFolderType.IMAGE.value();
-        String filename = UUID.randomUUID()
-                + StringUtils.getFilename(file.getOriginalFilename());
+        String filename = createFileName(file);
         return uploadFile(folder, filename, file);
     }
 
@@ -59,10 +58,15 @@ public class FileUtil {
     }
 
     // 사용자가 지정한 폰트명으로 파일 이름 변경
-    private static String changedFontName(String fontName, MultipartFile image) {
+    public static String createFontName(String fontName, MultipartFile image) {
         String originName = FILENAME_PREFIX + fontName + FILENAME_POSTFIX;
         String extension = StringUtils.getFilenameExtension(image.getOriginalFilename());
         return originName+"."+extension;
+    }
+
+    public static String createFileName(MultipartFile file) {
+        return UUID.randomUUID()
+                + StringUtils.getFilename(file.getOriginalFilename());
     }
 
     // 파일 저장 경로 바탕으로 파일 url 생성

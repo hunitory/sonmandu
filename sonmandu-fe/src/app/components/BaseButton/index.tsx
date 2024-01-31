@@ -9,8 +9,8 @@ type BaseButtonProps =
       children: React.ReactNode;
       type: 'submit' | 'button' | 'reset';
       onClick?: () => void;
-      onFocuse?: () => void;
-      onBlur: () => void;
+      onFocus?: () => void;
+      onBlur?: () => void;
       disabled: false;
       className?: string;
     }
@@ -19,8 +19,8 @@ type BaseButtonProps =
       children: React.ReactNode;
       type: 'submit' | 'button' | 'reset';
       onClick?: () => void;
-      onFocuse?: () => void;
-      onBlur: () => void;
+      onFocus?: () => void;
+      onBlur?: () => void;
       disabled: true;
       className?: string;
     };
@@ -35,14 +35,14 @@ type BaseButtonProps =
  * @param  children들 사이에 공간이 필요한 경우
  */
 export default function BaseButton(props: BaseButtonProps) {
-  const { children, type, onClick, onFocuse, onBlur, className, disabled } =
+  const { children, type, onClick, onFocus, onBlur, className, disabled } =
     props;
 
   return (
     <S.ButtonWrapper
       type={type}
       onClick={onClick}
-      onFocus={onFocuse}
+      onFocus={onFocus}
       onBlur={onBlur}
       disabled={disabled}
       className={className}

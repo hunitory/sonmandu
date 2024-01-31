@@ -14,7 +14,7 @@ export default function ProfileHamburger() {
 
   return (
     <S.HamburgerWrapper
-      onFocuse={handleDropBoxView}
+      onFocus={handleDropBoxView}
       onBlur={handleDropBoxView}
       disabled={false}
       type="button"

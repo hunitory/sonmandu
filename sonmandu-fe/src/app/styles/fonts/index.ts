@@ -1,7 +1,7 @@
 import { Noto_Sans_KR } from 'next/font/google';
 
 const black = Noto_Sans_KR({
-  weight: '800',
+  weight: '900',
   display: 'fallback',
   subsets: ['latin'],
   style: 'normal',
@@ -73,7 +73,7 @@ const semiBold = Noto_Sans_KR({
 });
 
 const medium = Noto_Sans_KR({
-  weight: '600',
+  weight: '500',
   display: 'fallback',
   subsets: ['latin'],
   style: 'normal',

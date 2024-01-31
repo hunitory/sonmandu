@@ -1,5 +1,6 @@
+import Image from 'next/image';
 import styled from 'styled-components';
-import { PALETTE } from 'styles';
+import { PALETTE, notoSansKr } from 'styles';
 
 export const HeaderWrapper = styled.header`
   width: 100vw;
@@ -10,12 +11,12 @@ export const HeaderWrapper = styled.header`
   align-items: center;
   justify-content: space-between;
   box-shadow: 0px 0px 8px 0px ${PALETTE.MAIN_BLACK};
-`;
+  position: relative;
+  z-index: 99;
 
-export const Logo = styled.div`
-  width: 47px;
-  height: 40px;
-  background-color: ${PALETTE.MAIN_ORANGE};
+  @media (max-width: 998px) {
+    font-size: 12px;
+  }
 `;
 
 export const UserInteractionWrapper = styled.nav`
@@ -38,10 +39,16 @@ export const LinkWrapper = styled.div`
   justify-content: space-between;
 
   & > a {
-    width: 82px;
+    width: fit-content;
+    font-weight: ${notoSansKr.semiBold.style.fontWeight};
   }
 
   @media (max-width: 768px) {
     display: none;
   }
+`;
+
+export const LogoImage = styled(Image)`
+  width: auto;
+  height: auto;
 `;

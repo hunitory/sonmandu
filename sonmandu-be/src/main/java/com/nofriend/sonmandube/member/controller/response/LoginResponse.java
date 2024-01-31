@@ -4,12 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Getter
-public class TokenResponse {
+@Builder
+public class LoginResponse {
 
     private String token;
-
     private String refreshToken;
 
 }

@@ -12,7 +12,7 @@ import jakarta.validation.Valid;
 import com.nofriend.sonmandube.member.controller.request.*;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
-import com.nofriend.sonmandube.member.controller.response.TokenResponse;
+import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
@@ -22,10 +22,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 =======
 import org.springframework.security.core.parameters.P;
+=======
+>>>>>>> 49f052f (feat: add jwt)
 import org.springframework.web.bind.annotation.*;
 >>>>>>> d2eb2cd (feat: member signup and sendEmail and activate email)
 
@@ -67,9 +70,9 @@ public class MemberController {
 
     //로그인
     @PostMapping("/login")
-    public ResponseEntity<TokenResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
-        TokenResponse tokenResponse = memberService.login(loginRequest);
-        return ResponseEntity.ok(tokenResponse);
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
+        LoginResponse loginResponse = memberService.login(loginRequest);
+        return ResponseEntity.ok(loginResponse);
     }
 
     @PostMapping("logout")
@@ -147,7 +150,7 @@ public class MemberController {
     //-- PutMapping
 
     @GetMapping("/email-validation")
-    public HttpStatus updateIsValidated(@RequestBody EmailValidationRequest emailValidationRequest){
+    public HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest){
         System.out.println(emailValidationRequest.getMemberId());
         System.out.println(emailValidationRequest.getEmailToken());
         memberService.updateIsValidated(emailValidationRequest);

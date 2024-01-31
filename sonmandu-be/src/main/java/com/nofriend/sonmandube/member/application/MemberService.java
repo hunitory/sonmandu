@@ -4,13 +4,13 @@ package com.nofriend.sonmandube.member.application;
 import com.nofriend.sonmandube.member.controller.request.*;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
-import com.nofriend.sonmandube.member.controller.response.TokenResponse;
+import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import jakarta.mail.MessagingException;
 
 public interface MemberService {
     void signup(SignupRequest signupRequest) throws MessagingException;
 
-    TokenResponse login(LoginRequest loginRequest);
+    LoginResponse login(LoginRequest loginRequest);
 
     void logout(Long memberId);
 

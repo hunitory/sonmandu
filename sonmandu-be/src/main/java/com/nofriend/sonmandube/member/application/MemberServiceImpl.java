@@ -11,6 +11,7 @@ import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.member.repository.MemberRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.UUID;
 
 @Service
@@ -141,7 +143,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     @Transactional
-    public HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest) {
+    public HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest){
         //TODO Exception
         Member member = memberRepository.findById(emailValidationRequest.getMemberId()).orElseThrow();
 
@@ -149,7 +151,8 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
             return HttpStatus.BAD_REQUEST;
         }
         member.succeedEmailToken();
-        return HttpStatus.OK;
+
+        return HttpStatus.MOVED_PERMANENTLY;
     }
 
     @Override

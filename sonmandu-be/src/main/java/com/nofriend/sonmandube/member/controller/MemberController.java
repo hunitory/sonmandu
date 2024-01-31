@@ -1,40 +1,27 @@
 package com.nofriend.sonmandube.member.controller;
 
 import com.nofriend.sonmandube.member.application.MemberService;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import com.nofriend.sonmandube.member.controller.request.LoginRequest;
-import com.nofriend.sonmandube.member.controller.response.TokenResponse;
 import jakarta.validation.Valid;
-=======
-=======
->>>>>>> e68ec5d (feat: add 1-login interface)
 import com.nofriend.sonmandube.member.controller.request.*;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import jakarta.mail.MessagingException;
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
->>>>>>> 480edfe (feat: add 1-login interface)
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-=======
-import org.springframework.security.core.parameters.P;
-=======
->>>>>>> 49f052f (feat: add jwt)
-=======
 import org.springframework.security.access.prepost.PreAuthorize;
->>>>>>> 5f3a5ef (feat: add spring security ROLE)
 import org.springframework.web.bind.annotation.*;
->>>>>>> d2eb2cd (feat: member signup and sendEmail and activate email)
+
+import java.io.IOException;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/members")
@@ -44,25 +31,13 @@ public class MemberController {
 
     private final MemberService memberService;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public ResponseEntity<TokenResponse> login(@Valid LoginRequest loginRequest) {
-        try {
-            TokenResponse tokenResponse = memberService.login();
-            return ResponseEntity.ok(tokenResponse);
-        } catch(Exception exception){
 
-        }
-    }
-=======
-=======
     @GetMapping("/test/{msg}")
     public String test(@PathVariable String msg){
         System.out.println("hello111");
         return msg;
     }
 
->>>>>>> d2eb2cd (feat: member signup and sendEmail and activate email)
     //--- PostMapping
 
     //회원가입
@@ -158,11 +133,15 @@ public class MemberController {
     //-- PutMapping
 
     @GetMapping("/email-validation")
-    public HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest){
-        System.out.println(emailValidationRequest.getMemberId());
-        System.out.println(emailValidationRequest.getEmailToken());
+    public HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest, HttpServletResponse httpServletResponse) throws IOException {
+        HttpStatus response = memberService.updateIsValidated(emailValidationRequest);
 
-        return memberService.updateIsValidated(emailValidationRequest);
+        if(response.is3xxRedirection()){
+            String redirectUrl = "http://www.naver.com";
+            httpServletResponse.sendRedirect(redirectUrl);
+        }
+
+        return response;
     }
 
     //-- PatchMapping
@@ -186,5 +165,4 @@ public class MemberController {
         return HttpStatus.OK;
     }
 
->>>>>>> 480edfe (feat: add 1-login interface)
 }

@@ -9,11 +9,13 @@ export default function CreateFontPage() {
 
   const OnHandleNext = () => {
     setCurrentStep(currentStep + 1);
+    console.log(currentStep)
   };
 
   const OnhandleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+      console.log(currentStep)
     }
   };
 

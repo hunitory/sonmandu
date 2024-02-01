@@ -76,8 +76,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 "&emailToken=" + newMember.getEmailToken() + "'> 계정 활성화 버튼 </a> </body>" +
                 "</html>", true);
 
-        System.out.println("server url " +  serverUrl);
-
         javaMailSender.send(mimeMailMessage);
     }
 

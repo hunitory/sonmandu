@@ -19,9 +19,14 @@ export default function CreateFontPage() {
     }
   };
 
+  /* 다운로드 링크 주기 */
+  const OnDownload = () => {
+    console.log('다운로드했음')
+  }
+
   switch(currentStep) {
     case 1:
-      return <Comp.FontStart onNext={ OnHandleNext }/>;
+      return <Comp.FontStart onNext={ OnHandleNext } onDownload={OnDownload}/>;
     case 2:
       return <Comp.FontFileUpload onNext={ OnHandleNext } onBack={ OnhandleBack } />;
     case 3:

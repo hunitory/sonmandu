@@ -19,6 +19,14 @@ export default function CreateFontPage() {
     }
   };
 
+  const OnHandleMainPage = () => {
+
+  };
+
+  const OnhandleMyPage = () => {
+
+  };
+
   /* 다운로드 링크 주기 */
   const OnDownload = () => {
     console.log('다운로드했음')
@@ -32,7 +40,7 @@ export default function CreateFontPage() {
     case 3:
       return <Comp.FontInfo onNext={ OnHandleNext } onBack={ OnhandleBack }/>;
     case 4:
-      return <Comp.FontComplete onBack={ OnhandleBack }/>;
+      return <Comp.FontComplete onMyPage={ OnhandleMyPage } onMainPage={ OnHandleMainPage }/>;
     default:
       return <div>알 수 없는 단계</div>;
   }

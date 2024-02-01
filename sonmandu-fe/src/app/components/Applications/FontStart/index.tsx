@@ -63,25 +63,25 @@ export default function FontStart({ onNext, onDownload }: FontStartProps) {
 
           <Styled.CautionWrapper>
             <Styled.CautionContentWrapper>
-              <Image src={Caution1} alt="Caution1" width={100} height={160} />
+              <Image src={Caution1} alt="Caution1" width={95} height={155} />
               <Styled.CautionContentText>
                 얼룩이 있는 경우
               </Styled.CautionContentText>
             </Styled.CautionContentWrapper>
             <Styled.CautionContentWrapper>
-              <Image src={Caution2} alt="Caution2" width={100} height={160} />
+              <Image src={Caution2} alt="Caution2" width={95} height={155} />
               <Styled.CautionContentText>
                 글 상자에 닿는 경우
               </Styled.CautionContentText>
             </Styled.CautionContentWrapper>
             <Styled.CautionContentWrapper>
-              <Image src={Caution3} alt="Caution3" width={100} height={160} />
+              <Image src={Caution3} alt="Caution3" width={95} height={155} />
               <Styled.CautionContentText>
                 획이 겹치거나 닿은 경우
               </Styled.CautionContentText>
             </Styled.CautionContentWrapper>
             <Styled.CautionContentWrapper>
-              <Image src={Caution4} alt="Caution4" width={100} height={160} />
+              <Image src={Caution4} alt="Caution4" width={95} height={155} />
               <Styled.CautionContentText>
                 획이 끊어진 경우
               </Styled.CautionContentText>

@@ -8,53 +8,52 @@ export default function CreateFontLayout({
   children: React.ReactNode;
   currentStep: number;
 }>) {
-  console.log('현재단계', currentStep);
   return (
-    <S.FontCreateMainWrapper>
-      <S.FontCreateMainContainer>
-        <S.FontCreateStepWrapper>
-          <S.FontCreateStep>
+    <S.MainWrapper>
+      <S.MainContainer>
+        <S.StepWrapper>
+          <S.Step>
             <p>시작하기</p>
-            <S.FontCreateStepSign>
-              <S.FontCreateStepLineWrapper>
-                <S.FontCreateStepLine></S.FontCreateStepLine>
-              </S.FontCreateStepLineWrapper>
-              <S.FontCreateStepCircle></S.FontCreateStepCircle>
-            </S.FontCreateStepSign>
-          </S.FontCreateStep>
+            <S.StepSign>
+              <S.StepLineWrapper>
+                <S.StepLine></S.StepLine>
+              </S.StepLineWrapper>
+              <S.StepCircle></S.StepCircle>
+            </S.StepSign>
+          </S.Step>
 
-          <S.FontCreateStep>
+          <S.Step>
             <p>파일 업로드</p>
-            <S.FontCreateStepSign>
-              <S.FontCreateStepLineWrapper>
-                <S.FontCreateStepLine></S.FontCreateStepLine>
-              </S.FontCreateStepLineWrapper>
-              <S.FontCreateStepCircle></S.FontCreateStepCircle>
-            </S.FontCreateStepSign>
-          </S.FontCreateStep>
+            <S.StepSign>
+              <S.StepLineWrapper>
+                <S.StepLine></S.StepLine>
+              </S.StepLineWrapper>
+              <S.StepCircle></S.StepCircle>
+            </S.StepSign>
+          </S.Step>
 
-          <S.FontCreateStep>
+          <S.Step>
             <p>손글씨 정보 입력</p>
-            <S.FontCreateStepSign>
-              <S.FontCreateStepLineWrapper>
-                <S.FontCreateStepLine></S.FontCreateStepLine>
-              </S.FontCreateStepLineWrapper>
-              <S.FontCreateStepCircle></S.FontCreateStepCircle>
-            </S.FontCreateStepSign>
-          </S.FontCreateStep>
+            <S.StepSign>
+              <S.StepLineWrapper>
+                <S.StepLine></S.StepLine>
+              </S.StepLineWrapper>
+              <S.StepCircle></S.StepCircle>
+            </S.StepSign>
+          </S.Step>
 
-          <S.FontCreateStep>
+          <S.Step>
             <p>신청완료</p>
-            <S.FontCreateStepSign>
-              <S.FontCreateStepLineWrapper>
-                <S.FontCreateStepLine></S.FontCreateStepLine>
-              </S.FontCreateStepLineWrapper>
-              <S.FontCreateStepCircle></S.FontCreateStepCircle>
-            </S.FontCreateStepSign>
-          </S.FontCreateStep>
-        </S.FontCreateStepWrapper>
-        <S.FontCreateCard>{children}</S.FontCreateCard>
-      </S.FontCreateMainContainer>
-    </S.FontCreateMainWrapper>
+            <S.StepSign>
+              <S.StepLineWrapper>
+                <S.StepLine></S.StepLine>
+              </S.StepLineWrapper>
+              <S.StepCircle></S.StepCircle>
+            </S.StepSign>
+          </S.Step>
+        </S.StepWrapper>
+        <S.Card>{children}</S.Card>
+      </S.MainContainer>
+    </S.MainWrapper>
   );
 }

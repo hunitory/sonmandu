@@ -8,7 +8,9 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 50px;
+  @media (max-width: 1000px) {
+    gap: 80px
+  }
 `;
 
 /*----------- Title -----------*/
@@ -31,7 +33,10 @@ export const ContentWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-self: center;
-  gap: 40px;
+  gap: 50px;
+  @media (max-width: 1000px) {
+    gap: 80px
+  }
 `;
 
 export const ContentContainer = styled.div`
@@ -101,40 +106,33 @@ export const CautionContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 50px;
+  gap: 60px;
 `;
 
 export const CautionWrapper = styled.div`
   width: fit-content;
   display: flex;
-  gap: 10%;
   justify-content: space-around;
 `;
 
 export const CautionContentText = styled.p`
-  font-size: 14px;
+  width: 95px;
+  font-size: 16px;
   font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_BLACK};
 `;
 
-export const CautionContentWrapper = styled.div``;
+export const CautionContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0px 10px;
+`;
 
 /*----------- Button -----------*/
 export const ButtonWrapper = styled.div`
-  /* width: 70vw; */
   height: fit-content;
   display: flex;
   justify-content: center;
-`;
-
-export const BackButton = styled(BaseButton)`
-  width: 240px;
-  height: 48px;
-  border: 1px solid ${PALETTE.MAIN_ORANGE};
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 export const NextButton = styled(BaseButton)`
@@ -145,12 +143,6 @@ export const NextButton = styled(BaseButton)`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-export const BackButtonText = styled.p`
-  font-weight: ${notoSansKr.bold.style.fontWeight};
-  font-size: 20px;
-  color: ${PALETTE.MAIN_ORANGE};
 `;
 
 export const NextButtonText = styled.p`

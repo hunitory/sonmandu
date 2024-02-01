@@ -2,8 +2,6 @@ package com.nofriend.sonmandube.handwriting.controller.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
-import com.nofriend.sonmandube.handwriting.domain.HandwritingTag;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -11,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class SimpleHandwritingResponse {
+public class RankingHandwritingResponse {
 
     private Long handwritingId;
     private String name;
@@ -27,8 +25,8 @@ public class SimpleHandwritingResponse {
         return isLike;
     }
 
-    public static SimpleHandwritingResponse from(Handwriting handwriting) {
-        return SimpleHandwritingResponse.builder()
+    public static RankingHandwritingResponse from(Handwriting handwriting) {
+        return RankingHandwritingResponse.builder()
                 .handwritingId(handwriting.getHandwritingId())
                 .name(handwriting.getName())
                 .downloadUrl(handwriting.getDownloadUrl())

@@ -11,12 +11,9 @@ spring:
     console: # H2 DB를 웹에서 관리할 수 있는 기능
       enabled: true           # H2 Console 사용 여부
       path: /h2-console       # H2 Console 접속 주소
-<<<<<<< HEAD
 
 client:
-  url: http://192.168.31.156:8080
+  url: http://192.168.31.219:8080
 
 server:
-  url: http://192.168.31.156:8080
-=======
->>>>>>> 7a28429 (feat: 손글씨 상세 조회 및 좋아요, 조회수, 다운로드, 가중치 API 구현)
+  url: http://192.168.31.219:8080

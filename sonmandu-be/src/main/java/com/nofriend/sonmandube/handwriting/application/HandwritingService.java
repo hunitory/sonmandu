@@ -1,9 +1,9 @@
 package com.nofriend.sonmandube.handwriting.application;
 
+import com.nofriend.sonmandube.handwriting.controller.response.RankingResponse;
 import com.nofriend.sonmandube.handwriting.controller.request.HandwritingApplicationRequest;
 import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionRequest;
-import com.nofriend.sonmandube.handwriting.controller.response.HandwritingResponse;
-import com.nofriend.sonmandube.handwriting.controller.response.SimpleHandwritingResponse;
+import com.nofriend.sonmandube.handwriting.controller.response.*;
 import com.nofriend.sonmandube.handwriting.domain.HandwritingCountType;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,4 +26,12 @@ public interface HandwritingService {
     void updateHitCount(Long memberId, Long handwritingId);
 
     void updateCountWeight(HandwritingCountType countType, Long handwritingId);
+
+    List<MyHandwritingResponse> getMyHandwritingList(Long memberId);
+
+    List<OthersHandwritingResponse> getOthersHandwritingList(Long memberId, Long targetId);
+
+    RankingResponse getRankingList();
+
+    List<SimpleHandwritingResponse> getPopularHandwritingList();
 }

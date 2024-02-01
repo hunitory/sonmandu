@@ -8,4 +8,5 @@ import java.util.List;
 public interface HandwritingRepositoryCustom {
 
     List<Handwriting> findByDynamicConditions(int start, int count, SearchConditionRequest conditions);
+
 }

@@ -49,7 +49,7 @@ public class FileUtil {
             throw new RuntimeException(e);
         }
 
-        return new FileDto(toFileUrl(folder+"/"+filename));
+        return new FileDto(filename, toFileUrl(folder+"/"+filename));
     }
 
     // 파일 저장 루트 경로

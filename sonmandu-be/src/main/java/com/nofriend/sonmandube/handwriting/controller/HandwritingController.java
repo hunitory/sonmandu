@@ -1,10 +1,10 @@
 package com.nofriend.sonmandube.handwriting.controller;
 
 import com.nofriend.sonmandube.handwriting.application.HandwritingService;
+import com.nofriend.sonmandube.handwriting.controller.response.RankingResponse;
 import com.nofriend.sonmandube.handwriting.controller.request.HandwritingApplicationRequest;
 import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionRequest;
-import com.nofriend.sonmandube.handwriting.controller.response.HandwritingResponse;
-import com.nofriend.sonmandube.handwriting.controller.response.SimpleHandwritingResponse;
+import com.nofriend.sonmandube.handwriting.controller.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/handwriting")
+@RequestMapping("/handwritings")
 public class HandwritingController {
 
     private final HandwritingService handwritingService;
@@ -70,6 +70,34 @@ public class HandwritingController {
         Long memberId = 1L;
         handwritingService.updateDownloadCount(memberId, handwritingId);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/owner")
+    public ResponseEntity<List<MyHandwritingResponse>> getMyHandwritingList() {
+        // TODO : member 연결
+        Long memberId = 1L;
+        List<MyHandwritingResponse> myHandwritingResponseList = handwritingService.getMyHandwritingList(memberId);
+        return ResponseEntity.ok(myHandwritingResponseList);
+    }
+
+    @GetMapping("/owner/{targetId}")
+    public ResponseEntity<List<OthersHandwritingResponse>> getOthersHandwritingList(@PathVariable Long targetId) {
+        // TODO : member 연결
+        Long memberId = 1L;
+        List<OthersHandwritingResponse> othersHandwritingResponseList = handwritingService.getOthersHandwritingList(memberId, targetId);
+        return ResponseEntity.ok(othersHandwritingResponseList);
+    }
+
+    @GetMapping("/ranking")
+    public ResponseEntity<RankingResponse> getRankingList() {
+        RankingResponse ranking = handwritingService.getRankingList();
+        return ResponseEntity.ok(ranking);
+    }
+
+    @GetMapping("/gallery")
+    public ResponseEntity<List<SimpleHandwritingResponse>> getPopularHandwritingList() {
+        List<SimpleHandwritingResponse> popularList = handwritingService.getPopularHandwritingList();
+        return ResponseEntity.ok(popularList);
     }
 
 }

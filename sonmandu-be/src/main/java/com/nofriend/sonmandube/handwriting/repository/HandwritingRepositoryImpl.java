@@ -1,8 +1,10 @@
 package com.nofriend.sonmandube.handwriting.repository;
 
 import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionRequest;
+import com.nofriend.sonmandube.handwriting.controller.response.OthersHandwritingResponse;
 import com.nofriend.sonmandube.handwriting.domain.*;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -58,13 +60,6 @@ public class HandwritingRepositoryImpl implements HandwritingRepositoryCustom {
         return result;
     }
 
-    private List<Integer> selectHandwritingTagByHandwritingApplicationId(Long handwritingApplicationId) {
-        QHandwritingTag handwritingTag = QHandwritingTag.handwritingTag;
-        return jpaQueryFactory
-                .select(handwritingTag.handwritingTagId.tagId)
-                .from(handwritingTag)
-                .where(handwritingTag.handwritingTagId.handwritingApplicationId.eq(handwritingApplicationId)).fetch();
-    }
 
     /*
     정렬 방식에 따른 쿼리 생성

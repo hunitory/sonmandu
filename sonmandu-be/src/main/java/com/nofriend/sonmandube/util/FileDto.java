@@ -8,5 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class FileDto {
 
+    private String storedFileName;
+
     private String url;
 }

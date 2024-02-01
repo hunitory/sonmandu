@@ -1,14 +1,14 @@
 package com.nofriend.sonmandube.handwriting.application;
 
 import com.nofriend.sonmandube.exception.IdNotFoundException;
+import com.nofriend.sonmandube.handwriting.controller.response.RankingResponse;
 import com.nofriend.sonmandube.handwriting.controller.request.HandwritingApplicationRequest;
 import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionRequest;
-import com.nofriend.sonmandube.handwriting.controller.response.HandwritingResponse;
-import com.nofriend.sonmandube.handwriting.controller.response.SimpleHandwritingResponse;
+import com.nofriend.sonmandube.handwriting.controller.response.*;
 import com.nofriend.sonmandube.handwriting.domain.*;
 import com.nofriend.sonmandube.handwriting.repository.*;
 import com.nofriend.sonmandube.member.domain.Member;
-import com.nofriend.sonmandube.s3.S3UploadService;
+import com.nofriend.sonmandube.s3.S3Service;
 import com.nofriend.sonmandube.util.FileDto;
 import com.nofriend.sonmandube.util.FileUtil;
 import jakarta.transaction.Transactional;
@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.html.Option;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +30,7 @@ public class HandwritingServiceImpl implements HandwritingService{
     private final HandwritingLikeRepository handwritingLikeRepository;
     private final HandwritingDownloadRepository handwritingDownloadRepository;
     private final HandwritingHitRepository handwritingHitRepository;
-    private final S3UploadService s3UploadService;
+    private final S3Service s3UploadService;
 
     @Override
     @Transactional
@@ -175,5 +175,63 @@ public class HandwritingServiceImpl implements HandwritingService{
         }
         handwriting.plusThisWeek(countType.getValue());
         handwritingRepository.save(handwriting);
+    }
+
+    @Override
+    public List<MyHandwritingResponse> getMyHandwritingList(Long memberId) {
+        List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberId(memberId);
+
+        // 손글씨 별 좋아요 확인
+        // TODO : memberId 없을 경우 예외처리 필요
+        List<MyHandwritingResponse> myHandwritingResponses = new ArrayList<>();
+        for (int i=0; i<handwritingList.size(); i++) {
+            Handwriting handwriting = handwritingList.get(i);
+            boolean isLike = false;
+            if(handwritingLikeRepository.existsById(new HandwritingCountId(memberId, handwriting.getHandwritingId()))){
+                isLike = true;
+            }
+            myHandwritingResponses.add(MyHandwritingResponse.from(handwriting, isLike));
+        }
+        return myHandwritingResponses;
+    }
+
+    @Override
+    public List<OthersHandwritingResponse> getOthersHandwritingList(Long memberId, Long targetId) {
+        // 타겟 회원의 손글씨 조회
+        List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberId(targetId);
+
+        // 손글씨 별 좋아요 확인
+        // TODO : memberId 없을 경우 예외처리 필요
+        List<OthersHandwritingResponse> othersHandwritingResponseList = new ArrayList<>();
+        for (int i=0; i<handwritingList.size(); i++) {
+            Handwriting handwriting = handwritingList.get(i);
+            boolean isLike = false;
+            if(handwritingLikeRepository.existsById(new HandwritingCountId(memberId, handwriting.getHandwritingId()))){
+                isLike = true;
+            }
+            othersHandwritingResponseList.add(OthersHandwritingResponse.from(handwriting, isLike));
+        }
+        return othersHandwritingResponseList;
+    }
+
+    @Override
+    public RankingResponse getRankingList() {
+        // 지난 달 인기순위
+        List<Handwriting> lastMonthList = handwritingRepository.findTop3ByOrderByLastMonthDescCreateDateDesc();
+
+        // 지난 주 인기 순위
+        List<Handwriting> lastWeekList = handwritingRepository.findTop5ByOrderByLastWeekDescCreateDateDesc();
+
+        // DTO 변경
+        List<RankingHandwritingResponse> rankingLastMonthList = lastMonthList.stream().map(RankingHandwritingResponse::from).toList();
+        List<RankingHandwritingResponse> rankingLastWeekList = lastWeekList.stream().map(RankingHandwritingResponse::from).toList();
+
+        return new RankingResponse(rankingLastMonthList, rankingLastWeekList);
+    }
+
+    @Override
+    public List<SimpleHandwritingResponse> getPopularHandwritingList() {
+        List<Handwriting> popularList = handwritingRepository.findTop10ByOrderByLastWeekDescCreateDateDesc();
+        return popularList.stream().map(SimpleHandwritingResponse::from).toList();
     }
 }

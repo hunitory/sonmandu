@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
-public class S3UploadService {
+public class S3Service {
 
     private final AmazonS3 amazonS3;
 
@@ -31,6 +31,6 @@ public class S3UploadService {
         } catch (IOException e) {
             throw new FailedFileSaveException("S3에 파일을 저장하지 못했습니다.");
         }
-        return new FileDto(amazonS3.getUrl(bucket, filename).toString());
+        return new FileDto(filename, amazonS3.getUrl(bucket, filename).toString());
     }
 }

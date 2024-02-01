@@ -1,7 +1,7 @@
 import React from "react"
 import * as S from './style';
-import ProductDate from "./Subs/ProductDate";
 import Image from "next/image";
+// import Tag from "components/Tag";
 import { BaseButton, BaseHashTags } from "components";
 import { useRouter } from "next/navigation";
 
@@ -30,7 +30,7 @@ interface Handwriting {
  */
 
 
-function ProfileFontCard({index, isMypage, handwriting}: { index: number, isMypage: boolean, handwriting: Handwriting}) {
+function ProfileFontCardMaking({isMypage, handwriting}: { isMypage: boolean, handwriting: Handwriting}) {
   const router = useRouter();
 
   const { handwritingId, name, state, likeCount, downloadCount, downloadUrl, createDate, tags } = handwriting;
@@ -54,37 +54,29 @@ function ProfileFontCard({index, isMypage, handwriting}: { index: number, isMypa
   return (
     <S.ProfileFontCardWrapper>
       <S.UpperWrapper>
-        <ProductDate date={createDate}/>
         <Image 
-          src={`/image/complete-${index}.png`}
+          src={`/image/producing-${state}.png`}
           alt="#"
-          width={148}
-          height={137}
+          width={144}
+          height={179}
         />
       </S.UpperWrapper>
       <S.LowerWrapper>
         <S.LowerSpan>{handwriting.name}</S.LowerSpan>
         <S.LowerContentsWrapper>
           <S.LowerContentsUp>
-            <S.LikeDiv>
             <Image 
               src={isMypage ? '/image/orange-heart-fill.png' : '/image/orange-heart.svg'}
               alt="#"
               width={30}
-              height={30}
+              height={28}
             />
-            {likeCount}
-            </S.LikeDiv>
-            <S.DownloadDiv>
             <Image 
               src={'/image/download.png'}
               alt="#"
-              width={28}
-              height={28}
+              width={30}
+              height={30}
             />
-            {downloadCount}
-            </S.DownloadDiv>
-            <S.DownloadButton {...BaseButtonProps} />
           </S.LowerContentsUp>
           <S.LowerContentsDown>
             <BaseHashTags hashTagIdList={tags} direction="row"/>
@@ -95,4 +87,4 @@ function ProfileFontCard({index, isMypage, handwriting}: { index: number, isMypa
   )
 }
 
-export default ProfileFontCard;
+export default ProfileFontCardMaking;

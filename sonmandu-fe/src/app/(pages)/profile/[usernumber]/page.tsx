@@ -10,13 +10,11 @@ import ProfileTrophy from 'components/ProfileTrophy';
 import { useRouter } from 'next/navigation';
 
 interface ProfileBoxProps {
-  id: number;
   src: string;
   nickname: string;
-  vertical: boolean;
   badge: boolean; // 여기에 적절한 타입을 지정해주세요
-  fontSize: string;
-  noLink: boolean;
+  fontSize?: string;
+  className?: string;
 }
 
 interface Handwriting {
@@ -30,6 +28,96 @@ interface Handwriting {
   createDate: string;
 }
 
+const { member, handwritings, handwritingStories } = {
+  member: {
+    memberId: 1,
+    nickname: '김싸피와열두글자아이디이',
+    imageUrl: '/image/sample.jpg',
+    badge: true,
+    introduction: '안녕하세요~~',
+    trophy: [
+      {
+        weight: 1,
+        createDate: '2024.10',
+      },
+      {
+        weight: 3,
+        createDate: '2024.8',
+      },
+    ],
+  },
+  handwritings: [
+    {
+      handwritingId: 1,
+      name: '손만두체',
+      state: 3, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+      likeCount: 15,
+      downloadCount: 44,
+      downloadUrl: 'http://son.com',
+      tags: [1, 2, 6],
+      createDate: '23.09.12',
+    },
+    {
+      handwritingId: 2,
+      name: '손만두체2',
+      state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+      likeCount: 11,
+      downloadCount: 434,
+      downloadUrl: 'http://son1.com',
+      tags: [1, 2, 10],
+      createDate: '23.07.16',
+    },
+    {
+      handwritingId: 2,
+      name: '손만두체2',
+      state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+      likeCount: 11,
+      downloadCount: 434,
+      downloadUrl: 'http://son1.com',
+      tags: [1, 2, 10],
+      createDate: '23.07.16',
+    },
+    {
+      handwritingId: 2,
+      name: '손만두체2',
+      state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+      likeCount: 11,
+      downloadCount: 434,
+      downloadUrl: 'http://son1.com',
+      tags: [1, 2, 10],
+      createDate: '23.07.16',
+    },
+    {
+      handwritingId: 2,
+      name: '손만두체2',
+      state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+      likeCount: 11,
+      downloadCount: 434,
+      downloadUrl: 'http://son1.com',
+      tags: [1, 2, 10],
+      createDate: '23.07.16',
+    },
+  ],
+  handwritingStories: [
+    {
+      handwritingStoryId: 12,
+      title: '추억이 담긴 이야기',
+      content: '이런저런 얘기',
+      thumbnail: 'http:dqw.com',
+      isLike: true,
+      likeCount: 11,
+    },
+    {
+      handwritingStoryId: 10,
+      title: '추억이 담긴 이야기22',
+      content: '이런저런 얘기22',
+      thumbnail: 'http:dqw22.com',
+      isLike: false,
+      likeCount: 13,
+    },
+  ],
+};
+
 export default function ProfilePage() {
   // const resp = await fetch('https://api...');
   // const user = await resp.json();
@@ -42,104 +130,13 @@ export default function ProfilePage() {
   // 	noLink: true
   // }
   // dummy
-  const { member, handwritings, handwritingStories } = {
-    member: {
-      memberId: 1,
-      nickname: '김싸피와열두글자아이디이',
-      imageUrl: '/image/complete-7.png',
-      badge: true,
-      introduction: '안녕하세요~~',
-      trophy: [
-        {
-          weight: 1,
-          createDate: '2024.10',
-        },
-        {
-          weight: 3,
-          createDate: '2024.8',
-        },
-      ],
-    },
-    handwritings: [
-      {
-        handwritingId: 1,
-        name: '손만두체',
-        state: 3, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
-        likeCount: 15,
-        downloadCount: 44,
-        downloadUrl: 'http://son.com',
-        tags: [1, 2, 6],
-        createDate: '23.09.12',
-      },
-      {
-        handwritingId: 2,
-        name: '손만두체2',
-        state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
-        likeCount: 11,
-        downloadCount: 434,
-        downloadUrl: 'http://son1.com',
-        tags: [1, 2, 10],
-        createDate: '23.07.16',
-      },
-      {
-        handwritingId: 2,
-        name: '손만두체2',
-        state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
-        likeCount: 11,
-        downloadCount: 434,
-        downloadUrl: 'http://son1.com',
-        tags: [1, 2, 10],
-        createDate: '23.07.16',
-      },
-      {
-        handwritingId: 2,
-        name: '손만두체2',
-        state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
-        likeCount: 11,
-        downloadCount: 434,
-        downloadUrl: 'http://son1.com',
-        tags: [1, 2, 10],
-        createDate: '23.07.16',
-      },
-      {
-        handwritingId: 2,
-        name: '손만두체2',
-        state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
-        likeCount: 11,
-        downloadCount: 434,
-        downloadUrl: 'http://son1.com',
-        tags: [1, 2, 10],
-        createDate: '23.07.16',
-      },
-    ],
-    handwritingStories: [
-      {
-        handwritingStoryId: 12,
-        title: '추억이 담긴 이야기',
-        content: '이런저런 얘기',
-        thumbnail: 'http:dqw.com',
-        isLike: true,
-        likeCount: 11,
-      },
-      {
-        handwritingStoryId: 10,
-        title: '추억이 담긴 이야기22',
-        content: '이런저런 얘기22',
-        thumbnail: 'http:dqw22.com',
-        isLike: false,
-        likeCount: 13,
-      },
-    ],
-  };
 
   const ProfileBoxProps: ProfileBoxProps = {
-    id: member.memberId,
     src: member.imageUrl,
     nickname: member.nickname,
-    vertical: true,
     badge: member.badge,
     fontSize: '1.4vw',
-    noLink: true,
+    className: 'vertical'
   };
 
   const router = useRouter();
@@ -176,7 +173,6 @@ export default function ProfilePage() {
               {member.introduction}
             </S.ProfileIntroContents>
             <S.BaseButtonWrapper>
-              {/* <S.BaseButtonDiv> */}
               <S.EditButton
                 type={'button'}
                 onClick={() => router.push('/profile/usernumber/edit')}
@@ -184,7 +180,6 @@ export default function ProfilePage() {
               >
                 <span>수정하기</span>
               </S.EditButton>
-              {/* </S.BaseButtonDiv> */}
             </S.BaseButtonWrapper>
           </S.ProfileIntroDivUp>
           <S.ProfileIntroDivDown>
@@ -208,12 +203,12 @@ export default function ProfilePage() {
           </S.ProfileHandwritingsSpanDiv>
           <S.ProfileHandwritingsDiv>
             {handwritinggroup.map((handwriting: Handwriting, index: number) => {
-              const idx = Math.floor(Math.random() * 10);
+              // const idx = Math.floor(Math.random() * 10);
               if (handwriting.state > 3) {
                 return (
                   <ProfileFontCard
                     key={index}
-                    index={idx}
+                    index={index}
                     isMypage={isMypage}
                     handwriting={handwriting}
                   />

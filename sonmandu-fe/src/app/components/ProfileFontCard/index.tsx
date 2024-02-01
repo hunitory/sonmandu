@@ -55,7 +55,7 @@ function ProfileFontCard({index, isMypage, handwriting}: { index: number, isMypa
     <S.ProfileFontCardWrapper>
       <S.UpperWrapper>
         <ProductDate date={createDate}/>
-        <Image 
+        <Image
           src={`/image/complete-${index}.png`}
           alt="#"
           width={148}

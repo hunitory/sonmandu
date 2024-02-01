@@ -13,6 +13,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.net.URI;
 
 @RestController
 @RequestMapping("/members")
@@ -30,13 +30,8 @@ import java.net.URI;
 public class MemberController {
 
     private final MemberService memberService;
-
-
-    @GetMapping("/test/{msg}")
-    public String test(@PathVariable String msg){
-        System.out.println("hello111");
-        return msg;
-    }
+    @Value("${server.url}")
+    private String serverUrl;
 
     //--- PostMapping
 
@@ -137,8 +132,7 @@ public class MemberController {
         HttpStatus response = memberService.updateIsValidated(emailValidationRequest);
 
         if(response.is3xxRedirection()){
-            String redirectUrl = "http://www.naver.com";
-            httpServletResponse.sendRedirect(redirectUrl);
+            httpServletResponse.sendRedirect(serverUrl);
         }
 
         return response;

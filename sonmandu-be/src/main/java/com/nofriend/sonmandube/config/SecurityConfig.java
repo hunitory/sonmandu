@@ -13,11 +13,7 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-<<<<<<< HEAD
-import org.springframework.security.web.util.matcher.RequestMatcher;
-=======
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
->>>>>>> 5f3a5ef (feat: add spring security ROLE)
 
 @Configuration
 @EnableWebSecurity
@@ -30,15 +26,10 @@ public class SecurityConfig  {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-<<<<<<< HEAD
                     .anyRequest()
                     .permitAll())
                 .csrf(csrf -> csrf.ignoringRequestMatchers(PathRequest.toH2Console()).ignoringRequestMatchers("*/**"))
-=======
-                        .anyRequest()
-                        .permitAll())
-                .csrf(csrf -> csrf.ignoringRequestMatchers(PathRequest.toH2Console()).ignoringRequestMatchers("*").disable())
->>>>>>> d2eb2cd (feat: member signup and sendEmail and activate email)
+
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
         http.addFilterBefore(new JwtFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);

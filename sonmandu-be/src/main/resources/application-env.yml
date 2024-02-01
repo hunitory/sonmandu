@@ -9,3 +9,6 @@ mysql:
 s3:
   access-key: AKIA53BIDTSEUYN2CV53
   secret-key: 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
+
+server:
+  url: https://i10b111.p.ssafy.io

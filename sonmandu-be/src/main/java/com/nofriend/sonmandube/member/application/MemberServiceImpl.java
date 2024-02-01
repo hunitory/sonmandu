@@ -14,6 +14,7 @@ import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -42,6 +43,9 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtProvider jwtProvider;
 
+    @Value("${server.url")
+    private String serverUrl;
+
     @Override
     @Transactional
     public void signup(SignupRequest signupRequest) throws MessagingException {
@@ -67,7 +71,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         mimeMessageHelper.setTo(newMember.getEmail());
         mimeMessageHelper.setSubject("[손만두] 이메일 활성화");
         mimeMessageHelper.setText("<html><head></head>" +
-                "<body> <h1> 손만두 </h1> <a href=http://192.168.31.156:8080/members/email-validation" +
+                "<body> <h1> 손만두 </h1> <a href=" + serverUrl +"/members/email-validation" +
                 "?memberId=" + newMember.getMemberId() +
                 "&emailToken=" + newMember.getEmailToken() + "'> 계정 활성화 버튼 </a> </body>" +
                 "</html>", true);

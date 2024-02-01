@@ -11,6 +11,7 @@ export const FontCardWrapper = styled.li`
   border-radius: 20px;
   border: 2px solid ${PALETTE.SUB_WHITE};
   overflow: hidden;
+  cursor: pointer;
 
   &:hover {
     transform: translate(-4px, -4px);
@@ -42,7 +43,7 @@ export const EctInfoVerticalContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: end;
   gap: 8px;
 `;
 

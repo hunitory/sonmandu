@@ -7,6 +7,9 @@ import BaseLatterField from './BaseLatterTextField';
 import BaseHashTags from './BaseHashTags';
 import Modal from './Modal';
 import ProfileBox from './ProfileBox';
+import ProfileFontCard from './ProfileFontCard';
+import ProfileFontCardMaking from './ProfileFontCardMaking';
+import ProfileTrophy from './ProfileTrophy';
 
 export {
   BaseHeader,
@@ -16,4 +19,7 @@ export {
   BaseHashTags,
   Modal,
   ProfileBox,
+  ProfileFontCard,
+  ProfileFontCardMaking,
+  ProfileTrophy,
 };

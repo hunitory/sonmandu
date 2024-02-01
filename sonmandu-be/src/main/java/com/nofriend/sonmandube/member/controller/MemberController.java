@@ -30,8 +30,8 @@ import java.io.IOException;
 public class MemberController {
 
     private final MemberService memberService;
-    @Value("${server.url}")
-    private String serverUrl;
+    @Value("${client.url}")
+    private String clientUrl;
 
     //--- PostMapping
 
@@ -132,7 +132,7 @@ public class MemberController {
         HttpStatus response = memberService.updateIsValidated(emailValidationRequest);
 
         if(response.is3xxRedirection()){
-            httpServletResponse.sendRedirect(serverUrl);
+            httpServletResponse.sendRedirect(clientUrl);
         }
 
         return response;

@@ -4,3 +4,11 @@ spring:
     url: jdbc:mysql://i10B111.p.ssafy.io:3306/sonmandu?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: ${mysql.username}
     password: ${mysql.password}
+
+
+client:
+  url: https://i10b111.p.ssafy.io
+
+server:
+  url: https://i10b111.p.ssafy.io/api
+

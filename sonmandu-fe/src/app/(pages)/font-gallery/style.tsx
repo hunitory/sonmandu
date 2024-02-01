@@ -86,7 +86,7 @@ export const CardsGridWrapper = styled.section`
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
-    padding: 0px 2vw;
-    justify-content: center;
+    padding: 0px 2vw 48px 2vw;
+    justify-items: center;
   }
 `;

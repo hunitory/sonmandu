@@ -1,5 +1,6 @@
+import { BaseButton } from 'components';
 import styled from 'styled-components';
-import { PALETTE, notoSansKr } from 'styles';
+import { PALETTE } from 'styles';
 
 export const HashTagsWrapper = styled.div<{ direction: string }>`
   display: flex;
@@ -10,7 +11,7 @@ export const HashTagsWrapper = styled.div<{ direction: string }>`
   height: fit-content;
 `;
 
-export const HashTag = styled.p`
+export const HashTag = styled(BaseButton)`
   width: fit-content;
   height: 30px;
   padding: 0px 8px;

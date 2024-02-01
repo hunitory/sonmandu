@@ -8,6 +8,7 @@ import BaseHashTags from './BaseHashTags';
 import Modal from './Modal';
 import ProfileBox from './ProfileBox';
 import SearchOptions from './SearchOptions';
+import BaseInputWrapper from './BaseInput';
 
 export {
   BaseHeader,
@@ -15,6 +16,7 @@ export {
   BaseFontCard,
   BaseLatterField,
   BaseHashTags,
+  BaseInputWrapper,
   Modal,
   ProfileBox,
   SearchOptions,

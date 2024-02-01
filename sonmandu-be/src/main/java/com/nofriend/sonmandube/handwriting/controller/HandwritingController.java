@@ -3,6 +3,7 @@ package com.nofriend.sonmandube.handwriting.controller;
 import com.nofriend.sonmandube.handwriting.application.HandwritingService;
 import com.nofriend.sonmandube.handwriting.controller.request.HandwritingApplicationRequest;
 import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionRequest;
+import com.nofriend.sonmandube.handwriting.controller.response.HandwritingResponse;
 import com.nofriend.sonmandube.handwriting.controller.response.SimpleHandwritingResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -45,6 +46,30 @@ public class HandwritingController {
             ) {
         List<SimpleHandwritingResponse> handwritingList = handwritingService.searchHandwriting(start, count, condition);
         return ResponseEntity.ok(handwritingList);
+    }
+
+    @GetMapping("/gallery/{handwritingId}")
+    public ResponseEntity<HandwritingResponse> getHandwritingDetails(@PathVariable Long handwritingId) {
+        // TODO : member 연결, member 정보 response에 포함
+        Long memberId = 1L;
+        HandwritingResponse handwritingResponse = handwritingService.getHandwritingDetails(memberId, handwritingId);
+        return ResponseEntity.ok(handwritingResponse);
+    }
+
+    @PatchMapping("/gallery/{handwritingId}/likes")
+    public ResponseEntity<Void> changeLikeStatus(@PathVariable Long handwritingId) {
+        // TODO : member 연결, member 정보 response에 포함
+        Long memberId = 1L;
+        handwritingService.changeLikeStatus(memberId, handwritingId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @PatchMapping("/gallery/{handwritingId}/download")
+    public ResponseEntity<Void> updateDownloadCount(@PathVariable Long handwritingId) {
+        // TODO : member 연결, member 정보 response에 포함
+        Long memberId = 1L;
+        handwritingService.updateDownloadCount(memberId, handwritingId);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

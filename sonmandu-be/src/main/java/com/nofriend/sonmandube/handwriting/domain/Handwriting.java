@@ -43,4 +43,36 @@ public class Handwriting {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "handwriting_application_id")
     private HandwritingApplication handwritingApplication;
+
+    public void upDownloadCount() {
+        this.downloadCount++;
+    }
+
+    public void upLikeCount() {
+        this.likeCount++;
+    }
+
+    public void downLikeCount() {
+        this.likeCount--;
+    }
+
+    public void upHitCount() {
+        this.hitCount++;
+    }
+
+    public void updateLastMonth(int lastMonth) {
+        this.lastMonth = lastMonth;
+    }
+
+    public void updateLastWeek(int lastWeek) {
+        this.lastWeek = lastWeek;
+    }
+
+    public void plusThisMonth(int weight) {
+        this.thisMonth += weight;
+    }
+
+    public void plusThisWeek(int weight) {
+        this.thisWeek += weight;
+    }
 }

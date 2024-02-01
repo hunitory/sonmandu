@@ -3,6 +3,7 @@
 import BaseHeader from './BaseHeader';
 import BaseButton from './BaseButton';
 import BaseFontCard from './BaseFontCard';
+import BaseStoryCard from './BaseStoryCard';
 import BaseLatterField from './BaseLatterTextField';
 import BaseHashTags from './BaseHashTags';
 import Modal from './Modal';
@@ -17,6 +18,7 @@ export {
   BaseHeader,
   BaseButton,
   BaseFontCard,
+  BaseStoryCard,
   BaseLatterField,
   BaseHashTags,
   BaseInputWrapper,

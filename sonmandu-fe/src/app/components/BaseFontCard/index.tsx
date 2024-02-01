@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './style';
 import Image from 'next/image';
-import { BaseHashTags, BaseLatterField } from 'components';
+import { BaseLatterField } from 'components';
 
 function BaseFontCard() {
   return (

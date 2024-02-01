@@ -63,7 +63,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
         memberRepository.save(newMember);
 
-        sendEmailToken(newMember);
+//        sendEmailToken(newMember);
     }
 
     private void sendEmailToken(Member newMember) throws MessagingException {

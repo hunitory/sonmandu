@@ -157,20 +157,21 @@ public class MemberController {
 //    -- PatchMapping
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/image")
-    public HttpStatus updateMemberInformation1(){
+    public HttpStatus updateMemberInformation1(@RequestParam String value){
+        log.info(value);
         return HttpStatus.OK;
     }
 
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/{informationType}")
-    public HttpStatus updateMemberInformation(@PathVariable @NotEmpty String informationType, @RequestBody String value, HttpServletRequest httpServletRequest){
+    public HttpStatus updateMemberInformation(@PathVariable @NotEmpty String informationType, @RequestBody ValueRequest valueRequest, HttpServletRequest httpServletRequest){
         log.info(informationType);
-        log.info(value);
+        log.info(valueRequest.getValue());
         log.info((String) httpServletRequest.getAttribute("memberId"));
 
         Long memberId = Long.valueOf(String.valueOf(httpServletRequest.getAttribute("memberId")));
 
-        memberService.updateMemberInformation(memberId, informationType, value);
+        memberService.updateMemberInformation(memberId, informationType, valueRequest.getValue());
         return HttpStatus.OK;
     }
 

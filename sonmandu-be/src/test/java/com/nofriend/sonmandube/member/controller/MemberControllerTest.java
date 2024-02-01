@@ -109,6 +109,19 @@ class MemberControllerTest {
     }
 
     @Test
+    @DisplayName("유저 정보 수정")
+    void testUpdateMemberInformation() throws Exception {
+        mockMvc.perform(
+                patch("/members/email")
+                        .with(csrf())
+                        .with(user("1").roles("USER"))
+                        .requestAttr("memberId", "1")
+                        .param("value", "213")
+        ).andExpect(status().isOk());
+
+    }
+
+    @Test
     void testDeleteMember() throws Exception {
         mockMvc.perform(
                 delete("/members")

@@ -4,21 +4,30 @@ import * as S from './style';
 interface BaseHasTagsProps {
   hashTagIdList: number[];
   direction: 'column' | 'row';
+  className?: string;
 }
 
-function BaseHashTags({ hashTagIdList, direction }: BaseHasTagsProps) {
+function BaseHashTags({
+  hashTagIdList,
+  direction,
+  className,
+}: BaseHasTagsProps) {
   const matchedHashTags = WHOLE_HASH_TAGES.filter(
     (hashTag) => hashTagIdList.includes(hashTag.id) && hashTag,
   );
 
   return (
-    <S.HashTagsWrapper direction={direction}>
+    <S.HashTagsWrapper direction={direction} className={className}>
       {matchedHashTags.map((hashTag) => (
-        <S.HashTag key={hashTag.id}>{hashTag.text}</S.HashTag>
+        <S.HashTag type="button" disabled={false} key={hashTag.id}>
+          {hashTag.text}
+        </S.HashTag>
       ))}
     </S.HashTagsWrapper>
   );
 }
+
+BaseHashTags.OneTag = S.HashTag;
 
 export default BaseHashTags;
 

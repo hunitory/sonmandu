@@ -1,3 +1,4 @@
+import BaseHashTags from '../BaseHashTags';
 import styled from 'styled-components';
 import { PALETTE, notoSansKr } from 'styles';
 
@@ -42,6 +43,14 @@ export const EctInfoVerticalContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
+`;
+
+export const StyledHashTags = styled(BaseHashTags)`
+  gap: 4px;
+  @media (max-width: 768px) {
+    flex-direction: row;
+  }
 `;
 
 export const IconWithNumberWrapper = styled.div`

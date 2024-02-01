@@ -71,7 +71,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         mimeMessageHelper.setTo(newMember.getEmail());
         mimeMessageHelper.setSubject("[손만두] 이메일 활성화");
         mimeMessageHelper.setText("<html><head></head>" +
-                "<body> <h1> 손만두 </h1> <a href='" + serverUrl +"/members/email-validation" +
+                "<body> <h1> 손만두 </h1> <a href='" + serverUrl +"/api/members/email-validation" +
                 "?memberId=" + newMember.getMemberId() +
                 "&emailToken=" + newMember.getEmailToken() + "'> 계정 활성화 버튼 </a> </body>" +
                 "</html>", true);

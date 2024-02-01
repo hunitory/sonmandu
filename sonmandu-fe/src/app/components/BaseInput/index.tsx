@@ -2,48 +2,23 @@ import React, {
   ChangeEvent,
   HTMLInputTypeAttribute,
   Ref,
-  createContext,
   forwardRef,
-  useContext,
 } from 'react';
 import * as S from './style';
 
-const InputContext = createContext({
-  id: '',
-  type: '',
-  value: '',
-  onChange(e: ChangeEvent<HTMLInputElement>) {},
-});
-
-interface BaseInputWrapperProps {
+interface BaseInputProps {
   id: string;
   type: HTMLInputTypeAttribute;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  children: React.ReactNode;
-}
-function BaseInputWrapper({
-  id,
-  type,
-  value,
-  onChange,
-  children,
-}: BaseInputWrapperProps) {
-  const valueForContext = { id, type, value, onChange };
-  return (
-    <InputContext.Provider value={valueForContext}>
-      {children}
-    </InputContext.Provider>
-  );
-}
-
-interface BaseInputProps {
   className?: string;
   placeholder?: string;
 }
 const BaseInput = forwardRef(
-  ({ className, placeholder }: BaseInputProps, ref: Ref<HTMLInputElement>) => {
-    const { id, type, value, onChange } = useContext(InputContext);
+  (
+    { id, type, value, onChange, className, placeholder }: BaseInputProps,
+    ref: Ref<HTMLInputElement>,
+  ) => {
     return (
       <S.DefaultStyleRemovedInput
         id={id}
@@ -59,11 +34,11 @@ const BaseInput = forwardRef(
 );
 
 interface BaseLabelProps {
+  id: string;
   className?: string;
   children?: React.ReactNode;
 }
-function BaseLabel({ className, children }: BaseLabelProps) {
-  const { id } = useContext(InputContext);
+function BaseLabel({ id, className, children }: BaseLabelProps) {
   return (
     <label htmlFor={id} className={className}>
       {children}
@@ -71,7 +46,24 @@ function BaseLabel({ className, children }: BaseLabelProps) {
   );
 }
 
-BaseInputWrapper.Input = BaseInput;
-BaseInputWrapper.Label = BaseLabel;
+interface BaseLabelWithInputProps {
+  id: string;
+  type: HTMLInputTypeAttribute;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  children?: React.ReactNode;
+}
+function BaseLabelWithInput(props: BaseLabelWithInputProps) {
+  const { id, type, value, onChange, children } = props;
+  return (
+    <BaseLabel id={id}>
+      {children}
+      <BaseInput id={id} type={type} value={value} onChange={onChange} />
+    </BaseLabel>
+  );
+}
 
-export default BaseInputWrapper;
+BaseLabelWithInput.Input = BaseInput;
+BaseLabelWithInput.Label = BaseLabel;
+
+export default BaseLabelWithInput;

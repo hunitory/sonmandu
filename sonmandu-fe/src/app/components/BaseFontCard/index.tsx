@@ -31,7 +31,7 @@ function BaseFontCard() {
             </S.IconWithNumberWrapper>
           </S.EctInfoVerticalContainer>
           <S.EctInfoVerticalContainer>
-            <BaseHashTags direction="column" hashTagIdList={[1, 2, 3]} />
+            <S.StyledHashTags direction="column" hashTagIdList={[1, 2, 3]} />
           </S.EctInfoVerticalContainer>
         </S.EtcInfomationWrapper>
       </S.FontCardContainer>

@@ -10,6 +10,8 @@ import ProfileBox from './ProfileBox';
 import ProfileFontCard from './ProfileFontCard';
 import ProfileFontCardMaking from './ProfileFontCardMaking';
 import ProfileTrophy from './ProfileTrophy';
+import SearchOptions from './SearchOptions';
+import BaseInputWrapper from './BaseInput';
 
 export {
   BaseHeader,
@@ -17,9 +19,11 @@ export {
   BaseFontCard,
   BaseLatterField,
   BaseHashTags,
+  BaseInputWrapper,
   Modal,
   ProfileBox,
   ProfileFontCard,
   ProfileFontCardMaking,
   ProfileTrophy,
+  SearchOptions,
 };

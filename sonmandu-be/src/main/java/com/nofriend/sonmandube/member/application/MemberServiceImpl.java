@@ -43,7 +43,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtProvider jwtProvider;
 
-    @Value("${server.url")
+    @Value("${server.url}")
     private String serverUrl;
 
     @Override
@@ -60,7 +60,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .build();
 
         memberRepository.save(newMember);
-        System.out.println(newMember.getMemberId());
+
         sendEmailToken(newMember);
     }
 
@@ -71,11 +71,12 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         mimeMessageHelper.setTo(newMember.getEmail());
         mimeMessageHelper.setSubject("[손만두] 이메일 활성화");
         mimeMessageHelper.setText("<html><head></head>" +
-                "<body> <h1> 손만두 </h1> <a href=" + serverUrl +"/members/email-validation" +
+                "<body> <h1> 손만두 </h1> <a href='" + serverUrl +"/members/email-validation" +
                 "?memberId=" + newMember.getMemberId() +
                 "&emailToken=" + newMember.getEmailToken() + "'> 계정 활성화 버튼 </a> </body>" +
                 "</html>", true);
 
+        System.out.println("server url " +  serverUrl);
 
         javaMailSender.send(mimeMailMessage);
     }

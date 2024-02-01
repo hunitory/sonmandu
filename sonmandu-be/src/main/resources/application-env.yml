@@ -12,3 +12,6 @@ s3:
 
 server:
   url: https://i10b111.p.ssafy.io
+
+jwt:
+  secret: dlksjfidsiojfoidsjfoijsdoijfoidsfoidjsoifdijgldfkgmlsffsdijfoijdsofijsdoijfodisjfoijsdoijfo

@@ -12,8 +12,11 @@ class SonmanduBeApplicationTests {
 
     @Test
     @DisplayName("의존성 주입 테스트")
-    void contextLoads(@Value("${jwt.secret}") String secret) {
-        Assert.isTrue(secret.equals("dlksjfidsiojfoidsjfoijsdoijfoidsfoidjsoifdij"), "secret에 ${jwt.secret} 주입 완료");
+    void contextLoads(@Value("${jwt.secret}") String secret, @Value("${server.url}") String serverUrl) {
+        Assert.notNull(secret, "secret in null");
+        System.out.println(secret);
+        Assert.isTrue(secret.equals("dlksjfidsiojfoidsjfoijsdoijfoidsfoidjsoifdijgldfkgmlsffsdijfoijdsofijsdoijfodisjfoijsdoijfo"), "secret에 ${jwt.secret} 주입 완료");
+        Assert.isTrue(serverUrl.equals("https://i10b111.p.ssafy.io"), "failure serverUrl injection");
     }
 
 

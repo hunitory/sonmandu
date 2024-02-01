@@ -2,6 +2,7 @@ package com.nofriend.sonmandube.member.controller.request;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,9 +13,10 @@ import java.awt.*;
 @Getter
 @Setter
 public class LoginRequest {
-    @Min(8) @Max(20)
+    @Size(min = 8, max = 20)
     private String id;
 
-    @Min(8) @Max(20)
+    @Size(min = 8, max = 20)
     private String password;
+
 }

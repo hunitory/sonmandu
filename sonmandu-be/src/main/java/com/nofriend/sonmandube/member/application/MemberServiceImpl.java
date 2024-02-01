@@ -11,11 +11,11 @@ import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.member.repository.MemberRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,7 +29,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -45,6 +45,8 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Value("${server.url}")
     private String serverUrl;
+    @Value("${sonmandu.email}")
+    private String sonmanduEmail;
 
     @Override
     @Transactional
@@ -67,7 +69,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private void sendEmailToken(Member newMember) throws MessagingException {
         MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, false, "UTF-8");
-        mimeMessageHelper.setFrom("sonmandu0103@gmail.com");
+        mimeMessageHelper.setFrom(sonmanduEmail);
         mimeMessageHelper.setTo(newMember.getEmail());
         mimeMessageHelper.setSubject("[손만두] 이메일 활성화");
         mimeMessageHelper.setText("<html><head></head>" +
@@ -136,27 +138,81 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     public MemberInformationResponse findMemberInformationAll(Long memberId) {
-        return null;
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow();
+
+        return MemberInformationResponse.builder()
+                .imageUrl(member.getImageUrl())
+                .nickname(member.getNickname())
+                .introduction(member.getIntroduction())
+                .badge(member.isBadge())
+                .build();
     }
 
     @Override
-    public void findMemberInformationId(String email, String name) {
+    public void findMemberInformationId(String email, String name) throws MessagingException {
+        Member member = memberRepository.findByEmailAndName(email, name)
+                .orElseThrow();
 
+        sendEmail(email, member.getId());
     }
 
-    @Override
-    public void findMemberInformationPassword(String email, String name, String id) {
+    private void sendEmail(String email, String id) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+        mimeMessageHelper.setFrom(sonmanduEmail);
+        mimeMessageHelper.setTo(email);
+        mimeMessageHelper.setSubject("[손만두] 아이디 찾기");
+        mimeMessageHelper.setText("아이디:" + id);
 
+        javaMailSender.send(mimeMessage);
+    }
+
+    @Transactional
+    @Override
+    public void findMemberInformationPassword(String email, String name, String id) throws MessagingException {
+        Member member = memberRepository.findByEmailAndNameAndId(email, name, id)
+                .orElseThrow();
+
+        String newPassword = generateString();
+
+        member.setPassword(passwordEncoder.encode(newPassword));
+
+        sendPassword(email, newPassword);
+    }
+
+    private void sendPassword(String email, String newPassword) throws MessagingException {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
+        mimeMessageHelper.setFrom(sonmanduEmail);
+        mimeMessageHelper.setTo(email);
+        mimeMessageHelper.setSubject("[손만두] 비밀번호 찾기");
+        mimeMessageHelper.setText("비밀번호:" + newPassword);
+
+        javaMailSender.send(mimeMessage);
+    }
+
+    private String generateString() {
+        int leftLimit = 48; // numeral '0'
+        int rightLimit = 122; // letter 'z'
+        int targetStringLength = 10;
+        Random random = new Random();
+
+        return random.ints(leftLimit, rightLimit + 1)
+                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .limit(targetStringLength)
+                .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+                .toString();
     }
 
     @Override
     public Boolean checkUniqueId(String id) {
-        return null;
+        return memberRepository.existsById(id);
     }
 
     @Override
     public Boolean checkUniqueNickname(String nickname) {
-        return null;
+        return memberRepository.existsByNickname(nickname);
     }
 
     @Override
@@ -173,14 +229,24 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         return HttpStatus.MOVED_PERMANENTLY;
     }
 
-    @Override
-    public void updateMemberInformation(Long memberId, String informationType, String value) {
 
+    @Override
+    @Transactional
+    public void updateMemberInformation(Long memberId, String informationType, String value) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow();
+
+        switch (informationType){
+            case "email" -> member.setEmail(value);
+            case "nickname" -> member.setNickname(value);
+            case "password" -> member.setPassword(passwordEncoder.encode(value));
+            case "introduction" -> member.setIntroduction(value);
+        }
     }
 
     @Override
     public void deleteMember(Long memberId) {
-
+        memberRepository.deleteById(memberId);
     }
 
     @Override

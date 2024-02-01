@@ -11,3 +11,5 @@ public class MemberInformationResponse {
     private boolean badge;
     private String introduction;
 }
+
+

@@ -2,8 +2,8 @@ spring:
   # H2 Database 설정
   datasource:
     driver-class-name: org.h2.Driver
-#    url: 'jdbc:h2:mem:test'   # H2 DB 연결 주소 (In-Memory Mode)
-    url: 'jdbc:h2:~/test'    # H2 DB 연결 주소 (Embedded Mode)
+    url: 'jdbc:h2:mem:test'   # H2 DB 연결 주소 (In-Memory Mode)
+#    url: 'jdbc:h2:~/test'    # H2 DB 연결 주소 (Embedded Mode)
     username: ${h2.username}        # H2 DB 접속 ID (사용자 지정)
     password: ${h2.password}  # H2 DB 접속 PW (사용자 지정)
   # H2 Console 설정
@@ -16,13 +16,9 @@ client:
   url: http://192.168.31.219:8080
 
 server:
-<<<<<<< HEAD
   url: http://192.168.31.219:8080
-=======
-  url: http://192.168.31.156:8080
 
 logging:
   level:
     root: info
 
->>>>>>> 03e7b84 (feat: member find informetion)

@@ -27,16 +27,21 @@ public class Member implements UserDetails {
     @Column(unique = true)
     private String id;
 
+    @Setter
     private String password;
 
     private String name;
 
+    @Setter
     private String nickname;
 
+    @Setter
     private String email;
 
+    @Setter
     private String imageUrl;
 
+    @Setter
     private String introduction;
 
     @Setter
@@ -45,6 +50,8 @@ public class Member implements UserDetails {
     private boolean isValidated;
 
     private String emailToken;
+
+    private boolean isBadge;
 
     @Transient
     private List<GrantedAuthority> authorities;

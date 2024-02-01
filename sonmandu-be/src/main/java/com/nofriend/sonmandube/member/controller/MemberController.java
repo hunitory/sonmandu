@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -100,18 +101,22 @@ public class MemberController {
      * 아닐 시 리턴되는 정보 없음
      */
     @GetMapping("")
-    public ResponseEntity<MemberInformationResponse> findMemberInformation(@RequestParam(required = false) Long memberId, @RequestParam(required = false) String email, @RequestParam(required = false) String name, @RequestParam(required = false) String id){
+    public ResponseEntity<MemberInformationResponse> findMemberInformation(@RequestParam(required = false) Long memberId, @RequestParam(required = false) String email, @RequestParam(required = false) String name, @RequestParam(required = false) String id) throws MessagingException {
         if(memberId != null && email == null && name == null && id == null){
             MemberInformationResponse memberInformationResponse = memberService.findMemberInformationAll(memberId);
+            log.info("find member info");
             return ResponseEntity.ok(memberInformationResponse);
         } else if (email == null || name == null){
+            log.info("find failure");
             return ResponseEntity.badRequest().build();
         }
 
         if(id == null){
+            log.info("find id");
             memberService.findMemberInformationId(email, name);
             return ResponseEntity.ok().build();
         }{
+            log.info("find password");
             memberService.findMemberInformationPassword(email, name, id);
             return ResponseEntity.ok().build();
         }
@@ -149,12 +154,21 @@ public class MemberController {
         return response;
     }
 
-    //-- PatchMapping
+//    -- PatchMapping
+    @PreAuthorize("hasRole('USER')")
+    @PatchMapping("/image")
+    public HttpStatus updateMemberInformation1(){
+        return HttpStatus.OK;
+    }
+
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/{informationType}")
-    public HttpStatus updateMemberInformation(@PathVariable @NotEmpty String informationType, @RequestParam @NotEmpty String value){
-        //TODO change memberId in token
-        Long memberId = -1L;
+    public HttpStatus updateMemberInformation(@PathVariable @NotEmpty String informationType, @RequestBody String value, HttpServletRequest httpServletRequest){
+        log.info(informationType);
+        log.info(value);
+        log.info((String) httpServletRequest.getAttribute("memberId"));
+
+        Long memberId = Long.valueOf(String.valueOf(httpServletRequest.getAttribute("memberId")));
 
         memberService.updateMemberInformation(memberId, informationType, value);
         return HttpStatus.OK;
@@ -164,10 +178,9 @@ public class MemberController {
 
     //TODO
     @PreAuthorize("hasRole('USER')")
-    @DeleteMapping("/")
-    public HttpStatus deleteMember(){
-        //TODO change memberId in token
-        Long memberId = -1L;
+    @DeleteMapping("")
+    public HttpStatus deleteMember(HttpServletRequest httpServletRequest){
+        Long memberId = Long.valueOf(String.valueOf(httpServletRequest.getAttribute("memberId")));
         memberService.deleteMember(memberId);
         return HttpStatus.OK;
     }

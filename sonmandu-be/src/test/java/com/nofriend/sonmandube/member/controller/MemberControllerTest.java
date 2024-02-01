@@ -18,8 +18,7 @@ import org.springframework.util.Assert;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -107,5 +106,18 @@ class MemberControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("qweqweqwe"))
                 .andDo(print());
+    }
+
+    @Test
+    void testDeleteMember() throws Exception {
+        mockMvc.perform(
+                delete("/members")
+                        .with(csrf())
+                        .with(user("1").roles("USER"))
+                        .requestAttr("memberId", "1")
+        ).andExpect(status().isOk());
+
+        Assert.isTrue(!memberRepository.existsById("1"), "delete member");
+
     }
 }

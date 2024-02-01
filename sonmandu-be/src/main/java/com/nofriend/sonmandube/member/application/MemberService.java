@@ -25,9 +25,9 @@ public interface MemberService {
 
     MemberInformationResponse findMemberInformationAll(Long memberId);
 
-    void findMemberInformationId(String email, String name);
+    void findMemberInformationId(String email, String name) throws MessagingException;
 
-    void findMemberInformationPassword(String email, String name, String id);
+    void findMemberInformationPassword(String email, String name, String id) throws MessagingException;
 
     Boolean checkUniqueId(String id);
 

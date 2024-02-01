@@ -29,6 +29,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath introduction = createString("introduction");
 
+    public final BooleanPath isBadge = createBoolean("isBadge");
+
     public final BooleanPath isValidated = createBoolean("isValidated");
 
     public final NumberPath<Long> memberId = createNumber("memberId", Long.class);

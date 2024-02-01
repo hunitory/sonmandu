@@ -19,7 +19,7 @@ public interface MemberService {
 
     void logout(Long memberId);
 
-    boolean checkValidPassword(String password);
+    boolean checkValidPassword(Long memberId, String password);
 
     MeInformationResponse findMeInformation(Long memberId);
 

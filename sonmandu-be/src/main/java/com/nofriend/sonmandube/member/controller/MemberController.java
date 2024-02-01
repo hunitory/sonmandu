@@ -2,6 +2,8 @@ package com.nofriend.sonmandube.member.controller;
 
 import com.nofriend.sonmandube.member.application.MemberService;
 import com.nofriend.sonmandube.member.controller.request.LoginRequest;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import com.nofriend.sonmandube.member.controller.request.*;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
@@ -11,9 +13,11 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +36,11 @@ public class MemberController {
     private final MemberService memberService;
     @Value("${client.url}")
     private String clientUrl;
+
+//    @GetMapping("/test")
+//    public HttpStatus test(Http) {
+//
+//    }
 
     //--- PostMapping
 
@@ -52,30 +61,32 @@ public class MemberController {
         return ResponseEntity.ok(loginResponse);
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @PostMapping("logout")
-    public HttpStatus logout(){
-        //TODO memberId in token
-        Long memberId = -1L;
+    @PreAuthorize("hasRole('USER')")
+    @PostMapping("/logout")
+    public HttpStatus logout(HttpServletRequest request){
+        Long memberId = Long.valueOf(String.valueOf(request.getAttribute("memberId")));
         memberService.logout(memberId);
         return HttpStatus.OK;
     }
 
     //비밀번호 일치 확인
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/valid-password")
-    public ResponseEntity<Boolean>  checkValidPassword(@Size(min = 8, max = 20) String password){
-        boolean checkValidPasswordResponse = memberService.checkValidPassword(password);
+    public ResponseEntity<Boolean>  checkValidPassword(@Size(min = 8, max = 20) String password, HttpServletRequest request){
+        Long memberId = Long.valueOf(String.valueOf(request.getAttribute("memberId")));
+        boolean checkValidPasswordResponse = memberService.checkValidPassword(memberId, password);
         return ResponseEntity.ok(checkValidPasswordResponse);
     }
 
 
 //-- GetMapping
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")
-    public ResponseEntity<MeInformationResponse> findMeInformation(){
-        //TODO memberId in token
-        Long memberId = -1L;
+    public ResponseEntity<MeInformationResponse> findMeInformation(HttpServletRequest request){
+        Long memberId = Long.valueOf(String.valueOf(request.getAttribute("memberId")));
         MeInformationResponse meInformationResponse = memberService.findMeInformation(memberId);
+        log.info(meInformationResponse.toString());
         return ResponseEntity.ok(meInformationResponse);
     }
 
@@ -139,6 +150,7 @@ public class MemberController {
     }
 
     //-- PatchMapping
+    @PreAuthorize("hasRole('USER')")
     @PatchMapping("/{informationType}")
     public HttpStatus updateMemberInformation(@PathVariable @NotEmpty String informationType, @RequestParam @NotEmpty String value){
         //TODO change memberId in token
@@ -151,6 +163,7 @@ public class MemberController {
     //---DeleteMapping
 
     //TODO
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/")
     public HttpStatus deleteMember(){
         //TODO change memberId in token

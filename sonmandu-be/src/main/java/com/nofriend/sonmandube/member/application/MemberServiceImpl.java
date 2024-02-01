@@ -105,18 +105,33 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     }
 
     @Override
+    @Transactional
     public void logout(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow();
 
+        member.setRefreshToken(null);
     }
 
     @Override
-    public boolean checkValidPassword(String password) {
-        return false;
+    public boolean checkValidPassword(Long memberId, String password) {
+        return memberRepository.findById(memberId)
+                .orElseThrow()
+                .getPassword()
+                .equals(password);
     }
 
     @Override
     public MeInformationResponse findMeInformation(Long memberId) {
-        return null;
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow();
+
+        return MeInformationResponse.builder()
+                .nickname(member.getNickname())
+                .id(member.getId())
+                .name(member.getName())
+                .email(member.getEmail())
+                .build();
     }
 
     @Override

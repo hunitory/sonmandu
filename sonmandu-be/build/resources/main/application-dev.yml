@@ -16,4 +16,13 @@ client:
   url: http://192.168.31.219:8080
 
 server:
+<<<<<<< HEAD
   url: http://192.168.31.219:8080
+=======
+  url: http://192.168.31.156:8080
+
+logging:
+  level:
+    root: info
+
+>>>>>>> 03e7b84 (feat: member find informetion)

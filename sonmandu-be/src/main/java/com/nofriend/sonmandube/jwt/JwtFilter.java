@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+@Slf4j
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
     private final JwtProvider jwtProvider;
@@ -24,6 +26,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if(StringUtils.hasText(accessToken) && jwtProvider.validateToken(accessToken) == JwtCode.ACCESS){
             Authentication authentication = jwtProvider.getAuthentication(accessToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            request.setAttribute("memberId", authentication.getName());
         } else if (StringUtils.hasText(accessToken) && jwtProvider.validateToken(accessToken) == JwtCode.EXPIRED){
             String refreshToken1 = request.getHeader("x-refresh-token");
             Authentication authentication = jwtProvider.getAuthentication(refreshToken1);
@@ -32,10 +35,11 @@ public class JwtFilter extends OncePerRequestFilter {
             if(jwtProvider.validateToken(refreshToken1) == JwtCode.ACCESS && refreshToken1.equals(refreshToken2)){
                 String newAccessToken = jwtProvider.generateToken(authentication);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-
+                request.setAttribute("memberId", authentication.getName());
                 response.setHeader(HttpHeaders.AUTHORIZATION, newAccessToken);
             }
         }
+
 
         filterChain.doFilter(request, response);
     }

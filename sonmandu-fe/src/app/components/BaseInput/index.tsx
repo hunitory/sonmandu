@@ -13,10 +13,21 @@ interface BaseInputProps {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   className?: string;
   placeholder?: string;
+  accept?: string;
+  hidden?: boolean;
 }
 const BaseInput = forwardRef(
   (
-    { id, type, value, onChange, className, placeholder }: BaseInputProps,
+    {
+      id,
+      type,
+      value,
+      onChange,
+      className,
+      placeholder,
+      accept,
+      hidden,
+    }: BaseInputProps,
     ref: Ref<HTMLInputElement>,
   ) => {
     return (
@@ -27,6 +38,8 @@ const BaseInput = forwardRef(
         onChange={onChange}
         placeholder={placeholder}
         className={className}
+        aria-hidden={hidden ? true : false}
+        accept={accept}
         ref={ref}
       />
     );
@@ -37,10 +50,32 @@ interface BaseLabelProps {
   id: string;
   className?: string;
   children?: React.ReactNode;
+  onDragEnter?: () => void;
+  onDragLeave?: () => void;
+  onDragOver?: () => void;
+  onDrop?: () => void;
+  role?: string;
 }
-function BaseLabel({ id, className, children }: BaseLabelProps) {
+function BaseLabel({
+  id,
+  className,
+  children,
+  role,
+  onDragEnter,
+  onDragLeave,
+  onDragOver,
+  onDrop,
+}: BaseLabelProps) {
   return (
-    <label htmlFor={id} className={className}>
+    <label
+      htmlFor={id}
+      className={className}
+      role={role}
+      onDragEnter={onDragEnter}
+      onDragLeave={onDragLeave}
+      onDragOver={onDragOver}
+      onDrop={onDrop}
+    >
       {children}
     </label>
   );

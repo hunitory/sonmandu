@@ -1,6 +1,7 @@
 package com.nofriend.sonmandube.handwriting.controller.request;
 
 import com.nofriend.sonmandube.handwriting.domain.HandwritingApplication;
+import com.nofriend.sonmandube.member.domain.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,10 +15,11 @@ public class HandwritingApplicationRequest {
 
     private List<Integer> tagIdList; // 태그
 
-    public HandwritingApplication toEntity(String imageUrl){
+    public HandwritingApplication toEntity(String imageUrl, Member member){
         return HandwritingApplication.builder()
                 .name(name)
                 .imageUrl(imageUrl)
+                .member(member)
                 .build();
     }
 }

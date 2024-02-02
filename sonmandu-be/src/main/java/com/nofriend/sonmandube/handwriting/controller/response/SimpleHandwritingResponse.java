@@ -2,8 +2,6 @@ package com.nofriend.sonmandube.handwriting.controller.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
-import com.nofriend.sonmandube.handwriting.domain.HandwritingTag;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -27,10 +25,11 @@ public class SimpleHandwritingResponse {
         return isLike;
     }
 
-    public static SimpleHandwritingResponse from(Handwriting handwriting) {
+    public static SimpleHandwritingResponse from(Handwriting handwriting, boolean isLike) {
         return SimpleHandwritingResponse.builder()
                 .handwritingId(handwriting.getHandwritingId())
                 .name(handwriting.getName())
+                .isLike(isLike)
                 .downloadUrl(handwriting.getDownloadUrl())
                 .hitCount(handwriting.getHitCount())
                 .likeCount(handwriting.getLikeCount())

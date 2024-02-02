@@ -34,14 +34,17 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     @Transactional
-    public void applyHandwriting(HandwritingApplicationRequest handwritingApplicationRequest, MultipartFile image) {
+    public void applyHandwriting(Long memberId, HandwritingApplicationRequest handwritingApplicationRequest, MultipartFile image) {
         // 이미지 저장
         FileDto savedImage = s3UploadService.saveFile(image, FileUtil.createFileName(image));
 
         // 신청서 저장
         HandwritingApplication handwritingApplication =
                 handwritingApplicationRepository.save(
-                    handwritingApplicationRequest.toEntity(savedImage.getUrl())
+                    handwritingApplicationRequest.toEntity(
+                            savedImage.getUrl(), // 저장된 이미지 URL
+                            Member.builder().memberId(memberId).build() // 신청한 회원
+                    )
                 );
 
         // 태그 저장
@@ -77,9 +80,22 @@ public class HandwritingServiceImpl implements HandwritingService{
      */
     @Override
     @Transactional
-    public List<SimpleHandwritingResponse> searchHandwriting(int start, int count, SearchConditionRequest condition) {
+    public List<SimpleHandwritingResponse> searchHandwriting(Long memberId, int start, int count, SearchConditionRequest condition) {
         List<Handwriting> handwritingList = handwritingRepository.findByDynamicConditions(start, count, condition);
-        return handwritingList.stream().map(SimpleHandwritingResponse::from).toList();
+        if(memberId == null) {
+            return handwritingList.stream().map(handwriting -> SimpleHandwritingResponse.from(handwriting, false)).toList();
+        }
+
+        List<SimpleHandwritingResponse> simpleHandwritingResponseList = new ArrayList<>();
+        for (int i=0; i<handwritingList.size(); i++) {
+            Handwriting handwriting = handwritingList.get(i);
+            boolean isLike = false;
+            if(handwritingLikeRepository.existsById(new HandwritingCountId(memberId, handwriting.getHandwritingId()))){
+                isLike = true;
+            }
+            simpleHandwritingResponseList.add(SimpleHandwritingResponse.from(handwriting, isLike));
+        }
+        return simpleHandwritingResponseList;
     }
 
     /*
@@ -88,14 +104,18 @@ public class HandwritingServiceImpl implements HandwritingService{
     @Override
     @Transactional
     public HandwritingResponse getHandwritingDetails(Long memberId, Long handwritingId) {
-        System.out.println(handwritingId);
         Handwriting handwriting = handwritingRepository.findById(handwritingId)
                 .orElseThrow(() -> new IdNotFoundException("손글씨 정보를 찾을 수 없습니다."));
 
         // 조회수 증가
-        updateHitCount(memberId, handwritingId);
-
-        return HandwritingResponse.from(handwriting);
+        boolean isLike = false;
+        if(memberId != null) {
+            updateHitCount(memberId, handwritingId);
+            if(handwritingLikeRepository.existsById(new HandwritingCountId(memberId, handwritingId))) {
+                isLike = true;
+            }
+        }
+        return HandwritingResponse.from(handwriting, isLike);
     }
 
     @Override
@@ -123,6 +143,13 @@ public class HandwritingServiceImpl implements HandwritingService{
     @Override
     @Transactional
     public void updateDownloadCount(Long memberId, Long handwritingId) {
+        // 비회원인 경우
+        if(memberId == null) {
+            updateCountWeight(HandwritingCountType.DOWNLOAD_UP, handwritingId);
+            return;
+        }
+
+        // 회원인 경우
         HandwritingCountId handwritingDownloadId = new HandwritingCountId(memberId, handwritingId);
         Optional<HandwritingDownload> download = handwritingDownloadRepository.findById(handwritingDownloadId);
         if(download.isEmpty()) {
@@ -201,7 +228,12 @@ public class HandwritingServiceImpl implements HandwritingService{
         List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberId(targetId);
 
         // 손글씨 별 좋아요 확인
-        // TODO : memberId 없을 경우 예외처리 필요
+        if(memberId == null) { // 비회원
+            return handwritingList.stream()
+                    .map(handwriting -> OthersHandwritingResponse.from(handwriting, false)).toList();
+        }
+
+        // 회원인 경우 좋아요 확인
         List<OthersHandwritingResponse> othersHandwritingResponseList = new ArrayList<>();
         for (int i=0; i<handwritingList.size(); i++) {
             Handwriting handwriting = handwritingList.get(i);
@@ -230,8 +262,21 @@ public class HandwritingServiceImpl implements HandwritingService{
     }
 
     @Override
-    public List<SimpleHandwritingResponse> getPopularHandwritingList() {
+    public List<SimpleHandwritingResponse> getPopularHandwritingList(Long memberId) {
         List<Handwriting> popularList = handwritingRepository.findTop10ByOrderByLastWeekDescCreateDateDesc();
-        return popularList.stream().map(SimpleHandwritingResponse::from).toList();
+        if(memberId == null) {
+            return popularList.stream().map(handwriting -> SimpleHandwritingResponse.from(handwriting, false)).toList();
+        }
+
+        List<SimpleHandwritingResponse> simpleHandwritingResponseList = new ArrayList<>();
+        for (int i=0; i<popularList.size(); i++) {
+            Handwriting handwriting = popularList.get(i);
+            boolean isLike = false;
+            if(handwritingLikeRepository.existsById(new HandwritingCountId(memberId, handwriting.getHandwritingId()))){
+                isLike = true;
+            }
+            simpleHandwritingResponseList.add(SimpleHandwritingResponse.from(handwriting, isLike));
+        }
+        return simpleHandwritingResponseList;
     }
 }

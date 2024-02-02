@@ -11,11 +11,11 @@ import java.util.List;
 
 public interface HandwritingService {
 
-    void applyHandwriting(HandwritingApplicationRequest handwritingApplicationRequest, MultipartFile image);
+    void applyHandwriting(Long memberId, HandwritingApplicationRequest handwritingApplicationRequest, MultipartFile image);
 
     void saveFont(String name, MultipartFile font);
 
-    List<SimpleHandwritingResponse> searchHandwriting(int start, int count, SearchConditionRequest condition);
+    List<SimpleHandwritingResponse> searchHandwriting(Long memberId, int start, int count, SearchConditionRequest condition);
 
     HandwritingResponse getHandwritingDetails(Long memberId, Long handwritingId);
 
@@ -33,5 +33,5 @@ public interface HandwritingService {
 
     RankingResponse getRankingList();
 
-    List<SimpleHandwritingResponse> getPopularHandwritingList();
+    List<SimpleHandwritingResponse> getPopularHandwritingList(Long memberId);
 }

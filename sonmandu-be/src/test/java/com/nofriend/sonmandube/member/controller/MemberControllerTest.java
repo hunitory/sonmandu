@@ -116,7 +116,8 @@ class MemberControllerTest {
                         .with(csrf())
                         .with(user("1").roles("USER"))
                         .requestAttr("memberId", "1")
-                        .param("value", "213")
+//                        .param("value", "213")
+                        .content("value1111")
         ).andExpect(status().isOk());
 
     }

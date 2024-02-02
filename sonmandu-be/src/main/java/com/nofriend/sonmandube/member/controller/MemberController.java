@@ -2,7 +2,6 @@ package com.nofriend.sonmandube.member.controller;
 
 import com.nofriend.sonmandube.member.application.MemberService;
 import com.nofriend.sonmandube.member.controller.request.LoginRequest;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import com.nofriend.sonmandube.member.controller.request.*;
@@ -13,18 +12,17 @@ import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
@@ -73,8 +71,8 @@ public class MemberController {
     //비밀번호 일치 확인
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/valid-password")
-    public ResponseEntity<Boolean>  checkValidPassword(@Size(min = 8, max = 20) String password, HttpServletRequest request){
-        Long memberId = Long.valueOf(String.valueOf(request.getAttribute("memberId")));
+    public ResponseEntity<Boolean>  checkValidPassword(@Size(min = 8, max = 20) String password, Authentication authentication){
+        Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
         boolean checkValidPasswordResponse = memberService.checkValidPassword(memberId, password);
         return ResponseEntity.ok(checkValidPasswordResponse);
     }
@@ -84,8 +82,8 @@ public class MemberController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")
-    public ResponseEntity<MeInformationResponse> findMeInformation(HttpServletRequest request){
-        Long memberId = Long.valueOf(String.valueOf(request.getAttribute("memberId")));
+    public ResponseEntity<MeInformationResponse> findMeInformation(Authentication authentication){
+        Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
         MeInformationResponse meInformationResponse = memberService.findMeInformation(memberId);
         log.info(meInformationResponse.toString());
         return ResponseEntity.ok(meInformationResponse);
@@ -157,21 +155,23 @@ public class MemberController {
 //    -- PatchMapping
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/image")
-    public HttpStatus updateMemberInformation1(@RequestParam String value){
-        log.info(value);
+    public HttpStatus updateMemberInformationImage(MultipartFile image, Authentication authentication){
+        log.info(image.getOriginalFilename());
+        Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
+        memberService.updateMemberInformationImage(memberId, image);
         return HttpStatus.OK;
     }
 
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/{informationType}")
-    public HttpStatus updateMemberInformation(@PathVariable @NotEmpty String informationType, @RequestBody ValueRequest valueRequest, HttpServletRequest httpServletRequest){
+    public HttpStatus updateMemberInformationCommon(@PathVariable @NotEmpty String informationType, @RequestBody String value, Authentication authentication){
         log.info(informationType);
-        log.info(valueRequest.getValue());
-        log.info((String) httpServletRequest.getAttribute("memberId"));
+        log.info(value);
+        log.info((String) authentication.getName());
 
-        Long memberId = Long.valueOf(String.valueOf(httpServletRequest.getAttribute("memberId")));
+        Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
 
-        memberService.updateMemberInformation(memberId, informationType, valueRequest.getValue());
+        memberService.updateMemberInformationCommon(memberId, informationType, value);
         return HttpStatus.OK;
     }
 

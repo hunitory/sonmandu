@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.nofriend.sonmandube.member.controller.MemberControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-02-01T22:14:08" hostname="iseungmin-ui-MacBookAir.local" time="1.074">
+<testsuite name="com.nofriend.sonmandube.member.controller.MemberControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-02-02T00:08:10" hostname="DESKTOP-LL7FDJ6" time="0.67">
   <properties/>
-  <testcase name="유저 정보 수정" classname="com.nofriend.sonmandube.member.controller.MemberControllerTest" time="1.074"/>
-  <system-out><![CDATA[07:13:57.192 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.nofriend.sonmandube.member.controller.MemberControllerTest]: MemberControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-07:13:57.478 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.nofriend.sonmandube.SonmanduBeApplication for test class com.nofriend.sonmandube.member.controller.MemberControllerTest
+  <testcase name="유저 정보 수정" classname="com.nofriend.sonmandube.member.controller.MemberControllerTest" time="0.67"/>
+  <system-out><![CDATA[09:08:04.226 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.nofriend.sonmandube.member.controller.MemberControllerTest]: MemberControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+09:08:04.369 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.nofriend.sonmandube.SonmanduBeApplication for test class com.nofriend.sonmandube.member.controller.MemberControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -13,31 +13,35 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.2)
 
-2024-02-02T07:13:58.146+09:00  INFO 39879 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : Starting MemberControllerTest using Java 17.0.9 with PID 39879 (started by seungmin in /Users/seungmin/mehot98/S10P12B111/sonmandu-be)
-2024-02-02T07:13:58.167+09:00  INFO 39879 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : The following 2 profiles are active: "env", "dev"
-2024-02-02T07:14:01.524+09:00  INFO 39879 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2024-02-02T07:14:01.743+09:00  INFO 39879 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 204 ms. Found 5 JPA repository interfaces.
-2024-02-02T07:14:03.088+09:00  INFO 39879 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2024-02-02T07:14:03.206+09:00  INFO 39879 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
-2024-02-02T07:14:03.253+09:00  INFO 39879 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2024-02-02T07:14:03.499+09:00  INFO 39879 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2024-02-02T07:14:03.532+09:00  INFO 39879 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2024-02-02T07:14:03.792+09:00  INFO 39879 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:test user=USER
-2024-02-02T07:14:03.798+09:00  INFO 39879 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2024-02-02T07:14:04.386+09:00  WARN 39879 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.nofriend.sonmandube.handwriting.domain.HandwritingTagId
-2024-02-02T07:14:04.387+09:00  WARN 39879 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.nofriend.sonmandube.handwriting.domain.HandwritingTagId
-2024-02-02T07:14:05.200+09:00  INFO 39879 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2024-02-02T07:14:05.269+09:00  INFO 39879 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2024-02-02T07:14:07.082+09:00  WARN 39879 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2024-02-02T07:14:07.733+09:00  INFO 39879 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@42e20500, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@12d76643, org.springframework.security.web.context.SecurityContextHolderFilter@43b41cb9, org.springframework.security.web.header.HeaderWriterFilter@64f55630, org.springframework.web.filter.CorsFilter@24a5ddd7, org.springframework.security.web.csrf.CsrfFilter@4ca6e265, org.springframework.security.web.authentication.logout.LogoutFilter@33ea437a, com.nofriend.sonmandube.jwt.JwtFilter@19266ca3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@65c97eeb, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@49825659, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4b3ea082, org.springframework.security.web.access.ExceptionTranslationFilter@71904ea8, org.springframework.security.web.access.intercept.AuthorizationFilter@5d6d6533]
-2024-02-02T07:14:08.166+09:00  INFO 39879 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:test'
-2024-02-02T07:14:08.278+09:00  INFO 39879 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2024-02-02T07:14:08.279+09:00  INFO 39879 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2024-02-02T07:14:08.281+09:00  INFO 39879 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2024-02-02T07:14:08.331+09:00  INFO 39879 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : Started MemberControllerTest in 10.692 seconds (process running for 12.823)
-2024-02-02T07:14:09.521+09:00  INFO 39879 --- [    Test worker] c.n.s.m.controller.MemberController      : email
-2024-02-02T07:14:09.522+09:00  INFO 39879 --- [    Test worker] c.n.s.m.controller.MemberController      : 213
-2024-02-02T07:14:09.522+09:00  INFO 39879 --- [    Test worker] c.n.s.m.controller.MemberController      : 1
+2024-02-02T09:08:04.844+09:00  INFO 22172 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : Starting MemberControllerTest using Java 21.0.1 with PID 22172 (started by SSAFY in C:\mehot98\S10P12B111\sonmandu-be)
+2024-02-02T09:08:04.848+09:00  INFO 22172 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : The following 2 profiles are active: "env", "dev"
+2024-02-02T09:08:05.605+09:00  INFO 22172 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-02T09:08:05.687+09:00  INFO 22172 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 72 ms. Found 5 JPA repository interfaces.
+2024-02-02T09:08:06.354+09:00  INFO 22172 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-02T09:08:06.448+09:00  INFO 22172 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-02-02T09:08:06.490+09:00  INFO 22172 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-02-02T09:08:06.749+09:00  INFO 22172 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-02T09:08:06.775+09:00  INFO 22172 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-02-02T09:08:07.021+09:00  INFO 22172 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:~/test user=USER
+2024-02-02T09:08:07.023+09:00  INFO 22172 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-02-02T09:08:07.455+09:00  WARN 22172 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.nofriend.sonmandube.handwriting.domain.HandwritingTagId
+2024-02-02T09:08:07.455+09:00  WARN 22172 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.nofriend.sonmandube.handwriting.domain.HandwritingTagId
+2024-02-02T09:08:08.250+09:00  INFO 22172 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-02T09:08:08.318+09:00  INFO 22172 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-02-02T09:08:09.575+09:00  WARN 22172 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-02T09:08:09.935+09:00  INFO 22172 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@74f1e112, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@412bb41f, org.springframework.security.web.context.SecurityContextHolderFilter@15c042fc, org.springframework.security.web.header.HeaderWriterFilter@a43a21e, org.springframework.web.filter.CorsFilter@446dbf7b, org.springframework.security.web.csrf.CsrfFilter@4f93816d, org.springframework.security.web.authentication.logout.LogoutFilter@42b4cce1, com.nofriend.sonmandube.jwt.JwtFilter@1cb09347, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7dee7914, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6559cbdd, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@673218b2, org.springframework.security.web.access.ExceptionTranslationFilter@31084f37, org.springframework.security.web.access.intercept.AuthorizationFilter@3b87c881]
+2024-02-02T09:08:10.309+09:00  INFO 22172 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:~/test'
+2024-02-02T09:08:10.407+09:00  INFO 22172 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2024-02-02T09:08:10.408+09:00  INFO 22172 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2024-02-02T09:08:10.409+09:00  INFO 22172 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2024-02-02T09:08:10.434+09:00  INFO 22172 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : Started MemberControllerTest in 5.919 seconds (process running for 7.141)
+2024-02-02T09:08:11.198+09:00  INFO 22172 --- [    Test worker] c.n.s.m.controller.MemberController      : email
+2024-02-02T09:08:11.198+09:00  INFO 22172 --- [    Test worker] c.n.s.m.controller.MemberController      : value1111
+2024-02-02T09:08:11.198+09:00  INFO 22172 --- [    Test worker] c.n.s.m.controller.MemberController      : 1
 ]]></system-out>
-  <system-err><![CDATA[]]></system-err>
+  <system-err><![CDATA[WARNING: A Java agent has been loaded dynamically (C:\Users\SSAFY\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.14.11\f9cb566608fbac6bc7bf54901a7aa11543a989ee\byte-buddy-agent-1.14.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+]]></system-err>
 </testsuite>

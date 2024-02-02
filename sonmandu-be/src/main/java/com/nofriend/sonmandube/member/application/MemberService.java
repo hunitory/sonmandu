@@ -6,11 +6,8 @@ import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import jakarta.mail.MessagingException;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.io.IOException;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface MemberService {
     void signup(SignupRequest signupRequest) throws MessagingException;
@@ -35,7 +32,9 @@ public interface MemberService {
 
     HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest);
 
-    void updateMemberInformation(Long memberId, String informationType, String value);
+    void updateMemberInformationCommon(Long memberId, String informationType, String value);
 
     void deleteMember(Long memberId);
+
+    void updateMemberInformationImage(Long memberId, MultipartFile image);
 }

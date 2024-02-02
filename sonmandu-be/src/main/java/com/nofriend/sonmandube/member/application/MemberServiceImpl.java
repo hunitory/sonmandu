@@ -9,13 +9,15 @@ import com.nofriend.sonmandube.member.controller.response.MemberInformationRespo
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.member.repository.MemberRepository;
+import com.nofriend.sonmandube.s3.S3UploadService;
+import com.nofriend.sonmandube.util.FileDto;
+import com.nofriend.sonmandube.util.FileUtil;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +30,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Random;
 import java.util.UUID;
@@ -42,6 +45,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private final JavaMailSender javaMailSender;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtProvider jwtProvider;
+    private final S3UploadService s3UploadService;
 
     @Value("${server.url}")
     private String serverUrl;
@@ -170,6 +174,17 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Transactional
     @Override
+    public void updateMemberInformationImage(Long memberId, MultipartFile image) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow();
+
+        FileDto savedImage = s3UploadService.saveFile(image, FileUtil.createFileName(image));
+
+        member.setImageUrl(savedImage.getUrl());
+    }
+
+    @Transactional
+    @Override
     public void findMemberInformationPassword(String email, String name, String id) throws MessagingException {
         Member member = memberRepository.findByEmailAndNameAndId(email, name, id)
                 .orElseThrow();
@@ -232,7 +247,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     @Transactional
-    public void updateMemberInformation(Long memberId, String informationType, String value) {
+    public void updateMemberInformationCommon(Long memberId, String informationType, String value) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow();
 

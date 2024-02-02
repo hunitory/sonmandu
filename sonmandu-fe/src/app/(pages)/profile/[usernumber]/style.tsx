@@ -8,13 +8,13 @@ export const ProfilePageWapper = styled.div`
   width: 100vw;
   height: fit-content;
   display: flex;
-  padding: 4vw 0 0 12vw;
+  padding: 4vw 0 0 11vw;
 `;
 
 export const ProfileWrapper = styled.div`
-  width: 70vw;
+  width: 68vw;
   height: fit-content;
-  gap: 13%;
+  gap: 15%;
   display: grid;
   grid-template-columns: clamp(100px, 20vw, 380px) 1fr;
   @media only screen and (max-width: 1150px) {
@@ -81,13 +81,13 @@ export const ProfileIndexDiv = styled.div`
   height: fit-content;
   display: flex;
   flex-direction: column;
-  gap: 1vw;
+  gap: 0.5vw;
   align-items: flex-end;
   padding-right: 30px;
-`;
-
-export const ProfileIndexSpan = styled.span`
-  font-size: 1.5vw;
+  span {
+    font-size: clamp(18.5px, 1.5vw, 21px);
+    font-weight: ${notoSansKr.bold.style.fontWeight};
+  }
 `;
 
 // --------------------좌우 구분----------------------
@@ -147,10 +147,10 @@ export const EditButton = styled(BaseButton)`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.3vw 1vw;
+  padding: clamp(4px, 0.3vw, 10px) clamp(9px, 0.8vw, 20px);
   border: 1px solid ${PALETTE.LIGHT_BLACK};
   color: ${PALETTE.LIGHT_BLACK};
-  font-size: clamp(8px, 1vw, 20px);
+  font-size: clamp(12px, 1vw, 20px);
   font-weight: ${notoSansKr.medium.style.fontWeight};
 `;
 
@@ -198,23 +198,23 @@ export const ProfileHandwritingsSpan2 = styled.span`
 `;
 
 export const ProfileHandwritingsDiv = styled.div`
+  padding: 0 1vw;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   row-gap: 2vw;
-  column-gap: 0.5vw;
   margin: 26px 0 56px 0;
   place-items: center;
-  @media screen and (min-width: 1500px) {
-    place-items: initial;
-  }
 `;
 
 // --------------------손글씨 이야기-------------------------
 
 export const ProfileHandwritingStoriesWrapper = styled.div`
-  width: 100%;
-  height: fit-content;
-  display: flex;
+  padding: 0 1vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  row-gap: 2vw;
+  margin: 26px 0 56px 0;
+  place-items: center;
 `;
 
 export const ProfileHandwritingStoriesSpanDiv = styled.div`
@@ -244,4 +244,16 @@ export const ProfileHandwritingStoriesSpan2 = styled.span`
   }
 `;
 
-export const ProfileHandwritingStoriesDiv = styled.div``;
+export const ProfileHandwritingStoriesDiv = styled.div`
+  padding: 0 1vw;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  row-gap: 2vw;
+  margin: 26px 0 56px 0;
+  place-items: center;
+`;
+
+export const BaseStoryCardWrapper = styled.div`
+  width: 300px;
+  height: 497px;
+`;

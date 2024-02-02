@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from './_style';
+import * as S from './style';
 
 export default function HomeLayout({
   children,

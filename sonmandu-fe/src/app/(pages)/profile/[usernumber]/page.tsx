@@ -2,11 +2,12 @@
 
 import React from 'react';
 import * as S from './style';
-import ProfileBox from 'components/ProfileBox';
+import { ProfileBox } from 'components';
 import { BaseButton } from 'components';
-import ProfileFontCard from 'components/ProfileFontCard';
-import ProfileFontCardMaking from 'components/ProfileFontCardMaking';
-import ProfileTrophy from 'components/ProfileTrophy';
+import { BaseStoryCard } from 'components';
+import { ProfileFontCardMaking } from 'components';
+import { ProfileTrophy } from 'components';
+import { ProfileFontCard } from 'components';
 import { useRouter } from 'next/navigation';
 
 interface ProfileBoxProps {
@@ -158,9 +159,9 @@ export default function ProfilePage() {
           </S.ProfileBoxDiv>
           <S.ProfileIndexWrapper>
             <S.ProfileIndexDiv>
-              <S.ProfileIndexSpan>소개</S.ProfileIndexSpan>
-              <S.ProfileIndexSpan>제작한 글씨</S.ProfileIndexSpan>
-              <S.ProfileIndexSpan>작성한 이야기</S.ProfileIndexSpan>
+              <span>소개</span>
+              <span>제작한 글씨</span>
+              <span>작성한 이야기</span>
             </S.ProfileIndexDiv>
           </S.ProfileIndexWrapper>
         </S.ProfileLeftDiv>
@@ -228,19 +229,27 @@ export default function ProfilePage() {
           <S.Line />
         </S.ProfileHandwritingsWrapper>
 
-        <S.ProfileHandwritingStoriesWrapper>
-          <S.ProfileHandwritingStoriesSpanDiv>
-            <S.ProfileHandwritingStoriesSpan1>
+        <S.ProfileHandwritingsWrapper>
+          <S.ProfileHandwritingsSpanDiv>
+            <S.ProfileHandwritingsSpan1>
               작성한 이야기
-            </S.ProfileHandwritingStoriesSpan1>
-            <S.ProfileHandwritingStoriesSpan2>
-              제작한 개수
-            </S.ProfileHandwritingStoriesSpan2>
-          </S.ProfileHandwritingStoriesSpanDiv>
+            </S.ProfileHandwritingsSpan1>
+            <S.ProfileHandwritingsSpan2>
+              {handwritingStories.length}
+            </S.ProfileHandwritingsSpan2>
+          </S.ProfileHandwritingsSpanDiv>
           <S.ProfileHandwritingStoriesDiv>
-            {/* 이야기 카드들 */}
+            {handwritingStories.map((handwritingStory) => {
+              return (
+                <S.BaseStoryCardWrapper
+                  key={handwritingStory.handwritingStoryId}
+                >
+                  <BaseStoryCard key={handwritingStory.handwritingStoryId} />;
+                </S.BaseStoryCardWrapper>
+              );
+            })}
           </S.ProfileHandwritingStoriesDiv>
-        </S.ProfileHandwritingStoriesWrapper>
+        </S.ProfileHandwritingsWrapper>
       </S.ProfileRightWrapper>
     </S.ProfileWrapper>
   );

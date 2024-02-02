@@ -1,5 +1,5 @@
-import Image from 'next/image';
 import styled from 'styled-components';
+import Image from 'next/image';
 import { PALETTE, notoSansKr } from 'styles';
 
 export const HeaderWrapper = styled.header`

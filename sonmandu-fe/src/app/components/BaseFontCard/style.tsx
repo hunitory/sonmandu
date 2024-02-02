@@ -1,5 +1,5 @@
-import BaseHashTags from '../BaseHashTags';
 import styled from 'styled-components';
+import BaseHashTags from '../BaseHashTags';
 import { PALETTE, notoSansKr } from 'styles';
 
 export const FontCardWrapper = styled.li`

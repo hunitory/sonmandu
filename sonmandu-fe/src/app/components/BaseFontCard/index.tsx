@@ -1,14 +1,14 @@
 import React from 'react';
 import * as S from './style';
 import Image from 'next/image';
-import { BaseLatterField } from 'components';
+import { BaseLetterField } from 'components';
 
 function BaseFontCard() {
   return (
     <S.FontCardWrapper>
       <S.FontCardContainer>
         <S.FontName>글씨 이름</S.FontName>
-        <BaseLatterField latterImgUrl="/image/letter-1.png" />
+        <BaseLetterField letterImgUrl="/image/letter-1.png" />
         <S.EtcInfomationWrapper>
           <S.EctInfoVerticalContainer>
             <S.IconWithNumberWrapper>

@@ -20,30 +20,27 @@ type ProfileBoxProps = {
  * @returns
  */
 
-
 export default function ProfileBox(props: ProfileBoxProps) {
   const { src, nickname, badge, fontSize, className } = props;
   return (
     <S.ProfileBoxWrapper className={className}>
       <S.ProfileImageWrapper>
         <div>
-          {src &&
+          {src && (
             <Image
               src={src}
               alt="#"
               fill
               priority
-              sizes='10vw'
-              style={{objectFit:"cover"}}
+              sizes="10vw"
+              style={{ objectFit: 'cover' }}
             />
-          }
+          )}
         </div>
       </S.ProfileImageWrapper>
       <S.BadgeNameDiv fontSize={fontSize}>
         <S.BadgeWrapper fontSize={fontSize}>
-          {badge && (
-            <Image src="/image/weekly-medal.svg" alt="#" fill />
-          )}
+          {badge && <Image src="/image/weekly-medal.svg" alt="#" fill />}
         </S.BadgeWrapper>
         <span>{nickname}</span>
       </S.BadgeNameDiv>

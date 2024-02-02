@@ -8,9 +8,9 @@ type BaseButtonProps =
       ref?: Ref<HTMLButtonElement>;
       children: React.ReactNode;
       type: 'submit' | 'button' | 'reset';
-      onClick?: () => void;
-      onFocus?: () => void;
-      onBlur?: () => void;
+      onClick?: (...args: any[]) => void;
+      onFocus?: (...args: any[]) => void;
+      onBlur?: (...args: any[]) => void;
       disabled: false;
       className?: string;
     }
@@ -18,9 +18,9 @@ type BaseButtonProps =
       ref?: Ref<HTMLButtonElement>;
       children: React.ReactNode;
       type: 'submit' | 'button' | 'reset';
-      onClick?: () => void;
-      onFocus?: () => void;
-      onBlur?: () => void;
+      onClick?: (...args: any[]) => void;
+      onFocus?: (...args: any[]) => void;
+      onBlur?: (...args: any[]) => void;
       disabled: true;
       className?: string;
     };

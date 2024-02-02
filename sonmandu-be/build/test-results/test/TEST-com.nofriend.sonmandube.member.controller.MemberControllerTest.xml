@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 1e329f9 (text: add text code)
 <testsuite name="com.nofriend.sonmandube.member.controller.MemberControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-02-11T03:08:07" hostname="iseungmin-ui-MacBookAir.local" time="2.6">
@@ -15,6 +16,8 @@
 12:07:56.166 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.nofriend.sonmandube.SonmanduBeApplication for test class com.nofriend.sonmandube.member.controller.MemberControllerTest
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> e8fb302 (feat: findByMemeberInformation, show tropy info)
 <testsuite name="com.nofriend.sonmandube.member.controller.MemberControllerTest" tests="6" skipped="0" failures="6" errors="0" timestamp="2024-02-02T04:21:48" hostname="DESKTOP-LL7FDJ6" time="0.037">
   <properties/>
   <testcase name="유저 정보 수정" classname="com.nofriend.sonmandube.member.controller.MemberControllerTest" time="0.005">
@@ -633,9 +636,12 @@ Caused by: org.springframework.data.mapping.PropertyReferenceException: No prope
   </testcase>
   <system-out><![CDATA[13:21:43.512 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.nofriend.sonmandube.member.controller.MemberControllerTest]: MemberControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
 13:21:43.654 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.nofriend.sonmandube.SonmanduBeApplication for test class com.nofriend.sonmandube.member.controller.MemberControllerTest
+<<<<<<< HEAD
 >>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
 =======
 >>>>>>> 1e329f9 (text: add text code)
+=======
+>>>>>>> e8fb302 (feat: findByMemeberInformation, show tropy info)
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -645,6 +651,7 @@ Caused by: org.springframework.data.mapping.PropertyReferenceException: No prope
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.2)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -826,6 +833,8 @@ MockHttpServletResponse:
   <system-err><![CDATA[]]></system-err>
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> e8fb302 (feat: findByMemeberInformation, show tropy info)
 2024-02-02T13:21:44.110+09:00  INFO 15980 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : Starting MemberControllerTest using Java 21.0.1 with PID 15980 (started by SSAFY in C:\mehot98\S10P12B111\sonmandu-be)
 2024-02-02T13:21:44.113+09:00  INFO 15980 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : The following 2 profiles are active: "env", "prod"
 2024-02-02T13:21:44.847+09:00  INFO 15980 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
@@ -1671,7 +1680,10 @@ Unconditional classes:
 
 
 ]]></system-err>
+<<<<<<< HEAD
 >>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
 =======
 >>>>>>> 1e329f9 (text: add text code)
+=======
+>>>>>>> e8fb302 (feat: findByMemeberInformation, show tropy info)
 </testsuite>

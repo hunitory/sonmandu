@@ -10,5 +10,9 @@ import java.util.List;
 
 @Repository
 public interface TrophyRepository extends JpaRepository<Trophy, TrophyId> {
+<<<<<<< HEAD
+=======
+
+>>>>>>> e8fb302 (feat: findByMemeberInformation, show tropy info)
     List<TrophyIdMapping> findTop8IdByMemberMemberIdOrderByTrophyIdCreateDate(Long member_memberId);
 }

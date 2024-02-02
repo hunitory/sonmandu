@@ -48,7 +48,10 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     private final MemberRepository memberRepository;
     private final TrophyRepository trophyRepository;
+<<<<<<< HEAD
     private final EmailTokenRepository emailTokenRepository;
+=======
+>>>>>>> e8fb302 (feat: findByMemeberInformation, show tropy info)
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -85,6 +88,11 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .build();
 
         memberRepository.save(newMember);
+<<<<<<< HEAD
+=======
+
+        sendEmailToken(newMember);
+>>>>>>> e8fb302 (feat: findByMemeberInformation, show tropy info)
     }
 
     public Long sendEmailToken(@Email String email) throws MessagingException {

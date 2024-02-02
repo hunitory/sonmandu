@@ -6,5 +6,5 @@ export default function FontDetailLayout({
 }: {
   children: Readonly<React.ReactNode>;
 }) {
-  return <S.FontDetailMainWrapper>{children}</S.FontDetailMainWrapper>;
+  return <S.MainWrapper>{children}</S.MainWrapper>;
 }

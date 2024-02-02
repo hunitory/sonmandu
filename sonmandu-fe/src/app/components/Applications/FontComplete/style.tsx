@@ -1,7 +1,6 @@
 import { PALETTE, notoSansKr } from 'styles';
 import BaseButton from '../../BaseButton';
-import styled from 'styled-components'
-
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -11,7 +10,7 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   gap: 50px;
   @media (max-width: 900px) {
-    gap: 80px
+    gap: 80px;
   }
 `;
 
@@ -38,7 +37,7 @@ export const ContentText = styled.div`
   font-weight: ${notoSansKr.regular.style.fontWeight};
   color: ${PALETTE.LIGHT_BLACK};
   padding: 10px;
-  span{
+  span {
     font-weight: ${notoSansKr.bold.style.fontWeight};
   }
 `;

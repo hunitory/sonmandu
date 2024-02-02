@@ -1,6 +1,6 @@
 import { PALETTE, notoSansKr } from 'styles';
 import BaseButton from '../../BaseButton';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -8,12 +8,30 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   gap: 50px;
   @media (max-width: 900px) {
-    gap: 80px
+    gap: 80px;
   }
 `;
 
+export const ContentFontNameWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+`;
+
+export const ContentFontNametTitle = styled.div`
+  color: ${PALETTE.MAIN_BLACK};
+  font-size: 24px;
+  font-weight: ${notoSansKr.bold.style.fontWeight};
+`;
+
+export const ContentFontNametContent = styled.div`
+  color: ${PALETTE.LIGHT_BLACK};
+  font-size: 15px;
+  font-weight: ${notoSansKr.regular.style.fontWeight};
+`
 
 export const ButtonWrapper = styled.div`
   width: 100%;

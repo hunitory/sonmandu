@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   gap: 50px;
   @media (max-width: 900px) {
-    gap: 80px
+    gap: 80px;
   }
 `;
 /*----------- Content -----------*/
@@ -22,30 +22,17 @@ export const ContentWrapper = styled.div`
   justify-content: space-between;
 `;
 
-// export const ContentFileUpload = styled.div`
-//   width: 600px;
-//   height: 220px;
-//   border-radius: 15px;
-//   border: 3px dashed ${PALETTE.MAIN_ORANGE};
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-// `;
-
 export const ContentFileUpload = styled.input.attrs({
-  type: 'file'
+  type: 'file',
+  accept: '.png,.pdf',
 })`
-  // 파일 인풋의 기본 스타일을 숨기기
   opacity: 0;
   overflow: hidden;
   position: absolute;
   z-index: -1;
 
-  // 레이블과 함께 사용할 경우 레이블 스타일링 추가
   & + label {
     cursor: pointer;
-    // ... 레이블의 나머지 스타일
     width: 600px;
     height: 220px;
     border-radius: 15px;
@@ -54,16 +41,15 @@ export const ContentFileUpload = styled.input.attrs({
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: pointer; // 사용자가 클릭할 수 있음을 나타내는 커서 스타일
+    cursor: pointer;
   }
 `;
-
 
 export const ContentFileUploadTextbold = styled.div`
   padding-top: 20px;
   font-weight: ${notoSansKr.bold.style.fontWeight};
   font-size: 20px;
-`
+`;
 
 export const ContentFileUploadText = styled.div`
   color: ${PALETTE.LIGHT_BLACK};
@@ -72,7 +58,7 @@ export const ContentFileUploadText = styled.div`
   span {
     font-weight: ${notoSansKr.bold.style.fontWeight};
   }
-`
+`;
 
 export const ContentUploadedFilesWrapper = styled.div`
   width: 600px;
@@ -80,7 +66,6 @@ export const ContentUploadedFilesWrapper = styled.div`
   flex-direction: column;
   align-items: center;
 `;
-
 
 export const ContentUploadedFileTitleWrapper = styled.div`
   display: flex;
@@ -108,15 +93,15 @@ export const ContentUploadedFile = styled.div`
 `;
 
 export const ContentUploadedFileCancelButton = styled(BaseButton)`
-    width: 26px;
-    height: 26px;
-    background-color: ${PALETTE.SUB_WHITE};
-    border-radius: 50px;
-    display: flex;
-    justify-content:center;
-    align-items:center;
-    cursor: pointer;
-    padding-bottom: 2px;
+  width: 26px;
+  height: 26px;
+  background-color: ${PALETTE.SUB_WHITE};
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding-bottom: 2px;
 `;
 /*----------- Button -----------*/
 export const ButtonWrapper = styled.div`

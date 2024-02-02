@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import Image from 'next/image';
 import * as Styled from './style';
 
@@ -9,6 +10,7 @@ interface FontFileUpload {
 
 export default function FontFileUpload({ onNext, onBack }: FontFileUpload) {
   const DownloadURL = '/image/FileUpload.png';
+  /* 이걸 recoil을 사용해야 할 것 같음*/
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,12 +28,15 @@ export default function FontFileUpload({ onNext, onBack }: FontFileUpload) {
     event.preventDefault();
     event.stopPropagation();
     if (event.dataTransfer.files) {
-      setUploadedFiles([...uploadedFiles, ...Array.from(event.dataTransfer.files)]);
+      setUploadedFiles([
+        ...uploadedFiles,
+        ...Array.from(event.dataTransfer.files),
+      ]);
     }
   };
 
   const handleRemoveFile = (fileToRemove: File) => {
-    setUploadedFiles(uploadedFiles.filter(file => file !== fileToRemove));
+    setUploadedFiles(uploadedFiles.filter((file) => file !== fileToRemove));
   };
 
   return (
@@ -41,21 +46,33 @@ export default function FontFileUpload({ onNext, onBack }: FontFileUpload) {
           id="file-upload"
           onChange={handleFileUpload}
         />
-        <label htmlFor="file-upload" onDragOver={handleDragOver} onDrop={handleDrop}>
-          <Image src={DownloadURL} alt='다운로드' width={50} height={50}/>
-          <Styled.ContentFileUploadTextbold>자료 이미지를 업로드 해주세요.</Styled.ContentFileUploadTextbold>
-          <Styled.ContentFileUploadText>배경이 없는 <span>원본 화질</span>로 업로드 해주세요. </Styled.ContentFileUploadText>
+        <label
+          htmlFor="file-upload"
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          onDragLeave={handleDrop}
+          onDragEnter={handleDrop}
+        >
+          <Image src={DownloadURL} alt="다운로드" width={50} height={50} />
+          <Styled.ContentFileUploadTextbold>
+            자료 이미지를 업로드 해주세요.
+          </Styled.ContentFileUploadTextbold>
+          <Styled.ContentFileUploadText>
+            배경이 없는 <span>원본 화질</span>로 업로드 해주세요.{' '}
+          </Styled.ContentFileUploadText>
         </label>
         <Styled.ContentUploadedFilesWrapper>
-          <Styled.ContentUploadedFileTitle>업로드 된 파일</Styled.ContentUploadedFileTitle>
+          <Styled.ContentUploadedFileTitle>
+            업로드 된 파일
+          </Styled.ContentUploadedFileTitle>
           <Styled.ContentUploadedFileList>
             {uploadedFiles.map((file, index) => (
               <Styled.ContentUploadedFile key={index}>
                 {file.name}
-                <Styled.ContentUploadedFileCancelButton 
-                type='button' 
-                disabled={false} 
-                onClick={() => handleRemoveFile(file)}
+                <Styled.ContentUploadedFileCancelButton
+                  type="button"
+                  disabled={false}
+                  onClick={() => handleRemoveFile(file)}
                 >
                   X
                 </Styled.ContentUploadedFileCancelButton>
@@ -68,8 +85,8 @@ export default function FontFileUpload({ onNext, onBack }: FontFileUpload) {
             <Styled.BackButtonText>이전 단계</Styled.BackButtonText>
           </Styled.BackButton>
           <Styled.NextButton onClick={onNext} type="button" disabled={false}>
-          {/* <Styled.NextButton onClick={onNext} type="button" disabled={uploadedFiles.length === 0}> */}
-            <Styled.NextButtonText>신청하기</Styled.NextButtonText>
+            {/* <Styled.NextButton onClick={onNext} type="button" disabled={uploadedFiles.length === 0}> */}
+            <Styled.NextButtonText>다음 단계</Styled.NextButtonText>
           </Styled.NextButton>
         </Styled.ButtonWrapper>
       </Styled.ContentWrapper>

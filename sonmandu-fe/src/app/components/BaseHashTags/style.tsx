@@ -1,5 +1,5 @@
-import { BaseButton } from 'components';
 import styled from 'styled-components';
+import { BaseButton } from 'components';
 import { PALETTE } from 'styles';
 
 export const HashTagsWrapper = styled.div<{ direction: string }>`

@@ -1,6 +1,5 @@
-import Image from 'next/image';
-import BaseButton from '../../../BaseButton';
 import styled from 'styled-components';
+import BaseButton from '../../../BaseButton';
 import { PALETTE, notoSansKr } from 'styles';
 
 export const HamburgerWrapper = styled(BaseButton)`

@@ -1,5 +1,5 @@
-import ProfileBox from '../ProfileBox';
 import styled from 'styled-components';
+import ProfileBox from '../ProfileBox';
 import { PALETTE, notoSansKr } from 'styles';
 
 export const StoryCardWrapper = styled.li`

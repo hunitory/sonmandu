@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LatterImageArea = styled.div`
+export const LetterImageArea = styled.div`
   padding-top: 64.25%;
   position: relative;
 

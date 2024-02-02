@@ -1,7 +1,9 @@
 'use client';
 
 import styled from 'styled-components';
+import * as Comp from '@/components';
 import { PALETTE, notoSansKr } from 'styles';
+import Link from 'next/link';
 
 export const TitleSection = styled.section`
   display: flex;
@@ -53,7 +55,7 @@ export const OtherUserInteractionsWrapper = styled(DefaultWrapper)`
   }
 `;
 
-export const OrangeIconWiText = styled(DefaultIconWithText)`
+export const OrangeIconWiText = styled(Comp.BaseButton)`
   span {
     color: ${PALETTE.MAIN_ORANGE};
     width: fit-content;
@@ -66,4 +68,16 @@ export const OrangeIconWithTextsWrapper = styled(DefaultWrapper)`
   flex-direction: column;
   justify-content: start;
   align-items: start;
+`;
+
+export const CustomProfileBox = styled.div`
+  display: inline-block;
+  width: 100%;
+  height: 72px;
+  img {
+    width: 72px;
+    height: 72px;
+  }
+
+  background-color: red;
 `;

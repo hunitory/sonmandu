@@ -2,23 +2,23 @@ import React from 'react';
 import * as S from './styled';
 import Image from 'next/image';
 
-interface BaseLatterFieldProps {
-  latterImgUrl: string;
+interface BaseLetterFieldProps {
+  letterImgUrl: string;
 }
 
-function BaseLatterField({ latterImgUrl }: BaseLatterFieldProps) {
+function BaseLetterField({ letterImgUrl }: BaseLetterFieldProps) {
   return (
-    <S.LatterImageArea>
+    <S.LetterImageArea>
       <Image
-        src={latterImgUrl}
+        src={letterImgUrl}
         alt="편지지"
         fill={true}
         sizes="100vw"
         quality={50}
       />
       <S.TextField placeholder="글씨를 편지지에 써보세요!"></S.TextField>
-    </S.LatterImageArea>
+    </S.LetterImageArea>
   );
 }
 
-export default BaseLatterField;
+export default BaseLetterField;

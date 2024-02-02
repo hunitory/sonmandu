@@ -1,10 +1,21 @@
 import React from 'react';
 import * as S from './style';
 
-export default function FontDetailLayout({
-  children,
+function FontDetailLayout({
+  FontInfomation,
+  FontTesting,
 }: {
-  children: Readonly<React.ReactNode>;
+  FontInfomation: React.ReactNode;
+  FontTesting: React.ReactNode;
 }) {
-  return <S.MainWrapper>{children}</S.MainWrapper>;
+  return (
+    <S.MainWrapper>
+      <S.MainContainer>
+        {FontInfomation}
+        {FontTesting}
+      </S.MainContainer>
+    </S.MainWrapper>
+  );
 }
+
+export default FontDetailLayout;

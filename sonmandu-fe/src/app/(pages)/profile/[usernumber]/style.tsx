@@ -9,9 +9,8 @@ export const ProfilePageWapper = styled.div`
   height: fit-content;
   display: flex;
   padding: 4vw 0 0 12vw;
-  `;
-  // justify-content: center;
-  
+`;
+
 export const ProfileWrapper = styled.div`
   width: 70vw;
   height: fit-content;
@@ -47,10 +46,10 @@ export const ProfileLeftDiv = styled.div`
     flex-direction: row;
     justify-content: center;
   }
-  `;
-  // padding-bottom: 10px;
-  // border-bottom: 2px solid ${PALETTE.SUB_WHITE};
-  
+`;
+// padding-bottom: 10px;
+// border-bottom: 2px solid ${PALETTE.SUB_WHITE};
+
 export const ProfileBoxDiv = styled.div`
   width: 100%;
   height: fit-content;
@@ -184,18 +183,18 @@ export const ProfileHandwritingsSpan1 = styled.span`
   font-weight: ${notoSansKr.black.style.fontWeight};
   color: ${PALETTE.MAIN_BLACK};
   font-size: clamp(28px, 1.5vw, 33px);
-    @media screen and (max-width: 1150px) {
-      font-size: clamp(28px, 3vw, 33px);
-    }
+  @media screen and (max-width: 1150px) {
+    font-size: clamp(28px, 3vw, 33px);
+  }
 `;
 
 export const ProfileHandwritingsSpan2 = styled.span`
   font-weight: ${notoSansKr.black.style.fontWeight};
   color: ${PALETTE.MAIN_ORANGE};
   font-size: clamp(28px, 1.5vw, 33px);
-    @media screen and (max-width: 1150px) {
-      font-size: clamp(28px, 3vw, 33px);
-    }
+  @media screen and (max-width: 1150px) {
+    font-size: clamp(28px, 3vw, 33px);
+  }
 `;
 
 export const ProfileHandwritingsDiv = styled.div`
@@ -231,15 +230,15 @@ export const ProfileHandwritingStoriesSpan1 = styled.span`
   font-weight: ${notoSansKr.black.style.fontWeight};
   color: ${PALETTE.MAIN_BLACK};
   font-size: clamp(28px, 1.5vw, 33px);
-    @media screen and (max-width: 1150px) {
-      font-size: clamp(28px, 3vw, 33px);
-    }
+  @media screen and (max-width: 1150px) {
+    font-size: clamp(28px, 3vw, 33px);
+  }
 `;
 
 export const ProfileHandwritingStoriesSpan2 = styled.span`
-font-weight: ${notoSansKr.black.style.fontWeight};
-color: ${PALETTE.MAIN_ORANGE};
-font-size: clamp(28px, 1.5vw, 33px);
+  font-weight: ${notoSansKr.black.style.fontWeight};
+  color: ${PALETTE.MAIN_ORANGE};
+  font-size: clamp(28px, 1.5vw, 33px);
   @media screen and (max-width: 1150px) {
     font-size: clamp(28px, 3vw, 33px);
   }

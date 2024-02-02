@@ -34,7 +34,8 @@ const { member, handwritings, handwritingStories } = {
     nickname: '김싸피와열두글자아이디이',
     imageUrl: '/image/sample.jpg',
     badge: true,
-    introduction: '안녕하세요~~',
+    introduction:
+      '안녕하세요. 캘리그라피스트를 꿈꾸는 사람입니다.\n글씨를 잘 쓰는 편입니다. 제 폰트가 마음에 드신다면 마음껏 써주시길 바랍니다.\n언제나 좋은 하루 되세요.',
     trophy: [
       {
         weight: 1,
@@ -136,7 +137,7 @@ export default function ProfilePage() {
     nickname: member.nickname,
     badge: member.badge,
     fontSize: '1.4vw',
-    className: 'vertical'
+    className: 'vertical',
   };
 
   const router = useRouter();

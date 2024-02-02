@@ -30,6 +30,11 @@ import java.util.Map;
 @Slf4j
 public class MemberController {
     private final MemberService memberService;
+<<<<<<< HEAD
+=======
+    @Value("${client.url}")
+    private String clientUrl;
+>>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)
 
     //--- PostMapping
 

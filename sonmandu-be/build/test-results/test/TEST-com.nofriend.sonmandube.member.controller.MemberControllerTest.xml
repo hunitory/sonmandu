@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 1e329f9 (text: add text code)
 =======
@@ -25,6 +26,8 @@
 =======
 =======
 >>>>>>> c539d2cc (feat: findByMemeberInformation, show tropy info)
+=======
+>>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)
 <testsuite name="com.nofriend.sonmandube.member.controller.MemberControllerTest" tests="6" skipped="0" failures="6" errors="0" timestamp="2024-02-02T04:21:48" hostname="DESKTOP-LL7FDJ6" time="0.037">
   <properties/>
   <testcase name="유저 정보 수정" classname="com.nofriend.sonmandube.member.controller.MemberControllerTest" time="0.005">
@@ -645,6 +648,7 @@ Caused by: org.springframework.data.mapping.PropertyReferenceException: No prope
 13:21:43.654 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.nofriend.sonmandube.SonmanduBeApplication for test class com.nofriend.sonmandube.member.controller.MemberControllerTest
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
 =======
 >>>>>>> 1e329f9 (text: add text code)
@@ -653,6 +657,8 @@ Caused by: org.springframework.data.mapping.PropertyReferenceException: No prope
 =======
 >>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
 >>>>>>> c539d2cc (feat: findByMemeberInformation, show tropy info)
+=======
+>>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -662,6 +668,7 @@ Caused by: org.springframework.data.mapping.PropertyReferenceException: No prope
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.2.2)
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -853,6 +860,8 @@ MockHttpServletResponse:
 =======
 =======
 >>>>>>> c539d2cc (feat: findByMemeberInformation, show tropy info)
+=======
+>>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)
 2024-02-02T13:21:44.110+09:00  INFO 15980 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : Starting MemberControllerTest using Java 21.0.1 with PID 15980 (started by SSAFY in C:\mehot98\S10P12B111\sonmandu-be)
 2024-02-02T13:21:44.113+09:00  INFO 15980 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : The following 2 profiles are active: "env", "prod"
 2024-02-02T13:21:44.847+09:00  INFO 15980 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
@@ -1700,6 +1709,7 @@ Unconditional classes:
 ]]></system-err>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
 =======
 >>>>>>> 1e329f9 (text: add text code)
@@ -1708,4 +1718,6 @@ Unconditional classes:
 =======
 >>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
 >>>>>>> c539d2cc (feat: findByMemeberInformation, show tropy info)
+=======
+>>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)
 </testsuite>

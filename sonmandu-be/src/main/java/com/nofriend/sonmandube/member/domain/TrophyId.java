@@ -1,5 +1,6 @@
 package com.nofriend.sonmandube.member.domain;
 
+<<<<<<< HEAD
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.PrePersist;
@@ -11,10 +12,20 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+=======
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+>>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)
 
 @Embeddable
 @Getter
 @NoArgsConstructor
+<<<<<<< HEAD
 @EntityListeners(AuditingEntityListener.class)
 public class TrophyId implements Serializable {
 
@@ -32,4 +43,11 @@ public class TrophyId implements Serializable {
         this.weight = weight;
     }
 
+=======
+@AllArgsConstructor
+public class TrophyId implements Serializable {
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy. MM", timezone="Asia/Seoul")
+    private String createDate;
+    private int weight;
+>>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)
 }

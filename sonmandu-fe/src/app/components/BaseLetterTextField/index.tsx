@@ -13,7 +13,7 @@ function BaseLetterField({ letterImgUrl }: BaseLetterFieldProps) {
         src={letterImgUrl}
         alt="편지지"
         fill={true}
-        sizes="100vw"
+        sizes="100"
         quality={50}
       />
       <S.TextField placeholder="글씨를 편지지에 써보세요!"></S.TextField>

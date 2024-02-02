@@ -15,5 +15,8 @@ public interface TrophyRepository extends JpaRepository<Trophy, TrophyId> {
 
 >>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)
     List<TrophyIdMapping> findTop8IdByMemberMemberIdOrderByTrophyIdCreateDate(Long member_memberId);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
 }

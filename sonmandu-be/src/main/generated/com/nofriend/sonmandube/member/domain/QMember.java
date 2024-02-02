@@ -22,6 +22,12 @@ public class QMember extends EntityPathBase<Member> {
     public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 <<<<<<< HEAD
 =======
+<<<<<<< HEAD
+=======
+
+    public final StringPath email = createString("email");
+>>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
+>>>>>>> 8c1d3dea (feat: findByMemeberInformation, show tropy info)
 
     public final StringPath email = createString("email");
 >>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)

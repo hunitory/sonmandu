@@ -58,12 +58,18 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private final TrophyRepository trophyRepository;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final EmailTokenRepository emailTokenRepository;
 =======
 >>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)
 =======
     private final EmailTokenRepository emailTokenRepository;
 >>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
+=======
+    private final EmailTokenRepository emailTokenRepository;
+=======
+>>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
+>>>>>>> 8c1d3dea (feat: findByMemeberInformation, show tropy info)
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -107,7 +113,11 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 =======
 
         sendEmailToken(newMember);
+<<<<<<< HEAD
 >>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)
+=======
+>>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
+>>>>>>> 8c1d3dea (feat: findByMemeberInformation, show tropy info)
     }
 
 <<<<<<< HEAD

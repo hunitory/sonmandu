@@ -1,7 +1,6 @@
 import React from "react"
 import * as S from './style';
 import Image from "next/image";
-// import Tag from "components/Tag";
 import { BaseButton, BaseHashTags } from "components";
 import { useRouter } from "next/navigation";
 
@@ -54,9 +53,10 @@ function ProfileFontCardMaking({isMypage, handwriting}: { isMypage: boolean, han
   return (
     <S.ProfileFontCardWrapper>
       <S.UpperWrapper>
-        <Image 
-          src={`/image/producing-${state}.png`}
+        <Image
+          src={`/image/producing-${state.toString()}.png`}
           alt="#"
+          priority
           width={144}
           height={179}
         />
@@ -72,7 +72,7 @@ function ProfileFontCardMaking({isMypage, handwriting}: { isMypage: boolean, han
               height={28}
             />
             <Image 
-              src={'/image/download.png'}
+              src='/image/download.png'
               alt="#"
               width={30}
               height={30}

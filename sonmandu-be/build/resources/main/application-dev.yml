@@ -13,12 +13,11 @@ spring:
       path: /h2-console       # H2 Console 접속 주소
 
 client:
-  url: http://192.168.31.219:8080
+  url: http://192.168.45.7:8080
 
 server:
-  url: http://192.168.31.219:8080
+  url: http://192.168.45.7:8080
 
 logging:
   level:
     root: info
-

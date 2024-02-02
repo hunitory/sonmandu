@@ -9,7 +9,7 @@ import com.nofriend.sonmandube.member.controller.response.MemberInformationRespo
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.member.repository.MemberRepository;
-import com.nofriend.sonmandube.s3.S3UploadService;
+import com.nofriend.sonmandube.s3.S3Service;
 import com.nofriend.sonmandube.util.FileDto;
 import com.nofriend.sonmandube.util.FileUtil;
 import jakarta.mail.MessagingException;
@@ -45,7 +45,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private final JavaMailSender javaMailSender;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtProvider jwtProvider;
-    private final S3UploadService s3UploadService;
+    private final S3Service s3Service;
 
     @Value("${server.url}")
     private String serverUrl;
@@ -178,7 +178,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow();
 
-        FileDto savedImage = s3UploadService.saveFile(image, FileUtil.createFileName(image));
+        FileDto savedImage = s3Service.saveFile(image, FileUtil.createFileName(image));
 
         member.setImageUrl(savedImage.getUrl());
     }

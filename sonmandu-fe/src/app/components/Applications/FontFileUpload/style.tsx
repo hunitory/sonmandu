@@ -1,5 +1,6 @@
 import { PALETTE, notoSansKr } from 'styles';
 import BaseButton from '../../BaseButton';
+import BaseLabelWithInput from '../../BaseInput';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -19,42 +20,45 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
 `;
 
-export const ContentFileUpload = styled.input.attrs({
-  type: 'file',
-  accept: '.png,.pdf',
-})`
+export const ContentFileUploadInput = styled(BaseLabelWithInput.Input)`
   opacity: 0;
   overflow: hidden;
   position: absolute;
   z-index: -1;
+`;
 
-  & + label {
-    cursor: pointer;
-    width: 600px;
-    height: 220px;
-    border-radius: 15px;
-    border: 3px dashed ${PALETTE.MAIN_ORANGE};
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+export const ContentFileUploadLabel = styled(BaseLabelWithInput.Label)<{ isDragging?: boolean; }>`
+  width: 600px;
+  height: 220px;
+  border-radius: 15px;
+  border: 5px dashed
+    ${(props) =>
+      props.isDragging ? PALETTE.MAIN_ORANGE : PALETTE.LIGHT_ORANGE};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  > * {
+    opacity: ${(props) => (props.isDragging ? 0.7 : 1)};
   }
 `;
 
 export const ContentFileUploadTextbold = styled.div`
   padding-top: 20px;
-  font-weight: ${notoSansKr.bold.style.fontWeight};
   font-size: 20px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
 `;
 
 export const ContentFileUploadText = styled.div`
   color: ${PALETTE.LIGHT_BLACK};
-  font-weight: ${notoSansKr.medium.style.fontWeight};
   font-size: 14px;
+  font-family: ${notoSansKr.medium.style.fontFamily};
+  font-weight: ${notoSansKr.medium.style.fontWeight};
   span {
     font-weight: ${notoSansKr.bold.style.fontWeight};
   }
@@ -65,6 +69,7 @@ export const ContentUploadedFilesWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 20px;
 `;
 
 export const ContentUploadedFileTitleWrapper = styled.div`
@@ -75,6 +80,8 @@ export const ContentUploadedFileTitleWrapper = styled.div`
 export const ContentUploadedFileTitle = styled.div`
   font-size: 20px;
   font-weight: ${notoSansKr.bold.style.fontWeight};
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  padding-bottom: 10px;
 `;
 
 export const ContentUploadedFileList = styled.div`
@@ -89,6 +96,7 @@ export const ContentUploadedFile = styled.div`
   justify-content: space-between;
   padding: 10px;
   font-size: 12px;
+  font-family: ${notoSansKr.regular.style.fontFamily};
   font-weight: ${notoSansKr.regular.style.fontWeight};
 `;
 
@@ -132,13 +140,15 @@ export const NextButton = styled(BaseButton)`
 `;
 
 export const BackButtonText = styled.p`
-  font-weight: ${notoSansKr.bold.style.fontWeight};
   font-size: 20px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_ORANGE};
 `;
 
 export const NextButtonText = styled.p`
-  font-weight: ${notoSansKr.bold.style.fontWeight};
   font-size: 20px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.SUB_WHITE};
 `;

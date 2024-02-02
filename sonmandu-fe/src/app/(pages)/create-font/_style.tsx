@@ -51,7 +51,8 @@ export const Step = styled.div`
   flex-direction: column;
 
   > p {
-    font-weight: ${notoSansKr.extraBold.style.fontWeight};
+    font-family: ${notoSansKr.bold.style.fontFamily};
+    font-weight: ${notoSansKr.bold.style.fontWeight};
     font-size: 19px;
     color: ${PALETTE.MAIN_BLACK};
     text-align: center;

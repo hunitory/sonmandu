@@ -24,6 +24,7 @@ export const ContentWrapper = styled.div`
 
 export const ContentTitle = styled.div`
   font-size: 30px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_ORANGE};
 `;
@@ -34,10 +35,12 @@ export const ContentTextWrapper = styled.div`
 
 export const ContentText = styled.div`
   font-size: 24px;
+  font-family: ${notoSansKr.regular.style.fontFamily};
   font-weight: ${notoSansKr.regular.style.fontWeight};
   color: ${PALETTE.LIGHT_BLACK};
   padding: 10px;
   span {
+    font-family: ${notoSansKr.bold.style.fontFamily};
     font-weight: ${notoSansKr.bold.style.fontWeight};
   }
 `;
@@ -70,13 +73,15 @@ export const MainPageButton = styled(BaseButton)`
 `;
 
 export const MyPageButtonText = styled.p`
-  font-weight: ${notoSansKr.bold.style.fontWeight};
   font-size: 20px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_ORANGE};
 `;
 
 export const MainPageButtonText = styled.p`
-  font-weight: ${notoSansKr.bold.style.fontWeight};
   font-size: 20px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.SUB_WHITE};
 `;

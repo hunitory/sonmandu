@@ -9,19 +9,28 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   @media (max-width: 1000px) {
-    gap: 80px
+    gap: 80px;
   }
+`;
+
+export const ConTentContainer = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
 `;
 
 /*----------- Title -----------*/
 export const TitleWrapper = styled.div`
-  /* width: 70vw; */
   display: flex;
   justify-content: center;
+  padding-bottom: 30px;
 `;
 
 export const Title = styled.p`
   font-size: 28px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_ORANGE};
 `;
@@ -35,7 +44,7 @@ export const ContentWrapper = styled.div`
   align-self: center;
   gap: 50px;
   @media (max-width: 1000px) {
-    gap: 80px
+    gap: 80px;
   }
 `;
 
@@ -46,10 +55,12 @@ export const ContentContainer = styled.div`
   gap: 30px;
   p {
     font-size: 15px;
+    font-family: ${notoSansKr.medium.style.fontFamily};
     font-weight: ${notoSansKr.medium.style.fontWeight};
     color: ${PALETTE.LIGHT_BLACK};
     text-align: center;
     span {
+      font-family: ${notoSansKr.bold.style.fontFamily};
       font-weight: ${notoSansKr.bold.style.fontWeight};
     }
   }
@@ -57,16 +68,19 @@ export const ContentContainer = styled.div`
 
 export const ContentTitle = styled.div`
   font-size: 27px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_BLACK};
 `;
 
 export const MaterialContent = styled.div`
   font-size: 15px;
+  font-family: ${notoSansKr.medium.style.fontFamily};
   font-weight: ${notoSansKr.medium.style.fontWeight};
   color: ${PALETTE.LIGHT_BLACK};
   text-align: center;
   span {
+    font-family: ${notoSansKr.bold.style.fontFamily};
     font-weight: ${notoSansKr.bold.style.fontWeight};
   }
 `;
@@ -74,7 +88,6 @@ export const MaterialContent = styled.div`
 export const MaterialWrapper = styled.div`
   width: fit-content;
   display: flex;
-  gap: 15%;
   justify-content: space-around;
 `;
 
@@ -84,6 +97,7 @@ export const MaterialImgWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: end;
+  margin: 0px 18px;
 `;
 
 export const DownloadButton = styled(BaseButton)`
@@ -97,8 +111,9 @@ export const DownloadButton = styled(BaseButton)`
 `;
 
 export const DownloadButtonText = styled.div`
-  font-weight: ${notoSansKr.bold.style.fontWeight};
   font-size: 16px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_BLACK};
 `;
 
@@ -118,6 +133,7 @@ export const CautionWrapper = styled.div`
 export const CautionContentText = styled.p`
   width: 95px;
   font-size: 16px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_BLACK};
 `;
@@ -146,7 +162,8 @@ export const NextButton = styled(BaseButton)`
 `;
 
 export const NextButtonText = styled.p`
-  font-weight: ${notoSansKr.bold.style.fontWeight};
   font-size: 20px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.SUB_WHITE};
 `;

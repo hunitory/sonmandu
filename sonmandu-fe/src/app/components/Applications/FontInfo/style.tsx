@@ -15,6 +15,14 @@ export const Wrapper = styled.div`
   }
 `;
 
+export const ContentWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+`;
+
 export const ContentFontNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -24,15 +32,42 @@ export const ContentFontNameWrapper = styled.div`
 export const ContentFontNametTitle = styled.div`
   color: ${PALETTE.MAIN_BLACK};
   font-size: 24px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
 `;
 
 export const ContentFontNametContent = styled.div`
   color: ${PALETTE.LIGHT_BLACK};
   font-size: 15px;
+  font-family: ${notoSansKr.regular.style.fontFamily};
   font-weight: ${notoSansKr.regular.style.fontWeight};
-`
+  span {
+    font-family: ${notoSansKr.bold.style.fontFamily};
+    font-weight: ${notoSansKr.bold.style.fontWeight};
+  }
+`;
 
+export const ContentFontTagWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+`;
+
+export const ContentFontTagTitle = styled.div`
+  color: ${PALETTE.MAIN_BLACK};
+  font-size: 24px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
+`;
+
+export const ContentFontTagtContent = styled.div`
+  color: ${PALETTE.LIGHT_BLACK};
+  font-size: 15px;
+  font-family: ${notoSansKr.regular.style.fontFamily};
+  font-weight: ${notoSansKr.regular.style.fontWeight};
+`;
+
+/*---------- button ---------- */
 export const ButtonWrapper = styled.div`
   width: 100%;
   height: fit-content;
@@ -61,13 +96,15 @@ export const NextButton = styled(BaseButton)`
 `;
 
 export const BackButtonText = styled.p`
-  font-weight: ${notoSansKr.bold.style.fontWeight};
   font-size: 20px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_ORANGE};
 `;
 
 export const NextButtonText = styled.p`
-  font-weight: ${notoSansKr.bold.style.fontWeight};
   font-size: 20px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.SUB_WHITE};
 `;

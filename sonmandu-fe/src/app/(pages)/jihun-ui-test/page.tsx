@@ -32,8 +32,9 @@ export default function JihunUiTestPage() {
     email: false,
   });
 
-  const OpenEditWindow = () => {
-    // setIsOpen((prev) => ({ ...prev, [props]: !prev[props] }));
+  const OpenEditWindow = (props: string) => {
+    // setIsOpen((prev) => ({ ...prev, [e.target.id]: !e.target.value }));
+    console.log(props);
   };
 
   const ref = useRef<HTMLInputElement>(null);
@@ -71,7 +72,7 @@ export default function JihunUiTestPage() {
                 onClick={
                   isOpen.nickname
                     ? () => console.log('happy')
-                    : () => OpenEditWindow()
+                    : () => OpenEditWindow('nickname')
                 }
                 disabled={false}
               >

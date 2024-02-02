@@ -15,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 =======
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Embeddable;
+<<<<<<< HEAD
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
@@ -30,13 +31,26 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+<<<<<<< HEAD
 >>>>>>> ea3e05f (feat: 배지, 트로피 수여 추가)
+=======
+=======
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+>>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
+>>>>>>> c539d2cc (feat: findByMemeberInformation, show tropy info)
 
 @Embeddable
 @Getter
 @NoArgsConstructor
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c539d2cc (feat: findByMemeberInformation, show tropy info)
 @EntityListeners(AuditingEntityListener.class)
 public class TrophyId implements Serializable {
 
@@ -56,6 +70,7 @@ public class TrophyId implements Serializable {
 
 =======
 @AllArgsConstructor
+<<<<<<< HEAD
 =======
 @EntityListeners(AuditingEntityListener.class)
 >>>>>>> ea3e05f (feat: 배지, 트로피 수여 추가)
@@ -79,4 +94,11 @@ public class TrophyId implements Serializable {
     }
 
 >>>>>>> ea3e05f (feat: 배지, 트로피 수여 추가)
+=======
+public class TrophyId implements Serializable {
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy. MM", timezone="Asia/Seoul")
+    private String createDate;
+    private int weight;
+>>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
+>>>>>>> c539d2cc (feat: findByMemeberInformation, show tropy info)
 }

@@ -34,7 +34,11 @@ public class MemberController {
 =======
     @Value("${client.url}")
     private String clientUrl;
+<<<<<<< HEAD
 >>>>>>> e8fb302 (feat: findByMemeberInformation, show tropy info)
+=======
+>>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
+>>>>>>> c539d2cc (feat: findByMemeberInformation, show tropy info)
 
     //--- PostMapping
 

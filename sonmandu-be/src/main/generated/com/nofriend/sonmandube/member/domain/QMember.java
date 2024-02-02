@@ -19,6 +19,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public static final QMember member = new QMember("member1");
 
+    public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
+
     public final StringPath email = createString("email");
 
     public final StringPath emailToken = createString("emailToken");

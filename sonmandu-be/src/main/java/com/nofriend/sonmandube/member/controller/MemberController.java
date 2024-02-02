@@ -36,11 +36,6 @@ public class MemberController {
     @Value("${client.url}")
     private String clientUrl;
 
-//    @GetMapping("/test")
-//    public HttpStatus test(Http) {
-//
-//    }
-
     //--- PostMapping
 
     //회원가입

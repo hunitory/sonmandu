@@ -1,6 +1,17 @@
 import { PALETTE, notoSansKr } from 'styles';
-import BaseButton from '../../BaseButton';
+
+import { 
+  BaseLabelWithInput,
+  BaseButton,
+  BaseHashTags, 
+} 
+  from 'components';
 import styled from 'styled-components';
+import exp from 'constants';
+
+interface PlaceholderGuideProps {
+  FontName: boolean;
+}
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -16,11 +27,11 @@ export const Wrapper = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
+  width: 768px;
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: start;
+  justify-content: space-around;
 `;
 
 export const ContentFontNameWrapper = styled.div`
@@ -34,6 +45,7 @@ export const ContentFontNametTitle = styled.div`
   font-size: 24px;
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
+  margin-bottom: 10px;
 `;
 
 export const ContentFontNametContent = styled.div`
@@ -47,10 +59,41 @@ export const ContentFontNametContent = styled.div`
   }
 `;
 
+export const ContentFontNameInputWrapper = styled.div`
+  padding: 20px 10px;
+  border-bottom: 1px solid ${PALETTE.LIGHT_BLACK};
+  position: relative;
+`;
+
+export const ContentFontNameInput = styled(BaseLabelWithInput.Input)`
+  font-size: 14px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
+  width: 100%;
+`;
+
+export const ContentFontNameInputPlaceholder = styled.div<PlaceholderGuideProps>`
+  position: absolute;
+  color: ${PALETTE.LIGHT_BLACK};
+  font-size: 14px;
+  font-family: ${notoSansKr.regular.style.fontFamily};
+  font-weight: ${notoSansKr.regular.style.fontWeight};
+  pointer-events: none;
+  display: ${({ FontName }) => (FontName ? 'block' : 'none')};
+  span {
+    color: ${PALETTE.LIGHT_BLACK};
+    font-size: 14px;
+    font-family: ${notoSansKr.bold.style.fontFamily};
+    font-weight: ${notoSansKr.bold.style.fontWeight};
+  }
+`;
+
+
 export const ContentFontTagWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
+  gap: 20px;
 `;
 
 export const ContentFontTagTitle = styled.div`
@@ -65,6 +108,18 @@ export const ContentFontTagtContent = styled.div`
   font-size: 15px;
   font-family: ${notoSansKr.regular.style.fontFamily};
   font-weight: ${notoSansKr.regular.style.fontWeight};
+`;
+
+export const ContentFontTagListWrapper = styled.div`
+  
+`;
+
+export const ContentFontTags = styled(BaseHashTags)`
+  flex-wrap: wrap;
+  justify-content: start;
+`
+export const ContentFontTag = styled(BaseHashTags.OneTag)`
+
 `;
 
 /*---------- button ---------- */

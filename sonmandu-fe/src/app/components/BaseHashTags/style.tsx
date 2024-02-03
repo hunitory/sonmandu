@@ -19,4 +19,5 @@ export const HashTag = styled(BaseButton)`
   font-size: 12px;
   border: 2px solid ${PALETTE.SUB_WHITE};
   border-radius: 24px;
+  cursor: pointer;
 `;

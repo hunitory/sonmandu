@@ -5,6 +5,7 @@ import * as Styled from './style';
 
 interface FontFileUploadProps {
   onBack: () => void;
+  /* onNext 에 파일을 인자로 해서 넘겨줘야하는 듯?*/
   onNext: () => void;
 }
 

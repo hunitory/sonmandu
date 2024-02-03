@@ -12,7 +12,7 @@ public class SignupRequest {
     private String id;
 
     @Size(min = 8, max = 20) @NotEmpty
-    private String passwod;
+    private String password;
 
     @Size(min = 2, max = 30) @NotEmpty
     private String name;

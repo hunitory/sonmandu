@@ -1,26 +1,40 @@
 package com.nofriend.sonmandube.member.application;
 
+
 import com.nofriend.sonmandube.member.controller.request.*;
-import com.nofriend.sonmandube.member.controller.response.TokenResponse;
+import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
+import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
+import com.nofriend.sonmandube.member.controller.response.LoginResponse;
+import jakarta.mail.MessagingException;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface MemberService {
-    TokenResponse signin(LoginRequest loginRequest);
+    void signup(SignupRequest signupRequest) throws MessagingException;
 
-    void signup(SignupRequest signupRequest);
+    LoginResponse login(LoginRequest loginRequest);
 
-    void findPassword(FindPasswordRequest findPasswordRequest);
+    void logout(Long memberId);
 
-    void findId(FindIdRequest findIdRequest);
+    boolean checkValidPassword(Long memberId, String password);
 
-    String refreshAccessToken();
+    MeInformationResponse findMeInformation(Long memberId);
 
-    void sendEmailToken(String email);
+    MemberInformationResponse findMemberInformationAll(Long memberId);
 
-    void validateEmail(ValidateEmailRequest validateEmailRequest);
+    void findMemberInformationId(String email, String name) throws MessagingException;
 
-    boolean checkUniqueNickname(String nickname);
+    void findMemberInformationPassword(String email, String name, String id) throws MessagingException;
 
-    boolean checkUniquepassword(String password);
+    Boolean checkUniqueId(String id);
 
-    boolean checkUniqueId(String id);
+    Boolean checkUniqueNickname(String nickname);
+
+    HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest);
+
+    void updateMemberInformationCommon(Long memberId, String informationType, String value);
+
+    void deleteMember(Long memberId);
+
+    void updateMemberInformationImage(Long memberId, MultipartFile image);
 }

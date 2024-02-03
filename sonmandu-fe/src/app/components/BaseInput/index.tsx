@@ -1,21 +1,7 @@
-import React, {
-  ChangeEvent,
-  HTMLInputTypeAttribute,
-  Ref,
-  forwardRef,
-} from 'react';
+import React, { Ref, forwardRef } from 'react';
 import * as S from './style';
+import { BaseInputProps, BaseLabelProps, BaseLabelWithInputProps } from 'types';
 
-interface BaseInputProps {
-  id: string;
-  type: HTMLInputTypeAttribute;
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  className?: string;
-  placeholder?: string;
-  accept?: string;
-  hidden?: boolean;
-}
 const BaseInput = forwardRef(
   (
     {
@@ -46,16 +32,6 @@ const BaseInput = forwardRef(
   },
 );
 
-interface BaseLabelProps {
-  id: string;
-  className?: string;
-  children?: React.ReactNode;
-  onDragEnter?: () => void;
-  onDragLeave?: () => void;
-  onDragOver?: () => void;
-  onDrop?: () => void;
-  role?: string;
-}
 function BaseLabel({
   id,
   className,
@@ -81,13 +57,6 @@ function BaseLabel({
   );
 }
 
-interface BaseLabelWithInputProps {
-  id: string;
-  type: HTMLInputTypeAttribute;
-  value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  children?: React.ReactNode;
-}
 function BaseLabelWithInput(props: BaseLabelWithInputProps) {
   const { id, type, value, onChange, children } = props;
   return (

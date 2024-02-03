@@ -1,10 +1,7 @@
 import React from 'react';
 import * as S from './styled';
 import Image from 'next/image';
-
-interface BaseLetterFieldProps {
-  letterImgUrl: string;
-}
+import { BaseLetterFieldProps } from 'types';
 
 function BaseLetterField({ letterImgUrl }: BaseLetterFieldProps) {
   return (

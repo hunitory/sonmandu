@@ -1,9 +1,9 @@
 'use client';
 
 import styled from 'styled-components';
-import * as Comp from '@/components';
+import * as C from '@/components';
 import { PALETTE, notoSansKr } from 'styles';
-import Link from 'next/link';
+import { BaseButtonProps } from 'types';
 
 export const TitleSection = styled.section`
   display: flex;
@@ -12,7 +12,8 @@ export const TitleSection = styled.section`
 
   h1 {
     font-size: 24px;
-    font-weight: ${notoSansKr.bold.style.fontWeight};
+    font-family: ${notoSansKr.extraBold.style.fontFamily};
+    font-weight: ${notoSansKr.extraBold.style.fontWeight};
     padding-bottom: 10px;
   }
 
@@ -21,30 +22,29 @@ export const TitleSection = styled.section`
   }
 `;
 
-export const DefaultIconWithText = styled.div`
+export const DefaultWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+`;
+export const DefaultIconWithText = styled(
+  (props: Omit<BaseButtonProps, 'disabled'>) =>
+    C.BaseButton({ ...props, disabled: false }),
+)`
   img {
     padding: 4px;
   }
   span {
     display: inline-block;
     width: 52px;
-    font-size: 12px;
+    font-size: clamp(12px, 1vw, 14px);
   }
-`;
-
-export const DefaultWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
 `;
 
 export const OtherUserInteractionInfo = styled(DefaultIconWithText)`
   justify-content: space-between;
+  gap: 4px;
 `;
-
 export const OtherUserInteractionsWrapper = styled(DefaultWrapper)`
   padding-top: 20px;
 
@@ -55,29 +55,55 @@ export const OtherUserInteractionsWrapper = styled(DefaultWrapper)`
   }
 `;
 
-export const OrangeIconWiText = styled(Comp.BaseButton)`
+export const OrangeIconWiText = styled(DefaultIconWithText)`
+  width: 100%;
+  gap: 8px;
+
   span {
     color: ${PALETTE.MAIN_ORANGE};
     width: fit-content;
-    font-size: 14px;
+    font-family: ${notoSansKr.bold.style.fontFamily};
     font-weight: ${notoSansKr.bold.style.fontWeight};
   }
 `;
-
 export const OrangeIconWithTextsWrapper = styled(DefaultWrapper)`
+  min-width: 142px;
   flex-direction: column;
   justify-content: start;
   align-items: start;
 `;
 
 export const CustomProfileBox = styled.div`
-  display: inline-block;
+  display: flex;
+  gap: 12px;
   width: 100%;
-  height: 72px;
+  height: 78px;
+  margin: 12px 0px;
+  padding: 12px 0px;
+
   img {
-    width: 72px;
-    height: 72px;
+    border-radius: 50%;
   }
 
-  background-color: red;
+  p:nth-of-type(1) {
+    font-family: ${notoSansKr.bold.style.fontFamily};
+    font-weight: ${notoSansKr.bold.style.fontWeight};
+    font-size: 14px;
+    padding-bottom: 4px;
+  }
+
+  p:nth-of-type(2) {
+    font-size: 12px;
+    color: ${PALETTE.LIGHT_BLACK};
+  }
+
+  border-top: 1px solid ${PALETTE.LIGHT_BLACK};
+  border-bottom: 1px solid ${PALETTE.LIGHT_BLACK};
+`;
+
+export const ProfileTextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: fit-content;
 `;

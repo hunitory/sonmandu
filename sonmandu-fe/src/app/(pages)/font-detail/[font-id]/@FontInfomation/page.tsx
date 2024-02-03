@@ -1,22 +1,31 @@
+'use client';
+
 import React from 'react';
 import * as Comp from '@/components';
 import * as S from './style';
 import Image from 'next/image';
 
 function FontInfomation() {
+  const handleDownload = () => {
+    // console.log(`Download :`);
+  };
+
+  const handleShare = () => {
+    // console.log(`Share :`);
+  };
   return (
     <>
       <S.TitleSection>
         <div>
-          <h1>글씨체 자랑하는 곳이 여기군요체</h1>
+          <h1>글씨체 자랑하는 곳이 여기군요체으으으으으으으ㅡ으으응</h1>
           <div className="hash-tags-wrapper">
             <Comp.BaseHashTags hashTagIdList={[0, 1, 2]} direction="row" />
           </div>
           <S.OtherUserInteractionsWrapper>
-            <S.OtherUserInteractionInfo>
+            <S.OtherUserInteractionInfo type="button">
               <Image
                 src={
-                  Math.random() < 0.5
+                  1
                     ? '/image/empty-orange_heart.svg'
                     : '/image/fill-orange-heart.svg'
                 }
@@ -26,7 +35,7 @@ function FontInfomation() {
               />
               <span>좋아요</span>
             </S.OtherUserInteractionInfo>
-            <S.OtherUserInteractionInfo>
+            <S.OtherUserInteractionInfo type="button">
               <Image
                 src={'/image/view.svg'}
                 alt="조회 횟수"
@@ -35,7 +44,7 @@ function FontInfomation() {
               />
               <span>조회</span>
             </S.OtherUserInteractionInfo>
-            <S.OtherUserInteractionInfo>
+            <S.OtherUserInteractionInfo type="button">
               <Image
                 src={'/image/downloadIcon-black.svg'}
                 alt="다운로드 횟수"
@@ -48,9 +57,8 @@ function FontInfomation() {
         </div>
         <S.OrangeIconWithTextsWrapper>
           <S.OrangeIconWiText
-            disabled={false}
             type="button"
-            onClick={() => console.log(`share :`)}
+            onClick={handleDownload}
             className="orang-icon-text"
           >
             <Image
@@ -62,9 +70,8 @@ function FontInfomation() {
             <span>공유하기</span>
           </S.OrangeIconWiText>
           <S.OrangeIconWiText
-            disabled={false}
             type="button"
-            onClick={() => console.log(`share :`)}
+            onClick={handleShare}
             className="orang-icon-text"
           >
             <Image
@@ -77,7 +84,21 @@ function FontInfomation() {
           </S.OrangeIconWiText>
         </S.OrangeIconWithTextsWrapper>
       </S.TitleSection>
-      <S.CustomProfileBox></S.CustomProfileBox>
+      <S.CustomProfileBox>
+        <Image
+          src={'/image/sample.jpg'}
+          width={46}
+          height={46}
+          alt="프로필 사진"
+        />
+        <S.ProfileTextWrapper>
+          <p>닉네임이뭘까요맞춰보세요</p>
+          <p>
+            안녕하세요 닉네임이 뭘까요 맞춰보세요입니다. 제가 만든 글씨체 정말
+            좋은 거 같은데 많이 써주세요.
+          </p>
+        </S.ProfileTextWrapper>
+      </S.CustomProfileBox>
     </>
   );
 }

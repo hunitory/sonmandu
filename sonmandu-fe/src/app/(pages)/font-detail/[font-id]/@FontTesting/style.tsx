@@ -3,6 +3,7 @@
 import styled from 'styled-components';
 import * as Comp from '@/components';
 import { PALETTE, notoSansKr } from 'styles';
+import { BaseButtonProps } from 'types';
 
 export const TestingWrapper = styled.section`
   display: flex;
@@ -10,6 +11,11 @@ export const TestingWrapper = styled.section`
   width: 100%;
   height: fit-content;
   padding-top: 36px;
+
+  @media (max-width: 1024px) {
+    flex-direction: column-reverse;
+    gap: 16px;
+  }
 `;
 
 export const TestingLetterArea = styled.article`
@@ -17,6 +23,10 @@ export const TestingLetterArea = styled.article`
   border-radius: 12px;
   border: 2px solid ${PALETTE.SUB_WHITE};
   overflow: hidden;
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 export const SideBoxWrapper = styled.aside`
@@ -29,6 +39,17 @@ export const SideBoxWrapper = styled.aside`
   border-radius: 12px;
   gap: 12px;
 
+  @media (max-width: 1024px) {
+    align-items: start;
+    & > button:nth-last-of-type(1) {
+      align-self: flex-end;
+    }
+  }
+
+  @media (max-width: 694px) {
+    height: 100%;
+  }
+
   p {
     width: 100%;
     text-align: start;
@@ -38,7 +59,7 @@ export const SideBoxWrapper = styled.aside`
   }
 `;
 
-export const SideBoxContainer = styled.div<{ selectedIdx: number }>`
+export const SideBoxContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -46,14 +67,34 @@ export const SideBoxContainer = styled.div<{ selectedIdx: number }>`
   row-gap: 16px;
   width: 286px;
   height: fit-content;
-  button:nth-of-type(${({ selectedIdx }) => selectedIdx}) {
-    border: 2px solid ${PALETTE.MAIN_ORANGE};
+
+  @media (max-width: 1024px) {
+    width: 100%;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+  }
+
+  @media (max-width: 694px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
   }
 `;
 
-export const LatterContainerButton = styled(Comp.BaseButton)``;
+export const LatterContainerButton = styled(
+  (props: Omit<BaseButtonProps, 'disabled'>) =>
+    Comp.BaseButton({ ...props, disabled: false }),
+)<{
+  selected: boolean;
+}>`
+  border: 2px solid
+    ${({ selected }) => (selected ? PALETTE.MAIN_ORANGE : 'white')};
+  border-radius: 0px;
+  padding: 0;
+`;
 
-export const CustomButton = styled(Comp.BaseButton)`
+export const CustomButton = styled((props: Omit<BaseButtonProps, 'disabled'>) =>
+  Comp.BaseButton({ ...props, disabled: false }),
+)`
   width: fit-content;
   padding: 8px 12px;
   color: white;

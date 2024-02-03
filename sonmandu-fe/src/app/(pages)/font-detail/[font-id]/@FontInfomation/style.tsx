@@ -1,8 +1,9 @@
 'use client';
 
 import styled from 'styled-components';
-import * as Comp from '@/components';
+import * as C from '@/components';
 import { PALETTE, notoSansKr } from 'styles';
+import { BaseButtonProps } from 'types';
 
 export const TitleSection = styled.section`
   display: flex;
@@ -26,22 +27,24 @@ export const DefaultWrapper = styled.div`
   align-items: center;
   gap: 8px;
 `;
-
-export const OtherUserInteractionInfo = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 4px;
+export const DefaultIconWithText = styled(
+  (props: Omit<BaseButtonProps, 'disabled'>) =>
+    C.BaseButton({ ...props, disabled: false }),
+)`
   img {
     padding: 4px;
   }
   span {
     display: inline-block;
     width: 52px;
-    font-size: 12px;
+    font-size: clamp(12px, 1vw, 14px);
   }
 `;
 
+export const OtherUserInteractionInfo = styled(DefaultIconWithText)`
+  justify-content: space-between;
+  gap: 4px;
+`;
 export const OtherUserInteractionsWrapper = styled(DefaultWrapper)`
   padding-top: 20px;
 
@@ -52,27 +55,19 @@ export const OtherUserInteractionsWrapper = styled(DefaultWrapper)`
   }
 `;
 
-export const OrangeIconWiText = styled(Comp.BaseButton)`
+export const OrangeIconWiText = styled(DefaultIconWithText)`
   width: 100%;
   gap: 8px;
 
-  img {
-    padding: 4px;
-  }
-
   span {
-    display: inline-block;
-    width: 52px;
-    font-size: 12px;
     color: ${PALETTE.MAIN_ORANGE};
     width: fit-content;
-    font-size: 14px;
     font-family: ${notoSansKr.bold.style.fontFamily};
     font-weight: ${notoSansKr.bold.style.fontWeight};
   }
 `;
-
 export const OrangeIconWithTextsWrapper = styled(DefaultWrapper)`
+  min-width: 142px;
   flex-direction: column;
   justify-content: start;
   align-items: start;

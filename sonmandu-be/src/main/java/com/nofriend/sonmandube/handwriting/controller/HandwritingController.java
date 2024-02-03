@@ -43,15 +43,18 @@ public class HandwritingController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PostMapping("/gallery")
+    @GetMapping("/gallery")
     public ResponseEntity<List<SimpleHandwritingResponse>> searchHandwriting(
             @RequestParam int start,
             @RequestParam int count,
-            @RequestBody SearchConditionRequest condition,
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) String name,
+            @RequestParam(name = "tagId", required = false) List<Integer> tagIdList,
             Authentication authentication
             ) {
         Long memberId = null;
         if(authentication != null) memberId = Long.parseLong(authentication.getName());
+        SearchConditionRequest condition = new SearchConditionRequest(sort, name, tagIdList);
         List<SimpleHandwritingResponse> handwritingList = handwritingService.searchHandwriting(memberId, start, count, condition);
         return ResponseEntity.ok(handwritingList);
     }
@@ -101,7 +104,7 @@ public class HandwritingController {
         return ResponseEntity.ok(ranking);
     }
 
-    @GetMapping("/gallery")
+    @GetMapping("/gallery/popular")
     public ResponseEntity<List<SimpleHandwritingResponse>> getPopularHandwritingList(Authentication authentication) {
         Long memberId = null;
         if(authentication != null) memberId = Long.parseLong(authentication.getName());

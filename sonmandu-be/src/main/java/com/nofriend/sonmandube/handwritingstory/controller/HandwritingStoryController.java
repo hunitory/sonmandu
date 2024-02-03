@@ -27,15 +27,18 @@ public class HandwritingStoryController {
 
     private final HandwritingStoryService handwritingStoryService;
 
-    @PostMapping("/all")
+    @GetMapping
     public ResponseEntity<List<SimpleHandwritingStoryResponse>> searchHandwriting(
             @RequestParam int start,
             @RequestParam int count,
-            @RequestBody SearchConditionRequest condition,
+            @RequestParam(required = false) String sort,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String title,
             Authentication authentication
     ) {
         Long memberId = null;
         if(authentication != null) memberId = Long.parseLong(authentication.getName());
+        SearchConditionRequest condition = new SearchConditionRequest(sort, title, name);
         List<SimpleHandwritingStoryResponse> handwritingList = handwritingStoryService.searchHandwriting(memberId, start, count, condition);
         return ResponseEntity.ok(handwritingList);
     }

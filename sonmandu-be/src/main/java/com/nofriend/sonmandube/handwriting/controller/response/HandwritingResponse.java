@@ -2,6 +2,8 @@ package com.nofriend.sonmandube.handwriting.controller.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
+import com.nofriend.sonmandube.handwritingstory.controller.response.MemberIntroductionResponse;
+import com.nofriend.sonmandube.handwritingstory.controller.response.SimpleMemberResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,6 +33,8 @@ public class HandwritingResponse {
 
     private boolean isLike;
 
+    private MemberIntroductionResponse member;
+
     @JsonProperty("isLike")
     public boolean getIsLike() {
         return isLike;
@@ -49,6 +53,7 @@ public class HandwritingResponse {
                         handwriting.getHandwritingApplication().getHandwritingTagList().stream().map(handwritingTag
                                 -> handwritingTag.getHandwritingTagId().getTagId()).toList()
                 )
+                .member(MemberIntroductionResponse.from(handwriting.getHandwritingApplication().getMember()))
                 .build();
     }
 }

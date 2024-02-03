@@ -1,6 +1,8 @@
 package com.nofriend.sonmandube.exception.handler;
 
 import com.nofriend.sonmandube.exception.FailedFileSaveException;
+import com.nofriend.sonmandube.exception.FileNotFoundException;
+import com.nofriend.sonmandube.exception.IdNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -11,6 +13,18 @@ public class ErrorHandler {
 
     @ExceptionHandler(FailedFileSaveException.class)
     public ResponseEntity<ErrorMessage> failedFileSaveException(FailedFileSaveException e) {
+        return ResponseEntity.status(e.getStatus())
+                .body(ErrorMessageFactory.from(e.getStatus(), e.getErrorMessage()));
+    }
+
+    @ExceptionHandler(IdNotFoundException.class)
+    public ResponseEntity<ErrorMessage> idNotFoundException(IdNotFoundException e) {
+        return ResponseEntity.status(e.getStatus())
+                .body(ErrorMessageFactory.from(e.getStatus(), e.getErrorMessage()));
+    }
+
+    @ExceptionHandler(FileNotFoundException.class)
+    public ResponseEntity<ErrorMessage> fileNotFoundException(FileNotFoundException e) {
         return ResponseEntity.status(e.getStatus())
                 .body(ErrorMessageFactory.from(e.getStatus(), e.getErrorMessage()));
     }

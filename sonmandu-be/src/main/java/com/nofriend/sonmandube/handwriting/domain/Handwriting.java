@@ -10,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
@@ -43,6 +44,12 @@ public class Handwriting {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "handwriting_application_id")
     private HandwritingApplication handwritingApplication;
+
+    @PrePersist
+    public void onPrePersist() {
+        String customLocalDateTimeFormat = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        this.createDate = LocalDateTime.parse(customLocalDateTimeFormat, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+    }
 
     public void upDownloadCount() {
         this.downloadCount++;

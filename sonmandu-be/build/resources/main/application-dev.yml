@@ -16,8 +16,12 @@ client:
   url: http://192.168.45.7:8080
 
 server:
+<<<<<<< HEAD
   url: http://192.168.45.7:8080
 
 logging:
   level:
     root: info
+=======
+  url: http://192.168.31.219:8080
+>>>>>>> ac6df0e (feat: 손글씨 이야기 API 구현)

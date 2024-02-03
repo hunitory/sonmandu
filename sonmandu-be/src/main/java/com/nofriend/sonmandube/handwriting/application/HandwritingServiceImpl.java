@@ -279,4 +279,6 @@ public class HandwritingServiceImpl implements HandwritingService{
         }
         return simpleHandwritingResponseList;
     }
+
+
 }

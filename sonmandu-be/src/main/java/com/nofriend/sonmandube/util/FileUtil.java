@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.UUID;
 
 @Getter
@@ -65,13 +66,12 @@ public class FileUtil {
     }
 
     public static String createFileName(MultipartFile file) {
-        return UUID.randomUUID()
-                + StringUtils.getFilename(file.getOriginalFilename());
+        return UUID.randomUUID()+"."
+                + StringUtils.getFilenameExtension(file.getOriginalFilename());
     }
 
     // 파일 저장 경로 바탕으로 파일 url 생성
     public static String toFileUrl(String fileFullPath) {
-        String fileResponsePath = "http://localhost:8080/files/" + fileFullPath;
-        return fileResponsePath;
+        return "http://localhost:8080/files/" + fileFullPath;
     }
 }

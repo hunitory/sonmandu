@@ -11,6 +11,8 @@ public class SearchConditionRequest {
 
     private String sort;
 
+    private String title;
+
     private String name;
 
     private List<Integer> tagIdList;

@@ -6,9 +6,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor
-public class IdNotFoundException extends RuntimeException {
-
+public class FileNotFoundException extends RuntimeException {
     private final HttpStatus status = HttpStatus.NOT_FOUND;
     private final String errorMessage;
-
 }

@@ -3,7 +3,7 @@ import { BaseLabelWithInput, BaseButton, BaseHashTags } from 'components';
 import styled from 'styled-components';
 
 interface PlaceholderGuideProps {
-  FontName: boolean;
+  isEmpty: boolean;
 }
 
 export const ModalWapper = styled.div`
@@ -74,14 +74,16 @@ export const ContentFontNameInput = styled(BaseLabelWithInput.Input)`
   width: 100%;
 `;
 
-export const ContentFontNameInputPlaceholder = styled.div<PlaceholderGuideProps>`
+export const ContentFontNameInputPlaceholder = styled.div.attrs(
+  (props) => ({}),
+)<PlaceholderGuideProps>`
   position: absolute;
   color: ${PALETTE.LIGHT_BLACK};
   font-size: 14px;
   font-family: ${notoSansKr.regular.style.fontFamily};
   font-weight: ${notoSansKr.regular.style.fontWeight};
   pointer-events: none;
-  display: ${({ FontName }) => (FontName ? 'block' : 'none')};
+  display: ${(props) => (props.isEmpty ? 'block' : 'none')};
   span {
     color: ${PALETTE.LIGHT_BLACK};
     font-size: 14px;

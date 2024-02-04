@@ -31,7 +31,7 @@ function LoginForModal() {
       </Styled.WelcomeWrapper>
       <Styled.ContentFontNameWrapper>
         <Styled.ContentFontNameInputWrapper>
-          <Styled.ContentFontNameInputPlaceholder FontName={!MemberID}>
+          <Styled.ContentFontNameInputPlaceholder isEmpty={!MemberID}>
             <span>아이디</span>를 입력해주세요.
           </Styled.ContentFontNameInputPlaceholder>
           <Styled.ContentFontNameInput
@@ -44,7 +44,7 @@ function LoginForModal() {
       </Styled.ContentFontNameWrapper>
       <Styled.ContentFontNameWrapper>
         <Styled.ContentFontNameInputWrapper>
-          <Styled.ContentFontNameInputPlaceholder FontName={!MemberID}>
+          <Styled.ContentFontNameInputPlaceholder isEmpty={!Password}>
             <span>비밀번호</span>를 입력해주세요.
           </Styled.ContentFontNameInputPlaceholder>
           <Styled.ContentFontNameInput

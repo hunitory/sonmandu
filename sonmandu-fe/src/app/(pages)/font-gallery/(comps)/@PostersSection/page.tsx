@@ -1,22 +1,10 @@
-'use server';
-
+import React from 'react';
+import * as S from './style';
 import * as Comp from '@/components';
-import * as API from '@/apis';
 
-export default async function FontGalleryPage() {
-  const querys = {
-    startIdx: 0,
-    takeCount: 4,
-    sort: '',
-    tagId: '',
-    name: '',
-  };
-  const requestfontList = async () => {
-    return await API.handwriting.fontListInGallery(querys);
-  };
-
+export default function PostersSection() {
   return (
-    <>
+    <S.CardsGridWrapper>
       <Comp.BaseFontCard></Comp.BaseFontCard>
       <Comp.BaseFontCard></Comp.BaseFontCard>
       <Comp.BaseFontCard></Comp.BaseFontCard>
@@ -32,6 +20,6 @@ export default async function FontGalleryPage() {
       <Comp.BaseFontCard></Comp.BaseFontCard>
       <Comp.BaseFontCard></Comp.BaseFontCard>
       <Comp.BaseFontCard></Comp.BaseFontCard>
-    </>
+    </S.CardsGridWrapper>
   );
 }

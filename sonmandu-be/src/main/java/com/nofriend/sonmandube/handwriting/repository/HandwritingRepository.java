@@ -3,6 +3,8 @@ package com.nofriend.sonmandube.handwriting.repository;
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
 import com.nofriend.sonmandube.handwriting.domain.HandwritingApplication;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,4 +18,19 @@ public interface HandwritingRepository extends JpaRepository<Handwriting, Long>,
     List<Handwriting> findTop5ByOrderByLastWeekDescCreateDateDesc();
 
     List<Handwriting> findTop10ByOrderByLastWeekDescCreateDateDesc();
+
+    @Modifying
+    @Query(value = "update handwriting set last_week = this_week, this_week = 0",
+            nativeQuery = true)
+    void setThisWeekToLastWeek();
+
+    @Modifying
+    @Query(value = "update handwriting set last_month = this_month, this_month = 0",
+            nativeQuery = true)
+    void setThisMonthToLastMonth();
+
+    @Modifying
+    @Query(value = "update handwriting set this_month = this_month + this_week",
+            nativeQuery = true)
+    void addThisWeekToThisMonth();
 }

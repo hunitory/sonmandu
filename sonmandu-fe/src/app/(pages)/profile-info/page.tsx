@@ -18,6 +18,21 @@ export default function ProfileInfoPage() {
     name: '오이김',
     email: 'lsdkfj@gmail.com',
   };
+  interface isActive {
+    nickname: boolean,
+    id: boolean,
+    name: boolean,
+    password: boolean,
+    email: boolean
+  }
+
+  const [isActive, setIsActive] = useState({
+    nickname: true,
+    id: true,
+    name: true,
+    password: true,
+    email: true
+  });
 
   const props = {
     nicknameProps : {
@@ -51,15 +66,15 @@ export default function ProfileInfoPage() {
               <span>개인 정보</span>
             </S.ProfileInfoHeadWrapper>
             <S.ProfileInfoInputWrapper>
-              <Comp.ProfileInput {...props.nicknameProps} />
+              <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...props.nicknameProps} />
               <S.Line />
-              <Comp.ProfileInput {...props.idProps} />
+              <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...props.idProps} />
               <S.Line />
-              <Comp.ProfilePasswordInput password={member.password} />
+              <Comp.ProfilePasswordInput isActive={isActive} activate={setIsActive} password={member.password} />
               <S.Line />
-              <Comp.ProfileInput {...props.nameProps} />
+              <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...props.nameProps} />
               <S.Line />
-              <Comp.ProfileInput {...props.emailProps} />
+              <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...props.emailProps} />
               <S.Line />
             </S.ProfileInfoInputWrapper>
           </S.ProfileInfoWrapper>

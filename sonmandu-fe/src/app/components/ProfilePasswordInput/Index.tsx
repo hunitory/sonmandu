@@ -4,7 +4,21 @@ import React, { ChangeEvent, useRef, useState } from 'react';
 import * as Comp from '@/components';
 import * as S from './style'; 
 
-function ProfilePasswordInput({password}: {password: string}) {
+interface isActive {
+	nickname: boolean,
+	id: boolean,
+	name: boolean,
+	password: boolean,
+	email: boolean
+}
+
+interface ProfilePasswordInputProps {
+	isActive: isActive,
+	activate: React.Dispatch<React.SetStateAction<isActive>>,
+	password: string
+}
+
+function ProfilePasswordInput({isActive, activate, password}: ProfilePasswordInputProps) {
   
 	const [isEdit, setIsEdit] = useState(false);
 
@@ -24,6 +38,22 @@ function ProfilePasswordInput({password}: {password: string}) {
 	const handleNewPassword2OnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewPassword2( e.target.value );
   };
+
+	const allActive = {
+		nickname: true,
+		id: true,
+		name: true,
+		password: true,
+		email: true
+	}
+
+	const nonActive = {
+		nickname: false,
+		id: false,
+		name: false,
+		password: false,
+		email: false
+	}
 
 	return (
 		<Comp.BaseLabelWithInput.Label
@@ -100,7 +130,10 @@ function ProfilePasswordInput({password}: {password: string}) {
 								</S.EditInputWrapper>
 								<S.EditLink>
 									<a 
-										onClick={() => setIsEdit(!isEdit)
+										onClick={() => {
+											setIsEdit(!isEdit)
+											activate(allActive)
+										}
 									}>취소하기</a>
 								</S.EditLink>
 							</S.InfoInputWrapper>
@@ -110,7 +143,16 @@ function ProfilePasswordInput({password}: {password: string}) {
 								<S.InfoSpan>비밀번호는 8자리이상 20자리 이하입니다</S.InfoSpan>
 								<S.EditLink>
 									<a 
-										onClick={() => setIsEdit(!isEdit)
+										onClick={() => {
+											if (isActive.password) {
+												setIsEdit(!isEdit)
+												activate(nonActive)
+												activate(prev => ({
+													...prev,
+													password: true
+												}))
+											}
+										}
 									}>수정하기</a>
 								</S.EditLink>
 

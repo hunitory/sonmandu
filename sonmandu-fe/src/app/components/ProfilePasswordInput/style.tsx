@@ -51,7 +51,7 @@ export const EditInputWrapper = styled.div`
 
 export const PasswordWrapper = styled.div`
   width: 100%;
-  height: max(40, 2vw);
+  height: max(40px, 2vw);
   display: flex;
   flex-direction: column;
   gap: 0.1vw;
@@ -70,7 +70,7 @@ export const PasswordDiv = styled.div`
 export const CurrentPasswordInput = styled(BaseLabelWithInput.Input)`
   font-size: max(14px, 0.8vw);
   border: 1px solid ${PALETTE.LIGHT_BLACK};
-  padding-left: 2px;
+  padding: 1px 2px;
   border-radius: 8px;
 `;
 

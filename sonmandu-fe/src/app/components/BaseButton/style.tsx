@@ -9,6 +9,7 @@ export const ButtonWrapper = styled.button`
   background-color: white;
   color: ${PALETTE.MAIN_BLACK};
   padding: 0px 8px;
+  cursor: pointer;
 
   &:disabled {
     background-color: ${PALETTE.SUB_WHITE};

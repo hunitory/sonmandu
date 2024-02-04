@@ -15,10 +15,10 @@ export async function fontListInGallery({
   name,
 }: fontListInGalleryArgs) {
   return instanceJsonContent.get(
-    `/api/handwritings/gallery?start=${startIdx}&count=${takeCount}&tagId=${tagId}&sort=${sort}&name=${name}`,
+    `/handwritings/gallery?start=${startIdx}&count=${takeCount}&tagId=${tagId}&sort=${sort}&name=${name}`,
   );
 }
 
 export async function fontDetail({ fontId }: { fontId: number }) {
-  return instanceJsonContent.get(`/api/handwritings/gallery/${fontId}`);
+  return instanceJsonContent.get(`/handwritings/gallery/${fontId}`);
 }

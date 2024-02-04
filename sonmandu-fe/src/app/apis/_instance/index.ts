@@ -1,16 +1,14 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
 
-const instance = (contentType: string) => {
-  return axios.create({
-    baseURL: process.env.NEXT_PUBLIC_PRODUCT_END_POINT,
+const customInstance = (contentType: string) => {
+  const dynamicContentInstance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_DEVELOP_END_POINT,
     headers: {
       'Content-Type': contentType,
     },
   });
-};
 
-const requestInterceptorSetting = (instance: AxiosInstance) => {
-  instance.interceptors.request.use((config) => {
+  dynamicContentInstance.interceptors.request.use((config) => {
     if (typeof window !== undefined) {
       const token = localStorage.getItem('access_token');
       config.headers['Authorization'] = `Bearer ${token}`;
@@ -18,15 +16,11 @@ const requestInterceptorSetting = (instance: AxiosInstance) => {
     return config;
   });
 
-  return instance;
+  return dynamicContentInstance;
 };
 
-export const instanceJsonContent = requestInterceptorSetting(
-  instance('application/json'),
-);
-export const instanceMultipartContent = requestInterceptorSetting(
-  instance('multipart/form-data'),
-);
+export const instanceJsonContent = customInstance('application/json');
+export const instanceMultipartContent = customInstance('multipart/form-data');
 
 // Authorization: `Bearer ${token}`
 // x-refresh-token: `${refreshToken}`

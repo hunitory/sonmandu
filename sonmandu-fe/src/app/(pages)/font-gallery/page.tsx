@@ -1,7 +1,9 @@
+'use server';
+
 import * as Comp from '@/components';
 import * as API from '@/apis';
 
-export default function FontGalleryPage() {
+export default async function FontGalleryPage() {
   const querys = {
     startIdx: 0,
     takeCount: 4,
@@ -10,10 +12,9 @@ export default function FontGalleryPage() {
     name: '',
   };
   const requestfontList = async () => {
-    'use server';
     return await API.handwriting.fontListInGallery(querys);
   };
-  // console.log(`requestfontList :`, requestfontList());
+
   return (
     <>
       <Comp.BaseFontCard></Comp.BaseFontCard>

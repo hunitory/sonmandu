@@ -1,4 +1,4 @@
-import React, { useState,  } from 'react';
+import React, { useState } from 'react';
 import { BaseHashTags } from 'components';
 import { WHOLE_HASH_TAGES } from '@/constants';
 import * as Styled from './style';
@@ -8,7 +8,7 @@ interface FontInfo {
   onNext: () => void;
 }
 
-export default function FontInfo({ onNext, onBack, }: FontInfo) {
+export default function FontInfo({ onNext, onBack }: FontInfo) {
   const [FontName, setFontName] = useState('');
 
   const NameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,9 +17,9 @@ export default function FontInfo({ onNext, onBack, }: FontInfo) {
   const [selectedHashTags, setSelectedHashTags] = useState<number[]>([]);
 
   const toggleHashTag = (id: number) => {
-    setSelectedHashTags(prev => {
+    setSelectedHashTags((prev) => {
       if (prev.includes(id)) {
-        return prev.filter(tagId => tagId !== id);
+        return prev.filter((tagId) => tagId !== id);
       } else if (prev.length < 3) {
         return [...prev, id];
       }
@@ -31,10 +31,12 @@ export default function FontInfo({ onNext, onBack, }: FontInfo) {
     <Styled.Wrapper>
       <Styled.ContentWrapper>
         <Styled.ContentFontNameWrapper>
-          <Styled.ContentFontNametTitle>손글씨 이름</Styled.ContentFontNametTitle>
+          <Styled.ContentFontNametTitle>
+            손글씨 이름
+          </Styled.ContentFontNametTitle>
           <Styled.ContentFontNametContent>
-            입력하신 이름 앞에 <span>'손만두'</span>가 기본적으로 붙습니다. ex) 손만두
-            홍길동체
+            입력하신 이름 앞에 <span>'손만두'</span>가 기본적으로 붙습니다. ex)
+            손만두 홍길동체
           </Styled.ContentFontNametContent>
           <Styled.ContentFontNameInputWrapper>
             <Styled.ContentFontNameInputPlaceholder FontName={!FontName}>
@@ -54,12 +56,9 @@ export default function FontInfo({ onNext, onBack, }: FontInfo) {
             최대 3개까지 선택 가능합니다.
           </Styled.ContentFontTagtContent>
           <Styled.ContentFontTags
-            hashTagIdList={WHOLE_HASH_TAGES.map(tag => tag.id)}
+            hashTagIdList={WHOLE_HASH_TAGES.map((tag) => tag.id)}
             direction="row"
-          > 
-          </Styled.ContentFontTags>
-
-          
+          ></Styled.ContentFontTags>
         </Styled.ContentFontTagWrapper>
       </Styled.ContentWrapper>
       <Styled.ButtonWrapper>

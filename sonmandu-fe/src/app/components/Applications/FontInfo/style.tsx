@@ -1,13 +1,7 @@
 import { PALETTE, notoSansKr } from 'styles';
 
-import { 
-  BaseLabelWithInput,
-  BaseButton,
-  BaseHashTags, 
-} 
-  from 'components';
+import { BaseLabelWithInput, BaseButton, BaseHashTags } from 'components';
 import styled from 'styled-components';
-import exp from 'constants';
 
 interface PlaceholderGuideProps {
   FontName: boolean;
@@ -88,7 +82,6 @@ export const ContentFontNameInputPlaceholder = styled.div<PlaceholderGuideProps>
   }
 `;
 
-
 export const ContentFontTagWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -110,17 +103,13 @@ export const ContentFontTagtContent = styled.div`
   font-weight: ${notoSansKr.regular.style.fontWeight};
 `;
 
-export const ContentFontTagListWrapper = styled.div`
-  
-`;
+export const ContentFontTagListWrapper = styled.div``;
 
 export const ContentFontTags = styled(BaseHashTags)`
   flex-wrap: wrap;
   justify-content: start;
-`
-export const ContentFontTag = styled(BaseHashTags.OneTag)`
-
 `;
+export const ContentFontTag = styled(BaseHashTags.OneTag)``;
 
 /*---------- button ---------- */
 export const ButtonWrapper = styled.div`

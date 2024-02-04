@@ -3,11 +3,13 @@ package com.nofriend.sonmandube.member.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Persistent;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -52,6 +54,9 @@ public class Member implements UserDetails {
     private String emailToken;
 
     private boolean isBadge;
+
+    @CreatedDate
+    private LocalDateTime createTime;
 
     @Transient
     private List<GrantedAuthority> authorities;

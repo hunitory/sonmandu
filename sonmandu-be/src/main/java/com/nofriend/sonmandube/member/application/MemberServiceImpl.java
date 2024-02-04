@@ -9,6 +9,7 @@ import com.nofriend.sonmandube.member.controller.response.MemberInformationRespo
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.member.repository.MemberRepository;
+import com.nofriend.sonmandube.member.repository.TrophyRepository;
 import com.nofriend.sonmandube.s3.S3Service;
 import com.nofriend.sonmandube.util.FileDto;
 import com.nofriend.sonmandube.util.FileUtil;
@@ -41,6 +42,7 @@ import java.util.UUID;
 public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final TrophyRepository trophyRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -67,7 +69,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
         memberRepository.save(newMember);
 
-//        sendEmailToken(newMember);
+        sendEmailToken(newMember);
     }
 
     private void sendEmailToken(Member newMember) throws MessagingException {
@@ -150,6 +152,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .nickname(member.getNickname())
                 .introduction(member.getIntroduction())
                 .badge(member.isBadge())
+                .trophies(trophyRepository.findTop8IdByMemberMemberIdOrderByTrophyIdCreateDate(memberId))
                 .build();
     }
 

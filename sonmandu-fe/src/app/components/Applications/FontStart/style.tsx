@@ -171,10 +171,11 @@ export const CautionWrapper = styled.div`
 
 export const CautionContentText = styled.p`
   width: 95px;
-  font-size: 16px;
+  font-size: 15px;
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_BLACK};
+  margin-top: 12px;
 `;
 
 export const CautionContentWrapper = styled.div`

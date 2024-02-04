@@ -9,10 +9,10 @@ export default function FontStart(props: FontStartProps) {
   const PaperURL = '/image/paper.png';
   const penURL = '/image/pen.png';
 
-  const Caution1 = '/image/Caution1.png';
-  const Caution2 = '/image/Caution2.png';
-  const Caution3 = '/image/Caution3.png';
-  const Caution4 = '/image/Caution4.png';
+  const Caution1 = '/image/caution1.png';
+  const Caution2 = '/image/caution2.png';
+  const Caution3 = '/image/caution3.png';
+  const Caution4 = '/image/caution4.png';
 
   return (
     <Styled.Wrapper>
@@ -81,7 +81,7 @@ export default function FontStart(props: FontStartProps) {
                   <Styled.CautionContentWrapper>
                     <Image
                       src={Caution1}
-                      alt="Caution1"
+                      alt="얼룩이 있는 경우"
                       width={95}
                       height={155}
                     />
@@ -92,18 +92,18 @@ export default function FontStart(props: FontStartProps) {
                   <Styled.CautionContentWrapper>
                     <Image
                       src={Caution2}
-                      alt="Caution2"
+                      alt="글 상자에 획이 닿는 경우"
                       width={95}
                       height={155}
                     />
                     <Styled.CautionContentText>
-                      글 상자에 닿는 경우
+                      글 상자에 획이 닿는 경우
                     </Styled.CautionContentText>
                   </Styled.CautionContentWrapper>
                   <Styled.CautionContentWrapper>
                     <Image
                       src={Caution3}
-                      alt="Caution3"
+                      alt="획이 겹치거나 닿은 경우"
                       width={95}
                       height={155}
                     />
@@ -114,7 +114,7 @@ export default function FontStart(props: FontStartProps) {
                   <Styled.CautionContentWrapper>
                     <Image
                       src={Caution4}
-                      alt="Caution4"
+                      alt="획이 끊어진 경우"
                       width={95}
                       height={155}
                     />

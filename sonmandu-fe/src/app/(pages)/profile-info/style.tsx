@@ -17,11 +17,16 @@ export const ProfileInfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    padding-top: 10px;
+    gap: 40px;
+  }
 `
 
 export const ProfileInfoHeadWrapper = styled.div`
   span {
-    font-size: 1.5vw;
+    font-size: 28px;
     font-weight: ${notoSansKr.black.style.fontWeight};
     font-family: ${notoSansKr.black.style.fontFamily};
   }
@@ -33,6 +38,10 @@ export const ProfileInfoInputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 1vw;
+
+  @media screen and (max-width: 768px) {
+    gap: 14px;
+  }
 `
 
 export const Line = styled.hr`

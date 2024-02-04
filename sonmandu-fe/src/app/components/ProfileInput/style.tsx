@@ -10,16 +10,20 @@ export const InfoWrapper = styled.div`
   height: fit-content;
   padding: 1vw 0.5vw;
   grid-template-columns: 1fr 2.7fr;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr 3.5fr;
+  }
 `;
 
 export const InfoHead = styled.span`
-  font-size: 0.8vw;
+  font-size: max(14px, 0.8vw);
   font-weight: ${notoSansKr.medium.style.fontStyle};
   font-family: ${notoSansKr.medium.style.fontFamily};
 `;
 
 export const InfoSpan = styled.span`
-  font-size: 0.8vw;
+  font-size: max(14px, 0.8vw);
   font-weight: ${notoSansKr.bold.style.fontStyle};
   font-family: ${notoSansKr.bold.style.fontFamily};
 `;
@@ -27,10 +31,14 @@ export const InfoSpan = styled.span`
 export const InfoInputWrapper = styled.div`
   width: 100%;
   height: 100%;
-  font-size: 0.8vw;
+  font-size: max(14px, 0.8vw);
   display: grid;
   grid-template-columns: 8fr 1fr;
-  `;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 4fr 1fr;
+  }
+`;
   
 
 export const EditInputWrapper = styled.div`
@@ -43,7 +51,7 @@ export const EditLink = styled.div`
   display: flex;
   flex-direction: row-reverse;
   a {
-    font-size: 0.6vw;
+    font-size: max(12px, 0.6vw);
     text-decoration: underline;
     font-weight: ${notoSansKr.bold.style.fontStyle};
     font-family: ${notoSansKr.bold.style.fontFamily};
@@ -51,7 +59,7 @@ export const EditLink = styled.div`
 `;
 
 export const BaseInput = styled(BaseLabelWithInput.Input)`
-  font-size: 0.8vw;
+  font-size: max(14px, 0.8vw);
 `;
 
 export const StyledButton = styled(BaseButton)`
@@ -70,6 +78,6 @@ export const StyledButton = styled(BaseButton)`
 
 
 export const EditContentsWrapper = styled.div`
-  font-size: 0.6vw;
+  font-size: max(12px, 0.6vw);
   color: ${PALETTE.LIGHT_BLACK};
 `

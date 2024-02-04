@@ -25,8 +25,6 @@ function ProfilePasswordInput({password}: {password: string}) {
     setNewPassword2( e.target.value );
   };
 
-console.log("Active Element:", document.activeElement);
-
 	return (
 		<Comp.BaseLabelWithInput.Label
 			id={'member-info-password'}

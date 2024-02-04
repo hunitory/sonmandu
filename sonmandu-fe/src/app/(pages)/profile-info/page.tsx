@@ -1,6 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, useRef, useState } from 'react';
+import Image from 'next/image';
 import * as Comp from '@/components';
 import * as S from './style';
 
@@ -77,6 +78,18 @@ export default function ProfileInfoPage() {
               <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...props.emailProps} />
               <S.Line />
             </S.ProfileInfoInputWrapper>
+            {
+              isActive.nickname &&
+              isActive.id &&
+              isActive.password &&
+              isActive.name &&
+              isActive.email &&
+              <S.ImageWrapper>
+                <div>
+                  <Image src={'/image/logo.png'} fill alt='logo' />
+                </div>
+              </S.ImageWrapper>
+            }
           </S.ProfileInfoWrapper>
         </Comp.Modal>
       )}

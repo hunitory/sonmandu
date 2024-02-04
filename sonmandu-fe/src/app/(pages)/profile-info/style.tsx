@@ -48,3 +48,17 @@ export const Line = styled.hr`
   width: 100%;
   border: 1px solid ${PALETTE.SUB_WHITE};
 `;
+
+export const ImageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div {
+
+    position: relative;
+    width: 25%;
+    height: 50%;
+  }
+`

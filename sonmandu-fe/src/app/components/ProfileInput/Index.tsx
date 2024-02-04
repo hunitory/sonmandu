@@ -111,12 +111,12 @@ function ProfileInput({isActive, activate, ...props}: ProfileInputProps) {
 									</ S.StyledButton>
 								</S.EditInputWrapper>
 								<S.EditLink>
-									<a 
+									<span
 										onClick={() => {
 											setIsEdit(!isEdit)
 											activate(allActive)
 										}
-									}>취소하기</a>
+									}>취소하기</span>
 								</S.EditLink>
 							</S.InfoInputWrapper>
 						) :
@@ -124,7 +124,7 @@ function ProfileInput({isActive, activate, ...props}: ProfileInputProps) {
 							<S.InfoInputWrapper>
 								<S.InfoSpan>{props.infoContent}</S.InfoSpan>
 								<S.EditLink>
-									<a 
+									<span
 										onClick={() => {
 											if (isActive[props.labelName as keyof typeof isActive]) {
 												setIsEdit(!isEdit)
@@ -135,7 +135,7 @@ function ProfileInput({isActive, activate, ...props}: ProfileInputProps) {
 												}))
 											}
 										}
-									}>수정하기</a>
+									}>수정하기</span>
 								</S.EditLink>
 
 							</S.InfoInputWrapper>

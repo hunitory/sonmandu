@@ -50,11 +50,14 @@ export const EditInputWrapper = styled.div`
 export const EditLink = styled.div`
   display: flex;
   flex-direction: row-reverse;
-  a {
+  span {
     font-size: max(12px, 0.6vw);
     text-decoration: underline;
     font-weight: ${notoSansKr.bold.style.fontStyle};
     font-family: ${notoSansKr.bold.style.fontFamily};
+  }
+  span:hover {
+    cursor: pointer;
   }
 `;
 

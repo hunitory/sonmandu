@@ -2,7 +2,8 @@
 
 import React, { ChangeEvent, useRef, useState } from 'react';
 import * as Comp from '@/components';
-import * as S from './style'; 
+import * as S from './style';
+import Link from 'next/link';
 
 interface isActive {
 	nickname: boolean,
@@ -129,12 +130,12 @@ function ProfilePasswordInput({isActive, activate, password}: ProfilePasswordInp
 									</ S.StyledButton>
 								</S.EditInputWrapper>
 								<S.EditLink>
-									<a 
+									<span
 										onClick={() => {
 											setIsEdit(!isEdit)
 											activate(allActive)
 										}
-									}>취소하기</a>
+									}>취소하기</span>
 								</S.EditLink>
 							</S.InfoInputWrapper>
 						) :
@@ -142,7 +143,7 @@ function ProfilePasswordInput({isActive, activate, password}: ProfilePasswordInp
 							<S.InfoInputWrapper>
 								<S.InfoSpan>비밀번호는 8자리이상 20자리 이하입니다</S.InfoSpan>
 								<S.EditLink>
-									<a 
+									<span
 										onClick={() => {
 											if (isActive.password) {
 												setIsEdit(!isEdit)
@@ -153,7 +154,7 @@ function ProfilePasswordInput({isActive, activate, password}: ProfilePasswordInp
 												}))
 											}
 										}
-									}>수정하기</a>
+									}>수정하기</span>
 								</S.EditLink>
 
 							</S.InfoInputWrapper>

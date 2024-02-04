@@ -32,37 +32,36 @@ export const Modal = styled.div<ModalProps>`
 `;
 
 export const ModalWapper = styled.div`
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
 `;
 
-
 export const BackLayOutModal = styled.div`
-    width: 100vw;
-    height: 100vh;
-	  background-color: rgba(160, 160, 160, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(160, 160, 160, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
 `;
 
 export const CloseButton = styled(BaseButton)`
-    width: 26px;
-    height: 26px;
-    background-color: ${PALETTE.SUB_WHITE};
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    border-radius: 50px;
-    display: flex;
-    justify-content:center;
-    align-items:center;
-    cursor: pointer;
+  width: 26px;
+  height: 26px;
+  background-color: ${PALETTE.SUB_WHITE};
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;

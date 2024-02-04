@@ -1,11 +1,14 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
+import html2canvas from 'html2canvas';
+import saveAs from 'file-saver';
 import * as S from './style';
 import * as Comp from '@/components';
 import Image from 'next/image';
 
 function FontTesting() {
+  const letterImageRef = useRef(null);
   const [selectedLetter, setSelectedLetter] = useState({
     letterSrc: '/image/letter-1.png',
     idx: 1,
@@ -19,9 +22,22 @@ function FontTesting() {
     }));
   };
 
+  const captureDownloadLetter = async () => {
+    if (letterImageRef.current) {
+      try {
+        const canvas = await html2canvas(letterImageRef.current);
+        canvas.toBlob(
+          (blob) => blob !== null && saveAs(blob, `손만두 ${'폰트이름'}`),
+        );
+      } catch (err) {
+        alert('이미지가 정상적으로 저장되지 않았습니다!');
+      }
+    }
+  };
+
   return (
     <S.TestingWrapper>
-      <S.TestingLetterArea>
+      <S.TestingLetterArea ref={letterImageRef}>
         <Comp.BaseLetterField letterImgUrl={selectedLetter.letterSrc} />
       </S.TestingLetterArea>
       <S.SideBoxWrapper>
@@ -43,10 +59,7 @@ function FontTesting() {
             </S.LatterContainerButton>
           ))}
         </S.SideBoxContainer>
-        <S.CustomButton
-          type="button"
-          onClick={() => console.log(`편지 다운로드 :`)}
-        >
+        <S.CustomButton type="button" onClick={captureDownloadLetter}>
           내가 쓴 편지지 다운 받기
         </S.CustomButton>
       </S.SideBoxWrapper>

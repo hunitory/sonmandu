@@ -6,6 +6,7 @@ import {
 } from './components/BaseInput';
 import { BaseHasTagsProps } from './components/BaseHashTags';
 import { BaseLetterFieldProps } from './components/BaseLetterTextField';
+import { FontCard } from './components/BaseFontCard';
 
 export type {
   BaseButtonProps,
@@ -14,4 +15,5 @@ export type {
   BaseLabelWithInputProps,
   BaseHasTagsProps,
   BaseLetterFieldProps,
+  FontCard,
 };

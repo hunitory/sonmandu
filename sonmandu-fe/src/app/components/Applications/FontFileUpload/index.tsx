@@ -96,7 +96,6 @@ export default function FontFileUpload({
         />
         <Styled.ContentFileUploadLabel
           id="file-upload"
-          htmlFor="file-upload"
           onDragEnter={onDragEnter}
           onDragLeave={onDragLeave}
           onDragOver={onDragOver}

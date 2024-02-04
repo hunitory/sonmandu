@@ -15,10 +15,10 @@ export interface BaseLabelProps {
   id: string;
   className?: string;
   children?: React.ReactNode;
-  onDragEnter?: () => void;
-  onDragLeave?: () => void;
-  onDragOver?: () => void;
-  onDrop?: () => void;
+  onDragEnter?: (...args: any[]) => void;
+  onDragLeave?: (...args: any[]) => void;
+  onDragOver?: (...args: any[]) => void;
+  onDrop?: (...args: any[]) => void;
   role?: string;
 }
 

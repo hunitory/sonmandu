@@ -3,10 +3,8 @@ import * as S from './_style';
 
 export default function CreateFontLayout({
   children,
-  currentStep,
 }: Readonly<{
   children: React.ReactNode;
-  currentStep: number;
 }>) {
   return (
     <S.MainWrapper>

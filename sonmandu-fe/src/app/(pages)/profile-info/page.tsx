@@ -1,0 +1,70 @@
+'use client';
+
+import React, { ChangeEvent, useRef, useState } from 'react';
+import * as Comp from '@/components';
+import * as S from './style';
+
+export default function ProfileInfoPage() {
+  const [isModalOpen, setIsModalOpen] = useState(true); // 모달 상태
+  const onClose = () => {
+    setIsModalOpen(false); // 모달 닫기
+  };
+
+  // 현재 로그인한 유저 정보
+  const member = {
+    nickname: 'ssafy',
+    id: 'ssdaj555',
+    password: 'eowjs123',
+    name: '오이김',
+    email: 'lsdkfj@gmail.com',
+  };
+
+  const props = {
+    nicknameProps : {
+      infoContent: member.nickname,
+      infoHead: '닉네임',
+      labelName: 'nickname'
+    },
+    idProps : {
+      infoContent: member.id,
+      infoHead: '아이디',
+      labelName: 'id'
+    },
+    nameProps : {
+      infoContent: member.name,
+      infoHead: '이름',
+      labelName: 'name'
+    },
+    emailProps : {
+      infoContent: member.email,
+      infoHead: '이메일',
+      labelName: 'email'
+    },
+  }
+
+  return (
+    <div>
+      {isModalOpen && (
+        <Comp.Modal size={'large'} onClose={onClose}>
+          <S.ProfileInfoWrapper>
+            <S.ProfileInfoHeadWrapper>
+              <span>개인 정보</span>
+            </S.ProfileInfoHeadWrapper>
+            <S.ProfileInfoInputWrapper>
+              <Comp.ProfileInput {...props.nicknameProps} />
+              <S.Line />
+              <Comp.ProfileInput {...props.idProps} />
+              <S.Line />
+              <Comp.ProfilePasswordInput password={member.password} />
+              <S.Line />
+              <Comp.ProfileInput {...props.nameProps} />
+              <S.Line />
+              <Comp.ProfileInput {...props.emailProps} />
+              <S.Line />
+            </S.ProfileInfoInputWrapper>
+          </S.ProfileInfoWrapper>
+        </Comp.Modal>
+      )}
+    </div>
+  );
+}

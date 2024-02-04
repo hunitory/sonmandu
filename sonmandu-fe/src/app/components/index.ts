@@ -12,6 +12,8 @@ import ProfileBox from './ProfileBox';
 import ProfileFontCard from './ProfileFontCard';
 import ProfileFontCardMaking from './ProfileFontCardMaking';
 import ProfileTrophy from './ProfileTrophy';
+import ProfileInput from './ProfileInput/Index';
+import ProfilePasswordInput from './ProfilePasswordInput/Index';
 import SearchOptions from './SearchOptions';
 
 export {
@@ -27,5 +29,7 @@ export {
   ProfileFontCard,
   ProfileFontCardMaking,
   ProfileTrophy,
+  ProfileInput,
+  ProfilePasswordInput,
   SearchOptions,
 };

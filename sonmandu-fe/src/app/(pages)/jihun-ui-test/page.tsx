@@ -25,16 +25,15 @@ export default function JihunUiTestPage() {
     email: 'lsdkfj@gmail.com',
   };
 
-  const [isOpen, setIsOpen] = useState({
+  const [isEdit, setIsEdit] = useState({
     nickname: false,
     id: false,
     name: false,
     email: false,
   });
 
-  const OpenEditWindow = (props: string) => {
-    // setIsOpen((prev) => ({ ...prev, [e.target.id]: !e.target.value }));
-    console.log(props);
+  const OpenEditWindow = (props: keyof typeof isEdit) => {
+    setIsEdit((prev) => ({ ...prev, [props]: !prev[props] }));
   };
 
   const ref = useRef<HTMLInputElement>(null);
@@ -53,31 +52,35 @@ export default function JihunUiTestPage() {
           >
             <S.NicknameWrapper>
               <S.NicknameHead>닉네임</S.NicknameHead>
-              {isOpen.nickname && (
-                <S.NicknameInputWrapper>
-                  <Comp.BaseLabelWithInput.Input
-                    ref={ref}
-                    id="nickname"
-                    type="text"
-                    value={memberInfo.nickname}
-                    onChange={handleMemberInfoOnChange}
-                  />
-                </S.NicknameInputWrapper>
-              )}
-              {!isOpen.nickname && (
-                <S.NicknameSpan>{memberInfo.nickname}</S.NicknameSpan>
-              )}
-              <S.StyledButton
-                type={'button'}
-                onClick={
-                  isOpen.nickname
-                    ? () => console.log('happy')
-                    : () => OpenEditWindow('nickname')
-                }
-                disabled={false}
-              >
-                <span>수정하기</span>
-              </S.StyledButton>
+              <S.NicknameInputWrapper>
+                {isEdit.nickname && (
+                    <Comp.BaseLabelWithInput.Input
+                      ref={ref}
+                      id="nickname"
+                      type="text"
+                      value={memberInfo.nickname}
+                      onChange={handleMemberInfoOnChange}
+                    />
+                    )}
+                {!isEdit.nickname && (
+                  <S.NicknameSpan>{memberInfo.nickname}</S.NicknameSpan>
+                )}
+              </S.NicknameInputWrapper>
+              {
+                isEdit.nickname ? 
+                <S.StyledButton
+                  type={'button'}
+                  onClick={
+                      () => OpenEditWindow('nickname')
+                  }
+                  disabled={false}
+                > 
+                  <span>저장하기</span>
+                </ S.StyledButton>
+                : <a 
+                onClick={() => OpenEditWindow('nickname')
+              }>수정하기</a>
+              }
             </S.NicknameWrapper>
           </Comp.BaseLabelWithInput.Label>
         </Comp.Modal>

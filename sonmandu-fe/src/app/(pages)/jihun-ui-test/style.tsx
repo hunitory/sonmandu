@@ -5,14 +5,17 @@ import { BaseButton } from 'components';
 import { PALETTE, notoSansKr } from 'styles';
 
 export const StyledMain = styled.main`
-  width: 100px;
+  width: 100vw  ;
   height: 2000px;
   background-color: white;
 `;
 
 export const NicknameWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
+  width: 25vw;
+  height: 31px;
+  align-items: center;
+  grid-template-columns: 1fr 3fr 2fr;
 `;
 
 export const NicknameHead = styled.span`
@@ -30,7 +33,7 @@ export const NicknameSpan = styled.span`
 export const NicknameInputWrapper = styled.div`
   width: 100%;
   height: 100%;
-  font-size: 15px;
+  font-size: 0.8vw;
   display: flex;
   align-items: center;
 `;

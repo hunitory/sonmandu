@@ -4,7 +4,7 @@ import { BaseLabelWithInput, BaseButton, BaseHashTags } from 'components';
 import styled from 'styled-components';
 
 interface PlaceholderGuideProps {
-  FontName: boolean;
+  $fontname: boolean;
 }
 
 export const Wrapper = styled.div`
@@ -102,14 +102,16 @@ export const ContentFontNameInput = styled(BaseLabelWithInput.Input)`
   width: 100%;
 `;
 
-export const ContentFontNameInputPlaceholder = styled.div<PlaceholderGuideProps>`
+export const ContentFontNameInputPlaceholder = styled.div.attrs(() => ({
+  // 여기에서 필요한 속성만을 선택하여 DOM 요소에 전달합니다.
+}))<PlaceholderGuideProps>`
   position: absolute;
   color: ${PALETTE.LIGHT_BLACK};
   font-size: 14px;
   font-family: ${notoSansKr.regular.style.fontFamily};
   font-weight: ${notoSansKr.regular.style.fontWeight};
   pointer-events: none;
-  display: ${({ FontName }) => (FontName ? 'block' : 'none')};
+  display: ${({ $fontname }) => ($fontname ? 'block' : 'none')};
   span {
     color: ${PALETTE.LIGHT_BLACK};
     font-size: 14px;

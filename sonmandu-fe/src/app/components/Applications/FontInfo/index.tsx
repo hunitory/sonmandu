@@ -4,7 +4,6 @@ import * as Styled from './style';
 import { WHOLE_HASH_TAGES } from '@/constants';
 import { FontInfoProps } from 'types';
 
-
 export default function FontInfo(props: FontInfoProps) {
   const { onBack, onNext } = props;
   const [FontName, setFontName] = useState('');
@@ -46,7 +45,7 @@ export default function FontInfo(props: FontInfoProps) {
               ex) 손만두 홍길동체
             </Styled.ContentFontNametContent>
             <Styled.ContentFontNameInputWrapper>
-              <Styled.ContentFontNameInputPlaceholder FontName={!FontName}>
+              <Styled.ContentFontNameInputPlaceholder $fontname={!FontName}>
                 <span>손글씨 이름</span>을 입력해주세요. 최대 20자
               </Styled.ContentFontNameInputPlaceholder>
               <Styled.ContentFontNameInput

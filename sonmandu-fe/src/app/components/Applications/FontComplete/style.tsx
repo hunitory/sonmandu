@@ -87,7 +87,6 @@ export const MyPageButton = styled(BaseButton)`
   width: 240px;
   height: 48px;
   border: 1px solid ${PALETTE.MAIN_ORANGE};
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -97,7 +96,6 @@ export const MainPageButton = styled(BaseButton)`
   width: 240px;
   height: 48px;
   background-color: ${PALETTE.MAIN_ORANGE};
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;

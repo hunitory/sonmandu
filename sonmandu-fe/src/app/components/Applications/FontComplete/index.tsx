@@ -32,18 +32,12 @@ export default function FontComplete() {
           </Styled.ContentTextWrapper>
         </Styled.ContentWrapper>
         <Styled.ButtonWrapper>
-          <Styled.MyPageButton
-            type="button"
-            disabled={false}
-          >
+          <Styled.MyPageButton type="button" disabled={false}>
             <Link href={'/profile/1'}>
               <Styled.MyPageButtonText>마이 페이지</Styled.MyPageButtonText>
             </Link>
           </Styled.MyPageButton>
-          <Styled.MainPageButton
-            type="button"
-            disabled={false}
-          >
+          <Styled.MainPageButton type="button" disabled={false}>
             <Link href={'/'}>
               <Styled.MainPageButtonText>메인 페이지</Styled.MainPageButtonText>
             </Link>

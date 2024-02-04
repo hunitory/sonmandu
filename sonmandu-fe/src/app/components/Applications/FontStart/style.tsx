@@ -56,7 +56,7 @@ export const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
-`
+`;
 /*----------- Title -----------*/
 export const TitleWrapper = styled.div`
   display: flex;
@@ -171,10 +171,11 @@ export const CautionWrapper = styled.div`
 
 export const CautionContentText = styled.p`
   width: 95px;
-  font-size: 16px;
+  font-size: 15px;
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_BLACK};
+  margin-top: 12px;
 `;
 
 export const CautionContentWrapper = styled.div`
@@ -195,7 +196,6 @@ export const NextButton = styled(BaseButton)`
   width: 240px;
   height: 48px;
   background-color: ${PALETTE.MAIN_ORANGE};
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;

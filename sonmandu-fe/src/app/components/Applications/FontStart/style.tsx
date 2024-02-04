@@ -7,25 +7,61 @@ export const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  @media (max-width: 1000px) {
-    gap: 80px;
+  justify-content: start;
+`;
+
+export const StepWrapper = styled.div`
+  width: 100%;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 50px;
+  > *:not(:last-child) {
+    margin-right: -5px;
+  }
+  @media (max-width: 1474px) {
+    :nth-child(4) {
+      display: none;
+    }
   }
 `;
 
-export const ConTentContainer = styled.div`
+export const Card = styled.div`
+  width: 100%;
+  height: auto;
+  min-height: 70vh;
+  box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  padding: 48px 68px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 56px;
+
+  @media (max-width: 1254px) {
+    width: 100%;
+    box-shadow: none;
+  }
+`;
+
+export const CardContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: space-between;
 `;
 
+export const ContentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+`;
 /*----------- Title -----------*/
 export const TitleWrapper = styled.div`
   display: flex;
   justify-content: center;
-  padding-bottom: 30px;
+  padding-bottom: 70px;
 `;
 
 export const Title = styled.p`
@@ -43,9 +79,6 @@ export const ContentWrapper = styled.div`
   justify-content: center;
   align-self: center;
   gap: 50px;
-  @media (max-width: 1000px) {
-    gap: 80px;
-  }
 `;
 
 export const ContentContainer = styled.div`
@@ -100,6 +133,12 @@ export const MaterialImgWrapper = styled.div`
   margin: 0px 18px;
 `;
 
+export const DownloadButtonWrapper = styled.div`
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+`;
+
 export const DownloadButton = styled(BaseButton)`
   width: 200px;
   height: 45px;
@@ -132,10 +171,11 @@ export const CautionWrapper = styled.div`
 
 export const CautionContentText = styled.p`
   width: 95px;
-  font-size: 16px;
+  font-size: 15px;
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_BLACK};
+  margin-top: 12px;
 `;
 
 export const CautionContentWrapper = styled.div`
@@ -149,6 +189,7 @@ export const ButtonWrapper = styled.div`
   height: fit-content;
   display: flex;
   justify-content: center;
+  margin-top: 50px;
 `;
 
 export const NextButton = styled(BaseButton)`

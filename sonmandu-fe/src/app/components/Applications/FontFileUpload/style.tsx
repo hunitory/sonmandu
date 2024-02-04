@@ -8,10 +8,40 @@ export const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 50px;
-  @media (max-width: 900px) {
-    gap: 80px;
+  justify-content: start;
+`;
+
+export const StepWrapper = styled.div`
+  width: 100%;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 50px;
+  > *:not(:last-child) {
+    margin-right: -5px;
+  }
+  @media (max-width: 1474px) {
+    :nth-child(4) {
+      display: none;
+    }
+  }
+`;
+
+export const Card = styled.div`
+  width: 100%;
+  height: auto;
+  min-height: 70vh;
+  box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  padding: 48px 68px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 56px;
+
+  @media (max-width: 1254px) {
+    width: 100%;
+    box-shadow: none;
   }
 `;
 /*----------- Content -----------*/
@@ -20,7 +50,8 @@ export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+  padding-top: 20px;
 `;
 
 export const ContentFileUploadInput = styled(BaseLabelWithInput.Input)`
@@ -30,9 +61,7 @@ export const ContentFileUploadInput = styled(BaseLabelWithInput.Input)`
   z-index: -1;
 `;
 
-export const ContentFileUploadLabel = styled(BaseLabelWithInput.Label)<{
-  isDragging?: boolean;
-}>`
+export const ContentFileUploadLabel = styled(BaseLabelWithInput.Label)<{isDragging?: boolean;}>`
   width: 600px;
   height: 220px;
   border-radius: 15px;

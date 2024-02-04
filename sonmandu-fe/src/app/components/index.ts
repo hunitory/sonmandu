@@ -17,6 +17,7 @@ import FontStart from './Applications/FontStart';
 import FontFileUpload from './Applications/FontFileUpload';
 import FontInfo from './Applications/FontInfo';
 import FontComplete from './Applications/FontComplete';
+import FontStep from './Applications/FontStep';
 
 export {
   BaseHeader,
@@ -35,6 +36,6 @@ export {
   FontStart,
   FontFileUpload,
   FontInfo,
-  FontComplete
-
+  FontComplete,
+  FontStep,
 };

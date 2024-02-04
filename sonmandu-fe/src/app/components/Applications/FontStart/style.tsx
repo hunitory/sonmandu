@@ -56,7 +56,7 @@ export const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
-`
+`;
 /*----------- Title -----------*/
 export const TitleWrapper = styled.div`
   display: flex;

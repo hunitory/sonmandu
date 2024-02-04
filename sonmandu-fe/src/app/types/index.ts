@@ -12,6 +12,7 @@ import {
 } from './components/BaseInput';
 import { BaseHasTagsProps } from './components/BaseHashTags';
 import { BaseLetterFieldProps } from './components/BaseLetterTextField';
+import { ModalProps } from './components/Modal';
 
 export type {
   BaseButtonProps,
@@ -24,4 +25,5 @@ export type {
   FontFileUploadProps,
   FontInfoProps,
   FontStepProps,
+  ModalProps
 };

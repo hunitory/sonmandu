@@ -1,7 +1,6 @@
 import * as Styled from './style';
 import { FontStepProps } from 'types';
 
-
 export default function FontStep(props: FontStepProps) {
   const { value, isactive } = props;
   return (

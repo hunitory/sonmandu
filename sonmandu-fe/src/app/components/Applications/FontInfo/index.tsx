@@ -4,7 +4,6 @@ import * as Styled from './style';
 import { WHOLE_HASH_TAGES } from '@/constants';
 import { FontInfoProps } from 'types';
 
-
 export default function FontInfo(props: FontInfoProps) {
   const { onBack, onNext } = props;
   const [FontName, setFontName] = useState('');

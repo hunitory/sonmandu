@@ -14,7 +14,7 @@ export default function JihunUiTestPage() {
     <div>
       {isModalOpen && (
         <Comp.Modal size="small" onClose={onClose}>
-          <p>모달 컨텐츠입니다!</p>
+          <Comp.LoginForModal></Comp.LoginForModal>
         </Comp.Modal>
       )}
     </div>

@@ -7,7 +7,7 @@ import { FontFileUploadProps } from 'types';
 
 export default function FontFileUpload(props: FontFileUploadProps) {
   const { onBack, onNext } = props;
-  const UploadURL = '/image/FileUpload.png';
+  const UploadURL = '/image/fileupload.png';
   /* 이걸 recoil을 사용해야 할 것 같음*/
   const [UploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);

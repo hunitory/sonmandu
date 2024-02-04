@@ -32,8 +32,20 @@ const BaseInput = forwardRef(
   },
 );
 
+interface BaseLabelProps {
+  id: string;
+  htmlFor?: string;
+  className?: string;
+  children?: React.ReactNode;
+  role?: string;
+  onDragEnter?: (event: React.DragEvent<HTMLLabelElement>) => void;
+  onDragLeave?: (event: React.DragEvent<HTMLLabelElement>) => void;
+  onDragOver?: (event: React.DragEvent<HTMLLabelElement>) => void;
+  onDrop?: (event: React.DragEvent<HTMLLabelElement>) => void;
+}
 function BaseLabel({
   id,
+  htmlFor,
   className,
   children,
   role,
@@ -42,9 +54,11 @@ function BaseLabel({
   onDragOver,
   onDrop,
 }: BaseLabelProps) {
+  
   return (
     <label
-      htmlFor={id}
+      id={id}
+      htmlFor={htmlFor}
       className={className}
       role={role}
       onDragEnter={onDragEnter}

@@ -13,6 +13,10 @@ import ProfileFontCard from './ProfileFontCard';
 import ProfileFontCardMaking from './ProfileFontCardMaking';
 import ProfileTrophy from './ProfileTrophy';
 import SearchOptions from './SearchOptions';
+import FontStart from './Applications/FontStart';
+import FontFileUpload from './Applications/FontFileUpload';
+import FontInfo from './Applications/FontInfo';
+import FontComplete from './Applications/FontComplete';
 
 export {
   BaseHeader,
@@ -28,4 +32,9 @@ export {
   ProfileFontCardMaking,
   ProfileTrophy,
   SearchOptions,
+  FontStart,
+  FontFileUpload,
+  FontInfo,
+  FontComplete
+
 };

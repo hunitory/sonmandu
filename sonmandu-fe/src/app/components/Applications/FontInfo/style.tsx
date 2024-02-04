@@ -12,14 +12,50 @@ export const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  gap: 50px;
-  @media (max-width: 900px) {
-    gap: 80px;
+  justify-content: start;
+`;
+
+export const StepWrapper = styled.div`
+  width: 100%;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 50px;
+  > *:not(:last-child) {
+    margin-right: -5px;
+  }
+  @media (max-width: 1474px) {
+    .hide-first-child {
+      display: none;
+    }
   }
 `;
 
+export const firstnone = styled.div`
+  @media (max-width: 1474px) {
+    display: none;
+  }
+`;
+
+export const Card = styled.div`
+  width: 100%;
+  height: auto;
+  min-height: 70vh;
+  box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  padding: 48px 68px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 56px;
+  align-items: center;
+
+  @media (max-width: 1254px) {
+    width: 100%;
+    box-shadow: none;
+  }
+`;
+/*----------- Content -----------*/
 export const ContentWrapper = styled.div`
   width: 768px;
   height: 100%;

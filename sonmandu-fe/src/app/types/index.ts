@@ -1,3 +1,9 @@
+import {
+  FontStartProps,
+  FontFileUploadProps,
+  FontInfoProps,
+  FontStepProps,
+} from './components/Applications/index';
 import { BaseButtonProps } from './components/BaseButton';
 import {
   BaseInputProps,
@@ -14,4 +20,8 @@ export type {
   BaseLabelWithInputProps,
   BaseHasTagsProps,
   BaseLetterFieldProps,
+  FontStartProps,
+  FontFileUploadProps,
+  FontInfoProps,
+  FontStepProps,
 };

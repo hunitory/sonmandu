@@ -7,6 +7,7 @@ import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionReq
 import com.nofriend.sonmandube.handwriting.controller.response.*;
 import com.nofriend.sonmandube.handwriting.domain.*;
 import com.nofriend.sonmandube.handwriting.repository.*;
+import com.nofriend.sonmandube.handwritingstory.domain.HandwritingStory;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.s3.S3Service;
 import com.nofriend.sonmandube.util.FileDto;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -206,18 +208,23 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     public List<MyHandwritingResponse> getMyHandwritingList(Long memberId) {
-        List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberId(memberId);
+        List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberId(memberId);
 
         // 손글씨 별 좋아요 확인
         // TODO : memberId 없을 경우 예외처리 필요
         List<MyHandwritingResponse> myHandwritingResponses = new ArrayList<>();
-        for (int i=0; i<handwritingList.size(); i++) {
-            Handwriting handwriting = handwritingList.get(i);
+        for (int i=0; i<handwritingApplicationList.size(); i++) {
+            HandwritingApplication handwritingApplication = handwritingApplicationList.get(i);
+            Optional<Handwriting> handwriting = handwritingRepository.findById(handwritingApplication.getHandwritingApplicationId());
             boolean isLike = false;
-            if(handwritingLikeRepository.existsById(new HandwritingCountId(memberId, handwriting.getHandwritingId()))){
-                isLike = true;
+            if(handwriting.isPresent()) {
+                if(handwritingLikeRepository.existsById(new HandwritingCountId(memberId, handwriting.get().getHandwritingId()))){
+                    isLike = true;
+                }
+                myHandwritingResponses.add(MyHandwritingResponse.from(handwriting.get(), isLike));
+            } else {
+                myHandwritingResponses.add(MyHandwritingResponse.from(handwritingApplication));
             }
-            myHandwritingResponses.add(MyHandwritingResponse.from(handwriting, isLike));
         }
         return myHandwritingResponses;
     }

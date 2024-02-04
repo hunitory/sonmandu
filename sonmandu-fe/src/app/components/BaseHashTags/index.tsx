@@ -1,11 +1,6 @@
 import React from 'react';
 import * as S from './style';
-
-interface BaseHasTagsProps {
-  hashTagIdList: number[];
-  direction: 'column' | 'row';
-  className?: string;
-}
+import { BaseHasTagsProps } from 'types';
 
 function BaseHashTags({
   hashTagIdList,

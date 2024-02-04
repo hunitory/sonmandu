@@ -15,6 +15,10 @@ import ProfileTrophy from './ProfileTrophy';
 import ProfileInput from './ProfileInput/Index';
 import ProfilePasswordInput from './ProfilePasswordInput/Index';
 import SearchOptions from './SearchOptions';
+import FontStart from './Applications/FontStart';
+import FontFileUpload from './Applications/FontFileUpload';
+import FontInfo from './Applications/FontInfo';
+import FontComplete from './Applications/FontComplete';
 
 export {
   BaseHeader,
@@ -32,4 +36,9 @@ export {
   ProfileInput,
   ProfilePasswordInput,
   SearchOptions,
+  FontStart,
+  FontFileUpload,
+  FontInfo,
+  FontComplete
+
 };

@@ -20,7 +20,7 @@ export const HeaderWrapper = styled.header`
 `;
 
 export const UserInteractionWrapper = styled.nav`
-  width: clamp(404px, 40%, 486px);
+  width: clamp(304px, 30%, 386px);
   height: 100%;
   background-color: white;
   display: flex;
@@ -33,7 +33,7 @@ export const UserInteractionWrapper = styled.nav`
 `;
 
 export const LinkWrapper = styled.div`
-  width: 70%;
+  width: 234px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -41,6 +41,13 @@ export const LinkWrapper = styled.div`
   & > a {
     width: fit-content;
     font-weight: ${notoSansKr.semiBold.style.fontWeight};
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 12px;
+
+    &:hover {
+      background-color: ${PALETTE.SUB_WHITE};
+    }
   }
 
   @media (max-width: 768px) {

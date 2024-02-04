@@ -1,29 +1,8 @@
 'use client';
 
-import React, { Ref } from 'react';
+import React from 'react';
 import * as S from './style';
-
-type BaseButtonProps =
-  | {
-      ref?: Ref<HTMLButtonElement>;
-      children: React.ReactNode;
-      type: 'submit' | 'button' | 'reset';
-      onClick?: (...args: any[]) => void;
-      onFocus?: (...args: any[]) => void;
-      onBlur?: (...args: any[]) => void;
-      disabled: false;
-      className?: string;
-    }
-  | {
-      ref?: Ref<HTMLButtonElement>;
-      children: React.ReactNode;
-      type: 'submit' | 'button' | 'reset';
-      onClick?: (...args: any[]) => void;
-      onFocus?: (...args: any[]) => void;
-      onBlur?: (...args: any[]) => void;
-      disabled: true;
-      className?: string;
-    };
+import { BaseButtonProps } from 'types';
 
 /**
  * @param

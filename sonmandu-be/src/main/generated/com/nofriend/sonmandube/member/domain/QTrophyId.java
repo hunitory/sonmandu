@@ -20,10 +20,14 @@ public class QTrophyId extends BeanPath<TrophyId> {
     public static final QTrophyId trophyId = new QTrophyId("trophyId");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public final DateTimePath<java.time.LocalDateTime> createDate = createDateTime("createDate", java.time.LocalDateTime.class);
 =======
     public final StringPath createDate = createString("createDate");
 >>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
+=======
+    public final DateTimePath<java.time.LocalDateTime> createDate = createDateTime("createDate", java.time.LocalDateTime.class);
+>>>>>>> 582ef31 (feat: 배지, 트로피 수여 추가)
 
     public final NumberPath<Integer> weight = createNumber("weight", Integer.class);
 

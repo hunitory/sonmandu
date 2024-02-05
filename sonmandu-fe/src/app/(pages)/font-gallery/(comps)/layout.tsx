@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import * as S from './style';
 
 export default function FontGalleryLayout({
@@ -10,10 +10,12 @@ export default function FontGalleryLayout({
 }>) {
   return (
     <S.MainWrapper>
-      <S.MainContainer>
-        {TitleSection}
-        {PostersSection}
-      </S.MainContainer>
+      <Suspense fallback={<div>loading...</div>}>
+        <S.MainContainer>
+          {TitleSection}
+          {PostersSection}
+        </S.MainContainer>
+      </Suspense>
     </S.MainWrapper>
   );
 }

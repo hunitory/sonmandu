@@ -40,15 +40,15 @@ export const firstnone = styled.div`
 
 export const Card = styled.form`
   width: 100%;
-  height: auto;
+  height: 100%;
   min-height: 70vh;
   box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.4);
   border-radius: 15px;
   padding: 48px 68px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 56px;
   align-items: center;
+  justify-content: space-between;
 
   @media (max-width: 1254px) {
     width: 100%;
@@ -68,6 +68,7 @@ export const ContentFontNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
+  margin-top: 15px;
 `;
 
 export const ContentFontNametTitle = styled.div`
@@ -125,6 +126,7 @@ export const ContentFontTagWrapper = styled.div`
   flex-direction: column;
   justify-content: start;
   gap: 20px;
+  margin-top: 50px;
 `;
 
 export const ContentFontTagTitle = styled.div`
@@ -155,6 +157,7 @@ export const ButtonWrapper = styled.div`
   height: fit-content;
   display: flex;
   justify-content: space-between;
+  margin-top: 50px;
 `;
 
 export const BackButton = styled(BaseButton)`

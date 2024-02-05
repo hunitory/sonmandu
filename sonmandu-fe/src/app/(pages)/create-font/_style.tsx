@@ -4,14 +4,11 @@ import styled from 'styled-components';
 
 export const MainWrapper = styled.main`
   width: 100vw;
-  height: calc(100vh - 56px);
+  /* height: calc(100vh - 56px); */
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 70px;
-  /* @media (max-width: 1054px) {
-    height: 120vh;
-  } */
 `;
 
 export const MainContainer = styled.div`

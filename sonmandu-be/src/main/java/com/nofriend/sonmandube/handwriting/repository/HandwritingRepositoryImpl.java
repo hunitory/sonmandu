@@ -45,7 +45,6 @@ public class HandwritingRepositoryImpl implements HandwritingRepositoryCustom {
                     .groupBy(handwritingTag.handwritingTagId.handwritingApplicationId)
                     .having(handwritingTag.handwritingTagId.handwritingApplicationId.count().goe((long) tagIds.size()))
                     .fetch();
-            System.out.println(handwritingApplicationIds.size());
 
             // handwritingApplicationId를 사용하여 Handwriting 조회.
             builder.and(handwriting.handwritingApplication.handwritingApplicationId.in(handwritingApplicationIds));

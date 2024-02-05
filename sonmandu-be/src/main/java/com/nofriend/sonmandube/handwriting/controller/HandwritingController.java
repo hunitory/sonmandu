@@ -58,7 +58,6 @@ public class HandwritingController {
         if(authentication != null) memberId = Long.parseLong(authentication.getName());
         List<Integer> tagIdList = new ArrayList<>();
         if(!tagId.isBlank() && !tagId.isEmpty()) tagIdList = Arrays.stream(tagId.split(",")).map(Integer::parseInt).toList();
-        System.out.println(tagIdList);
         SearchConditionRequest condition = new SearchConditionRequest(sort, name, tagIdList);
         List<SimpleHandwritingResponse> handwritingList = handwritingService.searchHandwriting(memberId, start, count, condition);
         return ResponseEntity.ok(handwritingList);

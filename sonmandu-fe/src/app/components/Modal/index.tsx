@@ -1,13 +1,6 @@
-'use client';
-
 import React from 'react';
 import * as Styled from './style';
-
-interface ModalProps {
-  children: React.ReactNode;
-  size: 'large' | 'medium' | 'small';
-  onClose: () => void;
-}
+import { ModalProps } from 'types';
 
 function Modal(props: ModalProps) {
   const { children, size, onClose } = props;
@@ -18,7 +11,7 @@ function Modal(props: ModalProps) {
         <Styled.CloseButton onClick={onClose} disabled={false} type="button">
           X
         </Styled.CloseButton>
-        <Styled.ModalWapper>{children}</Styled.ModalWapper>
+        {children}
       </Styled.Modal>
     </Styled.BackLayOutModal>
   );

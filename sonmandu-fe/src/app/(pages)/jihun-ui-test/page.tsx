@@ -45,44 +45,8 @@ export default function JihunUiTestPage() {
   return (
     <div>
       {isModalOpen && (
-        <Comp.Modal size={'medium'} onClose={onClose}>
-          <Comp.BaseLabelWithInput.Label
-            id="member-info-nickname"
-            className="member-info-nickname"
-          >
-            <S.NicknameWrapper>
-              <S.NicknameHead>닉네임</S.NicknameHead>
-              <S.NicknameInputWrapper>
-                {isEdit.nickname && (
-                    <Comp.BaseLabelWithInput.Input
-                      ref={ref}
-                      id="nickname"
-                      type="text"
-                      value={memberInfo.nickname}
-                      onChange={handleMemberInfoOnChange}
-                    />
-                    )}
-                {!isEdit.nickname && (
-                  <S.NicknameSpan>{memberInfo.nickname}</S.NicknameSpan>
-                )}
-              </S.NicknameInputWrapper>
-              {
-                isEdit.nickname ? 
-                <S.StyledButton
-                  type={'button'}
-                  onClick={
-                      () => OpenEditWindow('nickname')
-                  }
-                  disabled={false}
-                > 
-                  <span>저장하기</span>
-                </ S.StyledButton>
-                : <a 
-                onClick={() => OpenEditWindow('nickname')
-              }>수정하기</a>
-              }
-            </S.NicknameWrapper>
-          </Comp.BaseLabelWithInput.Label>
+        <Comp.Modal size="small" onClose={onClose}>
+          <Comp.LoginForModal></Comp.LoginForModal>
         </Comp.Modal>
       )}
     </div>

@@ -33,8 +33,6 @@ export const Modal = styled.div<ModalProps>`
 
 export const ModalWapper = styled.div`
   padding: 10px;
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

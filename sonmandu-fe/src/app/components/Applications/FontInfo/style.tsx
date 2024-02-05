@@ -4,7 +4,7 @@ import { BaseLabelWithInput, BaseButton, BaseHashTags } from 'components';
 import styled from 'styled-components';
 
 interface PlaceholderGuideProps {
-  FontName: boolean;
+  $fontname: boolean;
 }
 
 export const Wrapper = styled.div`
@@ -12,14 +12,50 @@ export const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  gap: 50px;
-  @media (max-width: 900px) {
-    gap: 80px;
+  justify-content: start;
+`;
+
+export const StepWrapper = styled.div`
+  width: 100%;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 50px;
+  > *:not(:last-child) {
+    margin-right: -5px;
+  }
+  @media (max-width: 1474px) {
+    .hide-first-child {
+      display: none;
+    }
   }
 `;
 
+export const firstnone = styled.div`
+  @media (max-width: 1474px) {
+    display: none;
+  }
+`;
+
+export const Card = styled.form`
+  width: 100%;
+  height: auto;
+  min-height: 70vh;
+  box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  padding: 48px 68px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 56px;
+  align-items: center;
+
+  @media (max-width: 1254px) {
+    width: 100%;
+    box-shadow: none;
+  }
+`;
+/*----------- Content -----------*/
 export const ContentWrapper = styled.div`
   width: 768px;
   height: 100%;
@@ -66,14 +102,16 @@ export const ContentFontNameInput = styled(BaseLabelWithInput.Input)`
   width: 100%;
 `;
 
-export const ContentFontNameInputPlaceholder = styled.div<PlaceholderGuideProps>`
+export const ContentFontNameInputPlaceholder = styled.div.attrs(() => ({
+  // 여기에서 필요한 속성만을 선택하여 DOM 요소에 전달합니다.
+}))<PlaceholderGuideProps>`
   position: absolute;
   color: ${PALETTE.LIGHT_BLACK};
   font-size: 14px;
   font-family: ${notoSansKr.regular.style.fontFamily};
   font-weight: ${notoSansKr.regular.style.fontWeight};
   pointer-events: none;
-  display: ${({ FontName }) => (FontName ? 'block' : 'none')};
+  display: ${({ $fontname }) => ($fontname ? 'block' : 'none')};
   span {
     color: ${PALETTE.LIGHT_BLACK};
     font-size: 14px;
@@ -123,7 +161,6 @@ export const BackButton = styled(BaseButton)`
   width: 240px;
   height: 48px;
   border: 1px solid ${PALETTE.MAIN_ORANGE};
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,7 +170,6 @@ export const NextButton = styled(BaseButton)`
   width: 240px;
   height: 48px;
   background-color: ${PALETTE.MAIN_ORANGE};
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;

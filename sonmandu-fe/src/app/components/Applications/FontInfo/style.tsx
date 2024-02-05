@@ -68,6 +68,7 @@ export const ContentFontNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: start;
+  margin-top: 15px;
 `;
 
 export const ContentFontNametTitle = styled.div`
@@ -125,6 +126,7 @@ export const ContentFontTagWrapper = styled.div`
   flex-direction: column;
   justify-content: start;
   gap: 20px;
+  margin-top: 50px;
 `;
 
 export const ContentFontTagTitle = styled.div`

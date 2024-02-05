@@ -58,6 +58,7 @@ export const ContentTitle = styled.div`
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.MAIN_ORANGE};
+  margin-top: 15px;
 `;
 
 export const ContentTextWrapper = styled.div`

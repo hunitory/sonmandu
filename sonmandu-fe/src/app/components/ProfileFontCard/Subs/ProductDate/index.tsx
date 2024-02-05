@@ -1,15 +1,11 @@
-import { ProductDateWrapper } from "./style";
+import { ProductDateWrapper } from './style';
 
-interface ProductDateProps {
-	date: string;
-}
-
-const ProductDate: React.FC<ProductDateProps> = ({ date }) => {
-	return (
-			<ProductDateWrapper>
-				<span>{date} 제작</span>
-			</ProductDateWrapper>
-	)
-}
+const ProductDate = ({ date }: { date: string }) => {
+  return (
+    <ProductDateWrapper>
+      <span>{date} 제작</span>
+    </ProductDateWrapper>
+  );
+};
 
 export default ProductDate;

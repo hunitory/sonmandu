@@ -1,14 +1,7 @@
 import * as S from './style';
 import Link from 'next/link';
 import Image from 'next/image';
-
-type ProfileBoxProps = {
-  src: string;
-  nickname: React.ReactNode;
-  badge: boolean;
-  fontSize?: string;
-  className?: string;
-};
+import { ProfileBoxProps } from 'types';
 
 /**
  *
@@ -25,18 +18,7 @@ export default function ProfileBox(props: ProfileBoxProps) {
   return (
     <S.ProfileBoxWrapper className={className}>
       <S.ProfileImageWrapper>
-        <div>
-          {src && (
-            <Image
-              src={src}
-              alt="#"
-              fill
-              priority
-              sizes="10vw"
-              style={{ objectFit: 'cover' }}
-            />
-          )}
-        </div>
+        <div>{src && <Image src={src} alt="#" fill priority sizes="10vw" style={{ objectFit: 'cover' }} />}</div>
       </S.ProfileImageWrapper>
       <S.BadgeNameDiv fontSize={fontSize}>
         <S.BadgeWrapper fontSize={fontSize}>

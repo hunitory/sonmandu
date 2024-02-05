@@ -3,27 +3,9 @@
 import React, { ChangeEvent, useRef, useState } from 'react';
 import * as Comp from '@/components';
 import * as S from './style';
-import Link from 'next/link';
+import { ProfilePasswordInputProps } from 'types';
 
-interface isActive {
-  nickname: boolean;
-  id: boolean;
-  name: boolean;
-  password: boolean;
-  email: boolean;
-}
-
-interface ProfilePasswordInputProps {
-  isActive: isActive;
-  activate: React.Dispatch<React.SetStateAction<isActive>>;
-  password: string;
-}
-
-function ProfilePasswordInput({
-  isActive,
-  activate,
-  password,
-}: ProfilePasswordInputProps) {
+function ProfilePasswordInput({ isActive, activate, password }: ProfilePasswordInputProps) {
   const [isEdit, setIsEdit] = useState(false);
 
   const ref1 = useRef<HTMLInputElement>(null);
@@ -60,10 +42,7 @@ function ProfilePasswordInput({
   };
 
   return (
-    <Comp.BaseLabelWithInput.Label
-      id={'member-info-password'}
-      className={'member-info-password'}
-    >
+    <Comp.BaseLabelWithInput.Label id={'member-info-password'} className={'member-info-password'}>
       <S.InfoWrapper>
         <S.InfoHead>비밀번호</S.InfoHead>
         {isEdit ? (
@@ -81,9 +60,7 @@ function ProfilePasswordInput({
                   />
                 </S.PasswordDiv>
                 {currentPassword.length > 0 && currentPassword.length < 8 && (
-                  <S.CurrentPasswordMessage>
-                    8자리 이상 입력해주세요
-                  </S.CurrentPasswordMessage>
+                  <S.CurrentPasswordMessage>8자리 이상 입력해주세요</S.CurrentPasswordMessage>
                 )}
               </S.PasswordWrapper>
 
@@ -99,9 +76,7 @@ function ProfilePasswordInput({
                   />
                 </S.PasswordDiv>
                 {newPassword1.length > 0 && newPassword1.length < 8 && (
-                  <S.NewPasswordMessage1>
-                    8자리 이상 입력해주세요
-                  </S.NewPasswordMessage1>
+                  <S.NewPasswordMessage1>8자리 이상 입력해주세요</S.NewPasswordMessage1>
                 )}
               </S.PasswordWrapper>
 
@@ -117,9 +92,7 @@ function ProfilePasswordInput({
                   />
                 </S.PasswordDiv>
                 {newPassword2.length > 4 && newPassword1 !== newPassword2 && (
-                  <S.NewPasswordMessage2>
-                    새 비밀번호가 일치하지 않습니다
-                  </S.NewPasswordMessage2>
+                  <S.NewPasswordMessage2>새 비밀번호가 일치하지 않습니다</S.NewPasswordMessage2>
                 )}
               </S.PasswordWrapper>
               <S.StyledButton

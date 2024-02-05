@@ -2,8 +2,11 @@ package com.nofriend.sonmandube.member.repository;
 
 import com.nofriend.sonmandube.member.domain.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
@@ -16,4 +19,14 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     Boolean existsById(String id);
 
     Boolean existsByNickname(String nickname);
+
+    @Modifying
+    @Query(value = "update member set is_badge = false where is_badge = true",
+            nativeQuery = true)
+    void setIsBadgeFalse();
+
+    @Modifying
+    @Query(value = "update member set is_badge = true where member_id in (:memberIds)",
+            nativeQuery = true)
+    void updateThisWeekBadge(List<Long> memberIds);
 }

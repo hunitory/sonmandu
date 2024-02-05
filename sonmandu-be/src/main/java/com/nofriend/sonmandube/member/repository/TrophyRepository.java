@@ -12,4 +12,5 @@ import java.util.List;
 public interface TrophyRepository extends JpaRepository<Trophy, TrophyId> {
 
     List<TrophyIdMapping> findTop8IdByMemberMemberIdOrderByTrophyIdCreateDate(Long member_memberId);
+
 }

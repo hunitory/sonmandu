@@ -23,7 +23,11 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
+<<<<<<< HEAD
         registry.addEndpoint("/chat-connection").setAllowedOrigins("*");
+=======
+        registry.addEndpoint("/chat-connection");
+>>>>>>> bb671ba (feat: add WebSocket)
     }
 
 

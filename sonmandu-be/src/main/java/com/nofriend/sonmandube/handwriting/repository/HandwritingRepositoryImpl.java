@@ -37,9 +37,15 @@ public class HandwritingRepositoryImpl implements HandwritingRepositoryCustom {
             List<Long> handwritingApplicationIds = jpaQueryFactory.select(handwritingTag.handwritingTagId.handwritingApplicationId)
                     .from(handwritingTag)
                     .where(handwritingTag.handwritingTagId.tagId.in(tagIds))
+<<<<<<< HEAD
 //                    .groupBy(handwritingTag.handwritingTagId.handwritingApplicationId)
 //                    .having(handwritingTag.handwritingTagId.handwritingApplicationId.count().goe((long) tagIds.size()))
+=======
+                    .groupBy(handwritingTag.handwritingTagId.handwritingApplicationId)
+                    .having(handwritingTag.handwritingTagId.handwritingApplicationId.count().goe((long) tagIds.size()))
+>>>>>>> 4e5601b (fix: 손글씨 전시관 검색 파라미터 tagId 변경)
                     .fetch();
+            System.out.println(handwritingApplicationIds.size());
 
             // handwritingApplicationId를 사용하여 Handwriting 조회.
             builder.and(handwriting.handwritingApplication.handwritingApplicationId.in(handwritingApplicationIds));

@@ -12,11 +12,14 @@ import ProfileBox from './ProfileBox';
 import ProfileFontCard from './ProfileFontCard';
 import ProfileFontCardMaking from './ProfileFontCardMaking';
 import ProfileTrophy from './ProfileTrophy';
+import ProfileInput from './ProfileInput/Index';
+import ProfilePasswordInput from './ProfilePasswordInput/Index';
 import SearchOptions from './SearchOptions';
 import FontStart from './Applications/FontStart';
 import FontFileUpload from './Applications/FontFileUpload';
 import FontInfo from './Applications/FontInfo';
 import FontComplete from './Applications/FontComplete';
+import ProfileInfoModal from './ProfileInfoModal';
 import FontStep from './Applications/FontStep';
 import LoginForModal from './Modal/LoginForMoal';
 
@@ -33,12 +36,14 @@ export {
   ProfileFontCard,
   ProfileFontCardMaking,
   ProfileTrophy,
+  ProfileInput,
+  ProfilePasswordInput,
   SearchOptions,
   FontStart,
   FontFileUpload,
   FontInfo,
   FontComplete,
+  ProfileInfoModal,
   FontStep,
-  LoginForModal
-
+  LoginForModal,
 };

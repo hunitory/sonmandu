@@ -63,10 +63,6 @@ function ProfileInput({ isActive, activate, ...props }: ProfileInputProps) {
     email: false,
   };
 
-  useEffect(() => {
-    console.log(isActive);
-  }, [isActive]);
-
   return (
     <Comp.BaseLabelWithInput.Label id={`member-info-${props.labelName}`} className={`member-info-${props.labelName}`}>
       <S.InfoWrapper>

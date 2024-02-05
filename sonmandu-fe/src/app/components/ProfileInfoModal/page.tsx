@@ -4,10 +4,7 @@ import React, { ChangeEvent, useRef, useState } from 'react';
 import Image from 'next/image';
 import * as Comp from '@/components';
 import * as S from './style';
-
-interface ProfileInfoModalProps {
-  clickModal: () => void;
-}
+import { ProfileInfoModalProps } from 'types';
 
 export default function ProfileInfoModal(props: ProfileInfoModalProps) {
   const { clickModal } = props;
@@ -73,51 +70,22 @@ export default function ProfileInfoModal(props: ProfileInfoModalProps) {
             <span>개인 정보</span>
           </S.ProfileInfoHeadWrapper>
           <S.ProfileInfoInputWrapper>
-            <Comp.ProfileInput
-              isActive={isActive}
-              activate={setIsActive}
-              {...contents.nickname}
-            />
+            <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...contents.nickname} />
             <S.Line />
-            <Comp.ProfileInput
-              isActive={isActive}
-              activate={setIsActive}
-              {...contents.id}
-            />
+            <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...contents.id} />
             <S.Line />
-            <Comp.ProfilePasswordInput
-              isActive={isActive}
-              activate={setIsActive}
-              password={member.password}
-            />
+            <Comp.ProfilePasswordInput isActive={isActive} activate={setIsActive} password={member.password} />
             <S.Line />
-            <Comp.ProfileInput
-              isActive={isActive}
-              activate={setIsActive}
-              {...contents.name}
-            />
+            <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...contents.name} />
             <S.Line />
-            <Comp.ProfileInput
-              isActive={isActive}
-              activate={setIsActive}
-              {...contents.email}
-            />
+            <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...contents.email} />
             <S.Line />
           </S.ProfileInfoInputWrapper>
-          {isActive.nickname &&
-            isActive.id &&
-            isActive.password &&
-            isActive.name &&
-            isActive.email && (
-              <S.ImageWrapper>
-                <Image
-                  src={'/image/logo.png'}
-                  width={195}
-                  height={101}
-                  alt="logo"
-                />
-              </S.ImageWrapper>
-            )}
+          {isActive.nickname && isActive.id && isActive.password && isActive.name && isActive.email && (
+            <S.ImageWrapper>
+              <Image src={'/image/logo.png'} width={195} height={101} alt="logo" />
+            </S.ImageWrapper>
+          )}
         </S.ProfileInfoWrapper>
       </Comp.Modal>
     </div>

@@ -56,9 +56,3 @@ export const ImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
-export const ImageDiv = styled.div`
-  position: relative;
-  width: 195px;
-  height: 101px;
-`;

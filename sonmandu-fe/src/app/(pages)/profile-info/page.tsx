@@ -11,7 +11,7 @@ export default function ProfileInfoPage() {
     setIsModalOpen(false); // 모달 닫기
   };
 
-  // 현재 로그인한 유저 정보
+  // 현재 로그인한 유저 정보 - 받아와야함
   const member = {
     nickname: 'ssafy',
     id: 'ssdaj555',
@@ -19,12 +19,13 @@ export default function ProfileInfoPage() {
     name: '오이김',
     email: 'lsdkfj@gmail.com',
   };
+
   interface isActive {
-    nickname: boolean,
-    id: boolean,
-    name: boolean,
-    password: boolean,
-    email: boolean
+    nickname: boolean;
+    id: boolean;
+    name: boolean;
+    password: boolean;
+    email: boolean;
   }
 
   const [isActive, setIsActive] = useState({
@@ -32,31 +33,31 @@ export default function ProfileInfoPage() {
     id: true,
     name: true,
     password: true,
-    email: true
+    email: true,
   });
 
   const props = {
-    nicknameProps : {
+    nicknameProps: {
       infoContent: member.nickname,
       infoHead: '닉네임',
-      labelName: 'nickname'
+      labelName: 'nickname',
     },
-    idProps : {
+    idProps: {
       infoContent: member.id,
       infoHead: '아이디',
-      labelName: 'id'
+      labelName: 'id',
     },
-    nameProps : {
+    nameProps: {
       infoContent: member.name,
       infoHead: '이름',
-      labelName: 'name'
+      labelName: 'name',
     },
-    emailProps : {
+    emailProps: {
       infoContent: member.email,
       infoHead: '이메일',
-      labelName: 'email'
+      labelName: 'email',
     },
-  }
+  };
 
   return (
     <div>
@@ -67,29 +68,48 @@ export default function ProfileInfoPage() {
               <span>개인 정보</span>
             </S.ProfileInfoHeadWrapper>
             <S.ProfileInfoInputWrapper>
-              <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...props.nicknameProps} />
+              <Comp.ProfileInput
+                isActive={isActive}
+                activate={setIsActive}
+                {...props.nicknameProps}
+              />
               <S.Line />
-              <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...props.idProps} />
+              <Comp.ProfileInput
+                isActive={isActive}
+                activate={setIsActive}
+                {...props.idProps}
+              />
               <S.Line />
-              <Comp.ProfilePasswordInput isActive={isActive} activate={setIsActive} password={member.password} />
+              <Comp.ProfilePasswordInput
+                isActive={isActive}
+                activate={setIsActive}
+                password={member.password}
+              />
               <S.Line />
-              <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...props.nameProps} />
+              <Comp.ProfileInput
+                isActive={isActive}
+                activate={setIsActive}
+                {...props.nameProps}
+              />
               <S.Line />
-              <Comp.ProfileInput isActive={isActive} activate={setIsActive} {...props.emailProps} />
+              <Comp.ProfileInput
+                isActive={isActive}
+                activate={setIsActive}
+                {...props.emailProps}
+              />
               <S.Line />
             </S.ProfileInfoInputWrapper>
-            {
-              isActive.nickname &&
+            {isActive.nickname &&
               isActive.id &&
               isActive.password &&
               isActive.name &&
-              isActive.email &&
-              <S.ImageWrapper>
-                <div>
-                  <Image src={'/image/logo.png'} fill alt='logo' />
-                </div>
-              </S.ImageWrapper>
-            }
+              isActive.email && (
+                <S.ImageWrapper>
+                  <S.ImageDiv>
+                    <Image src={'/image/logo.png'} fill alt="logo" />
+                  </S.ImageDiv>
+                </S.ImageWrapper>
+              )}
           </S.ProfileInfoWrapper>
         </Comp.Modal>
       )}

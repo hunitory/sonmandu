@@ -19,6 +19,7 @@ import FontStart from './Applications/FontStart';
 import FontFileUpload from './Applications/FontFileUpload';
 import FontInfo from './Applications/FontInfo';
 import FontComplete from './Applications/FontComplete';
+import ProfileInfoModal from './ProfileInfoModal/page';
 
 export {
   BaseHeader,
@@ -39,6 +40,6 @@ export {
   FontStart,
   FontFileUpload,
   FontInfo,
-  FontComplete
-
+  FontComplete,
+  ProfileInfoModal,
 };

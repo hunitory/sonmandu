@@ -7,7 +7,11 @@ import { BaseButton } from 'components';
 export const ProfilePageWapper = styled.div`
   width: 100vw;
   height: fit-content;
-  display: flex;
+`;
+
+export const WholeWrapper = styled.div`
+  width: 100%;
+  height: fit-content;
   padding: 4vw 0 0 11vw;
 `;
 
@@ -24,6 +28,12 @@ export const ProfileWrapper = styled.div`
   @media only screen and (max-width: 676px) {
     width: 80vw;
   }
+`;
+
+export const ProfileInfoModalWrapper = styled.div`
+  width: 100%;
+  height: calc(100vh - 56px);
+  position: absolute;
 `;
 
 export const ProfileLeftWrapper = styled.div`
@@ -90,6 +100,30 @@ export const ProfileIndexDiv = styled.div`
   }
 `;
 
+export const ProfileInfoLink = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vw;
+`;
+
+export const ProfileBoxInfoLink = styled.div`
+  display: none;
+  @media screen and (max-width: 1150px) {
+    div {
+      width: fit-content;
+      height: fit-content;
+      padding: 3px 13px;
+      border: 1px solid ${PALETTE.LIGHT_BLACK};
+      border-radius: 20px;
+    }
+    display: block;
+    font-size: 15px;
+    color: ${PALETTE.MAIN_BLACK};
+    cursor: pointer;
+  }
+`;
+
 // --------------------좌우 구분----------------------
 
 export const ProfileRightWrapper = styled.div`
@@ -131,7 +165,10 @@ export const ProfileIntroSpan = styled.span`
 export const ProfileIntroContents = styled.p`
   width: 100%;
   height: fit-content;
-  font-size: clamp(18px, 1vw, 21px);
+  font-size: 16px;
+  @media screen and (max-width: 676) {
+    font-size: 14px;
+  }
   color: ${PALETTE.MAIN_BLACK};
   font-weight: ${notoSansKr.regular.style.fontWeight};
 `;

@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import { BaseButton, BaseLabelWithInput } from 'components';
 import { PALETTE, notoSansKr } from 'styles';
 
-
-
 export const InfoWrapper = styled.div`
   display: grid;
   width: 100%;
@@ -25,7 +23,7 @@ export const InfoHead = styled.span`
 `;
 
 export const InfoSpan = styled.span`
-  font-size: max(14px, 0.8vw);
+  font-size: max(12px, 0.8vw);
   font-weight: ${notoSansKr.regular.style.fontStyle};
   font-family: ${notoSansKr.regular.style.fontFamily};
 `;
@@ -40,8 +38,12 @@ export const InfoInputWrapper = styled.div`
   @media screen and (max-width: 768px) {
     grid-template-columns: 4fr 1fr;
   }
-  `;
-  
+`;
+
+export const InfoSpandiv = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 export const EditInputWrapper = styled.div`
   display: grid;
@@ -57,9 +59,7 @@ export const PasswordWrapper = styled.div`
   gap: 0.1vw;
 `;
 
-export const EditHeadSpan = styled.span`
-  
-`;
+export const EditHeadSpan = styled.span``;
 
 export const PasswordDiv = styled.div`
   display: grid;
@@ -77,15 +77,15 @@ export const CurrentPasswordInput = styled(BaseLabelWithInput.Input)`
 export const CurrentPasswordMessage = styled.span`
   font-size: max(13px, 0.7vw);
   color: ${PALETTE.MAIN_ORANGE};
-`
+`;
 export const NewPasswordMessage1 = styled.span`
   font-size: max(13px, 0.7vw);
   color: ${PALETTE.MAIN_ORANGE};
-`
+`;
 export const NewPasswordMessage2 = styled.span`
   font-size: max(13px, 0.7vw);
   color: ${PALETTE.MAIN_ORANGE};
-`
+`;
 
 export const EditLink = styled.div`
   display: flex;
@@ -101,14 +101,9 @@ export const EditLink = styled.div`
   }
 `;
 
+export const NewPassword1Wrapper = styled.div``;
 
-export const NewPassword1Wrapper = styled.div`
-  
-`
-
-export const NewPassword2Wrapper = styled.div`
-  
-`
+export const NewPassword2Wrapper = styled.div``;
 
 export const StyledButton = styled(BaseButton)`
   width: fit-content;
@@ -124,8 +119,7 @@ export const StyledButton = styled(BaseButton)`
   font-family: ${notoSansKr.semiBold.style.fontFamily};
 `;
 
-
 export const EditContentsWrapper = styled.div`
   font-size: max(12px, 0.6vw);
   color: ${PALETTE.LIGHT_BLACK};
-`
+`;

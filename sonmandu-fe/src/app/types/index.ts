@@ -1,4 +1,4 @@
-import { ModalProps } from './components/Modal/index';
+import { BaseModalProps } from './components/Modal/index';
 import {
   FontStartProps,
   FontFileUploadProps,
@@ -27,5 +27,5 @@ export type {
   FontFileUploadProps,
   FontInfoProps,
   FontStepProps,
-  ModalProps,
+  BaseModalProps,
 };

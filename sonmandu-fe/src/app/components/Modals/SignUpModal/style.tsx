@@ -11,7 +11,7 @@ export const ModalWapper = styled.form`
   height: 100%;
   padding: 20px 57px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: start;
   align-items: center;
 `;
@@ -33,11 +33,22 @@ export const WelcomeTitle = styled.div`
   font-weight: ${notoSansKr.bold.style.fontWeight};
 `;
 
+export const WelcomeContent = styled.div`
+  text-align: center;
+  font-size: 12px;
+  font-family: ${notoSansKr.regular.style.fontFamily};
+  font-weight: ${notoSansKr.regular.style.fontWeight};
+  width: 100%;
+`;
+
 export const LogoWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
 
+export const SignUpForm = styled.form`
+  
+`;
 export const LoginWrapper = styled.div`
   width: 100%;
   display: flex;

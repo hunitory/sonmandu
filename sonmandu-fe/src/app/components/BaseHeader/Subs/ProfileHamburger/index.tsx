@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import * as S from './style';
-import { useGetDeviceSize } from 'customhook';
+import { useGetDeviceSize, useLoginModal } from 'customhook';
+import { useSetRecoilState } from 'recoil';
+
 import Image from 'next/image';
 
 export default function ProfileHamburger() {
   const [dropBoxView, setDropBoxView] = useState(false);
+  const { openModal } = useLoginModal();
   const windowWidth = useGetDeviceSize();
-
   const handleDropBoxView = () => {
     setDropBoxView((prev) => !prev);
   };
@@ -38,7 +40,7 @@ export default function ProfileHamburger() {
       {dropBoxView && (
         <S.DropBoxWrapper>
           <S.DropBoxList>회원가입</S.DropBoxList>
-          <S.DropBoxList>로그인</S.DropBoxList>
+          <S.DropBoxList onClick={openModal}>로그인</S.DropBoxList>
           {/* ------------------------------ */}
           <S.DropBoxList>손글씨 채팅</S.DropBoxList>
           <S.DropBoxList>마이 프로필</S.DropBoxList>

@@ -5,6 +5,7 @@ import styled from 'styled-components';
 interface PlaceholderGuideProps {
   $failLogin?: boolean;
   $isempty?: boolean;
+  $isvisible?: boolean;
 }
 
 export const ModalWapper = styled.form`
@@ -45,7 +46,7 @@ export const LoginWrapper = styled.div`
   justify-content: start;
 `;
 
-export const LogintTitle = styled.div`
+export const LoginTitle = styled.div`
   color: ${PALETTE.MAIN_BLACK};
   font-size: 24px;
   font-family: ${notoSansKr.bold.style.fontFamily};
@@ -53,7 +54,7 @@ export const LogintTitle = styled.div`
   margin-bottom: 10px;
 `;
 
-export const LogintContent = styled.div`
+export const LoginContent = styled.div`
   color: ${PALETTE.LIGHT_BLACK};
   font-size: 15px;
   font-family: ${notoSansKr.regular.style.fontFamily};
@@ -77,6 +78,8 @@ export const LoginInputWrapper = styled.div`
   padding: 20px 10px;
   border-bottom: 1px solid ${PALETTE.LIGHT_BLACK};
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const LoginInput = styled(BaseLabelWithInput.Input)`
@@ -84,6 +87,16 @@ export const LoginInput = styled(BaseLabelWithInput.Input)`
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   width: 100%;
+`;
+
+export const LoginLabel = styled.label<PlaceholderGuideProps>`
+  width: 100%;
+  color: ${PALETTE.MAIN_ORANGE};
+  font-size: 14px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
+  width: 100%;
+  margin-bottom: 3px;
 `;
 
 export const LoginInputPlaceholder = styled.div<PlaceholderGuideProps>`

@@ -30,7 +30,7 @@ function LoginModal() {
   };
 
   return (
-    <Comp.BaseModal size="small" onClick={closeModal}>
+    <Comp.BaseModal size="small" onClose={closeModal}>
       <Styled.ModalWapper>
         <Styled.WelcomeWrapper>
           <Styled.WelcomeTitle>환영합니다.</Styled.WelcomeTitle>

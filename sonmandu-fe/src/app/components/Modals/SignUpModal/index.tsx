@@ -30,33 +30,34 @@ function SignUpModal() {
   };
 
   return (
-    <Comp.BaseModal size="small" onClick={closeModal}>
+    <Comp.BaseModal size="large" onClose={closeModal}>
       <Styled.ModalWapper>
         <Styled.WelcomeWrapper>
           <Styled.WelcomeTitle>환영합니다.</Styled.WelcomeTitle>
           <Styled.LogoWrapper>
             <Image src={LogoURL} alt="손만두" width={123} height={52} priority></Image>
           </Styled.LogoWrapper>
-          <Styled.FailLogin $failLogin={FailLogin}>
-            아이디 또는 비밀번호를<p>다시 확인하세요!</p>
-          </Styled.FailLogin>
+          <Styled.WelcomeContent>손글씨를 폰트로 만들어 드립니다!</Styled.WelcomeContent>
+          <Styled.WelcomeContent>회원가입을 한 후 여러 사람들의 <p></p>손글씨와 이야기를 즐겨보세요!</Styled.WelcomeContent>
         </Styled.WelcomeWrapper>
-        <Styled.LoginWrapper>
-          <Styled.LoginInputWrapper>
-            <Styled.LoginInputPlaceholder $isempty={!MemberID}>
-              <span>아이디</span>를 입력해주세요.
-            </Styled.LoginInputPlaceholder>
-            <Styled.LoginInput id="아이디" type="text" value={MemberID} onChange={NameInput} />
-          </Styled.LoginInputWrapper>
-        </Styled.LoginWrapper>
-        <Styled.LoginWrapper>
-          <Styled.LoginInputWrapper>
-            <Styled.LoginInputPlaceholder $isempty={!Password}>
-              <span>비밀번호</span>를 입력해주세요.
-            </Styled.LoginInputPlaceholder>
-            <Styled.LoginInput id="비밀번호" type="password" value={Password} onChange={PasswordInput} />
-          </Styled.LoginInputWrapper>
-        </Styled.LoginWrapper>
+        <Styled.SignUpForm>
+          <Styled.LoginWrapper>
+            <Styled.LoginInputWrapper>
+              <Styled.LoginInputPlaceholder $isempty={!MemberID}>
+                <span>아이디</span>를 입력해주세요.
+              </Styled.LoginInputPlaceholder>
+              <Styled.LoginInput id="아이디" type="text" value={MemberID} onChange={NameInput} />
+            </Styled.LoginInputWrapper>
+          </Styled.LoginWrapper>
+          <Styled.LoginWrapper>
+            <Styled.LoginInputWrapper>
+              <Styled.LoginInputPlaceholder $isempty={!Password}>
+                <span>비밀번호</span>를 입력해주세요.
+              </Styled.LoginInputPlaceholder>
+              <Styled.LoginInput id="비밀번호" type="password" value={Password} onChange={PasswordInput} />
+            </Styled.LoginInputWrapper>
+          </Styled.LoginWrapper>
+        </Styled.SignUpForm>
         <Styled.ButtonWrapper>
           <Styled.LoginButton onClick={OnLogin} type="button" disabled={false}>
             <Styled.LoginButtonText>로그인 하기</Styled.LoginButtonText>

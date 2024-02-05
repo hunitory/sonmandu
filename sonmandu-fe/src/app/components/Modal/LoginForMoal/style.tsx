@@ -8,10 +8,11 @@ interface PlaceholderGuideProps {
 }
 
 export const ModalWapper = styled.form`
+  height: 100%;
   padding: 20px 57px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
 `;
 
@@ -134,6 +135,7 @@ export const findIDPassword = styled.div`
   font-family: ${notoSansKr.regular.style.fontFamily};
   font-weight: ${notoSansKr.regular.style.fontWeight};
   color: ${PALETTE.LIGHT_BLACK};
+  margin: 30px 0px 15px 0px;
   span {
     font-size: 14px;
     font-family: ${notoSansKr.bold.style.fontFamily};

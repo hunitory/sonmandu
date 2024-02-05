@@ -100,11 +100,19 @@ export const ProfileIndexDiv = styled.div`
   }
 `;
 
+export const ProfileBoxInfoDiv = styled.span`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vw;
+`;
+
 export const ProfileInfoLink = styled.span`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1vw;
+  cursor: pointer;
 `;
 
 export const ProfileBoxInfoLink = styled.div`

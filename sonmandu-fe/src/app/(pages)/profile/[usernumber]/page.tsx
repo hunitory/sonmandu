@@ -143,9 +143,7 @@ export default function ProfilePage() {
   const [showModal, setShowModal] = useState(false);
   const clickModal = () => setShowModal(!showModal);
 
-  const filteredHandwriting = handwritings.filter(
-    (handwriting) => handwriting && handwriting.state > 3,
-  );
+  const filteredHandwriting = handwritings.filter((handwriting) => handwriting && handwriting.state > 3);
   const numberOfHandwriting = filteredHandwriting.length;
   const handwritinggroup = isMypage ? handwritings : filteredHandwriting;
 
@@ -161,25 +159,21 @@ export default function ProfilePage() {
           <S.ProfileLeftWrapper>
             <S.ProfileLeftDiv>
               <S.ProfileBoxDiv>
-                <S.ProfileInfoLink>
+                <S.ProfileBoxInfoDiv>
                   <Comp.ProfileBox {...ProfileBoxProps} />
                   {isMypage && (
                     <S.ProfileBoxInfoLink onClick={clickModal}>
                       <div>내 정보</div>
                     </S.ProfileBoxInfoLink>
                   )}
-                </S.ProfileInfoLink>
+                </S.ProfileBoxInfoDiv>
               </S.ProfileBoxDiv>
               <S.ProfileIndexWrapper>
                 <S.ProfileIndexDiv>
                   <span>소개</span>
                   <span>제작한 글씨</span>
                   <span>작성한 이야기</span>
-                  {isMypage && (
-                    <S.ProfileInfoLink onClick={clickModal}>
-                      내 정보
-                    </S.ProfileInfoLink>
-                  )}
+                  {isMypage && <S.ProfileInfoLink onClick={clickModal}>내 정보</S.ProfileInfoLink>}
                 </S.ProfileIndexDiv>
               </S.ProfileIndexWrapper>
             </S.ProfileLeftDiv>
@@ -189,9 +183,7 @@ export default function ProfilePage() {
             <S.ProfileIntroDiv>
               <S.ProfileIntroDivUp>
                 <S.ProfileIntroSpan>소개</S.ProfileIntroSpan>
-                <S.ProfileIntroContents>
-                  {member.introduction}
-                </S.ProfileIntroContents>
+                <S.ProfileIntroContents>{member.introduction}</S.ProfileIntroContents>
                 <S.BaseButtonWrapper>
                   <S.EditButton
                     type={'button'}
@@ -210,66 +202,38 @@ export default function ProfilePage() {
 
             <S.ProfileHandwritingsWrapper>
               <S.ProfileHandwritingsSpanDiv>
-                <S.ProfileHandwritingsSpan1>
-                  제작한 글씨
-                </S.ProfileHandwritingsSpan1>
+                <S.ProfileHandwritingsSpan1>제작한 글씨</S.ProfileHandwritingsSpan1>
                 {isMypage ? (
-                  <S.ProfileHandwritingsSpan2>
-                    {handwritings.length}
-                  </S.ProfileHandwritingsSpan2>
+                  <S.ProfileHandwritingsSpan2>{handwritings.length}</S.ProfileHandwritingsSpan2>
                 ) : (
-                  <S.ProfileHandwritingsSpan2>
-                    {numberOfHandwriting}
-                  </S.ProfileHandwritingsSpan2>
+                  <S.ProfileHandwritingsSpan2>{numberOfHandwriting}</S.ProfileHandwritingsSpan2>
                 )}
               </S.ProfileHandwritingsSpanDiv>
               <S.ProfileHandwritingsDiv>
-                {handwritinggroup.map(
-                  (handwriting: Handwriting, index: number) => {
-                    // const idx = Math.floor(Math.random() * 10);
-                    if (handwriting.state > 3) {
-                      return (
-                        <Comp.ProfileFontCard
-                          key={index}
-                          index={index}
-                          isMypage={isMypage}
-                          handwriting={handwriting}
-                        />
-                      );
-                    } else {
-                      return (
-                        <Comp.ProfileFontCardMaking
-                          key={index}
-                          isMypage={isMypage}
-                          handwriting={handwriting}
-                        />
-                      );
-                    }
-                  },
-                )}
+                {handwritinggroup.map((handwriting: Handwriting, index: number) => {
+                  // const idx = Math.floor(Math.random() * 10);
+                  if (handwriting.state > 3) {
+                    return (
+                      <Comp.ProfileFontCard key={index} index={index} isMypage={isMypage} handwriting={handwriting} />
+                    );
+                  } else {
+                    return <Comp.ProfileFontCardMaking key={index} isMypage={isMypage} handwriting={handwriting} />;
+                  }
+                })}
               </S.ProfileHandwritingsDiv>
               <S.Line />
             </S.ProfileHandwritingsWrapper>
 
             <S.ProfileHandwritingsWrapper>
               <S.ProfileHandwritingsSpanDiv>
-                <S.ProfileHandwritingsSpan1>
-                  작성한 이야기
-                </S.ProfileHandwritingsSpan1>
-                <S.ProfileHandwritingsSpan2>
-                  {handwritingStories.length}
-                </S.ProfileHandwritingsSpan2>
+                <S.ProfileHandwritingsSpan1>작성한 이야기</S.ProfileHandwritingsSpan1>
+                <S.ProfileHandwritingsSpan2>{handwritingStories.length}</S.ProfileHandwritingsSpan2>
               </S.ProfileHandwritingsSpanDiv>
               <S.ProfileHandwritingStoriesDiv>
                 {handwritingStories.map((handwritingStory) => {
                   return (
-                    <S.BaseStoryCardWrapper
-                      key={handwritingStory.handwritingStoryId}
-                    >
-                      <Comp.BaseStoryCard
-                        key={handwritingStory.handwritingStoryId}
-                      />
-                      ;
+                    <S.BaseStoryCardWrapper key={handwritingStory.handwritingStoryId}>
+                      <Comp.BaseStoryCard key={handwritingStory.handwritingStoryId} />;
                     </S.BaseStoryCardWrapper>
                   );
                 })}

@@ -8,6 +8,7 @@ import { ProfileInfoModalProps } from 'types';
 
 export default function ProfileInfoModal(props: ProfileInfoModalProps) {
   const { clickModal } = props;
+  console.log(clickModal);
 
   // const [isModalOpen, setIsModalOpen] = useState(true); // 모달 상태
   const onClose = () => {

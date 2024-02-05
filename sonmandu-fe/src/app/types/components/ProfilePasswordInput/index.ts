@@ -1,4 +1,4 @@
-import { isActive } from '../ProfileInfoModal';
+import { isActive } from 'types';
 
 export interface ProfilePasswordInputProps {
   isActive: isActive;

@@ -8,7 +8,6 @@ import { ProfileInfoModalProps } from 'types';
 
 export default function ProfileInfoModal(props: ProfileInfoModalProps) {
   const { clickModal } = props;
-  console.log(clickModal);
 
   // const [isModalOpen, setIsModalOpen] = useState(true); // 모달 상태
   const onClose = () => {
@@ -23,14 +22,6 @@ export default function ProfileInfoModal(props: ProfileInfoModalProps) {
     name: '오이김',
     email: 'lsdkfj@gmail.com',
   };
-
-  interface isActive {
-    nickname: boolean;
-    id: boolean;
-    name: boolean;
-    password: boolean;
-    email: boolean;
-  }
 
   const [isActive, setIsActive] = useState({
     nickname: true,

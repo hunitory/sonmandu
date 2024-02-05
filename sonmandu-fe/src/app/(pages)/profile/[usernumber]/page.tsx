@@ -141,7 +141,9 @@ export default function ProfilePage() {
   const isMypage: boolean = true; // isMypage 판별하는 식 추가해야함!!
 
   const [showModal, setShowModal] = useState(false);
-  const clickModal = () => setShowModal(!showModal);
+  const clickModal = () => {
+    setShowModal(!showModal);
+  };
 
   const filteredHandwriting = handwritings.filter((handwriting) => handwriting && handwriting.state > 3);
   const numberOfHandwriting = filteredHandwriting.length;

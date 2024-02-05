@@ -32,9 +32,10 @@ import static org.springframework.messaging.simp.stomp.StompCommand.CONNECT;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Component;
 >>>>>>> bb48a11 (feat: add WebSocket)
+
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Component
@@ -78,10 +79,16 @@ public class StompHandler implements ChannelInterceptor {
         log.info(accessor.toString());
         log.info(channel.toString());
         log.info(message.toString());
-        String token = accessor.getFirstNativeHeader("Authorization");
-        if (token != null){
-            token.substring(7);
-        }
+        String token = Objects.requireNonNull(accessor.getFirstNativeHeader("Authorization")).substring(7);
+//        if (token != null){
+//            try{
+//                token.substring(7);
+//
+//            }catch (Exception ignored){
+//
+//            }
+//        }
+//        System.out.println(Objects.requireNonNull(accessor.getFirstNativeHeader("Authorization")).substring(7));
         log.info(token);
 //        if (token != null){
 //            token.substring(7);
@@ -89,13 +96,14 @@ public class StompHandler implements ChannelInterceptor {
         System.out.println(token);
         if(accessor.getCommand() == StompCommand.CONNECT) {
             log.info("YE--------------------------");
-            if (jwtProvider.validateToken(accessor.getFirstNativeHeader("Authorization")) == JwtCode.ACCESS) {
+            log.info(jwtProvider.validateToken(token).toString());
+            if (jwtProvider.validateToken(token) == JwtCode.ACCESS) {
                 System.out.println(1);
             }
-            if (jwtProvider.validateToken(accessor.getFirstNativeHeader("Authorization")) == JwtCode.EXPIRED) {
+            if (jwtProvider.validateToken(token) == JwtCode.EXPIRED) {
                 System.out.println(2);
             }
-            if (jwtProvider.validateToken(accessor.getFirstNativeHeader("Authorization")) == JwtCode.DENIED) {
+            if (jwtProvider.validateToken(token) == JwtCode.DENIED) {
                 System.out.println(3);
             }
 //                throw new AccessDeniedException("");

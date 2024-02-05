@@ -30,14 +30,14 @@ export const StepWrapper = styled.div`
 
 export const Card = styled.form`
   width: 100%;
-  height: auto;
+  height: 100%;
   min-height: 70vh;
   box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.4);
   border-radius: 15px;
   padding: 48px 68px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 56px;
+  justify-content: space-between;
 
   @media (max-width: 1254px) {
     width: 100%;
@@ -61,7 +61,9 @@ export const ContentFileUploadInput = styled(BaseLabelWithInput.Input)`
   z-index: -1;
 `;
 
-export const ContentFileUploadLabel = styled(BaseLabelWithInput.Label)<{isDragging?: boolean;}>`
+export const ContentFileUploadLabel = styled(BaseLabelWithInput.Label)<{
+  isDragging?: boolean;
+}>`
   width: 600px;
   height: 220px;
   border-radius: 15px;
@@ -147,6 +149,7 @@ export const ButtonWrapper = styled.div`
   height: fit-content;
   display: flex;
   justify-content: space-between;
+  margin-top: 50px;
 `;
 
 export const BackButton = styled(BaseButton)`

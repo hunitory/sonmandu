@@ -30,14 +30,14 @@ export const firstnone = styled.div`
 
 export const Card = styled.div`
   width: 100%;
-  height: auto;
+  height: 100%;
   min-height: 70vh;
   box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.4);
   border-radius: 15px;
   padding: 48px 68px;
   display: flex;
   flex-direction: column;
-  margin-bottom: 56px;
+  justify-content: space-between;
 
   @media (max-width: 1254px) {
     width: 100%;
@@ -62,6 +62,7 @@ export const ContentTitle = styled.div`
 
 export const ContentTextWrapper = styled.div`
   text-align: center;
+  margin-top: 9%;
 `;
 
 export const ContentText = styled.div`
@@ -81,6 +82,7 @@ export const ButtonWrapper = styled.div`
   height: fit-content;
   display: flex;
   justify-content: space-between;
+  margin-top: 50px;
 `;
 
 export const MyPageButton = styled(BaseButton)`

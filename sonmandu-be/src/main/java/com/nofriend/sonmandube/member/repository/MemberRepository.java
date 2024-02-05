@@ -32,6 +32,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query(value = "update member set is_badge = true where member_id in (:memberIds)",
             nativeQuery = true)
     void updateThisWeekBadge(List<Long> memberIds);
+<<<<<<< HEAD
 
     MemberNicknameProjection findNicknameByMemberId(Long memberId);
+=======
+>>>>>>> ea3e05f (feat: 배지, 트로피 수여 추가)
 }

@@ -61,9 +61,7 @@ export const ContentFileUploadInput = styled(BaseLabelWithInput.Input)`
   z-index: -1;
 `;
 
-export const ContentFileUploadLabel = styled(BaseLabelWithInput.Label)<{
-  isDragging?: boolean;
-}>`
+export const ContentFileUploadLabel = styled(BaseLabelWithInput.Label)<{isDragging?: boolean;}>`
   width: 600px;
   height: 220px;
   border-radius: 15px;

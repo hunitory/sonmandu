@@ -211,7 +211,6 @@ public class HandwritingServiceImpl implements HandwritingService{
         List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberId(memberId);
 
         // 손글씨 별 좋아요 확인
-        // TODO : memberId 없을 경우 예외처리 필요
         List<MyHandwritingResponse> myHandwritingResponses = new ArrayList<>();
         for (int i=0; i<handwritingApplicationList.size(); i++) {
             HandwritingApplication handwritingApplication = handwritingApplicationList.get(i);

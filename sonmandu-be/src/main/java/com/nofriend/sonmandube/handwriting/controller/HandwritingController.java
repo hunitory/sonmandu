@@ -13,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -47,13 +49,16 @@ public class HandwritingController {
     public ResponseEntity<List<SimpleHandwritingResponse>> searchHandwriting(
             @RequestParam int start,
             @RequestParam int count,
-            @RequestParam(required = false) String sort,
-            @RequestParam(required = false) String name,
-            @RequestParam(name = "tagId", required = false) List<Integer> tagIdList,
+            @RequestParam(required = false, defaultValue = "") String sort,
+            @RequestParam(required = false, defaultValue = "") String name,
+            @RequestParam(name = "tagId", required = false, defaultValue = "") String tagId,
             Authentication authentication
             ) {
         Long memberId = null;
         if(authentication != null) memberId = Long.parseLong(authentication.getName());
+        List<Integer> tagIdList = new ArrayList<>();
+        if(!tagId.isBlank() && !tagId.isEmpty()) tagIdList = Arrays.stream(tagId.split(",")).map(Integer::parseInt).toList();
+        System.out.println(tagIdList);
         SearchConditionRequest condition = new SearchConditionRequest(sort, name, tagIdList);
         List<SimpleHandwritingResponse> handwritingList = handwritingService.searchHandwriting(memberId, start, count, condition);
         return ResponseEntity.ok(handwritingList);

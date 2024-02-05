@@ -11,7 +11,7 @@ function Modal(props: ModalProps) {
         <Styled.CloseButton onClick={onClose} disabled={false} type="button">
           X
         </Styled.CloseButton>
-        <Styled.ModalWapper>{children}</Styled.ModalWapper>
+        {children}
       </Styled.Modal>
     </Styled.BackLayOutModal>
   );

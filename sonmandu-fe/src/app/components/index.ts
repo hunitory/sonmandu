@@ -18,6 +18,7 @@ import FontFileUpload from './Applications/FontFileUpload';
 import FontInfo from './Applications/FontInfo';
 import FontComplete from './Applications/FontComplete';
 import FontStep from './Applications/FontStep';
+import LoginForModal from './Modal/LoginForMoal';
 
 export {
   BaseHeader,
@@ -38,4 +39,6 @@ export {
   FontInfo,
   FontComplete,
   FontStep,
+  LoginForModal
+
 };

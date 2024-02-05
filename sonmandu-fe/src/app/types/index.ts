@@ -1,3 +1,4 @@
+import { ModalProps } from './components/Modal/index';
 import {
   FontStartProps,
   FontFileUploadProps,
@@ -13,7 +14,6 @@ import {
 import { BaseHasTagsProps } from './components/BaseHashTags';
 import { BaseLetterFieldProps } from './components/BaseLetterTextField';
 import { FontCard } from './components/BaseFontCard';
-import { ModalProps } from './components/Modal';
 
 export type {
   BaseButtonProps,

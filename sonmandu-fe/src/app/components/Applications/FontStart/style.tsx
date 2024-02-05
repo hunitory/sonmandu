@@ -30,7 +30,6 @@ export const StepWrapper = styled.div`
 export const Card = styled.div`
   width: 100%;
   height: auto;
-  min-height: 70vh;
   box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.4);
   border-radius: 15px;
   padding: 48px 68px;
@@ -196,7 +195,6 @@ export const NextButton = styled(BaseButton)`
   width: 240px;
   height: 48px;
   background-color: ${PALETTE.MAIN_ORANGE};
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;

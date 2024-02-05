@@ -38,7 +38,7 @@ export const firstnone = styled.div`
   }
 `;
 
-export const Card = styled.div`
+export const Card = styled.form`
   width: 100%;
   height: auto;
   min-height: 70vh;
@@ -161,7 +161,6 @@ export const BackButton = styled(BaseButton)`
   width: 240px;
   height: 48px;
   border: 1px solid ${PALETTE.MAIN_ORANGE};
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -171,7 +170,6 @@ export const NextButton = styled(BaseButton)`
   width: 240px;
   height: 48px;
   background-color: ${PALETTE.MAIN_ORANGE};
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;

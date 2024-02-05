@@ -30,7 +30,6 @@ export const StepWrapper = styled.div`
 export const Card = styled.div`
   width: 100%;
   height: auto;
-  min-height: 70vh;
   box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.4);
   border-radius: 15px;
   padding: 48px 68px;

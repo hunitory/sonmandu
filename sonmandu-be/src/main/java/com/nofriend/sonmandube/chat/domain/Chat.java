@@ -1,5 +1,6 @@
 package com.nofriend.sonmandube.chat.domain;
 
+<<<<<<< HEAD
 import com.nofriend.sonmandube.chat.controller.response.ChatHandwritingResponse;
 import com.nofriend.sonmandube.chat.controller.response.ChatMemberResponse;
 import com.nofriend.sonmandube.chat.controller.response.ChatResponse;
@@ -13,10 +14,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.time.LocalDateTime;
+=======
+import com.nofriend.sonmandube.handwriting.domain.Handwriting;
+import jakarta.persistence.*;
+import lombok.*;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.annotation.CreatedDate;
+
+import java.time.LocalDateTime;
+>>>>>>> 1c9b337f (feat: add WebSocket)
 
 @Entity
 @Getter
 @AllArgsConstructor
+<<<<<<< HEAD
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Builder
 @ToString
@@ -24,16 +35,29 @@ import java.time.LocalDateTime;
 public class Chat{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_id")
+=======
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
+@ToString
+public class Chat {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+>>>>>>> 1c9b337f (feat: add WebSocket)
     private Long chatId;
 
     private String message;
 
+<<<<<<< HEAD
     private String createTime;
+=======
+    @CreatedDate
+    private LocalDateTime createTime;
+>>>>>>> 1c9b337f (feat: add WebSocket)
 
     @ManyToOne
     @JoinColumn(name = "handwriting_id")
     private Handwriting handwriting;
 
+<<<<<<< HEAD
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
@@ -66,4 +90,7 @@ public class Chat{
                 )
                 .build();
     }
+=======
+
+>>>>>>> 1c9b337f (feat: add WebSocket)
 }

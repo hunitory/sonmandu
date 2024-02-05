@@ -3,26 +3,8 @@
 import React, { useState } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
+import { ProfileBoxProps, Handwriting } from 'types';
 import { useRouter } from 'next/navigation';
-
-interface ProfileBoxProps {
-  src: string;
-  nickname: string;
-  badge: boolean; // 여기에 적절한 타입을 지정해주세요
-  fontSize?: string;
-  className?: string;
-}
-
-interface Handwriting {
-  handwritingId: number;
-  name: string;
-  state: number;
-  likeCount: number;
-  downloadCount: number;
-  downloadUrl: string;
-  tags: number[];
-  createDate: string;
-}
 
 const { member, handwritings, handwritingStories } = {
   member: {

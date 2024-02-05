@@ -24,12 +24,19 @@ public class QChat extends EntityPathBase<Chat> {
 
     public final NumberPath<Long> chatId = createNumber("chatId", Long.class);
 
+<<<<<<< HEAD
     public final StringPath createTime = createString("createTime");
 
     public final com.nofriend.sonmandube.handwriting.domain.QHandwriting handwriting;
 
     public final com.nofriend.sonmandube.member.domain.QMember member;
 
+=======
+    public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
+
+    public final com.nofriend.sonmandube.handwriting.domain.QHandwriting handwriting;
+
+>>>>>>> bb48a11 (feat: add WebSocket)
     public final StringPath message = createString("message");
 
     public QChat(String variable) {
@@ -51,7 +58,10 @@ public class QChat extends EntityPathBase<Chat> {
     public QChat(Class<? extends Chat> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.handwriting = inits.isInitialized("handwriting") ? new com.nofriend.sonmandube.handwriting.domain.QHandwriting(forProperty("handwriting"), inits.get("handwriting")) : null;
+<<<<<<< HEAD
         this.member = inits.isInitialized("member") ? new com.nofriend.sonmandube.member.domain.QMember(forProperty("member")) : null;
+=======
+>>>>>>> bb48a11 (feat: add WebSocket)
     }
 
 }

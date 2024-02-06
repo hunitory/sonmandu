@@ -14,5 +14,9 @@ server:
 
 logging:
   level:
+<<<<<<< HEAD
     root: info
+=======
+    root: debug
+>>>>>>> a88b847 (teat: wss)
 

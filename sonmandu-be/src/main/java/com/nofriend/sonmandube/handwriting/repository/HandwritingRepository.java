@@ -2,6 +2,7 @@ package com.nofriend.sonmandube.handwriting.repository;
 
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
 import com.nofriend.sonmandube.handwriting.domain.HandwritingApplication;
+import com.nofriend.sonmandube.handwriting.domain.HandwritingNameDownloadUrlProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -33,4 +34,6 @@ public interface HandwritingRepository extends JpaRepository<Handwriting, Long>,
     @Query(value = "update handwriting set this_month = this_month + this_week",
             nativeQuery = true)
     void addThisWeekToThisMonth();
+
+    HandwritingNameDownloadUrlProjection findNameDownloadUrlByHandwritingId(Long handwritingId);
 }

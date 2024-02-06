@@ -12,6 +12,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 @Entity
 @Getter
@@ -39,7 +40,7 @@ public class Chat {
 
     @PrePersist
     public void onPrePersist() {
-        this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a H:mm"));
+        this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a H:mm", Locale.KOREAN));
     }
 
 

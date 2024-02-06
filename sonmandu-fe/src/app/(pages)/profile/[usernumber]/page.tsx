@@ -124,6 +124,7 @@ export default function ProfilePage() {
     src: member.imageUrl,
     nickname: member.nickname,
     badge: member.badge,
+    imgSize: '10vw',
     fontSize: '1.4vw',
     className: 'vertical',
   };

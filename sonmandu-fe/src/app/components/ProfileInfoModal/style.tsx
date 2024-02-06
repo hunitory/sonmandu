@@ -1,9 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
-import { BaseButton } from 'components';
 import { PALETTE, notoSansKr } from 'styles';
-import { Modal } from 'components';
 
 export const StyledMain = styled.main`
   width: 100vw;

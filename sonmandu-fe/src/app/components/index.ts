@@ -7,7 +7,7 @@ import BaseStoryCard from './BaseStoryCard';
 import BaseLetterField from './BaseLetterTextField';
 import BaseHashTags from './BaseHashTags';
 import BaseLabelWithInput from './BaseInput';
-import Modal from './Modal';
+import BaseModal from './BaseModal';
 import ProfileBox from './ProfileBox';
 import ProfileFontCard from './ProfileFontCard';
 import ProfileFontCardMaking from './ProfileFontCardMaking';
@@ -21,7 +21,12 @@ import FontInfo from './Applications/FontInfo';
 import FontComplete from './Applications/FontComplete';
 import ProfileInfoModal from './ProfileInfoModal';
 import FontStep from './Applications/FontStep';
-import LoginForModal from './Modal/LoginForMoal';
+import LoginModal from './Modals/LoginModal';
+import SignUpModal from './Modals/SignUpModal';
+import FindIDModal from './Modals/FindIDModal';
+import FindPasswordModal from './Modals/FindPasswordModal';
+import UnRegisterModal from './Modals/UnregisterModal';
+import Thumbnail from './Thumbnail';
 
 export {
   BaseHeader,
@@ -31,7 +36,7 @@ export {
   BaseLetterField,
   BaseHashTags,
   BaseLabelWithInput,
-  Modal,
+  BaseModal,
   ProfileBox,
   ProfileFontCard,
   ProfileFontCardMaking,
@@ -43,7 +48,12 @@ export {
   FontFileUpload,
   FontInfo,
   FontComplete,
-  ProfileInfoModal,
   FontStep,
-  LoginForModal,
+  ProfileInfoModal,
+  LoginModal,
+  SignUpModal,
+  FindIDModal,
+  FindPasswordModal,
+  UnRegisterModal,
+  Thumbnail
 };

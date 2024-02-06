@@ -1,4 +1,4 @@
-import { ModalProps } from './components/Modal/index';
+import { BaseModalProps } from './components/Modal/index';
 import { FontStartProps, FontFileUploadProps, FontInfoProps, FontStepProps } from './components/Applications/index';
 import { BaseButtonProps } from './components/BaseButton';
 import { BaseInputProps, BaseLabelProps, BaseLabelWithInputProps } from './components/BaseInput';
@@ -26,7 +26,7 @@ export type {
   FontFileUploadProps,
   FontInfoProps,
   FontStepProps,
-  ModalProps,
+  BaseModalProps,
   ProfileBoxProps,
   Handwriting,
   ProfileInfoModalProps,

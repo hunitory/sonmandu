@@ -1,17 +1,19 @@
 import { PALETTE, notoSansKr } from 'styles';
-import { BaseLabelWithInput, BaseButton, BaseHashTags } from 'components';
+import { BaseLabelWithInput, BaseButton } from 'components';
 import styled from 'styled-components';
 
 interface PlaceholderGuideProps {
   $failLogin?: boolean;
   $isempty?: boolean;
+  $isvisible?: boolean;
 }
 
-export const ModalWapper = styled.form`
-  padding: 20px 57px;
+export const ModalWapper = styled.div`
+  height: 100%;
+  padding: 30px 57px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: start;
   align-items: center;
 `;
 
@@ -24,7 +26,7 @@ export const WelcomeWrapper = styled.div`
   }
 `;
 
-export const WelcomeTitle = styled.div`
+export const WelcomeContent = styled.div`
   margin-bottom: 10px;
   text-align: center;
   font-size: 18px;
@@ -37,33 +39,41 @@ export const LogoWrapper = styled.div`
   justify-content: center;
 `;
 
-export const LoginWrapper = styled.div`
+export const FindIDForm = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: start;
 `;
 
-export const LogintTitle = styled.div`
-  color: ${PALETTE.MAIN_BLACK};
-  font-size: 24px;
-  font-family: ${notoSansKr.bold.style.fontFamily};
-  font-weight: ${notoSansKr.bold.style.fontWeight};
-  margin-bottom: 10px;
+export const FindIDWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
 `;
 
-export const LogintContent = styled.div`
-  color: ${PALETTE.LIGHT_BLACK};
-  font-size: 15px;
-  font-family: ${notoSansKr.regular.style.fontFamily};
-  font-weight: ${notoSansKr.regular.style.fontWeight};
-  span {
-    font-family: ${notoSansKr.bold.style.fontFamily};
-    font-weight: ${notoSansKr.bold.style.fontWeight};
-  }
-`;
+// export const LoginTitle = styled.div`
+//   color: ${PALETTE.MAIN_BLACK};
+//   font-size: 24px;
+//   font-family: ${notoSansKr.bold.style.fontFamily};
+//   font-weight: ${notoSansKr.bold.style.fontWeight};
+//   margin-bottom: 10px;
+// `;
+
+// export const LoginContent = styled.div`
+//   color: ${PALETTE.LIGHT_BLACK};
+//   font-size: 15px;
+//   font-family: ${notoSansKr.regular.style.fontFamily};
+//   font-weight: ${notoSansKr.regular.style.fontWeight};
+//   span {
+//     font-family: ${notoSansKr.bold.style.fontFamily};
+//     font-weight: ${notoSansKr.bold.style.fontWeight};
+//   }
+// `;
 
 export const FailLogin = styled.div<PlaceholderGuideProps>`
+  margin: 10px 0px;
   visibility: ${(props) => (props.$failLogin ? 'visible' : 'hidden')};
   text-align: center;
   font-size: 12px;
@@ -72,20 +82,22 @@ export const FailLogin = styled.div<PlaceholderGuideProps>`
   width: 100%;
 `;
 
-export const LoginInputWrapper = styled.div`
+export const FindIDInputWrapper = styled.div`
   padding: 20px 10px;
   border-bottom: 1px solid ${PALETTE.LIGHT_BLACK};
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
-export const LoginInput = styled(BaseLabelWithInput.Input)`
+export const FindIDInput = styled(BaseLabelWithInput.Input)`
   font-size: 14px;
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   width: 100%;
 `;
 
-export const LoginInputPlaceholder = styled.div<PlaceholderGuideProps>`
+export const FindIDInputPlaceholder = styled.div<PlaceholderGuideProps>`
   position: absolute;
   color: ${PALETTE.LIGHT_BLACK};
   font-size: 14px;
@@ -108,8 +120,8 @@ export const ButtonWrapper = styled.div`
   margin-top: 50px;
 `;
 
-export const LoginButton = styled(BaseButton)`
-  width: 122px;
+export const FindIDButton = styled(BaseButton)`
+  width: 168px;
   height: 32px;
   background-color: ${PALETTE.SUB_WHITE};
   display: flex;
@@ -117,29 +129,9 @@ export const LoginButton = styled(BaseButton)`
   align-items: center;
 `;
 
-export const LoginButtonText = styled.p`
+export const FindIDButtonText = styled.p`
   font-size: 14px;
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.LIGHT_BLACK};
-`;
-
-export const findIDPassword = styled.div`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: end;
-  align-items: end;
-  font-size: 14px;
-  font-family: ${notoSansKr.regular.style.fontFamily};
-  font-weight: ${notoSansKr.regular.style.fontWeight};
-  color: ${PALETTE.LIGHT_BLACK};
-  span {
-    font-size: 14px;
-    font-family: ${notoSansKr.bold.style.fontFamily};
-    font-weight: ${notoSansKr.bold.style.fontWeight};
-    color: ${PALETTE.LIGHT_BLACK};
-    margin: 0px 10px;
-    cursor: pointer;
-  }
 `;

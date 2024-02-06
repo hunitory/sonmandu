@@ -1,43 +1,14 @@
 import { PALETTE, notoSansKr } from 'styles';
-import BaseButton from '../../BaseButton';
-import BaseLabelWithInput from '../../BaseInput';
+import * as Comp from '@/components';
 import styled from 'styled-components';
-
-export const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-`;
-
-export const StepWrapper = styled.div`
-  width: 100%;
-  height: 80px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin-bottom: 50px;
-  > *:not(:last-child) {
-    margin-right: -5px;
-  }
-  @media (max-width: 1474px) {
-    :nth-child(4) {
-      display: none;
-    }
-  }
-`;
 
 export const Card = styled.form`
   width: 100%;
   height: 100%;
-  min-height: 70vh;
   box-shadow: 0.5px 0.5px 3px rgba(0, 0, 0, 0.4);
   border-radius: 15px;
-  padding: 48px 68px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   @media (max-width: 1254px) {
     width: 100%;
@@ -54,20 +25,18 @@ export const ContentWrapper = styled.div`
   padding-top: 20px;
 `;
 
-export const ContentFileUploadInput = styled(BaseLabelWithInput.Input)`
+export const ContentFileUploadInput = styled(Comp.BaseLabelWithInput.Input)`
   opacity: 0;
   overflow: hidden;
   position: absolute;
   z-index: -1;
 `;
 
-export const ContentFileUploadLabel = styled(BaseLabelWithInput.Label)<{isDragging?: boolean;}>`
-  width: 600px;
-  height: 220px;
+export const ContentFileUploadLabel = styled(Comp.BaseLabelWithInput.Label)<{ isDragging?: boolean }>`
+  width: 100%;
+  height: 100%;
   border-radius: 15px;
-  border: 5px dashed
-    ${(props) =>
-      props.isDragging ? PALETTE.MAIN_ORANGE : PALETTE.LIGHT_ORANGE};
+  border: 5px dashed ${(props) => (props.isDragging ? PALETTE.MAIN_ORANGE : PALETTE.LIGHT_ORANGE)};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,8 +48,8 @@ export const ContentFileUploadLabel = styled(BaseLabelWithInput.Label)<{isDraggi
 `;
 
 export const ContentFileUploadTextbold = styled.div`
-  padding-top: 20px;
-  font-size: 20px;
+  padding-top: 15px;
+  font-size: 16px;
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
 `;
@@ -96,7 +65,7 @@ export const ContentFileUploadText = styled.div`
 `;
 
 export const ContentUploadedFilesWrapper = styled.div`
-  width: 600px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -131,7 +100,7 @@ export const ContentUploadedFile = styled.div`
   font-weight: ${notoSansKr.regular.style.fontWeight};
 `;
 
-export const ContentUploadedFileCancelButton = styled(BaseButton)`
+export const ContentUploadedFileCancelButton = styled(Comp.BaseButton)`
   width: 26px;
   height: 26px;
   background-color: ${PALETTE.SUB_WHITE};
@@ -147,10 +116,9 @@ export const ButtonWrapper = styled.div`
   height: fit-content;
   display: flex;
   justify-content: space-between;
-  margin-top: 50px;
 `;
 
-export const BackButton = styled(BaseButton)`
+export const BackButton = styled(Comp.BaseButton)`
   width: 240px;
   height: 48px;
   border: 1px solid ${PALETTE.MAIN_ORANGE};
@@ -159,7 +127,7 @@ export const BackButton = styled(BaseButton)`
   align-items: center;
 `;
 
-export const NextButton = styled(BaseButton)`
+export const NextButton = styled(Comp.BaseButton)`
   width: 240px;
   height: 48px;
   background-color: ${PALETTE.MAIN_ORANGE};

@@ -22,7 +22,6 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  padding-top: 20px;
 `;
 
 export const ContentFileUploadInput = styled(Comp.BaseLabelWithInput.Input)`

@@ -64,8 +64,9 @@ export const WriteWrapper = styled.div`
   display: flex;
   justify-content: center;
   border-radius: 18px;
-  padding: 3vh 0;
+  padding: 7vh 0;
   background-color: white;
+  /* box-shadow: 2px 2px 4px 4px ${PALETTE.MAIN_BLACK}; */
 `;
 
 export const WriteDiv = styled.div`
@@ -73,12 +74,13 @@ export const WriteDiv = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 `;
 
 export const UpperWrapper = styled.div`
   display: grid;
-  grid-template-columns: 3fr 2fr;
+  grid-template-columns: 2fr 1fr;
+  padding: 1vw 1.5vw 0.5vw 0;
 `;
 
 export const WriteIndexSpan = styled.span`
@@ -92,7 +94,7 @@ export const LeftWrapper = styled.div`
   width: 90%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 18px;
 `;
 
 export const WriteTitleWrapper = styled.div`
@@ -102,8 +104,8 @@ export const WriteTitleWrapper = styled.div`
 
 export const WriteTitleRequest = styled.span`
   font-size: 16px;
-  font-weight: ${notoSansKr.regular.style.fontWeight};
-  font-family: ${notoSansKr.regular.style.fontFamily};
+  font-weight: ${notoSansKr.medium.style.fontWeight};
+  font-family: ${notoSansKr.medium.style.fontFamily};
 `;
 
 export const TitleWrapper = styled.div`
@@ -114,7 +116,7 @@ export const TitleWrapper = styled.div`
 `;
 
 export const TitleInputWrapper = styled.div`
-  width: 100%;
+  width: 90%;
   padding: 8px 10px;
   border-bottom: 1px solid ${PALETTE.LIGHT_BLACK};
   position: relative;
@@ -153,10 +155,10 @@ export const TagWrapper = styled.div`
 
 export const CarouselBackButtonWrapper = styled.div`
   position: relative;
-  display: flex;
-  align-items: center;
-  button {
+  div {
     height: fit-content;
+    display: flex;
+    align-items: center;
     background-color: white;
     border: 0;
     transform: scaleX(-1);
@@ -166,10 +168,10 @@ export const CarouselBackButtonWrapper = styled.div`
 
 export const CarouselNextButtonWrapper = styled.div`
   position: relative;
-  display: flex;
-  align-items: center;
-  button {
+  div {
     height: fit-content;
+    display: flex;
+    align-items: center;
     background-color: white;
     border: 0;
     cursor: pointer;
@@ -236,7 +238,7 @@ export const TextInputPlaceholder = styled.div<PlaceholderTextProps>`
 
 export const TextInputArea = styled.textarea`
   width: 100%;
-  height: 28vh;
+  height: 34vh;
   font-size: max(14px, 0.8vw);
   border: 1px solid ${PALETTE.LIGHT_BLACK};
   padding: 2vh 2vw;

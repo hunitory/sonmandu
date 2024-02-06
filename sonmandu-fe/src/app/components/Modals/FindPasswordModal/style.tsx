@@ -8,7 +8,7 @@ interface PlaceholderGuideProps {
   $isvisible?: boolean;
 }
 
-export const ModalWrapper = styled.div`
+export const ModalWapper = styled.div`
   height: 100%;
   padding: 30px 57px;
   display: flex;
@@ -16,7 +16,6 @@ export const ModalWrapper = styled.div`
   justify-content: start;
   align-items: center;
 `;
-
 
 export const WelcomeWrapper = styled.div`
   display: flex;
@@ -27,7 +26,7 @@ export const WelcomeWrapper = styled.div`
   }
 `;
 
-export const WelcomeTitle = styled.div`
+export const WelcomeContent = styled.div`
   margin-bottom: 10px;
   text-align: center;
   font-size: 18px;
@@ -40,20 +39,14 @@ export const LogoWrapper = styled.div`
   justify-content: center;
 `;
 
-export const FailLogin = styled.div<PlaceholderGuideProps>`
-  visibility: ${(props) => (props.$failLogin ? 'visible' : 'hidden')};
-  text-align: center;
-  font-size: 12px;
-  font-family: ${notoSansKr.regular.style.fontFamily};
-  font-weight: ${notoSansKr.regular.style.fontWeight};
+export const FindIDForm = styled.form`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
 `;
 
-export const ModalFormWrapper = styled.form`
-  width: 100%;
-`;
-
-export const LoginWrapper = styled.div`
+export const FindIDWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -79,7 +72,17 @@ export const LoginWrapper = styled.div`
 //   }
 // `;
 
-export const LoginInputWrapper = styled.div`
+export const FailLogin = styled.div<PlaceholderGuideProps>`
+  margin: 10px 0px;
+  visibility: ${(props) => (props.$failLogin ? 'visible' : 'hidden')};
+  text-align: center;
+  font-size: 12px;
+  font-family: ${notoSansKr.regular.style.fontFamily};
+  font-weight: ${notoSansKr.regular.style.fontWeight};
+  width: 100%;
+`;
+
+export const FindIDInputWrapper = styled.div`
   padding: 20px 10px;
   border-bottom: 1px solid ${PALETTE.LIGHT_BLACK};
   position: relative;
@@ -87,7 +90,14 @@ export const LoginInputWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const LoginInputPlaceholder = styled.div<PlaceholderGuideProps>`
+export const FindIDInput = styled(BaseLabelWithInput.Input)`
+  font-size: 14px;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
+  width: 100%;
+`;
+
+export const FindIDInputPlaceholder = styled.div<PlaceholderGuideProps>`
   position: absolute;
   color: ${PALETTE.LIGHT_BLACK};
   font-size: 14px;
@@ -103,32 +113,15 @@ export const LoginInputPlaceholder = styled.div<PlaceholderGuideProps>`
   }
 `;
 
-export const LoginInput = styled(BaseLabelWithInput.Input)`
-  font-size: 14px;
-  font-family: ${notoSansKr.bold.style.fontFamily};
-  font-weight: ${notoSansKr.bold.style.fontWeight};
-  width: 100%;
-`;
-
-// export const LoginLabel = styled.label<PlaceholderGuideProps>`
-//   width: 100%;
-//   color: ${PALETTE.MAIN_ORANGE};
-//   font-size: 14px;
-//   font-family: ${notoSansKr.bold.style.fontFamily};
-//   font-weight: ${notoSansKr.bold.style.fontWeight};
-//   width: 100%;
-//   margin-bottom: 3px;
-// `;
-
 export const ButtonWrapper = styled.div`
   height: fit-content;
   display: flex;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 
-export const LoginButton = styled(BaseButton)`
-  width: 122px;
+export const FindIDButton = styled(BaseButton)`
+  width: 168px;
   height: 32px;
   background-color: ${PALETTE.SUB_WHITE};
   display: flex;
@@ -136,30 +129,9 @@ export const LoginButton = styled(BaseButton)`
   align-items: center;
 `;
 
-export const LoginButtonText = styled.p`
+export const FindIDButtonText = styled.p`
   font-size: 14px;
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.LIGHT_BLACK};
-`;
-
-export const findIDPassword = styled.div`
-  width: 100%;
-  height: 50px;
-  display: flex;
-  justify-content: end;
-  align-items: end;
-  font-size: 14px;
-  font-family: ${notoSansKr.regular.style.fontFamily};
-  font-weight: ${notoSansKr.regular.style.fontWeight};
-  color: ${PALETTE.LIGHT_BLACK};
-  margin: 30px 0px 15px 0px;
-  span {
-    font-size: 14px;
-    font-family: ${notoSansKr.bold.style.fontFamily};
-    font-weight: ${notoSansKr.bold.style.fontWeight};
-    color: ${PALETTE.LIGHT_BLACK};
-    margin: 0px 10px;
-    cursor: pointer;
-  }
 `;

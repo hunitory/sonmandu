@@ -38,31 +38,85 @@ function SignUpModal() {
             <Image src={LogoURL} alt="손만두" width={123} height={52} priority></Image>
           </Styled.LogoWrapper>
           <Styled.WelcomeContent>손글씨를 폰트로 만들어 드립니다!</Styled.WelcomeContent>
-          <Styled.WelcomeContent>회원가입을 한 후 여러 사람들의 <p></p>손글씨와 이야기를 즐겨보세요!</Styled.WelcomeContent>
+          <Styled.WelcomeContent>
+            회원가입을 한 후 여러 사람들의 <p></p>손글씨와 이야기를 즐겨보세요!
+          </Styled.WelcomeContent>
         </Styled.WelcomeWrapper>
+        {/* --------구분선-------- */}
+        <Styled.SignUpLine />
+        {/* --------구분선-------- */}
         <Styled.SignUpForm>
-          <Styled.LoginWrapper>
-            <Styled.LoginInputWrapper>
-              <Styled.LoginInputPlaceholder $isempty={!MemberID}>
+          <Styled.SignWrapper>
+            <Styled.SignUpInputWrapper>
+              <Styled.SignUpInputPlaceholder $isempty={!Password}>
+                <span>이름</span>을 입력해주세요.
+              </Styled.SignUpInputPlaceholder>
+              <Styled.SignUpInput id="name" type="text" value={Password} onChange={PasswordInput} />
+            </Styled.SignUpInputWrapper>
+
+            <Styled.SignUpInputWrapper>
+              <Styled.SignUpInputPlaceholder $isempty={!MemberID}>
                 <span>아이디</span>를 입력해주세요.
-              </Styled.LoginInputPlaceholder>
-              <Styled.LoginInput id="아이디" type="text" value={MemberID} onChange={NameInput} />
-            </Styled.LoginInputWrapper>
-          </Styled.LoginWrapper>
-          <Styled.LoginWrapper>
-            <Styled.LoginInputWrapper>
-              <Styled.LoginInputPlaceholder $isempty={!Password}>
+              </Styled.SignUpInputPlaceholder>
+              <Styled.SignUpInput id="id" type="text" value={MemberID} onChange={NameInput} />
+            </Styled.SignUpInputWrapper>
+
+            <Styled.SignUpInputWrapper>
+              <Styled.SignUpInputPlaceholder $isempty={!Password}>
                 <span>비밀번호</span>를 입력해주세요.
-              </Styled.LoginInputPlaceholder>
-              <Styled.LoginInput id="비밀번호" type="password" value={Password} onChange={PasswordInput} />
-            </Styled.LoginInputWrapper>
-          </Styled.LoginWrapper>
+              </Styled.SignUpInputPlaceholder>
+              <Styled.SignUpInput id="password" type="password" value={Password} onChange={PasswordInput} />
+            </Styled.SignUpInputWrapper>
+
+            <Styled.SignUpInputWrapper>
+              <Styled.InputWithButtonWrapper>
+                <Styled.SignUpInputPlaceholder $isempty={!Password}>
+                  <span>닉네임</span>을 입력해주세요.
+                </Styled.SignUpInputPlaceholder>
+                <Styled.SignUpInput id="nickname" type="text" value={Password} onChange={PasswordInput} />
+                <Styled.ButtonWrapper>
+                  <Styled.DuplicationButton onClick={OnLogin} type="button" disabled={false}>
+                    <Styled.DuplicationButtonText>중복 체크</Styled.DuplicationButtonText>
+                  </Styled.DuplicationButton>
+                </Styled.ButtonWrapper>
+              </Styled.InputWithButtonWrapper>
+            </Styled.SignUpInputWrapper>
+
+            <Styled.SignUpInputWrapper>
+              <Styled.InputWithButtonWrapper>
+                <Styled.SignUpInputPlaceholder $isempty={!Password}>
+                  <span>이메일</span>을 입력해주세요.
+                </Styled.SignUpInputPlaceholder>
+                <Styled.SignUpInput id="email" type="text" value={Password} onChange={PasswordInput} />
+                <Styled.ButtonWrapper>
+                  <Styled.DuplicationButton onClick={OnLogin} type="button" disabled={false}>
+                    <Styled.DuplicationButtonText>인증하기</Styled.DuplicationButtonText>
+                  </Styled.DuplicationButton>
+                </Styled.ButtonWrapper>
+              </Styled.InputWithButtonWrapper>
+            </Styled.SignUpInputWrapper>
+            {/* 6자리 주는 거면 6자리 채웠을때 자동 확인 할 수 있게 해도 될듯? */}
+            {/* <Styled.SignUpInputWrapper>
+              <Styled.InputWithButtonWrapper>
+                <Styled.SignUpInputPlaceholder $isempty={!Password}>
+                  <span>전송 받은 코드</span>를 입력해주세요.
+                </Styled.SignUpInputPlaceholder>
+                <Styled.SignUpInput id="email-code" type="text" value={Password} onChange={PasswordInput} />
+                <Styled.ButtonWrapper>
+                  <Styled.DuplicationButton onClick={OnLogin} type="button" disabled={false}>
+                    <Styled.DuplicationButtonText>확인하기</Styled.DuplicationButtonText>
+                  </Styled.DuplicationButton>
+                </Styled.ButtonWrapper>
+              </Styled.InputWithButtonWrapper>
+            </Styled.SignUpInputWrapper> */}
+          </Styled.SignWrapper>
+          <Styled.ButtonWrapper>
+            <Styled.SignUpButton onClick={OnLogin} type="button" disabled={false}>
+              <Styled.SignUpButtonText>회원가입하기</Styled.SignUpButtonText>
+            </Styled.SignUpButton>
+          </Styled.ButtonWrapper>
         </Styled.SignUpForm>
-        <Styled.ButtonWrapper>
-          <Styled.LoginButton onClick={OnLogin} type="button" disabled={false}>
-            <Styled.LoginButtonText>로그인 하기</Styled.LoginButtonText>
-          </Styled.LoginButton>
-        </Styled.ButtonWrapper>
+
       </Styled.ModalWapper>
     </Comp.BaseModal>
   );

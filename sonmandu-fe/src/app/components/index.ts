@@ -20,6 +20,9 @@ import FontComplete from './Applications/FontComplete';
 import FontStep from './Applications/FontStep';
 import LoginModal from './Modals/LoginModal';
 import SignUpModal from './Modals/SignUpModal';
+import FindIDModal from './Modals/FindIDModal';
+import FindPasswordModal from './Modals/FindPasswordModal';
+import UnRegisterModal from './Modals/UnregisterModal';
 
 export {
   BaseHeader,
@@ -42,4 +45,7 @@ export {
   FontStep,
   LoginModal,
   SignUpModal,
+  FindIDModal,
+  FindPasswordModal,
+  UnRegisterModal
 };

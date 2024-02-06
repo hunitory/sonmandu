@@ -4,12 +4,26 @@ import * as S from './style';
 import { useGetDeviceSize } from 'customhook';
 
 import Image from 'next/image';
+import { useSetRecoilState } from 'recoil';
+import { modalState } from 'store/atoms';
 
 export default function ProfileHamburger() {
+  const setLoginModalView = useSetRecoilState(modalState('login'));
+  const setJoinModalView = useSetRecoilState(modalState('join'));
+
   const [dropBoxView, setDropBoxView] = useState(false);
   const windowWidth = useGetDeviceSize();
+
   const handleDropBoxView = () => {
     setDropBoxView((prev) => !prev);
+  };
+
+  const handleLoginModalView = () => {
+    setLoginModalView((prev) => ({ ...prev, login: !prev.login }));
+  };
+
+  const handleJoinModalView = () => {
+    setJoinModalView((prev) => ({ ...prev, join: !prev.join }));
   };
 
   return (
@@ -20,10 +34,8 @@ export default function ProfileHamburger() {
       </div>
       {dropBoxView && (
         <S.DropBoxWrapper>
-          <S.DropBoxList>회원가입</S.DropBoxList>
-          <Link href={'/login'}>
-            <S.DropBoxList>로그인</S.DropBoxList>
-          </Link>
+          <S.DropBoxList onClick={handleJoinModalView}>회원가입</S.DropBoxList>
+          <S.DropBoxList onClick={handleLoginModalView}>로그인</S.DropBoxList>
           {/* ------------------------------ */}
           <S.DropBoxList>손글씨 채팅</S.DropBoxList>
           <S.DropBoxList>마이 프로필</S.DropBoxList>

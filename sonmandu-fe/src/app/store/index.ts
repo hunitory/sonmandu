@@ -1,3 +1,3 @@
-import * as Atom from './atoms/_index';
+import * as Atom from './atoms';
 
 export { Atom };

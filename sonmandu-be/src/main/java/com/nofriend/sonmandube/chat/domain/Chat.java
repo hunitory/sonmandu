@@ -32,7 +32,11 @@ import java.time.LocalDateTime;
 >>>>>>> bb48a11 (feat: add WebSocket)
 =======
 import java.time.format.DateTimeFormatter;
+<<<<<<< HEAD
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+import java.util.Locale;
+>>>>>>> 47367c4 (teat: wss)
 
 @Entity
 @Getter
@@ -91,6 +95,7 @@ public class Chat {
     @PrePersist
     public void onPrePersist() {
 <<<<<<< HEAD
+<<<<<<< HEAD
         this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a h:mm", Locale.KOREAN));
     }
 
@@ -120,6 +125,9 @@ public class Chat {
 >>>>>>> bb48a11 (feat: add WebSocket)
 =======
         this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a H:mm"));
+=======
+        this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a H:mm", Locale.KOREAN));
+>>>>>>> 47367c4 (teat: wss)
     }
 
 >>>>>>> 723abc5 (feat: add spring security chatting)

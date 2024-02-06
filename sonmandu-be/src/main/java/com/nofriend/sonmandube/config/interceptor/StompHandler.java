@@ -6,10 +6,13 @@ import com.nofriend.sonmandube.jwt.JwtCode;
 import com.nofriend.sonmandube.jwt.JwtProvider;
 import com.nofriend.sonmandube.member.repository.MemberRepository;
 import io.jsonwebtoken.JwtException;
+<<<<<<< HEAD
 =======
 import com.nofriend.sonmandube.jwt.JwtCode;
 import com.nofriend.sonmandube.jwt.JwtProvider;
 >>>>>>> bb48a11 (feat: add WebSocket)
+=======
+>>>>>>> 723abc5 (feat: add spring security chatting)
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
@@ -32,6 +35,7 @@ import static org.springframework.messaging.simp.stomp.StompCommand.CONNECT;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 >>>>>>> bb48a11 (feat: add WebSocket)
 
@@ -42,9 +46,11 @@ import java.util.Objects;
 @Slf4j
 public class StompHandler implements ChannelInterceptor {
     private final JwtProvider jwtProvider;
+    private final MemberRepository memberRepository;
 
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 //        log.info("================================");
 //        log.info("start StompHandler");
@@ -75,39 +81,36 @@ public class StompHandler implements ChannelInterceptor {
 
 =======
         log.info("StopmHandler!");
+=======
+//        log.info("---------------------------------");
+        log.info("start StopmHandler");
+>>>>>>> 723abc5 (feat: add spring security chatting)
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
-        log.info(accessor.toString());
-        log.info(channel.toString());
-        log.info(message.toString());
-        String token = Objects.requireNonNull(accessor.getFirstNativeHeader("Authorization")).substring(7);
-//        if (token != null){
-//            try{
-//                token.substring(7);
-//
-//            }catch (Exception ignored){
-//
-//            }
-//        }
-//        System.out.println(Objects.requireNonNull(accessor.getFirstNativeHeader("Authorization")).substring(7));
-        log.info(token);
-//        if (token != null){
-//            token.substring(7);
-//        }
-        System.out.println(token);
-        if(accessor.getCommand() == StompCommand.CONNECT) {
-            log.info("YE--------------------------");
-            log.info(jwtProvider.validateToken(token).toString());
-            if (jwtProvider.validateToken(token) == JwtCode.ACCESS) {
-                System.out.println(1);
+        String rawToken = accessor.getFirstNativeHeader("Authorization");
+
+//        log.info("raw token: " + rawToken);
+//        log.info("command: " + String.valueOf(accessor.getCommand()));
+//        log.info(String.valueOf(accessor.getCommand() == StompCommand.CONNECT));
+//        log.info(String.valueOf(rawToken != null));
+        if(accessor.getCommand() == StompCommand.CONNECT && rawToken != null) {
+//            log.info("1");
+            String token = Objects.requireNonNull(rawToken).substring(7);
+//            log.info("2");
+//            log.info(token);
+            Authentication authentication = jwtProvider.getAuthentication(token);
+//            log.info("3");
+            Long memberId = Long.valueOf(authentication.getName());
+//            log.info("4");
+            String dbRefreshToken = memberRepository.findById(memberId).orElseThrow()
+                    .getRefreshToken();
+//            log.info(String.valueOf(jwtProvider.validateToken(token) != JwtCode.ACCESS));
+//            log.info(String.valueOf(!token.equals(dbRefreshToken)));
+            if (jwtProvider.validateToken(token) != JwtCode.ACCESS || !token.equals(dbRefreshToken)){
+                throw new JwtException("Not Valid Token");
             }
-            if (jwtProvider.validateToken(token) == JwtCode.EXPIRED) {
-                System.out.println(2);
-            }
-            if (jwtProvider.validateToken(token) == JwtCode.DENIED) {
-                System.out.println(3);
-            }
-//                throw new AccessDeniedException("");
         }
+
+        log.info("success StompHandler");
         return message;
 >>>>>>> bb48a11 (feat: add WebSocket)
     }

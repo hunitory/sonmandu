@@ -87,10 +87,15 @@ public class JwtProvider {
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
+<<<<<<< HEAD
 
         User principal = new User(String.valueOf(claims.get("memberId")), "", authorities);
 
 //        log.info("success get authentication");
+=======
+//        System.out.println(authorities.isEmpty());
+        User principal = new User(claims.getSubject(), "", authorities);
+>>>>>>> 723abc5 (feat: add spring security chatting)
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 

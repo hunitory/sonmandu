@@ -1,6 +1,10 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNiIsImF1dGgiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6MjYsImV4cCI6MTcwNzgxMTk1OH0.DI5txR6yZiVKwAP7X347aihp_4i6t35-KAwqW5DASgqv_n58ng54oP7gWzDf0pU8UBUo-t9RtpFbzLmYhsBj4w'
+=======
+var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjoxLCJleHAiOjE3MDc4MDk2MTR9.Dz-_nGuj0s_or85MBZxfX0bN8TeUDUJZGbzdKEeUBuOfh7PtyCF3b-E3sVVVjocgaVUBRecENTME-Zh73WiLDQ'
+>>>>>>> 723abc5 (feat: add spring security chatting)
 
 const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/chat-connection',
@@ -32,6 +36,9 @@ stompClient.onConnect = (frame) => {
     console.log('Connected: ' + frame);
     stompClient.subscribe('/topic/sonmandu', (chat) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 723abc5 (feat: add spring security chatting)
         showChatting(JSON.parse(chat.body).message);
     }, {'Authorization': token});
 =======
@@ -76,6 +83,7 @@ function disconnect() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 function sendMessage() {
     stompClient.publish({
         headers: {'Authorization': token},
@@ -90,15 +98,25 @@ function sendMessage() {
 function showChatting(message) {
 =======
 function sendName() {
+=======
+function sendMessage() {
+>>>>>>> 723abc5 (feat: add spring security chatting)
     stompClient.publish({
         headers: {'Authorization': token},
         destination: "/app/sonmandu",
-        body: JSON.stringify({'message': $("#name").val()})
+        body: JSON.stringify({
+            'message': $("#message").val(),
+            'handwritingId': 3
+        })
     });
 }
 
+<<<<<<< HEAD
 function showGreeting(message) {
 >>>>>>> bb48a11 (feat: add WebSocket)
+=======
+function showChatting(message) {
+>>>>>>> 723abc5 (feat: add spring security chatting)
     console.log(message)
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
@@ -108,8 +126,12 @@ $(function () {
     $( "#connect" ).click(() => connect());
     $( "#disconnect" ).click(() => disconnect());
 <<<<<<< HEAD
+<<<<<<< HEAD
     $( "#send" ).click(() => sendMessage());
 =======
     $( "#send" ).click(() => sendName());
 >>>>>>> bb48a11 (feat: add WebSocket)
+=======
+    $( "#send" ).click(() => sendMessage());
+>>>>>>> 723abc5 (feat: add spring security chatting)
 });

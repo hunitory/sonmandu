@@ -23,6 +23,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Boolean existsByNickname(String nickname);
 
+<<<<<<< HEAD
     @Modifying
     @Query(value = "update member set is_badge = false where is_badge = true",
             nativeQuery = true)
@@ -33,9 +34,17 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
             nativeQuery = true)
     void updateThisWeekBadge(List<Long> memberIds);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     MemberNicknameProjection findNicknameByMemberId(Long memberId);
 
 =======
 >>>>>>> 582ef31 (feat: 배지, 트로피 수여 추가)
+=======
+=======
+
+    MemberNicknameProjection findNicknameByMemberId(Long memberId);
+
+>>>>>>> 1f7c5f8 (feat: add spring security chatting)
+>>>>>>> 723abc5 (feat: add spring security chatting)
 }

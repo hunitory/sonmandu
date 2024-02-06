@@ -1,6 +1,7 @@
 package com.nofriend.sonmandube.chat.controller.response;
 
 
+<<<<<<< HEAD
 import com.nofriend.sonmandube.chat.domain.Chat;
 import com.nofriend.sonmandube.chat.domain.ChatProjection;
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
@@ -18,3 +19,7 @@ public class ChatResponse {
     private ChatMemberResponse chatMemberResponse;
     private ChatHandwritingResponse chatHandwritingResponse;
 }
+=======
+public class ChatResponse {
+}
+>>>>>>> 723abc5 (feat: add spring security chatting)

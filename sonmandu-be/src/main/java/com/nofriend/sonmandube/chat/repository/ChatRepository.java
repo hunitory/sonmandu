@@ -10,5 +10,11 @@ import java.util.Optional;
 
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, Long> {
+<<<<<<< HEAD
     List<ChatProjection> findTop10ByOrderByChatIdDesc();
+=======
+    List<ChatProjection> findTop20ByOrderByChatIdDesc();
+
+
+>>>>>>> 723abc5 (feat: add spring security chatting)
 }

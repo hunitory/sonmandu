@@ -25,6 +25,7 @@ public class QChat extends EntityPathBase<Chat> {
     public final NumberPath<Long> chatId = createNumber("chatId", Long.class);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public final StringPath createTime = createString("createTime");
 
     public final com.nofriend.sonmandube.handwriting.domain.QHandwriting handwriting;
@@ -37,6 +38,14 @@ public class QChat extends EntityPathBase<Chat> {
     public final com.nofriend.sonmandube.handwriting.domain.QHandwriting handwriting;
 
 >>>>>>> 1c9b337f (feat: add WebSocket)
+=======
+    public final StringPath createTime = createString("createTime");
+
+    public final com.nofriend.sonmandube.handwriting.domain.QHandwriting handwriting;
+
+    public final com.nofriend.sonmandube.member.domain.QMember member;
+
+>>>>>>> 1726fcf0 (feat: add spring security chatting)
     public final StringPath message = createString("message");
 
     public QChat(String variable) {
@@ -59,9 +68,13 @@ public class QChat extends EntityPathBase<Chat> {
         super(type, metadata, inits);
         this.handwriting = inits.isInitialized("handwriting") ? new com.nofriend.sonmandube.handwriting.domain.QHandwriting(forProperty("handwriting"), inits.get("handwriting")) : null;
 <<<<<<< HEAD
+<<<<<<< HEAD
         this.member = inits.isInitialized("member") ? new com.nofriend.sonmandube.member.domain.QMember(forProperty("member")) : null;
 =======
 >>>>>>> 1c9b337f (feat: add WebSocket)
+=======
+        this.member = inits.isInitialized("member") ? new com.nofriend.sonmandube.member.domain.QMember(forProperty("member")) : null;
+>>>>>>> 1726fcf0 (feat: add spring security chatting)
     }
 
 }

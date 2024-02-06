@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNiIsImF1dGgiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6MjYsImV4cCI6MTcwNzgxMTk1OH0.DI5txR6yZiVKwAP7X347aihp_4i6t35-KAwqW5DASgqv_n58ng54oP7gWzDf0pU8UBUo-t9RtpFbzLmYhsBj4w'
 =======
 var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjoxLCJleHAiOjE3MDc4MDk2MTR9.Dz-_nGuj0s_or85MBZxfX0bN8TeUDUJZGbzdKEeUBuOfh7PtyCF3b-E3sVVVjocgaVUBRecENTME-Zh73WiLDQ'
@@ -19,6 +20,9 @@ var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfVVNFUiI
 =======
 var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNiIsImF1dGgiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6MjYsImV4cCI6MTcwNzgxMTk1OH0.DI5txR6yZiVKwAP7X347aihp_4i6t35-KAwqW5DASgqv_n58ng54oP7gWzDf0pU8UBUo-t9RtpFbzLmYhsBj4w'
 >>>>>>> a830d954 (test: dev chatting test)
+=======
+var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjoxLCJleHAiOjE3MDc4MDk2MTR9.Dz-_nGuj0s_or85MBZxfX0bN8TeUDUJZGbzdKEeUBuOfh7PtyCF3b-E3sVVVjocgaVUBRecENTME-Zh73WiLDQ'
+>>>>>>> 1726fcf0 (feat: add spring security chatting)
 
 const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/chat-connection',
@@ -70,10 +74,13 @@ stompClient.onConnect = (frame) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 723abc5 (feat: add spring security chatting)
 =======
 >>>>>>> 23a865a4 (cfeat: add spring security chatting)
+=======
+>>>>>>> 1726fcf0 (feat: add spring security chatting)
         showChatting(JSON.parse(chat.body).message);
     }, {'Authorization': token});
 =======
@@ -130,8 +137,11 @@ function disconnect() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 23a865a4 (cfeat: add spring security chatting)
+=======
+>>>>>>> 1726fcf0 (feat: add spring security chatting)
 function sendMessage() {
     stompClient.publish({
         headers: {'Authorization': token},
@@ -140,6 +150,7 @@ function sendMessage() {
             'message': $("#message").val(),
             'handwritingId': 3
         })
+<<<<<<< HEAD
 <<<<<<< HEAD
     });
 }
@@ -188,6 +199,12 @@ function showChatting(message) {
 >>>>>>> 23a865a4 (cfeat: add spring security chatting)
 =======
 >>>>>>> 1c9b337f (feat: add WebSocket)
+=======
+    });
+}
+
+function showChatting(message) {
+>>>>>>> 1726fcf0 (feat: add spring security chatting)
     console.log(message)
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
@@ -196,6 +213,7 @@ $(function () {
     $("form").on('submit', (e) => e.preventDefault());
     $( "#connect" ).click(() => connect());
     $( "#disconnect" ).click(() => disconnect());
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -217,4 +235,7 @@ $(function () {
 =======
     $( "#send" ).click(() => sendName());
 >>>>>>> 1c9b337f (feat: add WebSocket)
+=======
+    $( "#send" ).click(() => sendMessage());
+>>>>>>> 1726fcf0 (feat: add spring security chatting)
 });

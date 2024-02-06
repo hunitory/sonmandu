@@ -1,5 +1,3 @@
-'use client';
-
 import React, { useRef, useState } from 'react';
 import html2canvas from 'html2canvas';
 import saveAs from 'file-saver';
@@ -7,7 +5,12 @@ import * as S from './style';
 import * as Comp from '@/components';
 import Image from 'next/image';
 
-function FontTesting() {
+interface FontTestingProps {
+  fontName: string;
+  isAllResourcesLoad: () => boolean;
+}
+
+function FontTesting({ fontName, isAllResourcesLoad }: FontTestingProps) {
   const letterImageRef = useRef(null);
   const [selectedLetter, setSelectedLetter] = useState({
     letterSrc: '/image/letter-1.png',
@@ -26,9 +29,7 @@ function FontTesting() {
     if (letterImageRef.current) {
       try {
         const canvas = await html2canvas(letterImageRef.current);
-        canvas.toBlob(
-          (blob) => blob !== null && saveAs(blob, `손만두 ${'폰트이름'}`),
-        );
+        canvas.toBlob((blob) => blob !== null && saveAs(blob, `손만두 ${'폰트이름'}`));
       } catch (err) {
         alert('이미지가 정상적으로 저장되지 않았습니다!');
       }
@@ -37,8 +38,8 @@ function FontTesting() {
 
   return (
     <S.TestingWrapper>
-      <S.TestingLetterArea ref={letterImageRef}>
-        <Comp.BaseLetterField letterImgUrl={selectedLetter.letterSrc} />
+      <S.TestingLetterArea $fontName={fontName} $show={isAllResourcesLoad()} ref={letterImageRef}>
+        {isAllResourcesLoad() && <Comp.BaseLetterField letterImgUrl={selectedLetter.letterSrc} />}
       </S.TestingLetterArea>
       <S.SideBoxWrapper>
         <p>편지지 배경</p>
@@ -50,12 +51,7 @@ function FontTesting() {
               onClick={() => handleSelectedLetter(i + 1)}
               selected={i + 1 === selectedLetter.idx}
             >
-              <Image
-                src={`/image/letter-${i + 1}.png`}
-                alt={`편지지-${i + 1}`}
-                width={126}
-                height={86}
-              />
+              <Image src={`/image/letter-${i + 1}.png`} alt={`편지지-${i + 1}`} width={126} height={86} />
             </S.LatterContainerButton>
           ))}
         </S.SideBoxContainer>

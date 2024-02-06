@@ -18,11 +18,17 @@ export const TestingWrapper = styled.section`
   }
 `;
 
-export const TestingLetterArea = styled.article`
+export const TestingLetterArea = styled.article<{ $fontName: string; $show: boolean }>`
   width: calc(60% - 8px);
   border-radius: 12px;
   border: 2px solid ${PALETTE.SUB_WHITE};
   overflow: hidden;
+
+  textarea {
+    font-family: ${(props) => (props.$fontName ? props.$fontName : notoSansKr.regular.style.fontFamily)};
+  }
+
+  background-color: ${(props) => !props.$show && PALETTE.SUB_WHITE};
 
   @media (max-width: 1024px) {
     width: 100%;
@@ -80,14 +86,12 @@ export const SideBoxContainer = styled.div`
   }
 `;
 
-export const LatterContainerButton = styled(
-  (props: Omit<BaseButtonProps, 'disabled'>) =>
-    Comp.BaseButton({ ...props, disabled: false }),
+export const LatterContainerButton = styled((props: Omit<BaseButtonProps, 'disabled'>) =>
+  Comp.BaseButton({ ...props, disabled: false }),
 )<{
   selected: boolean;
 }>`
-  border: 2px solid
-    ${({ selected }) => (selected ? PALETTE.MAIN_ORANGE : 'white')};
+  border: 2px solid ${({ selected }) => (selected ? PALETTE.MAIN_ORANGE : 'white')};
   border-radius: 0px;
   padding: 0;
 `;

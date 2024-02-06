@@ -1,10 +1,6 @@
 import type { Metadata } from 'next';
 import { notoSansKr } from 'styles';
-import {
-  StyledComponentsRegistry,
-  RecoilRootWrapper,
-  ReactQueryProvider,
-} from '@/lib';
+import { StyledComponentsRegistry, RecoilRootWrapper, ReactQueryProvider } from '@/lib';
 import './styles/globals.css';
 import { BaseHeader } from 'components';
 
@@ -20,10 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body
-        className={notoSansKr.regular.className}
-        suppressHydrationWarning={true}
-      >
+      <body className={notoSansKr.regular.className} suppressHydrationWarning={true}>
         <ReactQueryProvider>
           <RecoilRootWrapper>
             <StyledComponentsRegistry>

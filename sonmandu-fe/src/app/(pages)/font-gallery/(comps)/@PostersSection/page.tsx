@@ -19,12 +19,13 @@ export default function PostersSection({ searchParams }: TitleSectionProps) {
     queryFn: () =>
       API.handwriting.fontListInGallery({
         startIdx: 0,
-        takeCount: 6,
+        takeCount: 5,
         name: searchParams?.name || '',
         sort: searchParams?.sort || '',
         tagId: searchParams?.tagId || '',
       }),
   });
+
   return (
     <S.CardsGridWrapper>
       {response?.data.map((res: FontCard) => (

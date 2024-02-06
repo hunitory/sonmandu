@@ -1,19 +1,10 @@
 import React from 'react';
 import * as S from './style';
 
-function FontDetailLayout({
-  FontInfomation,
-  FontTesting,
-}: {
-  FontInfomation: React.ReactNode;
-  FontTesting: React.ReactNode;
-}) {
+function FontDetailLayout({ children }: { children: React.ReactNode }) {
   return (
     <S.MainWrapper>
-      <S.MainContainer>
-        {FontInfomation}
-        {FontTesting}
-      </S.MainContainer>
+      <S.MainContainer>{children}</S.MainContainer>
     </S.MainWrapper>
   );
 }

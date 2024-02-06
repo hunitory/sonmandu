@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './style';
-import { BaseButtonProps, BaseHasTagsProps } from 'types';
+import { BaseHasTagsProps } from 'types';
 
 function BaseHashTags({ hashTagIdList, direction, className }: BaseHasTagsProps) {
   const matchedHashTags = WHOLE_HASH_TAGES.filter((hashTag) => hashTagIdList.includes(hashTag.id) && hashTag);
@@ -16,7 +16,7 @@ function BaseHashTags({ hashTagIdList, direction, className }: BaseHasTagsProps)
   );
 }
 
-BaseHashTags.OneTag = (props: BaseButtonProps & { calssName?: string }) => S.HashTag({ ...props });
+BaseHashTags.OneTag = S.HashTag;
 
 export default BaseHashTags;
 

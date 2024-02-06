@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import { BaseHashTags } from 'components';
 import { WHOLE_HASH_TAGES } from '@/constants';
@@ -10,7 +10,7 @@ interface CreateQueryStringArgs {
 
 interface Options {
   sort: string;
-  tagId: number[];
+  tagId: string[];
 }
 
 interface FilterListProps {
@@ -23,32 +23,45 @@ export default function FilterList({ className, createQueryString }: FilterListP
 
   const handleOptionsClick = ({ name, value }: CreateQueryStringArgs) => {
     createQueryString({ name: name, value: value });
-    setOptions((prev) => ({ ...prev, [name]: value }));
+    setOptions((prev) => {
+      if (name === 'tagId') {
+        return prev.tagId.includes(value)
+          ? { ...prev, tagId: prev.tagId.filter((tag) => tag !== value) }
+          : { ...prev, tagId: [...prev.tagId, value] };
+      }
+      return { ...prev, sort: value };
+    });
   };
+
+  useEffect(() => {
+    console.log(`options :`, options);
+  }, [options]);
 
   return (
     <S.FilterListsWrapper className={className}>
       <span>정렬</span>
       {sortOptions.map((option) => (
-        <BaseHashTags.OneTag
+        <S.CustomHashTag
           type="button"
           disabled={false}
           key={option.value}
-          onClick={() => createQueryString({ name: 'sort', value: option.value })}
+          selected={options.sort === option.value}
+          onClick={() => handleOptionsClick({ name: 'sort', value: option.value })}
         >
           {option.text}
-        </BaseHashTags.OneTag>
+        </S.CustomHashTag>
       ))}
       <span>종류</span>
       {WHOLE_HASH_TAGES.map((hashTag) => (
-        <BaseHashTags.OneTag
+        <S.CustomHashTag
           type="button"
           disabled={false}
           key={hashTag.id}
-          onClick={() => createQueryString({ name: 'tagId', value: String(hashTag.id) })}
+          selected={options.tagId.includes(String(hashTag.id))}
+          onClick={() => handleOptionsClick({ name: 'tagId', value: String(hashTag.id) })}
         >
           {hashTag.text}
-        </BaseHashTags.OneTag>
+        </S.CustomHashTag>
       ))}
     </S.FilterListsWrapper>
   );

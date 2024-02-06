@@ -1,4 +1,5 @@
 import useGetDeviceSize from './useGetDeviceSize';
-import { useLoginModal } from './useLoginModal';
+import useDebouncing from './useDeboucing';
+import useIntersectionObserver from './useIntersectionObserver';
 
-export { useGetDeviceSize, useLoginModal };
+export { useGetDeviceSize, useDebouncing, useIntersectionObserver };

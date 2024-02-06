@@ -1,3 +1,4 @@
+import { BaseHashTags } from 'components';
 import styled from 'styled-components';
 import { PALETTE, notoSansKr } from 'styles';
 
@@ -35,4 +36,9 @@ export const FilterListContainer = styled.div`
   width: 100%;
   padding: 8px;
   height: fit-content;
+`;
+
+export const CustomHashTag = styled(BaseHashTags.OneTag)<{ selected: boolean }>`
+  background-color: ${(props) => props.selected && PALETTE.LIGHT_ORANGE};
+  border: 2px solid ${(props) => (props.selected ? PALETTE.MAIN_ORANGE : PALETTE.SUB_WHITE)};
 `;

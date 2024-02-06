@@ -20,12 +20,16 @@ export const FontCardWrapper = styled.li`
   }
 `;
 
-export const FontCardContainer = styled.article`
+export const FontCardContainer = styled.article<{ name: string }>`
   display: grid;
   height: 100%;
   padding: 16px;
   gap: 8px;
   align-content: space-between;
+  p,
+  textarea {
+    font-family: ${(props) => (props.name ? props.name : notoSansKr.bold.style.fontFamily)};
+  }
 `;
 
 export const FontName = styled.p`
@@ -65,4 +69,16 @@ export const IconWithNumberWrapper = styled.div`
     display: inline-block;
     height: fit-content;
   }
+`;
+
+export const SkeletonCard = styled.li`
+  width: 100%;
+  max-width: 440px;
+  max-height: 446px;
+  aspect-ratio: 4 / 5.5;
+  border-radius: 20px;
+  background-color: ${PALETTE.SUB_WHITE};
+  border: 2px solid ${PALETTE.SUB_WHITE};
+  overflow: hidden;
+  cursor: pointer;
 `;

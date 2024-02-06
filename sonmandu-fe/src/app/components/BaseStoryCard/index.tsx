@@ -7,7 +7,7 @@ function BaseStoryCard() {
     <S.StoryCardWrapper>
       <S.ImageArea>
         <Image
-          src={'/image/caution3.png'}
+          src={'/image/sample.jpg'}
           alt="편지지"
           fill={true}
           sizes="100vw"

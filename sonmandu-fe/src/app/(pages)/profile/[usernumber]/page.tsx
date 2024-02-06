@@ -1,12 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
-import ProfileBox from 'components/ProfileBox';
-import { BaseButton } from 'components';
-import ProfileFontCard from 'components/ProfileFontCard';
-import ProfileFontCardMaking from 'components/ProfileFontCardMaking';
-import ProfileTrophy from 'components/ProfileTrophy';
+import * as Comp from '@/components';
 import { useRouter } from 'next/navigation';
 
 interface ProfileBoxProps {
@@ -143,105 +139,111 @@ export default function ProfilePage() {
   const router = useRouter();
 
   const isMypage: boolean = true; // isMypage 판별하는 식 추가해야함!!
-  const filteredHandwriting = handwritings.filter(
-    (handwriting) => handwriting && handwriting.state > 3,
-  );
+
+  const [showModal, setShowModal] = useState(false);
+  const clickModal = () => {
+    setShowModal(!showModal);
+  };
+
+  const filteredHandwriting = handwritings.filter((handwriting) => handwriting && handwriting.state > 3);
   const numberOfHandwriting = filteredHandwriting.length;
   const handwritinggroup = isMypage ? handwritings : filteredHandwriting;
 
   return (
-    <S.ProfileWrapper>
-      <S.ProfileLeftWrapper>
-        <S.ProfileLeftDiv>
-          <S.ProfileBoxDiv>
-            <ProfileBox {...ProfileBoxProps} />
-          </S.ProfileBoxDiv>
-          <S.ProfileIndexWrapper>
-            <S.ProfileIndexDiv>
-              <S.ProfileIndexSpan>소개</S.ProfileIndexSpan>
-              <S.ProfileIndexSpan>제작한 글씨</S.ProfileIndexSpan>
-              <S.ProfileIndexSpan>작성한 이야기</S.ProfileIndexSpan>
-            </S.ProfileIndexDiv>
-          </S.ProfileIndexWrapper>
-        </S.ProfileLeftDiv>
-      </S.ProfileLeftWrapper>
-      {/* ----------------좌우 구분--------------- */}
-      <S.ProfileRightWrapper>
-        <S.ProfileIntroDiv>
-          <S.ProfileIntroDivUp>
-            <S.ProfileIntroSpan>소개</S.ProfileIntroSpan>
-            <S.ProfileIntroContents>
-              {member.introduction}
-            </S.ProfileIntroContents>
-            <S.BaseButtonWrapper>
-              <S.EditButton
-                type={'button'}
-                onClick={() => router.push('/profile/usernumber/edit')}
-                disabled={false}
-              >
-                <span>수정하기</span>
-              </S.EditButton>
-            </S.BaseButtonWrapper>
-          </S.ProfileIntroDivUp>
-          <S.ProfileIntroDivDown>
-            <ProfileTrophy Trophies={member.trophy} />
-          </S.ProfileIntroDivDown>
-          <S.Line />
-        </S.ProfileIntroDiv>
+    <>
+      {isMypage && showModal && (
+        <S.ProfileInfoModalWrapper>
+          <Comp.ProfileInfoModal clickModal={clickModal} />
+        </S.ProfileInfoModalWrapper>
+      )}
+      <S.WholeWrapper>
+        <S.ProfileWrapper>
+          <S.ProfileLeftWrapper>
+            <S.ProfileLeftDiv>
+              <S.ProfileBoxDiv>
+                <S.ProfileBoxInfoDiv>
+                  <Comp.ProfileBox {...ProfileBoxProps} />
+                  {isMypage && (
+                    <S.ProfileBoxInfoLink onClick={clickModal}>
+                      <div>내 정보</div>
+                    </S.ProfileBoxInfoLink>
+                  )}
+                </S.ProfileBoxInfoDiv>
+              </S.ProfileBoxDiv>
+              <S.ProfileIndexWrapper>
+                <S.ProfileIndexDiv>
+                  <span>소개</span>
+                  <span>제작한 글씨</span>
+                  <span>작성한 이야기</span>
+                  {isMypage && <S.ProfileInfoLink onClick={clickModal}>내 정보</S.ProfileInfoLink>}
+                </S.ProfileIndexDiv>
+              </S.ProfileIndexWrapper>
+            </S.ProfileLeftDiv>
+          </S.ProfileLeftWrapper>
+          {/* ----------------좌우 구분--------------- */}
+          <S.ProfileRightWrapper>
+            <S.ProfileIntroDiv>
+              <S.ProfileIntroDivUp>
+                <S.ProfileIntroSpan>소개</S.ProfileIntroSpan>
+                <S.ProfileIntroContents>{member.introduction}</S.ProfileIntroContents>
+                <S.BaseButtonWrapper>
+                  <S.EditButton
+                    type={'button'}
+                    onClick={() => router.push('/profile/usernumber/edit')}
+                    disabled={false}
+                  >
+                    <span>수정하기</span>
+                  </S.EditButton>
+                </S.BaseButtonWrapper>
+              </S.ProfileIntroDivUp>
+              <S.ProfileIntroDivDown>
+                <Comp.ProfileTrophy Trophies={member.trophy} />
+              </S.ProfileIntroDivDown>
+              <S.Line />
+            </S.ProfileIntroDiv>
 
-        <S.ProfileHandwritingsWrapper>
-          <S.ProfileHandwritingsSpanDiv>
-            <S.ProfileHandwritingsSpan1>제작한 글씨</S.ProfileHandwritingsSpan1>
-            {isMypage ? (
-              <S.ProfileHandwritingsSpan2>
-                {handwritings.length}
-              </S.ProfileHandwritingsSpan2>
-            ) : (
-              <S.ProfileHandwritingsSpan2>
-                {numberOfHandwriting}
-              </S.ProfileHandwritingsSpan2>
-            )}
-          </S.ProfileHandwritingsSpanDiv>
-          <S.ProfileHandwritingsDiv>
-            {handwritinggroup.map((handwriting: Handwriting, index: number) => {
-              // const idx = Math.floor(Math.random() * 10);
-              if (handwriting.state > 3) {
-                return (
-                  <ProfileFontCard
-                    key={index}
-                    index={index}
-                    isMypage={isMypage}
-                    handwriting={handwriting}
-                  />
-                );
-              } else {
-                return (
-                  <ProfileFontCardMaking
-                    key={index}
-                    isMypage={isMypage}
-                    handwriting={handwriting}
-                  />
-                );
-              }
-            })}
-          </S.ProfileHandwritingsDiv>
-          <S.Line />
-        </S.ProfileHandwritingsWrapper>
+            <S.ProfileHandwritingsWrapper>
+              <S.ProfileHandwritingsSpanDiv>
+                <S.ProfileHandwritingsSpan1>제작한 글씨</S.ProfileHandwritingsSpan1>
+                {isMypage ? (
+                  <S.ProfileHandwritingsSpan2>{handwritings.length}</S.ProfileHandwritingsSpan2>
+                ) : (
+                  <S.ProfileHandwritingsSpan2>{numberOfHandwriting}</S.ProfileHandwritingsSpan2>
+                )}
+              </S.ProfileHandwritingsSpanDiv>
+              <S.ProfileHandwritingsDiv>
+                {handwritinggroup.map((handwriting: Handwriting, index: number) => {
+                  // const idx = Math.floor(Math.random() * 10);
+                  if (handwriting.state > 3) {
+                    return (
+                      <Comp.ProfileFontCard key={index} index={index} isMypage={isMypage} handwriting={handwriting} />
+                    );
+                  } else {
+                    return <Comp.ProfileFontCardMaking key={index} isMypage={isMypage} handwriting={handwriting} />;
+                  }
+                })}
+              </S.ProfileHandwritingsDiv>
+              <S.Line />
+            </S.ProfileHandwritingsWrapper>
 
-        <S.ProfileHandwritingStoriesWrapper>
-          <S.ProfileHandwritingStoriesSpanDiv>
-            <S.ProfileHandwritingStoriesSpan1>
-              작성한 이야기
-            </S.ProfileHandwritingStoriesSpan1>
-            <S.ProfileHandwritingStoriesSpan2>
-              제작한 개수
-            </S.ProfileHandwritingStoriesSpan2>
-          </S.ProfileHandwritingStoriesSpanDiv>
-          <S.ProfileHandwritingStoriesDiv>
-            {/* 이야기 카드들 */}
-          </S.ProfileHandwritingStoriesDiv>
-        </S.ProfileHandwritingStoriesWrapper>
-      </S.ProfileRightWrapper>
-    </S.ProfileWrapper>
+            <S.ProfileHandwritingsWrapper>
+              <S.ProfileHandwritingsSpanDiv>
+                <S.ProfileHandwritingsSpan1>작성한 이야기</S.ProfileHandwritingsSpan1>
+                <S.ProfileHandwritingsSpan2>{handwritingStories.length}</S.ProfileHandwritingsSpan2>
+              </S.ProfileHandwritingsSpanDiv>
+              <S.ProfileHandwritingStoriesDiv>
+                {handwritingStories.map((handwritingStory) => {
+                  return (
+                    <S.BaseStoryCardWrapper key={handwritingStory.handwritingStoryId}>
+                      <Comp.BaseStoryCard key={handwritingStory.handwritingStoryId} />;
+                    </S.BaseStoryCardWrapper>
+                  );
+                })}
+              </S.ProfileHandwritingStoriesDiv>
+            </S.ProfileHandwritingsWrapper>
+          </S.ProfileRightWrapper>
+        </S.ProfileWrapper>
+      </S.WholeWrapper>
+    </>
   );
 }

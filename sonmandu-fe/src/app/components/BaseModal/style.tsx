@@ -41,7 +41,7 @@ export const ModalWapper = styled.div`
 
 export const BackLayOutModal = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 56px);
   background-color: rgba(160, 160, 160, 0.4);
   display: flex;
   justify-content: center;

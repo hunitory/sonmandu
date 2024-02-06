@@ -3,6 +3,7 @@
 import React, { ChangeEvent, useState, useRef } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
+import Image from 'next/image';
 
 export default function FontStoryWritePage() {
   // 현재 유저가 제작은 했지만 이야기는 쓰지 않은 손글씨 정보를 받아야함
@@ -47,6 +48,22 @@ export default function FontStoryWritePage() {
     }
   };
 
+  //태그 캐로셀 부분
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const handleNext = () => {
+    setCurrentIndex((currentIndex + 1) % unusedHandwritings.length);
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    } else {
+      setCurrentIndex(unusedHandwritings.length - 1);
+    }
+  };
+
   return (
     <>
       <S.BackgroundWrapper></S.BackgroundWrapper>
@@ -69,7 +86,12 @@ export default function FontStoryWritePage() {
               <S.WriteTagWrapper>
                 <S.WriteTitleRequest>어떤 글씨체의 이야기를 하시겠어요?</S.WriteTitleRequest>
                 <S.TagWrapper>
-                  {unusedHandwritings.map((unusedHandwriting) => {
+                  <S.CarouselBackButtonWrapper>
+                    <button type="button" onClick={handlePrev}>
+                      <Image src={'/image/nexticon.png'} alt="back" width={14} height={14} />
+                    </button>
+                  </S.CarouselBackButtonWrapper>
+                  {unusedHandwritings.map((unusedHandwriting, index) => {
                     return (
                       <S.TagButton
                         key={unusedHandwriting.handwritingId}
@@ -83,11 +105,18 @@ export default function FontStoryWritePage() {
                         }}
                         disabled={false}
                         className={[handwriting === unusedHandwriting.handwritingId].toString()}
+                        currentIndex={currentIndex}
+                        index={index}
                       >
                         {unusedHandwriting.name}
                       </S.TagButton>
                     );
                   })}
+                  <S.CarouselNextButtonWrapper>
+                    <button type="button" onClick={handleNext}>
+                      <Image src={'/image/nexticon.png'} alt="back" width={14} height={14} />
+                    </button>
+                  </S.CarouselNextButtonWrapper>
                 </S.TagWrapper>
               </S.WriteTagWrapper>
             </S.LeftWrapper>

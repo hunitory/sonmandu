@@ -14,6 +14,12 @@ interface PlaceholderTextProps {
   $isempty2?: boolean;
 }
 
+interface TagButtonProps {
+  handwriting?: number | null;
+  currentIndex?: number;
+  index?: number;
+}
+
 export const BackgroundWrapper = styled.div`
   /* transform: rotate(90deg); */
   position: absolute;
@@ -67,6 +73,7 @@ export const WriteDiv = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  gap: 4px;
 `;
 
 export const UpperWrapper = styled.div`
@@ -139,8 +146,34 @@ export const TagWrapper = styled.div`
   width: 100%;
   height: 48px;
   display: flex;
-  padding: 8px 2vw;
+  align-items: center;
+  padding: 8px 3vw;
   gap: 1vw;
+`;
+
+export const CarouselBackButtonWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  button {
+    background-color: white;
+    border: 0;
+    display: flex;
+    align-items: center;
+    transform: scaleX(-1);
+  }
+`;
+
+export const CarouselNextButtonWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  button {
+    background-color: white;
+    border: 0;
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const TagInputWrapper = styled.div`
@@ -151,12 +184,15 @@ export const TagInputWrapper = styled.div`
   align-items: center;
 `;
 
-export const TagButton = styled(BaseButton)`
+export const TagButton = styled(BaseButton)<TagButtonProps>`
   font-size: 14px;
   padding: clamp(4px, 0.3vw, 10px) clamp(9px, 0.8vw, 10px);
   border: 1px solid ${PALETTE.LIGHT_BLACK};
   border-radius: 20px;
   color: ${PALETTE.LIGHT_BLACK};
+
+  display: ${(props) =>
+    props.currentIndex !== undefined ? (props.currentIndex === props.index ? 'block' : 'none') : 'block'};
 
   &:not(.true):hover {
     transform: translate(-4px, -4px);
@@ -220,7 +256,7 @@ export const SubmitButton = styled(BaseButton)`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 15px;
+  margin-top: 5px;
   padding: clamp(4px, 0.3vw, 10px) clamp(9px, 0.8vw, 20px);
   border: 2px solid ${PALETTE.MAIN_ORANGE};
   border-radius: 18px;

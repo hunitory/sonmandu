@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 import * as Styled from './style';

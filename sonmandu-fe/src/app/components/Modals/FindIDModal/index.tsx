@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import * as Styled from './style';
 import * as Comp from 'components';
 import Image from 'next/image';
-import { loginModalState } from 'store/atoms/_index';
 import { useRecoilState } from 'recoil';
-import { useLoginModal } from 'customhook';
 
 function FindIdModal() {
   const LogoURL = '/image/logo.png';
   const [Name, setName] = useState('');
   const [Email, setEmail] = useState('');
-  const [isLoginModalOpen] = useRecoilState<boolean>(loginModalState);
-  const { closeModal } = useLoginModal();
+
+  const closeModal = () => {
+    
+  }
 
   /* 로그인 확인 */
   const FailLogin = false;

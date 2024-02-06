@@ -56,7 +56,7 @@ export default function ProfileInfoModal(props: ProfileInfoModalProps) {
 
   return (
     <div>
-      <Comp.Modal size={'large'} onClose={onClose}>
+      <Comp.BaseModal size={'large'} onClose={onClose}>
         <S.ProfileInfoWrapper>
           <S.ProfileInfoHeadWrapper>
             <span>개인 정보</span>
@@ -79,7 +79,7 @@ export default function ProfileInfoModal(props: ProfileInfoModalProps) {
             </S.ImageWrapper>
           )}
         </S.ProfileInfoWrapper>
-      </Comp.Modal>
+      </Comp.BaseModal>
     </div>
   );
 }

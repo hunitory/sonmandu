@@ -2,19 +2,19 @@ import React, { useState } from 'react';
 import * as Styled from './style';
 import * as Comp from 'components';
 import Image from 'next/image';
-import { loginModalState } from 'store/atoms/_index';
-import { useRecoilState } from 'recoil';
-import { useLoginModal } from 'customhook';
 
 function SignUpModal() {
   const LogoURL = '/image/logo.png';
   const [MemberID, setMemberID] = useState('');
   const [Password, setPassword] = useState('');
-  const [isLoginModalOpen] = useRecoilState<boolean>(loginModalState);
-  const { closeModal } = useLoginModal();
+
 
   /* 로그인 확인 */
   const FailLogin = false;
+  
+  const closeModal = () => {
+    
+  }
 
   const NameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMemberID(event.target.value);

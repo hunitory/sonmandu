@@ -26,6 +26,7 @@ import SignUpModal from './Modals/SignUpModal';
 import FindIDModal from './Modals/FindIDModal';
 import FindPasswordModal from './Modals/FindPasswordModal';
 import UnRegisterModal from './Modals/UnregisterModal';
+import Thumbnail from './Thumbnail';
 
 export {
   BaseHeader,
@@ -47,11 +48,12 @@ export {
   FontFileUpload,
   FontInfo,
   FontComplete,
-  ProfileInfoModal,
   FontStep,
+  ProfileInfoModal,
   LoginModal,
   SignUpModal,
   FindIDModal,
   FindPasswordModal,
-  UnRegisterModal
+  UnRegisterModal,
+  Thumbnail
 };

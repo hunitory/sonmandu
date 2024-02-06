@@ -8,11 +8,11 @@ export const modalSizes = {
   large: { width: '820px', height: '560px' },
 };
 
-interface ModalProps {
+interface BaseModalProps {
   size: 'large' | 'medium' | 'small';
 }
 
-export const Modal = styled.div<ModalProps>`
+export const Modal = styled.div<BaseModalProps>`
   width: ${(props) => modalSizes[props.size].width};
   height: ${(props) => modalSizes[props.size].height};
   background-color: #ffffff;

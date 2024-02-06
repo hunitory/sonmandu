@@ -2,17 +2,14 @@ import React, { useState } from 'react';
 import * as Styled from './style';
 import * as Comp from 'components';
 import Image from 'next/image';
-import { loginModalState } from 'store/atoms/_index';
 import { useRecoilState } from 'recoil';
-import { useLoginModal } from 'customhook';
 import Link from 'next/link';
 
 function UnRegisterModal() {
   const LogoURL = '/image/logo.png';
-
-  const [isLoginModalOpen] = useRecoilState<boolean>(loginModalState);
-  const { closeModal } = useLoginModal();
-
+  const closeModal = () => {
+    
+  }
   const UnRegister = () => {
     /* 로그인 로직*/
   };

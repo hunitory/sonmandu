@@ -13,8 +13,6 @@ export default function HomeLayout({
   return (
     <S.StyledMain>
       {children}
-      {LoginModal}
-      {login}
     </S.StyledMain>
   );
 }

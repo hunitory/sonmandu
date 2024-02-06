@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import * as S from './style';
-import { useGetDeviceSize, useLoginModal } from 'customhook';
-import { useSetRecoilState } from 'recoil';
+import { useGetDeviceSize } from 'customhook';
 
 import Image from 'next/image';
 
 export default function ProfileHamburger() {
   const [dropBoxView, setDropBoxView] = useState(false);
-  const { openModal } = useLoginModal();
   const windowWidth = useGetDeviceSize();
   const handleDropBoxView = () => {
     setDropBoxView((prev) => !prev);

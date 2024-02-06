@@ -11,10 +11,13 @@ public interface ChatProjection {
     interface MemberProjection {
         Long getMemberId();
         String getNickname();
+<<<<<<< HEAD
 
         boolean isBadge();
 
         String getImageUrl();
+=======
+>>>>>>> 23a865a4 (cfeat: add spring security chatting)
     }
 
 

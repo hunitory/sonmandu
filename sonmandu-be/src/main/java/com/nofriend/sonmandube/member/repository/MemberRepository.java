@@ -3,12 +3,9 @@ package com.nofriend.sonmandube.member.repository;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.member.domain.MemberNicknameProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -23,11 +20,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Boolean existsByNickname(String nickname);
 
-    @Modifying
-    @Query(value = "update member set is_badge = false where is_badge = true",
-            nativeQuery = true)
-    void setIsBadgeFalse();
 
+<<<<<<< HEAD
     @Modifying
     @Query(value = "update member set is_badge = true where member_id in (:memberIds)",
             nativeQuery = true)
@@ -37,4 +31,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     MemberNicknameProjection findNicknameByMemberId(Long memberId);
 =======
 >>>>>>> ea3e05f (feat: 배지, 트로피 수여 추가)
+=======
+    MemberNicknameProjection findNicknameByMemberId(Long memberId);
+
+>>>>>>> 23a865a4 (cfeat: add spring security chatting)
 }

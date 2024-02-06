@@ -1,6 +1,7 @@
 package com.nofriend.sonmandube.chat.domain;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.nofriend.sonmandube.chat.controller.response.ChatHandwritingResponse;
 import com.nofriend.sonmandube.chat.controller.response.ChatMemberResponse;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -28,18 +29,29 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 =======
+=======
+import com.fasterxml.jackson.annotation.JsonFormat;
+>>>>>>> 23a865a4 (cfeat: add spring security chatting)
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
+import com.nofriend.sonmandube.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+<<<<<<< HEAD
 >>>>>>> bb671ba (feat: add WebSocket)
+=======
+import java.time.format.DateTimeFormatter;
+>>>>>>> 23a865a4 (cfeat: add spring security chatting)
 
 @Entity
 @Getter
 @AllArgsConstructor
+<<<<<<< HEAD
 <<<<<<< HEAD
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Builder
@@ -50,33 +62,49 @@ public class Chat{
     @Column(name = "chat_id")
 =======
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+=======
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
+>>>>>>> 23a865a4 (cfeat: add spring security chatting)
 @Builder
 @ToString
+@EntityListeners(AuditingEntityListener.class)
 public class Chat {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+<<<<<<< HEAD
 >>>>>>> bb671ba (feat: add WebSocket)
+=======
+    @Column(name = "chat_id")
+>>>>>>> 23a865a4 (cfeat: add spring security chatting)
     private Long chatId;
 
     private String message;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     private String createTime;
 =======
     @CreatedDate
     private LocalDateTime createTime;
 >>>>>>> bb671ba (feat: add WebSocket)
+=======
+    private String createTime;
+>>>>>>> 23a865a4 (cfeat: add spring security chatting)
 
     @ManyToOne
     @JoinColumn(name = "handwriting_id")
     private Handwriting handwriting;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 23a865a4 (cfeat: add spring security chatting)
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
     @PrePersist
     public void onPrePersist() {
+<<<<<<< HEAD
         this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a h:mm", Locale.KOREAN));
     }
 
@@ -105,5 +133,10 @@ public class Chat {
     }
 =======
 >>>>>>> bb671ba (feat: add WebSocket)
+=======
+        this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a H:mm"));
+    }
+
+>>>>>>> 23a865a4 (cfeat: add spring security chatting)
 
 }

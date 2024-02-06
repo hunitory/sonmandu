@@ -22,6 +22,7 @@ import FontComplete from './Applications/FontComplete';
 import ProfileInfoModal from './ProfileInfoModal';
 import FontStep from './Applications/FontStep';
 import LoginForModal from './Modal/LoginForMoal';
+import { Thumbnail } from './Thumbnail';
 
 export {
   BaseHeader,
@@ -46,4 +47,5 @@ export {
   ProfileInfoModal,
   FontStep,
   LoginForModal,
+  Thumbnail,
 };

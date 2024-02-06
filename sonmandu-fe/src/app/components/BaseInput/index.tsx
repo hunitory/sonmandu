@@ -4,16 +4,7 @@ import { BaseInputProps, BaseLabelProps, BaseLabelWithInputProps } from 'types';
 
 const BaseInput = forwardRef(
   (
-    {
-      id,
-      type,
-      value,
-      onChange,
-      className,
-      placeholder,
-      accept,
-      hidden,
-    }: BaseInputProps,
+    { id, type, value, onChange, className, placeholder, accept, hidden }: BaseInputProps,
     ref: Ref<HTMLInputElement>,
   ) => {
     return (
@@ -32,16 +23,7 @@ const BaseInput = forwardRef(
   },
 );
 
-function BaseLabel({
-  id,
-  className,
-  children,
-  role,
-  onDragEnter,
-  onDragLeave,
-  onDragOver,
-  onDrop,
-}: BaseLabelProps) {
+function BaseLabel({ id, className, children, role, onDragEnter, onDragLeave, onDragOver, onDrop }: BaseLabelProps) {
   return (
     <label
       id={id}

@@ -25,9 +25,7 @@ export default function CreateFontPage() {
     case 1:
       return <Comp.FontStart onNext={OnHandleNext} onDownload={OnDownload} />;
     case 2:
-      return (
-        <Comp.FontFileUpload onNext={OnHandleNext} onBack={OnhandleBack} />
-      );
+      return <Comp.FontFileUpload onNext={OnHandleNext} onBack={OnhandleBack} />;
 
     case 3:
       return <Comp.FontInfo onNext={OnHandleNext} onBack={OnhandleBack} />;

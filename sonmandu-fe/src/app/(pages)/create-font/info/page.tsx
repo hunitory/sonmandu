@@ -9,7 +9,6 @@ import { useRecoilValue } from 'recoil';
 import { Atom } from 'store';
 import axios from 'axios';
 
-
 interface selectedHashTags {
   tagIdList: string[];
 }
@@ -22,7 +21,7 @@ interface CreateQueryStringArgs {
 export default function FontInfo() {
   const router = useRouter();
   const [FontName, setFontName] = useState('');
-  const uploadedFiles = useRecoilValue(Atom.uploadedFilesState)
+  const uploadedFiles = useRecoilValue(Atom.uploadedFilesState);
 
   const NameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFontName(event.target.value);
@@ -48,35 +47,58 @@ export default function FontInfo() {
   };
 
   const onBack = () => {
-    router.back()
-  }
+    router.back();
+  };
   const onNext = () => {
-    // API 엔드포인트 URL
-    const apiUrl = process.env.NEXT_PUBLIC_DEVELOP_END_POINT + '/handwritings'; // 실제 엔드포인트에 맞게 수정
-  
-    // 요청 바디에 보낼 데이터
-    const requestData = {
-      FontName: FontName,
-      selectedHashTags: selectedHashTags.tagIdList,
-      uploadedFiles: uploadedFiles.map(file => file.name), // 파일 이름만 추출하거나 필요한 방식으로 처리
-    };
-  
-    // Axios를 사용하여 POST 요청 보내기
-    axios.post(apiUrl, requestData)
-      .then(response => {
-        console.log('POST 요청 성공:', response.data);
-        // 필요한 처리 로직 추가
-        router.push('/create-font/complete'); // 완료 페이지로 이동
-      })
-      .catch(error => {
-        console.error('POST 요청 실패:', error);
-      });
+    const isFontNameValid = FontName.trim().length > 0;
+    const isTagsSelected = selectedHashTags.tagIdList.length > 0;
+
+    // if (!isFontNameValid && !isTagsSelected) {
+    //   alert('손글씨 이름, 태그 정보가 올바르지 않습니다.');
+    //   return;
+    // }
+    // if (!isFontNameValid) {
+    //   alert('손글씨 이름 정보가 올바르지 않습니다.');
+    //   return;
+    // }
+    // if (!isTagsSelected) {
+    //   alert('태그 정보가 올바르지 않습니다.');
+    //   return;
+    // }
+
+    // if (uploadedFiles.length === 0) {
+    //   alert('파일을 다시 확인해주세요.');
+    //   return;
+    // }
+
+    if (isFontNameValid && isTagsSelected) {
+      // 필요한 처리 로직 추가
+      const apiUrl = process.env.NEXT_PUBLIC_DEVELOP_END_POINT + '/handwritings'; // 실제 엔드포인트에 맞게 수정
+      const requestData = {
+        FontName: FontName,
+        selectedHashTags: selectedHashTags.tagIdList,
+        uploadedFiles: uploadedFiles,
+      };
+
+      // Axios를 사용하여 POST 요청 보내기
+      axios
+        .post(apiUrl, requestData)
+        .then((response) => {
+          console.log('POST 요청 성공:', response.data);
+          // 필요한 처리 로직 추가
+          router.push('/create-font/complete');
+        })
+        .catch((error) => {
+          console.error('POST 요청 실패:', error);
+          alert('뭐하냐');
+        });
+    }
   };
 
   useEffect(() => {
     console.log(FontName);
     console.log(selectedHashTags);
-    console.log(uploadedFiles)
+    console.log(uploadedFiles);
   });
   return (
     <Styled.Wrapper>

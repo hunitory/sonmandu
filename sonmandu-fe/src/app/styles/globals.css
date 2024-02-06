@@ -1,7 +1,6 @@
 * {
-  font-family: 'NotoSans KR', '-apple-system', 'Malgun Gothic',
-    'Apple SD Gothic Neo', 'Roboto', 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'sans-serif';
+  font-family: 'NotoSans KR', '-apple-system', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Roboto', 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'sans-serif';
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -37,4 +36,8 @@ textarea {
   resize: none;
   outline: none;
   border: 0;
+}
+
+button {
+  outline: none;
 }

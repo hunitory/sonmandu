@@ -6,13 +6,7 @@ function BaseStoryCard() {
   return (
     <S.StoryCardWrapper>
       <S.ImageArea>
-        <Image
-          src={'/image/sample.jpg'}
-          alt="편지지"
-          fill={true}
-          sizes="100vw"
-          quality={100}
-        />
+        <Image src={'/image/sample.jpg'} alt="편지지" fill={true} sizes="100vw" quality={100} />
       </S.ImageArea>
       <S.StoryCardContainer>
         <S.StoryTextContentWrapper>
@@ -31,12 +25,7 @@ function BaseStoryCard() {
           /> */}
           </div>
           <S.IconWithNumberWrapper>
-            <Image
-              src={'/image/empty-orange_heart.svg'}
-              alt="빈 하트"
-              width={24}
-              height={20}
-            />
+            <Image src={'/image/empty-orange-heart.svg'} alt="빈 하트" width={24} height={20} />
             <span>좋아요</span>
           </S.IconWithNumberWrapper>
         </S.InteractionWrapper>

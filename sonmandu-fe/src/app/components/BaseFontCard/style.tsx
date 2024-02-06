@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import BaseHashTags from '../BaseHashTags';
 import { PALETTE, notoSansKr } from 'styles';
+import { BaseButton } from 'components';
+import { BaseButtonProps } from 'types';
 
 export const FontCardWrapper = styled.li`
   width: 100%;
@@ -49,6 +51,10 @@ export const EctInfoVerticalContainer = styled.div`
   align-items: center;
   justify-content: end;
   gap: 8px;
+
+  button:nth-of-type(1) {
+    cursor: default;
+  }
 `;
 
 export const StyledHashTags = styled(BaseHashTags)`
@@ -58,7 +64,7 @@ export const StyledHashTags = styled(BaseHashTags)`
   }
 `;
 
-export const IconWithNumberWrapper = styled.div`
+export const IconWithNumberWrapper = styled(BaseButton)`
   display: flex;
   align-items: center;
   gap: 4px;

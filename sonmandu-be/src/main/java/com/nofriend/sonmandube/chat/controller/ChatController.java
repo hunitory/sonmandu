@@ -36,16 +36,16 @@ public class ChatController {
 
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
-    public Chat chatting(@Valid ChatRequest chatRequest,@Header("Authorization") String token) throws Exception {
-//        log.info("!!!!!!!!!!!!!!!!!!!!!!!!!" + token.substring(7));
-        token = token.substring(7 );
-        Authentication authentication = jwtProvider.getAuthentication(token);
+    public Chat chatting(@Valid ChatRequest chatRequest, @Header("Authorization") String token) {
 
-//        log.info(authentication.getName());
-//        log.info("chatRequest: " + chatRequest.toString());
+        token = token.substring(7);
+
         Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
+
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
+
         HandwritingNameDownloadUrlProjection handwritingNameDownloadUrlProjection = handwritingRepository.findNameDownloadUrlByHandwritingId(chatRequest.getHandwritingId());
+
         Chat newChat = chatRequest.toEntity(
                 memberId,
                 memberNickname,
@@ -55,13 +55,8 @@ public class ChatController {
                 chatRequest.getMessage()
         );
 
-//        log.info("newChat: " + newChat.toString());
         chatRepository.save(newChat);
         log.info("send message: " + newChat.getMessage() + ", pub: " + newChat.getMember().getMemberId() );
-//        log.info("FFFFFFFFFFFFF: " + newChat);
-//        log.info(newChat.getMember().toString());
-//        log.info(newChat.getHandwriting().getHandwritingId().toString());
-
 
         return newChat;
     }

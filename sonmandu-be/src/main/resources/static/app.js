@@ -11,7 +11,7 @@ var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNiIsImF1dGgiOiJST0xFX1VTRVI
 >>>>>>> 2942fcd (test: dev chatting test)
 
 const stompClient = new StompJs.Client({
-    brokerURL: 'ws://localhost:8080/chat-connection',
+    brokerURL: 'ws://i10b111.p.ssafy.io/dev/api/chat-connection',
     connectHeaders: {
     "Authorization" : token
 }

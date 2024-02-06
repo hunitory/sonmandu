@@ -156,11 +156,11 @@ export const CarouselBackButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   button {
+    height: fit-content;
     background-color: white;
     border: 0;
-    display: flex;
-    align-items: center;
     transform: scaleX(-1);
+    cursor: pointer;
   }
 `;
 
@@ -169,10 +169,10 @@ export const CarouselNextButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   button {
+    height: fit-content;
     background-color: white;
     border: 0;
-    display: flex;
-    align-items: center;
+    cursor: pointer;
   }
 `;
 
@@ -195,7 +195,7 @@ export const TagButton = styled(BaseButton)<TagButtonProps>`
     props.currentIndex !== undefined ? (props.currentIndex === props.index ? 'block' : 'none') : 'block'};
 
   &:not(.true):hover {
-    transform: translate(-4px, -4px);
+    transform: translate(-2px, -2px);
     box-shadow: 0px 2px 2px 2px ${PALETTE.SUB_WHITE};
     transition: box-shadow 0.25s ease-in, transform 0.25s ease-in;
   }

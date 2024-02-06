@@ -1,58 +1,30 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
 import { BaseHashTags } from 'components';
 import { WHOLE_HASH_TAGES } from '@/constants';
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-
-interface FilterListProps {
-  hashTagListState: number[];
-  sortOptionState: string;
-  className?: string;
-}
 
 interface CreateQueryStringArgs {
   name: 'sort' | 'tagId' | 'name';
   value: string;
 }
 
-export default function FilterList({ className, hashTagListState, sortOptionState }: FilterListProps) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+interface Options {
+  sort: string;
+  tagId: number[];
+}
 
-  const createQueryString = useCallback(
-    ({ name, value }: CreateQueryStringArgs) => {
-      if (name === 'tagId') {
-        let newTags;
-        const currentTags =
-          searchParams
-            .get('tagId')
-            ?.split(',')
-            .filter((tag) => tag && tag !== ',') || [];
+interface FilterListProps {
+  className?: string;
+  createQueryString: ({ name, value }: CreateQueryStringArgs) => void;
+}
 
-        if (currentTags?.includes(value)) {
-          newTags = currentTags?.filter((tag) => tag !== value).join(',');
-        } else {
-          newTags = [...currentTags, value].join(',');
-        }
-        const params = new URLSearchParams(searchParams.toString());
+export default function FilterList({ className, createQueryString }: FilterListProps) {
+  const [options, setOptions] = useState<Options>({ sort: '', tagId: [] });
 
-        return router.push(`${pathname}?${params.toString()}`);
-      }
-
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return router.push(`${pathname}?${params.toString()}`);
-    },
-    [searchParams],
-  );
-
-  useEffect(() => {
-    // console.log(`tagId :`, searchParams.get('tagId'));
-    // console.log(`sort :`, searchParams.get('sort'));
-    // console.log(`name :`, searchParams.get('name'));
-  }, [searchParams]);
+  const handleOptionsClick = ({ name, value }: CreateQueryStringArgs) => {
+    createQueryString({ name: name, value: value });
+    setOptions((prev) => ({ ...prev, [name]: value }));
+  };
 
   return (
     <S.FilterListsWrapper className={className}>

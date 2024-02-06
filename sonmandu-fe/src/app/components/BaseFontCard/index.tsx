@@ -14,13 +14,11 @@ function BaseFontCard(props: FontCard) {
     queryKey: ['get-font-file', name],
     queryFn: () => API.handwriting.getFontFileFromS3({ url: downloadUrl }),
   });
-  console.log(`GET FONT FILE :`, isFileFetching);
 
   const { data: loadResponse, isFetching: isLoadFetching } = useQuery({
     queryKey: ['load-font-file', responseFromS3],
     queryFn: () => API.handwriting.loadFontInService({ getFontResponse: responseFromS3, name: name }),
   });
-  console.log(`LOAD FONT FILE :`, isLoadFetching);
 
   return (
     <>

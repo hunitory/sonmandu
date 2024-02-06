@@ -1,4 +1,4 @@
-var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjoxLCJleHAiOjE3MDcxMjE1ODV9.rzOp-7C9Pdny1m7pkik_TBZ8uwaKmxZhk4QWSsr3J4XnUxY88UYQzdVMJG4_Rd46CTORcO2L160HYTz0FzO9fw'
+var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxIiwiYXV0aCI6IlJPTEVfVVNFUiIsIm1lbWJlcklkIjoxLCJleHAiOjE3MDc4MDk2MTR9.Dz-_nGuj0s_or85MBZxfX0bN8TeUDUJZGbzdKEeUBuOfh7PtyCF3b-E3sVVVjocgaVUBRecENTME-Zh73WiLDQ'
 
 const stompClient = new StompJs.Client({
     brokerURL: 'ws://localhost:8080/chat-connection',
@@ -11,7 +11,7 @@ stompClient.onConnect = (frame) => {
     setConnected(true);
     console.log('Connected: ' + frame);
     stompClient.subscribe('/topic/sonmandu', (chat) => {
-        showGreeting(JSON.parse(chat.body).message);
+        showChatting(JSON.parse(chat.body).message);
     }, {'Authorization': token});
 };
 
@@ -46,15 +46,18 @@ function disconnect() {
     console.log("Disconnected");
 }
 
-function sendName() {
+function sendMessage() {
     stompClient.publish({
         headers: {'Authorization': token},
         destination: "/app/sonmandu",
-        body: JSON.stringify({'message': $("#name").val()})
+        body: JSON.stringify({
+            'message': $("#message").val(),
+            'handwritingId': 3
+        })
     });
 }
 
-function showGreeting(message) {
+function showChatting(message) {
     console.log(message)
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
@@ -63,5 +66,5 @@ $(function () {
     $("form").on('submit', (e) => e.preventDefault());
     $( "#connect" ).click(() => connect());
     $( "#disconnect" ).click(() => disconnect());
-    $( "#send" ).click(() => sendName());
+    $( "#send" ).click(() => sendMessage());
 });

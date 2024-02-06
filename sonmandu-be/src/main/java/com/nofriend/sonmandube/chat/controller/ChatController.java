@@ -17,6 +17,7 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,6 +62,7 @@ public class ChatController {
         return newChat;
     }
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/chat")
     @ResponseBody
     public List<ChatProjection> getChat(){

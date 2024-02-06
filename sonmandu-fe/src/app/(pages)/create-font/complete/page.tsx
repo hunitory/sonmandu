@@ -2,7 +2,6 @@
 import * as Styled from './style';
 import * as Comp from 'components';
 import Link from 'next/link';
-
 export default function FontComplete() {
   return (
     <Styled.Wrapper>

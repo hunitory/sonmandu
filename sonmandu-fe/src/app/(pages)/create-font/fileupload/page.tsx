@@ -1,18 +1,19 @@
-'use client'
+'use client';
 
-import React, { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import React, { useEffect, useState } from 'react';
 import * as Styled from './style';
 import * as Comp from 'components';
 import Image from 'next/image';
-import { FontFileUploadProps } from 'types';
+import { useRouter } from 'next/navigation';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { Atom } from 'store/index';
 
-export default function FontFileUpload(props: FontFileUploadProps) {
-  const { onBack, onNext } = props;
-  const UploadURL = '/image/fileupload.png';
+export default function FontFileUpload() {
+  const router = useRouter();
   /* 이걸 recoil을 사용해야 할 것 같음*/
-  const [UploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useRecoilState(Atom.uploadedFilesState);
   const [isDragging, setIsDragging] = useState(false);
+  const asd = useRecoilValue(Atom.uploadedFilesState)
 
   const OnFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -25,7 +26,7 @@ export default function FontFileUpload(props: FontFileUploadProps) {
         alert('그림파일(PNG, JPG, JPEG, GIF)만 가능합니다.');
       }
 
-      setUploadedFiles([...UploadedFiles, ...validFiles]);
+      setUploadedFiles([...uploadedFiles, ...validFiles]);
     }
   };
 
@@ -39,7 +40,7 @@ export default function FontFileUpload(props: FontFileUploadProps) {
       alert('그림파일(PNG, JPG, JPEG, GIF)만 가능합니다.');
     }
 
-    setUploadedFiles([...UploadedFiles, ...validFiles]);
+    setUploadedFiles([...uploadedFiles, ...validFiles]);
   };
 
   const onDragEnter = (event: React.DragEvent<HTMLLabelElement>) => {
@@ -66,14 +67,18 @@ export default function FontFileUpload(props: FontFileUploadProps) {
     setIsDragging(false);
     if (event.dataTransfer.files) {
       DropFileUpload(event.dataTransfer.files);
-      console.log(UploadedFiles);
+      console.log(uploadedFiles);
     }
   };
 
   const onRemoveFile = (fileToRemove: File) => {
-    setUploadedFiles(UploadedFiles.filter((file) => file !== fileToRemove));
+    setUploadedFiles(uploadedFiles.filter((file) => file !== fileToRemove));
   };
 
+  useEffect(() => {
+    console.log(uploadedFiles) 
+    console.log(asd)
+   })
   return (
     <Styled.Wrapper>
       <Styled.StepWrapper>
@@ -99,7 +104,7 @@ export default function FontFileUpload(props: FontFileUploadProps) {
             onDrop={onDrop}
             isDragging={isDragging}
           >
-            <Image src={'/image/downloadIcon-orange.svg'} alt="파일업로드" width={50} height={50}/>
+            <Image src={'/image/downloadIcon-orange.svg'} alt="파일업로드" width={50} height={50} />
             <Styled.ContentFileUploadTextbold>자료 이미지를 업로드 해주세요.</Styled.ContentFileUploadTextbold>
             <Styled.ContentFileUploadText>
               배경이 없는 <span>원본 화질</span>로 업로드 해주세요.{' '}
@@ -108,7 +113,7 @@ export default function FontFileUpload(props: FontFileUploadProps) {
           <Styled.ContentUploadedFilesWrapper>
             <Styled.ContentUploadedFileTitle>업로드 된 파일</Styled.ContentUploadedFileTitle>
             <Styled.ContentUploadedFileList>
-              {UploadedFiles.map((file, index) => (
+              {uploadedFiles.map((file, index) => (
                 <Styled.ContentUploadedFile key={index}>
                   {file.name}
                   <Styled.ContentUploadedFileCancelButton
@@ -124,11 +129,14 @@ export default function FontFileUpload(props: FontFileUploadProps) {
           </Styled.ContentUploadedFilesWrapper>
         </Styled.ContentWrapper>
         <Styled.ButtonWrapper>
-          <Styled.BackButton onClick={onBack} type="button" disabled={false}>
-            <Styled.BackButtonText>이전 단계</Styled.BackButtonText>
-          </Styled.BackButton>
-          <Styled.NextButton onClick={onNext} type="button" disabled={false}>
-            {/* <Styled.NextButton onClick={onNext} type="button" disabled={UploadedFiles.length === 0}> */}
+          <Comp.Button link="/create-font">
+            <Styled.NextButtonText>이전 단계</Styled.NextButtonText>
+          </Comp.Button>
+          <Styled.NextButton
+            onClick={() => router.push('/create-font/info')}
+            type="button"
+            disabled={uploadedFiles.length === 0}
+          >
             <Styled.NextButtonText>다음 단계</Styled.NextButtonText>
           </Styled.NextButton>
         </Styled.ButtonWrapper>

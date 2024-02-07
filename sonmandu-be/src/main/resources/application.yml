@@ -23,6 +23,7 @@ spring:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       ddl-auto: validate        # DB 초기화 전략 (none, create, create-drop, update, validate)
 =======
       ddl-auto: create        # DB 초기화 전략 (none, create, create-drop, update, validate)
@@ -36,6 +37,9 @@ spring:
 =======
       ddl-auto: validate        # DB 초기화 전략 (none, create, create-drop, update, validate)
 >>>>>>> a328cdb (feat: member, handwriting, handwritingstory api)
+=======
+      ddl-auto: update        # DB 초기화 전략 (none, create, create-drop, update, validate)
+>>>>>>> 4ce2e6d (feat: change dateTime)
     properties:
       hibernate:
         #        dialect: org.hibernate.dialect.H2Dialect

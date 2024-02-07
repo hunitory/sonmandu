@@ -103,6 +103,8 @@ export default function FontStoryDetailPage() {
   };
 
   return (
+  <>
+    <Comp.SideBar />
     <S.DetailWrapper>
       <S.UpperWrapper>
         <S.UpperHeadWrapper>
@@ -207,5 +209,6 @@ export default function FontStoryDetailPage() {
         </S.CommentsListWrapper>
       </S.LowerWrapper>
     </S.DetailWrapper>
+  </>
   );
 }

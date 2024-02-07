@@ -16,9 +16,11 @@ interface CommentInputDivProps {
 export const FontStoryDetailWrapper = styled.div`
   width: 100%;
   height: fit-content;
+  position: relative;
   display: flex;
   justify-content: center;
   padding: 6vh;
+  gap: 64px;
 `;
 
 export const DetailWrapper = styled.div`

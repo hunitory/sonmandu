@@ -21,6 +21,7 @@ spring:
     hibernate:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       ddl-auto: update        # DB 초기화 전략 (none, create, create-drop, update, validate)
 #    properties:
 #      hibernate:
@@ -29,6 +30,9 @@ spring:
 =======
       ddl-auto: create        # DB 초기화 전략 (none, create, create-drop, update, validate)
 >>>>>>> 56e8dcff (feat: change JwtFilter Exception Message)
+=======
+      ddl-auto: create        # DB 초기화 전략 (none, create, create-drop, update, validate)
+>>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
     properties:
       hibernate:
 >>>>>>> 8e500d4f (feat: rebase from be/master)

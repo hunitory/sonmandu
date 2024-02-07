@@ -130,8 +130,11 @@ public class HandwritingController {
         return ResponseEntity.ok(handwritingService.getUnwrittenStories(memberId));
     }
 
+<<<<<<< HEAD
     @GetMapping("/unique/name")
     public ResponseEntity<Boolean> checkUniqueName(@RequestParam String value){
         return ResponseEntity.ok(handwritingService.checkUniqueName(value));
     }
+=======
+>>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
 }

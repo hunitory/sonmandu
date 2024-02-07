@@ -7,6 +7,10 @@ import com.nofriend.sonmandube.handwriting.controller.request.HandwritingApplica
 import com.nofriend.sonmandube.handwriting.controller.response.*;
 import com.nofriend.sonmandube.handwriting.domain.*;
 import com.nofriend.sonmandube.handwriting.repository.*;
+<<<<<<< HEAD
+=======
+import com.nofriend.sonmandube.handwritingstory.domain.HandwritingStory;
+>>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
 import com.nofriend.sonmandube.handwritingstory.repository.HandwritingStoryRepository;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.s3.S3Service;
@@ -306,7 +310,11 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     public List<UnwrittenStoriesResponse> getUnwrittenStories(Long memberId) {
+<<<<<<< HEAD
         return handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(memberId, true, 4)
+=======
+        return handwritingRepository.findAllByHandwritingApplicationMemberMemberId(memberId)
+>>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
                 .stream()
                 .filter(handwriting -> !handwritingStoryRepository.existsById(handwriting.getHandwritingId()))
                 .map(handwriting -> {

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import * as Styled from './style';
+import * as Styled from './_style';
 import * as Comp from 'components';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -65,7 +65,6 @@ export default function FontFileUpload() {
     setIsDragging(false);
     if (event.dataTransfer.files) {
       DropFileUpload(event.dataTransfer.files);
-      console.log(uploadedFiles);
     }
   };
 
@@ -74,8 +73,8 @@ export default function FontFileUpload() {
   };
 
   useEffect(() => {
-    console.log(uploadedFiles) 
-   })
+    console.log(uploadedFiles);
+  });
   return (
     <Styled.Wrapper>
       <Styled.StepWrapper>

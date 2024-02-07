@@ -9,10 +9,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { uploadedFilesState, fontInfoState } from 'store/index';
 import { instanceMultipartContent, instanceJsonContent } from 'apis/_instance';
 
-interface selectedHashTags {
-  tagIdList: string[];
-}
-
 interface CreateQueryStringArgs {
   name: 'tagIdList';
   value: string;
@@ -24,9 +20,9 @@ export default function FontInfo() {
   const uploadedFiles = useRecoilValue(uploadedFilesState);
 
   const NameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setfontNameState(prevState => ({
+    setfontNameState((prevState) => ({
       ...prevState,
-      name: event.target.value
+      name: event.target.value,
     }));
   };
 
@@ -37,7 +33,7 @@ export default function FontInfo() {
         const maxSelectableTags = 3;
         const tagValue = Number(value);
         const isTagSelected = selectedTags.includes(tagValue);
-  
+
         if (!isTagSelected && selectedTags.length < maxSelectableTags) {
           return { ...prevState, tagIdList: [...selectedTags, tagValue] };
         } else if (isTagSelected) {
@@ -55,27 +51,30 @@ export default function FontInfo() {
   const onNext = () => {
     const isFontNameValid = fontInfo.name.trim().length > 0;
     const isTagsSelected = fontInfo.tagIdList.length > 0;
-  
+
     if (isFontNameValid && isTagsSelected && uploadedFiles.length > 0) {
       const apiUrl = '/handwritings';
-      
+
       const formData = new FormData();
-      formData.append('info', JSON.stringify({
-        name: fontInfo.name,
-        tagIdList: fontInfo.tagIdList,
-      }));
-  
-      uploadedFiles.forEach(file => {
+      formData.append(
+        'info',
+        JSON.stringify({
+          name: fontInfo.name,
+          tagIdList: fontInfo.tagIdList,
+        }),
+      );
+
+      uploadedFiles.forEach((file) => {
         formData.append('image', file);
       });
-      
 
-      instanceMultipartContent.post(apiUrl, formData)
-        .then(response => {
+      instanceMultipartContent
+        .post(apiUrl, formData)
+        .then((response) => {
           console.log('POST 요청 성공:', response.data);
           router.push('/create-font/complete');
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('POST 요청 실패:', error);
           alert('업로드에 실패했습니다.');
         });
@@ -88,11 +87,10 @@ export default function FontInfo() {
         alert('파일을 다시 확인해주세요.');
       }
     }
-
   };
 
   useEffect(() => {
-    console.log(fontInfo)
+    console.log(fontInfo);
     console.log(uploadedFiles);
   });
   return (

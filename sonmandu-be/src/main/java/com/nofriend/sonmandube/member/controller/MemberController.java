@@ -56,6 +56,7 @@ public class MemberController {
     public ResponseEntity<HttpStatus> signup(@RequestBody @Valid SignupRequest signupRequest) throws MessagingException {
         log.info("/members/signup");
         memberService.signup(signupRequest);
+<<<<<<< HEAD
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -70,12 +71,17 @@ public class MemberController {
         Map<String, Long> response = new HashMap<>();
         response.put("emailTokenId", emailTokenId);
         return ResponseEntity.ok(response);
+=======
+        return HttpStatus.NO_CONTENT;
+>>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
     }
 
-//    @PostMapping("/emailToken")
-//    public ResponseEntity<String> sendEmailToken(@Email String email){
-//        return ResponseEntity.ok(memberService.sendEmailToken(email));
-//    }
+    @PostMapping("/email-token")
+    public ResponseEntity<Long> sendEmailToken(@Email String email) throws MessagingException {
+        log.info("/members/email-token");
+        log.info("email : " + email);
+        return ResponseEntity.ok(memberService.sendEmailToken(email));
+    }
 
     //로그인
     @PostMapping("/login")
@@ -118,16 +124,24 @@ public class MemberController {
 
 //-- GetMapping
 
+<<<<<<< HEAD
     //회원가입 페이지 - 이메일 토큰 검증하기
     @GetMapping("/email-token")
     public ResponseEntity<Boolean> checkEmailToken(@Valid EmailTokenRequest emailTokenResponse){
         log.info("/members/email-token");
+=======
+    @GetMapping("/email-token")
+    public ResponseEntity<Boolean> checkEmailToken(@RequestBody @Valid EmailTokenRequest emailTokenResponse){
+>>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
         log.info(emailTokenResponse.toString());
         return ResponseEntity.ok(memberService.checkValidEmailToken(emailTokenResponse));
     }
 
+<<<<<<< HEAD
     
     //회원 정보 수정 - 자기 프로필 조회
+=======
+>>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")
     public ResponseEntity<MeInformationResponse> findMeInformation(Authentication authentication){

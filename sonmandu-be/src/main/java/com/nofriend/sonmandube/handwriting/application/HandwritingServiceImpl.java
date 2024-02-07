@@ -7,6 +7,10 @@ import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionReq
 import com.nofriend.sonmandube.handwriting.controller.response.*;
 import com.nofriend.sonmandube.handwriting.domain.*;
 import com.nofriend.sonmandube.handwriting.repository.*;
+<<<<<<< HEAD
+=======
+import com.nofriend.sonmandube.handwritingstory.domain.HandwritingStory;
+>>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
 import com.nofriend.sonmandube.handwritingstory.repository.HandwritingStoryRepository;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.s3.S3Service;
@@ -309,7 +313,11 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     public List<UnwrittenStoriesResponse> getUnwrittenStories(Long memberId) {
+<<<<<<< HEAD
         return handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelected(memberId, true)
+=======
+        return handwritingRepository.findAllByHandwritingApplicationMemberMemberId(memberId)
+>>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
                 .stream()
                 .filter(handwriting -> !handwritingStoryRepository.existsById(handwriting.getHandwritingId()))
                 .map(handwriting -> {

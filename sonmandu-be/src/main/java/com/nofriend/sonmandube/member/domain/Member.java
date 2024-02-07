@@ -57,9 +57,6 @@ public class Member implements UserDetails {
 <<<<<<< HEAD
 =======
     @JsonIgnore
-    private boolean enabled;
-
-    @JsonIgnore
     private String emailToken;
 
 >>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
@@ -72,12 +69,15 @@ public class Member implements UserDetails {
     private List<GrantedAuthority> authorities;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     public void succeedEmailToken(){
         this.enabled = true;
     }
 
 >>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
+=======
+>>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
     public void setUserRole(){
         this.authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }

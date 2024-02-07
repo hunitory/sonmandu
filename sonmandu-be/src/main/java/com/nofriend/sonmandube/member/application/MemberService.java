@@ -36,6 +36,7 @@ public interface MemberService {
     void updateMemberInformationImage(Long memberId, MultipartFile image);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     Long sendEmailToken(String email) throws MessagingException;
 
     Boolean checkValidEmailToken(EmailTokenRequest emailTokenResponse);
@@ -44,4 +45,9 @@ public interface MemberService {
 =======
     String sendEmailToken(String email) throws MessagingException;
 >>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
+=======
+    Long sendEmailToken(String email) throws MessagingException;
+
+    Boolean checkValidEmailToken(EmailTokenRequest emailTokenResponse);
+>>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
 }

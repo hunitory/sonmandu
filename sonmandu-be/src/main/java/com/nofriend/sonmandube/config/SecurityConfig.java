@@ -41,7 +41,7 @@ public class SecurityConfig  {
                     .anyRequest()
                     .permitAll())
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers(PathRequest.toH2Console())// dev
+//                        .ignoringRequestMatchers(PathRequest.toH2Console())// dev
                         .ignoringRequestMatchers("*/**"))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 

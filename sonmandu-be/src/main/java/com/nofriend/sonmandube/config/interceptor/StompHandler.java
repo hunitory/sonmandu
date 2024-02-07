@@ -35,14 +35,17 @@ public class StompHandler implements ChannelInterceptor {
         if(accessor.getCommand() == StompCommand.CONNECT && rawToken != null) {
 
             String token = Objects.requireNonNull(rawToken).substring(7);
-
+            log.info(token);
             Authentication authentication = jwtProvider.getAuthentication(token);
+            log.info(authentication.toString());
 
             Long memberId = Long.valueOf(authentication.getName());
-
+            log.info(String.valueOf(memberId));
             String dbRefreshToken = memberRepository.findById(memberId).orElseThrow()
                     .getRefreshToken();
 
+            log.info(dbRefreshToken);
+            log.info(String.valueOf(jwtProvider.validateToken(token) != JwtCode.ACCESS || !token.equals(dbRefreshToken)));
             if (jwtProvider.validateToken(token) != JwtCode.ACCESS || !token.equals(dbRefreshToken)){
                 throw new JwtException("Not Valid Token");
             }

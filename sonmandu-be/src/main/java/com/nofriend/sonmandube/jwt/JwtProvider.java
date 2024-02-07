@@ -71,11 +71,13 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication(String token){
+        System.out.println("getAU");
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+        System.out.println("getAU");
 
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))

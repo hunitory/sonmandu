@@ -56,7 +56,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     @Transactional
-    public void signup(SignupRequest signupRequest) throws MessagingException {
+    public void signup(SignupRequest signupRequest) {
         Member newMember = Member.builder()
                 .id(signupRequest.getId())
                 .password(passwordEncoder.encode(signupRequest.getPassword()))
@@ -91,16 +91,21 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     public LoginResponse login(LoginRequest loginRequest) {
         Member member = memberRepository.findById(loginRequest.getId())
                 .orElseThrow();
-
+        log.info("login member info" + member.toString());
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(member.getMemberId(), loginRequest.getPassword());
+        log.info(usernamePasswordAuthenticationToken.toString());
         Authentication authentication =  authenticationManagerBuilder.getObject().authenticate(usernamePasswordAuthenticationToken);
+        log.info("2");
+        log.info(authentication.toString());
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        log.info("3");
         String token = jwtProvider.generateToken(authentication);
         String refreshToken = jwtProvider.generateRefreshToken(authentication);
 
         member.setRefreshToken(refreshToken);
-
+        log.info(token);
+        log.info(refreshToken);
         return LoginResponse.builder()
                 .token(token)
                 .refreshToken(refreshToken)
@@ -264,9 +269,12 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("load user by username");
         Member member = memberRepository.findById((long) Integer.parseInt(username))
                 .orElseThrow(() -> new UsernameNotFoundException(username + "Not Found Member by Id"));
+        log.info(member.toString());
         member.setUserRole();
+        log.info(member.toString());
 
         return member;
     }

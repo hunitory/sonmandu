@@ -23,7 +23,17 @@ const BaseInput = forwardRef(
   },
 );
 
-function BaseLabel({ id, className, children, role, onDragEnter, onDragLeave, onDragOver, onDrop }: BaseLabelProps) {
+function BaseLabel({
+  id,
+  className,
+  children,
+  role,
+  onDragEnter,
+  onDragLeave,
+  onDragOver,
+  onDrop,
+  onClick,
+}: BaseLabelProps) {
   return (
     <label
       id={id}
@@ -34,6 +44,7 @@ function BaseLabel({ id, className, children, role, onDragEnter, onDragLeave, on
       onDragLeave={onDragLeave}
       onDragOver={onDragOver}
       onDrop={onDrop}
+      onClick={onClick}
     >
       {children}
     </label>

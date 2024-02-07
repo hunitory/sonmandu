@@ -6,7 +6,7 @@ import * as Styled from './style';
 import { WHOLE_HASH_TAGES } from '@/constants';
 import { useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Atom } from 'store';
+import { uploadedFilesState, fontInfoState } from 'store/index';
 import { instanceMultipartContent, instanceJsonContent } from 'apis/_instance';
 
 interface selectedHashTags {
@@ -20,8 +20,8 @@ interface CreateQueryStringArgs {
 
 export default function FontInfo() {
   const router = useRouter();
-  const [fontInfoState, setfontNameState] = useRecoilState(Atom.fontInfoState);
-  const uploadedFiles = useRecoilValue(Atom.uploadedFilesState);
+  const [fontInfo, setfontNameState] = useRecoilState(fontInfoState);
+  const uploadedFiles = useRecoilValue(uploadedFilesState);
 
   const NameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setfontNameState(prevState => ({
@@ -53,16 +53,16 @@ export default function FontInfo() {
     router.back();
   };
   const onNext = () => {
-    const isFontNameValid = fontInfoState.name.trim().length > 0;
-    const isTagsSelected = fontInfoState.tagIdList.length > 0;
+    const isFontNameValid = fontInfo.name.trim().length > 0;
+    const isTagsSelected = fontInfo.tagIdList.length > 0;
   
     if (isFontNameValid && isTagsSelected && uploadedFiles.length > 0) {
       const apiUrl = '/handwritings';
       
       const formData = new FormData();
       formData.append('info', JSON.stringify({
-        name: fontInfoState.name,
-        tagIdList: fontInfoState.tagIdList,
+        name: fontInfo.name,
+        tagIdList: fontInfo.tagIdList,
       }));
   
       uploadedFiles.forEach(file => {
@@ -92,7 +92,7 @@ export default function FontInfo() {
   };
 
   useEffect(() => {
-    console.log(fontInfoState)
+    console.log(fontInfo)
     console.log(uploadedFiles);
   });
   return (
@@ -113,10 +113,10 @@ export default function FontInfo() {
               입력하신 이름 앞에 <span>'손만두'</span>가 기본적으로 붙습니다. ex) 손만두 홍길동체
             </Styled.ContentFontNametContent>
             <Styled.ContentFontNameInputWrapper>
-              <Styled.ContentFontNameInputPlaceholder $fontname={!fontInfoState.name}>
+              <Styled.ContentFontNameInputPlaceholder $fontname={!fontInfo.name}>
                 <span>손글씨 이름</span>을 입력해주세요. 최대 20자
               </Styled.ContentFontNameInputPlaceholder>
-              <Styled.ContentFontNameInput id="name" type="text" value={fontInfoState.name} onChange={NameInput} />
+              <Styled.ContentFontNameInput id="name" type="text" value={fontInfo.name} onChange={NameInput} />
             </Styled.ContentFontNameInputWrapper>
           </Styled.ContentFontNameWrapper>
           <Styled.ContentFontTagWrapper>
@@ -128,7 +128,7 @@ export default function FontInfo() {
                   type="button"
                   disabled={false}
                   key={hashTag.id}
-                  selected={fontInfoState.tagIdList.includes(Number(hashTag.id))}
+                  selected={fontInfo.tagIdList.includes(Number(hashTag.id))}
                   onClick={() => handleOptionsClick({ name: 'tagIdList', value: String(hashTag.id) })}
                 >
                   {hashTag.text}

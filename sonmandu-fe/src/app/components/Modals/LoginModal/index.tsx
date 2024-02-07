@@ -1,76 +1,100 @@
 import React, { useState } from 'react';
-import * as Styled from './style';
+import * as S from './style';
 import * as Comp from 'components';
+import * as API from '@/apis';
 import Image from 'next/image';
+import useModal from 'customhook/useModal';
+import { useMutation } from '@tanstack/react-query';
 
-import Link from 'next/link';
+interface ValueBasket {
+  id: string;
+  password: string;
+  [key: string]: string;
+}
 
 function LoginModal() {
-  const LogoURL = '/image/logo.png';
-  const [MemberID, setMemberID] = useState('');
-  const [Password, setPassword] = useState('');
-  const closeModal = () => {
-    
-  }
+  const loginModal = useModal('login');
+  const findInfoModal = useModal('findInfo');
+  const [checkYourValues, setCheckYourValues] = useState(false);
+  const [valuesBasket, setValuesBasket] = useState<ValueBasket>({
+    id: '',
+    password: '',
+  });
+  const { mutate } = useMutation({
+    mutationKey: ['request-login'],
+    mutationFn: () => API.member.login({ ...valuesBasket }),
+    onSuccess: (res) => {
+      localStorage.setItem('access_token', res.data.token);
+      localStorage.setItem('refresh_token', res.data.refreshToken);
+      loginModal.closeModal();
+      setValuesBasket((prev) => ({ ...prev, id: '', password: '' }));
+      setCheckYourValues(false);
+    },
+    onError: (err) => {
+      setCheckYourValues(true);
+    },
+  });
 
-  /* 로그인 확인 */
-  const FailLogin = false;
-
-  const NameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMemberID(event.target.value);
+  const requestLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    mutate();
   };
 
-  const PasswordInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+  const closeLoginModal = () => {
+    loginModal.closeModal();
   };
 
-  const OnLogin = () => {
-    /* 로그인 로직*/
-    console.log('로그인 시도:', MemberID, Password);
+  const openFindInfoModal = () => {
+    loginModal.closeModal();
+    findInfoModal.openModal();
+  };
+
+  const INPUT_PROPS = [
+    { id: 'id', type: 'text', placeholder: '아이디를 입력해주세요', subContent: null },
+    { id: 'password', type: 'password', placeholder: '비밀번호를 입력해주세요', subContent: null },
+  ];
+
+  const handleValuesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValuesBasket((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   return (
-    <Comp.BaseModal size="small" onClose={closeModal}>
-      <Styled.ModalWrapper>
-        <Styled.WelcomeWrapper>
-          <Styled.WelcomeTitle>환영합니다.</Styled.WelcomeTitle>
-          <Styled.LogoWrapper>
-            <Link href={'/'}>
-              <Image src={LogoURL} alt="손만두" width={123} height={52} priority></Image>
-            </Link>
-          </Styled.LogoWrapper>
-          <Styled.FailLogin $failLogin={FailLogin}>
-            아이디 또는 비밀번호를<p>다시 확인하세요!</p>
-          </Styled.FailLogin>
-        </Styled.WelcomeWrapper>
-        <Styled.ModalFormWrapper>
-          <Styled.LoginWrapper>
-            <Styled.LoginInputWrapper>
-              <Styled.LoginInputPlaceholder $isempty={!MemberID}>
-                <span>아이디</span>를 입력해주세요.
-              </Styled.LoginInputPlaceholder>
-              <Styled.LoginInput id="아이디" type="text" value={MemberID} onChange={NameInput} />
-            </Styled.LoginInputWrapper>
-          </Styled.LoginWrapper>
-          <Styled.LoginWrapper>
-            <Styled.LoginInputWrapper>
-              <Styled.LoginInputPlaceholder $isempty={!Password}>
-                <span>비밀번호</span>를 입력해주세요.
-              </Styled.LoginInputPlaceholder>
-              <Styled.LoginInput id="비밀번호" type="password" value={Password} onChange={PasswordInput} />
-            </Styled.LoginInputWrapper>
-          </Styled.LoginWrapper>
-          <Styled.ButtonWrapper>
-            <Styled.LoginButton onClick={OnLogin} type="button" disabled={false}>
-              <Styled.LoginButtonText>로그인 하기</Styled.LoginButtonText>
-            </Styled.LoginButton>
-          </Styled.ButtonWrapper>
-        </Styled.ModalFormWrapper>
-        <Styled.findIDPassword>
-          <span>아이디</span>또는<span>비밀번호 찾기</span>
-        </Styled.findIDPassword>
-      </Styled.ModalWrapper>
-    </Comp.BaseModal>
+    <>
+      {loginModal.modal.isOpen && (
+        <Comp.BaseModal size="small" onClose={closeLoginModal}>
+          <S.ModalContainer>
+            <S.WelcomeWrapper>
+              <span className="welcome-title">환영합니다!</span>
+              <Image src={'/image/logo.png'} alt="로고" width={142} height={62} />
+              <span>{checkYourValues && '아이디 또는 비밀번호를 다시 확인하세요!'}</span>
+            </S.WelcomeWrapper>
+            <S.FormWrapper onSubmit={requestLogin}>
+              {INPUT_PROPS.map((props) => {
+                return (
+                  <Comp.UserModalInput
+                    id={props.id}
+                    type={props.type}
+                    value={valuesBasket[props.id]}
+                    onChange={handleValuesChange}
+                    key={props.id}
+                  >
+                    {props.placeholder}
+                  </Comp.UserModalInput>
+                );
+              })}
+              <S.SubmitButton disabled={false} type="submit">
+                <span>로그인하기</span>
+              </S.SubmitButton>
+              <S.FindInfomation>
+                <span onClick={openFindInfoModal}>
+                  <span>아이디</span>또는<span>비밀번호 찾기</span>
+                </span>
+              </S.FindInfomation>
+            </S.FormWrapper>
+          </S.ModalContainer>
+        </Comp.BaseModal>
+      )}
+    </>
   );
 }
 

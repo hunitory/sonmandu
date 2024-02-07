@@ -1,3 +1,3 @@
-import * as Atom from './atoms/_index';
+import { modalIdsAtom, modalsAtomFamily ,uploadedFilesState, fontInfoState } from './atoms';
 
-export { Atom };
+export { modalIdsAtom, modalsAtomFamily, uploadedFilesState, fontInfoState };

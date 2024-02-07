@@ -6,11 +6,11 @@ import * as Comp from 'components';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Atom } from 'store/index';
+import { uploadedFilesState } from 'store/index';
 
 export default function FontFileUpload() {
   const router = useRouter();
-  const [uploadedFiles, setUploadedFiles] = useRecoilState(Atom.uploadedFilesState);
+  const [uploadedFiles, setUploadedFiles] = useRecoilState(uploadedFilesState);
   const [isDragging, setIsDragging] = useState(false);
 
   const OnFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,9 +126,9 @@ export default function FontFileUpload() {
           </Styled.ContentUploadedFilesWrapper>
         </Styled.ContentWrapper>
         <Styled.ButtonWrapper>
-          <Comp.Button link="/create-font">
+          <Comp.NextButton link="/create-font">
             <Styled.NextButtonText>이전 단계</Styled.NextButtonText>
-          </Comp.Button>
+          </Comp.NextButton>
           <Styled.NextButton
             onClick={() => router.push('/create-font/info')}
             type="button"

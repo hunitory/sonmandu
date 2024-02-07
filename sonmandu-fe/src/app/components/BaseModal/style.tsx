@@ -1,11 +1,11 @@
-import { PALETTE, notoSansKr } from 'styles';
+import { PALETTE } from 'styles';
 import BaseButton from '../BaseButton';
 import styled from 'styled-components';
 
 export const modalSizes = {
-  small: { width: '580px', height: '464px' },
-  medium: { width: '580px', height: '574px' },
-  large: { width: '820px', height: '560px' },
+  small: { width: 580, height: 464 },
+  medium: { width: 580, height: 574 },
+  large: { width: 820, height: 560 },
 };
 
 interface BaseModalProps {
@@ -13,35 +13,37 @@ interface BaseModalProps {
 }
 
 export const Modal = styled.div<BaseModalProps>`
-  width: ${(props) => modalSizes[props.size].width};
-  height: ${(props) => modalSizes[props.size].height};
+  width: ${(props) => modalSizes[props.size].width}px;
+  height: ${(props) => modalSizes[props.size].height}px;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 10px;
-  position: fixed;
-  top: 50%;
+  position: absolute;
+  bottom: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 50%);
+  z-index: 101;
 
   @media (max-width: 768px) {
     width: 100vw;
-    height: 100vh;
-    margin-top: 8%;
+    bottom: ${(props) => modalSizes[props.size].height / 2}px;
+    left: 0;
+    transform: translate(0, 50%);
     border-radius: 10px 10px 0px 0px;
   }
 `;
 
-export const ModalWapper = styled.div`
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-`;
+// export const ModalWapper = styled.div`
+//   padding: 10px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-around;
+//   align-items: center;
+// `;
 
 export const BackLayOutModal = styled.div`
   width: 100vw;
-  height: calc(100vh - 56px);
+  height: 100vh;
   background-color: rgba(160, 160, 160, 0.4);
   display: flex;
   justify-content: center;

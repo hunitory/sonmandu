@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import styled from 'styled-components';
 import { PALETTE, notoSansKr } from 'styles';
@@ -6,7 +6,6 @@ import { BaseButton } from 'components';
 
 export const MainWrapper = styled.main`
   width: 100vw;
-  /* height: calc(100vh - 56px); */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -72,6 +71,7 @@ export const ContentBox = styled.div`
   flex-direction: column;
   justify-content: start;
 `;
+
 /*----------- Title -----------*/
 export const TitleWrapper = styled.div`
   width: 100%;
@@ -88,7 +88,6 @@ export const Title = styled.p`
 `;
 
 /*----------- Content -----------*/
-
 export const ContentWrapper = styled.div`
   width: 100%;
   display: flex;
@@ -160,7 +159,6 @@ export const DownloadButton = styled(BaseButton)`
   width: 200px;
   height: 45px;
   box-shadow: 0px 1px 2px ${PALETTE.MAIN_BLACK};
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -3,7 +3,7 @@ import * as Comp from 'components';
 import Image from 'next/image';
 import { FontStartProps } from 'types';
 
-export default function FontStart(props: FontStartProps) {
+export default function NextButton(props: FontStartProps) {
   const { onNext, onDownload } = props;
   const TabletURL = '/image/tablet.png';
   const PaperURL = '/image/paper.png';

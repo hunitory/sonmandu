@@ -1,5 +1,8 @@
 import axios from 'axios';
 
+// qweqweqwe1
+// 123123123
+
 const customInstance = (contentType: string) => {
   const dynamicContentInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_DEVELOP_END_POINT,
@@ -10,9 +13,7 @@ const customInstance = (contentType: string) => {
 
   dynamicContentInstance.interceptors.request.use((config) => {
     if (typeof window !== undefined) {
-      // const token = localStorage.getItem('access_token');
-      // const token = ''
-      const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNiIsImF1dGgiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6MjYsImV4cCI6MTcwNzI2ODgzM30.NQ5UuG5h60narUCWO_9sDRc_d0rWvplFLoToPPpj_IRYJC0-McWvEiuEhd-kDKTKyETEHHmRlu7kJVsWc0JM6A";
+      const token = localStorage.getItem('access_token');
       config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;

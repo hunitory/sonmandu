@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notoSansKr } from 'styles';
 import { StyledComponentsRegistry, RecoilRootWrapper, ReactQueryProvider } from '@/lib';
 import './styles/globals.css';
-import { BaseHeader } from 'components';
+import { BaseHeader, FindInfoModal, LoginModal, SignUpModal } from 'components';
 
 export const metadata: Metadata = {
   title: '손만두',
@@ -22,6 +22,9 @@ export default function RootLayout({
             <StyledComponentsRegistry>
               <BaseHeader></BaseHeader>
               {children}
+              <FindInfoModal />
+              <LoginModal />
+              <SignUpModal />
             </StyledComponentsRegistry>
           </RecoilRootWrapper>
         </ReactQueryProvider>

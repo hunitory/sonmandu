@@ -14,6 +14,8 @@ import { ProfilePasswordInputProps } from './components/ProfilePasswordInput';
 import { Trophy } from './components/ProfileTrophy';
 import { FontInfomationProps, FontDetailResponse } from './pages/FontDetail';
 
+import { ModalId, ModalInfo } from './store/modal';
+
 export type {
   BaseButtonProps,
   BaseInputProps,
@@ -36,4 +38,6 @@ export type {
   Trophy,
   FontInfomationProps,
   FontDetailResponse,
+  ModalId,
+  ModalInfo,
 };

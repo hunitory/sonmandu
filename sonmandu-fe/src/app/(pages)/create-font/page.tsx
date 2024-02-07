@@ -77,9 +77,9 @@ export default function CreateFontPage() {
           </Styled.ContentWrapper>
         </Styled.ContentBox>
         <Styled.ButtonWrapper>
-          <Comp.Button link="/create-font/fileupload">
+          <Comp.NextButton link="/create-font/fileupload">
             <Styled.NextButtonText>다음 단계</Styled.NextButtonText>
-          </Comp.Button>
+          </Comp.NextButton>
         </Styled.ButtonWrapper>
       </Styled.Card>
     </Styled.Wrapper>

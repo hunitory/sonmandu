@@ -25,30 +25,34 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String accessToken = resolveToken(request, "Authorization");
+        String refreshToken = request.getHeader("x-refresh-token");
+        boolean hasToken = !accessToken.equals("null");
+        boolean hasRefreshToken = !refreshToken.equals("null");
 
-        if(StringUtils.hasText(accessToken) && jwtProvider.validateToken(accessToken) == JwtCode.ACCESS){
+        if(!hasToken){}
+        else if(jwtProvider.validateToken(accessToken) == JwtCode.ACCESS){
             Authentication authentication = jwtProvider.getAuthentication(accessToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             request.setAttribute("memberId", authentication.getName());
-        } else if (StringUtils.hasText(accessToken) && jwtProvider.validateToken(accessToken) == JwtCode.EXPIRED){
-            String refreshToken1 = request.getHeader("x-refresh-token");
-            if(!StringUtils.hasText(refreshToken1)){
+        } else if (jwtProvider.validateToken(accessToken) == JwtCode.EXPIRED){
+
+            if(!hasRefreshToken){
                 throw new TokenExpireException("Expired access token");
             }
-            Authentication authentication = jwtProvider.getAuthentication(refreshToken1);
-            String refreshToken2 = jwtProvider.getRefreshToken(Long.valueOf(authentication.getName()));
+            Authentication authentication = jwtProvider.getAuthentication(refreshToken);
+            String memberRefreshToken = jwtProvider.getRefreshToken(Long.valueOf(authentication.getName()));
 
-            if(jwtProvider.validateToken(refreshToken1) == JwtCode.ACCESS && refreshToken1.equals(refreshToken2)){
+            if(jwtProvider.validateToken(refreshToken) == JwtCode.ACCESS && refreshToken.equals(memberRefreshToken)){
                 String newAccessToken = jwtProvider.generateToken(authentication);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 request.setAttribute("memberId", authentication.getName());
                 response.setHeader(HttpHeaders.AUTHORIZATION, newAccessToken);
-            } else if(jwtProvider.validateToken(refreshToken1) == JwtCode.EXPIRED && refreshToken1.equals(refreshToken2)){
+            } else if(jwtProvider.validateToken(refreshToken) == JwtCode.EXPIRED && refreshToken.equals(memberRefreshToken)){
                 throw new RefreshTokenExpireException("Expired refresh token");
-            }else if(jwtProvider.validateToken(refreshToken1) == JwtCode.DENIED && refreshToken1.equals(refreshToken2)){
+            }else if(jwtProvider.validateToken(refreshToken) == JwtCode.DENIED && refreshToken.equals(memberRefreshToken)){
                 throw new TokenDenyException("Denied refresh token");
             }
-        } else if (StringUtils.hasText(accessToken) && jwtProvider.validateToken(accessToken) == JwtCode.DENIED){
+        } else if (jwtProvider.validateToken(accessToken) == JwtCode.DENIED){
             throw new TokenDenyException("Denied access token");
         }
 
@@ -63,6 +67,6 @@ public class JwtFilter extends OncePerRequestFilter {
             return bearerToken.substring(7);
         }
 
-        return null;
+        return "null";
     }
 }

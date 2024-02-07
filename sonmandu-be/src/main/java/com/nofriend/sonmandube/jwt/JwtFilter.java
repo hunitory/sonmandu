@@ -30,6 +30,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+<<<<<<< HEAD
 //        log.info("------------------------------");
 //        log.info("Request start");
         String accessToken = resolveToken(request);
@@ -41,28 +42,37 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 =======
         if(StringUtils.hasText(accessToken) && jwtProvider.validateToken(accessToken) == JwtCode.ACCESS){
+=======
+        String accessToken = resolveToken(request, "Authorization");
+        String refreshToken = request.getHeader("x-refresh-token");
+        boolean hasToken = !accessToken.equals("null");
+        boolean hasRefreshToken = !refreshToken.equals("null");
+
+        if(!hasToken){}
+        else if(jwtProvider.validateToken(accessToken) == JwtCode.ACCESS){
+>>>>>>> c13f264 (feat: change token exception)
             Authentication authentication = jwtProvider.getAuthentication(accessToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             request.setAttribute("memberId", authentication.getName());
-        } else if (StringUtils.hasText(accessToken) && jwtProvider.validateToken(accessToken) == JwtCode.EXPIRED){
-            String refreshToken1 = request.getHeader("x-refresh-token");
-            if(!StringUtils.hasText(refreshToken1)){
+        } else if (jwtProvider.validateToken(accessToken) == JwtCode.EXPIRED){
+
+            if(!hasRefreshToken){
                 throw new TokenExpireException("Expired access token");
             }
-            Authentication authentication = jwtProvider.getAuthentication(refreshToken1);
-            String refreshToken2 = jwtProvider.getRefreshToken(Long.valueOf(authentication.getName()));
+            Authentication authentication = jwtProvider.getAuthentication(refreshToken);
+            String memberRefreshToken = jwtProvider.getRefreshToken(Long.valueOf(authentication.getName()));
 
-            if(jwtProvider.validateToken(refreshToken1) == JwtCode.ACCESS && refreshToken1.equals(refreshToken2)){
+            if(jwtProvider.validateToken(refreshToken) == JwtCode.ACCESS && refreshToken.equals(memberRefreshToken)){
                 String newAccessToken = jwtProvider.generateToken(authentication);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 request.setAttribute("memberId", authentication.getName());
                 response.setHeader(HttpHeaders.AUTHORIZATION, newAccessToken);
-            } else if(jwtProvider.validateToken(refreshToken1) == JwtCode.EXPIRED && refreshToken1.equals(refreshToken2)){
+            } else if(jwtProvider.validateToken(refreshToken) == JwtCode.EXPIRED && refreshToken.equals(memberRefreshToken)){
                 throw new RefreshTokenExpireException("Expired refresh token");
-            }else if(jwtProvider.validateToken(refreshToken1) == JwtCode.DENIED && refreshToken1.equals(refreshToken2)){
+            }else if(jwtProvider.validateToken(refreshToken) == JwtCode.DENIED && refreshToken.equals(memberRefreshToken)){
                 throw new TokenDenyException("Denied refresh token");
             }
-        } else if (StringUtils.hasText(accessToken) && jwtProvider.validateToken(accessToken) == JwtCode.DENIED){
+        } else if (jwtProvider.validateToken(accessToken) == JwtCode.DENIED){
             throw new TokenDenyException("Denied access token");
 >>>>>>> e2b9b34 (feat: change token exception)
         }
@@ -90,6 +100,7 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         return "null";
+<<<<<<< HEAD
     }
 
     private void handleJwtException(HttpStatus httpStatus, HttpServletResponse response) throws IOException {
@@ -108,5 +119,7 @@ public class JwtFilter extends OncePerRequestFilter {
                         }
                 )
         );
+=======
+>>>>>>> c13f264 (feat: change token exception)
     }
 }

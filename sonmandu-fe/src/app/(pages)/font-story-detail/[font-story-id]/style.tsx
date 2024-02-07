@@ -120,7 +120,7 @@ export const ProfileWrapper = styled.div`
   flex-direction: column;
   gap: 2vh;
   align-items: center;
-  margin: 4vw 0 3vw 0;
+  margin-top: 3vw;
 `;
 
 export const VerticalProfileBoxDiv = styled.div`

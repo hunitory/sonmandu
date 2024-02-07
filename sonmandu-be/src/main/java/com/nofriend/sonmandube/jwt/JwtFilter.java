@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nofriend.sonmandube.exception.RefreshTokenExpireException;
 import com.nofriend.sonmandube.exception.TokenDenyException;
 import com.nofriend.sonmandube.exception.TokenExpireException;
+import com.nofriend.sonmandube.exception.handler.ErrorMessage;
 import com.nofriend.sonmandube.member.domain.Member;
 >>>>>>> d87b507 (feat: change JwtFilter Exception Handle)
 import jakarta.servlet.FilterChain;
@@ -61,12 +62,9 @@ public class JwtFilter extends OncePerRequestFilter {
         boolean hasToken = !accessToken.equals("null");
         boolean hasRefreshToken = !refreshToken.equals("null");
 
-
-
-
-
-    log.info(String.valueOf(jwtProvider.validateToken(accessToken)));
-        if(!hasToken){}
+        if(!hasToken){
+            filterChain.doFilter(request, response);
+        }
         else if(jwtProvider.validateToken(accessToken) == JwtCode.ACCESS){
 <<<<<<< HEAD
 >>>>>>> c13f264 (feat: change token exception)
@@ -77,44 +75,36 @@ public class JwtFilter extends OncePerRequestFilter {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            request.setAttribute("memberId", authentication.getName());
+            filterChain.doFilter(request, response);
 
         } else if (jwtProvider.validateToken(accessToken) == JwtCode.EXPIRED){
 
             if(!hasRefreshToken){
-                response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                objectMapper.writeValue(response.getWriter(), new Object());
-                throw new TokenExpireException("Expired access token");
+                handleJwtException(HttpStatus.UNAUTHORIZED, response);
             }
-
-
 
             if(jwtProvider.validateToken(refreshToken) == JwtCode.ACCESS){
                 Authentication authentication = jwtProvider.getAuthentication(refreshToken);
                 String memberRefreshToken = jwtProvider.getRefreshToken(Long.valueOf(authentication.getName()));
                 if(refreshToken.equals(memberRefreshToken)){
-                String newAccessToken = jwtProvider.generateToken(authentication);
+                    String newAccessToken = jwtProvider.generateToken(authentication);
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
 
-                response.setHeader(HttpHeaders.AUTHORIZATION, newAccessToken);
+                    response.setHeader(HttpHeaders.AUTHORIZATION, newAccessToken);
 
+                    filterChain.doFilter(request, response);
                 }else {
-                    response.setStatus(HttpStatus.FORBIDDEN.value());
-                    objectMapper.writeValue(response.getWriter(), new Object());
-                    throw new TokenDenyException("Denied refresh token");
+                    handleJwtException(HttpStatus.FORBIDDEN, response);
                 }
 
             } else if(jwtProvider.validateToken(refreshToken) == JwtCode.EXPIRED){
-                response.setStatus(HttpStatus.GONE.value());
-                objectMapper.writeValue(response.getWriter(), new Object());
-                throw new RefreshTokenExpireException("Expired refresh token");
+                handleJwtException(HttpStatus.GONE, response);
             }else if(jwtProvider.validateToken(refreshToken) == JwtCode.DENIED){
-                response.setStatus(HttpStatus.FORBIDDEN.value());
-                objectMapper.writeValue(response.getWriter(), new Object());
-                throw new TokenDenyException("Denied refresh token");
+                handleJwtException(HttpStatus.FORBIDDEN, response);
             }
         } else if (jwtProvider.validateToken(accessToken) == JwtCode.DENIED){
+<<<<<<< HEAD
             response.setStatus(HttpStatus.FORBIDDEN.value());
             objectMapper.writeValue(response.getWriter(), new Object());
             throw new TokenDenyException("Denied access token");
@@ -141,6 +131,12 @@ public class JwtFilter extends OncePerRequestFilter {
 
 <<<<<<< HEAD
 =======
+=======
+            handleJwtException(HttpStatus.FORBIDDEN, response);
+        }
+    }
+
+>>>>>>> 7792f5a (feat: change JwtFilter Exception Message)
     private String resolveToken(HttpServletRequest request, String header) {
 
         String bearerToken = request.getHeader(header);
@@ -172,5 +168,24 @@ public class JwtFilter extends OncePerRequestFilter {
         );
 =======
 >>>>>>> c13f264 (feat: change token exception)
+    }
+
+    private void handleJwtException(HttpStatus httpStatus, HttpServletResponse response) throws IOException {
+
+        response.setStatus(httpStatus.value());
+
+        objectMapper.writeValue(
+                response.getWriter(),
+                new ErrorMessage(
+                        httpStatus.value(),
+                        httpStatus.name(),
+                        switch (httpStatus){
+                            case UNAUTHORIZED -> "Expired token";
+                            case FORBIDDEN -> "Denied token";
+                            case GONE -> "Expired refresh token";
+                            default -> "JwtTokenFilter Error";
+                        }
+                )
+        );
     }
 }

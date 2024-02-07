@@ -34,6 +34,7 @@ public class JwtProvider {
     private final String AUTHORITIES_KEY = "auth";
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final long accessTokenValidTime = (60 * 1000) * 60 * 3;
 =======
     private final long accessTokenValidTime = (60 * 1000);
@@ -41,6 +42,9 @@ public class JwtProvider {
 =======
     private final long accessTokenValidTime = (30 * 1000);
 >>>>>>> c13f264 (feat: change token exception)
+=======
+    private final long accessTokenValidTime = (20 * 1000);
+>>>>>>> 7792f5a (feat: change JwtFilter Exception Message)
     private final long refreshTokenValidTime = (60 * 1000) * 60 * 24 * 7;
     private final MemberRepository memberRepository;
 

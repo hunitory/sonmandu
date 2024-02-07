@@ -24,8 +24,6 @@ import FontStep from './Applications/FontStep';
 import LoginModal from './Modals/LoginModal';
 import SignUpModal from './Modals/SignUpModal';
 import FindInfoModal from './Modals/FindInfoModal';
-// import FindIDModal from './Modals/FindIDModal';
-// import FindPasswordModal from './Modals/FindPasswordModal';
 import UnRegisterModal from './Modals/UnregisterModal';
 import Thumbnail from './Thumbnail';
 import UserModalInput from './UserModalInput';
@@ -55,8 +53,6 @@ export {
   LoginModal,
   SignUpModal,
   FindInfoModal,
-  // FindIDModal,
-  // FindPasswordModal,
   UnRegisterModal,
   Thumbnail,
   UserModalInput,

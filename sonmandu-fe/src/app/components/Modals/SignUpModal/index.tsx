@@ -5,20 +5,12 @@ import * as Comp from 'components';
 import useModal from 'customhook/useModal';
 import Image from 'next/image';
 import { useMutation } from '@tanstack/react-query';
-
-interface ValueBasket {
-  id: string;
-  password: string;
-  name: string;
-  nickname: string;
-  email: string;
-  [key: string]: string;
-}
+import { SignUpValueBasket } from 'types';
 
 function SignUpModal() {
   const signUpModal = useModal('signUp');
   const [buttonsDisable, setButtonDisable] = useState({ sendEmailAndCodeCheck: true, submit: true });
-  const [valuesBasket, setValuesBasket] = useState<ValueBasket>({
+  const [valuesBasket, setValuesBasket] = useState<SignUpValueBasket>({
     name: '',
     id: '',
     password: '',

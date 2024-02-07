@@ -141,7 +141,6 @@ public class MemberController {
         return ResponseEntity.ok(checkUniqueResponse);
     }
 
-    //-- PutMapping
 
     @GetMapping("/email-validation")
     public HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest, HttpServletResponse httpServletResponse) throws IOException {
@@ -153,6 +152,9 @@ public class MemberController {
 
         return response;
     }
+
+//-- PutMapping
+
 
 //    -- PatchMapping
     @PreAuthorize("hasRole('USER')")

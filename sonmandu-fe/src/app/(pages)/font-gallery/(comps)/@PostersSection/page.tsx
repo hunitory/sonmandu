@@ -1,30 +1,35 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as API from '@/apis';
 import * as S from './style';
 import * as Comp from '@/components';
 import { useQuery } from '@tanstack/react-query';
 import { FontCard } from 'types';
 
-interface TitleSectionProps {
+interface PosterSectionProps {
   searchParams: { tagId: string; name: string; sort: string };
 }
+export default function PostersSection({ searchParams }: PosterSectionProps) {
+  const [currentItemCount, setCurrentItemCount] = useState(0);
 
-export default function PostersSection({ searchParams }: TitleSectionProps) {
   const queryKey = ['font-gallery-search', searchParams.name, searchParams.tagId, searchParams.sort];
-
+  // const queryKey = ['font-gallery-search', searchParams];
   const { data: response, isFetching } = useQuery({
     queryKey: queryKey,
     queryFn: () =>
       API.handwriting.fontListInGallery({
-        startIdx: 0,
+        startIdx: currentItemCount,
         takeCount: 5,
         name: searchParams?.name || '',
         sort: searchParams?.sort || '',
         tagId: searchParams?.tagId || '',
       }),
   });
+
+  useEffect(() => {
+    setCurrentItemCount((prev) => prev + response?.data.length);
+  }, [response]);
 
   return (
     <S.CardsGridWrapper>

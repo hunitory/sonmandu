@@ -36,7 +36,7 @@ export default function FilterList({ className, createQueryString }: FilterListP
   return (
     <S.FilterListsWrapper className={className}>
       <span>정렬</span>
-      {sortOptions.map((option) => (
+      {SORT_OPTIONS.map((option) => (
         <S.CustomHashTag
           type="button"
           disabled={false}
@@ -63,7 +63,7 @@ export default function FilterList({ className, createQueryString }: FilterListP
   );
 }
 
-const sortOptions = [
+const SORT_OPTIONS = [
   { value: 'desc', text: '가장 최근순' },
   { value: 'popular', text: '인기 많은순' },
   { value: 'hit', text: '조회수 많은순' },

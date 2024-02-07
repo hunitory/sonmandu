@@ -53,6 +53,12 @@ public class Member implements UserDetails {
     @Column(length = 512)
     private String refreshToken;
 
+<<<<<<< HEAD
+=======
+    @JsonIgnore
+    private String emailToken;
+
+>>>>>>> abcce53e (feat: member, handwriting, handwritingstory api)
     private boolean isBadge;
 
     @CreatedDate

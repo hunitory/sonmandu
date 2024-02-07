@@ -26,7 +26,11 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath email = createString("email");
 >>>>>>> e8fb302 (feat: findByMemeberInformation, show tropy info)
 
+<<<<<<< HEAD
     public final StringPath email = createString("email");
+=======
+    public final StringPath emailToken = createString("emailToken");
+>>>>>>> abcce53e (feat: member, handwriting, handwritingstory api)
 
     public final StringPath id = createString("id");
 

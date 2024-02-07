@@ -51,9 +51,6 @@ public class Member implements UserDetails {
     private String refreshToken;
 
     @JsonIgnore
-    private boolean enabled;
-
-    @JsonIgnore
     private String emailToken;
 
     private boolean isBadge;
@@ -63,10 +60,6 @@ public class Member implements UserDetails {
 
     @Transient
     private List<GrantedAuthority> authorities;
-
-    public void succeedEmailToken(){
-        this.enabled = true;
-    }
 
     public void setUserRole(){
         this.authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));

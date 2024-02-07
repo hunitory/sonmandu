@@ -11,4 +11,6 @@ public interface HandwritingStoryRepository extends JpaRepository<HandwritingSto
     Optional<HandwritingStory> findByHandwritingStoryIdAndMemberMemberId(Long handwritingStoryId, Long memberId);
 
     List<HandwritingStory> findAllByMemberMemberId(Long targetId);
+
+
 }

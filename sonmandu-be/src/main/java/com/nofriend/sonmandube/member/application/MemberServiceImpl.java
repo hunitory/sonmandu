@@ -1,13 +1,16 @@
 package com.nofriend.sonmandube.member.application;
 
 import com.nofriend.sonmandube.jwt.JwtProvider;
+import com.nofriend.sonmandube.member.controller.request.EmailTokenRequest;
 import com.nofriend.sonmandube.member.controller.request.EmailValidationRequest;
 import com.nofriend.sonmandube.member.controller.request.LoginRequest;
 import com.nofriend.sonmandube.member.controller.request.SignupRequest;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
+import com.nofriend.sonmandube.member.domain.EmailToken;
 import com.nofriend.sonmandube.member.domain.Member;
+import com.nofriend.sonmandube.member.repository.EmailTokenRepository;
 import com.nofriend.sonmandube.member.repository.MemberRepository;
 import com.nofriend.sonmandube.member.repository.TrophyRepository;
 import com.nofriend.sonmandube.s3.S3Service;
@@ -34,7 +37,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Random;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -43,6 +45,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     private final MemberRepository memberRepository;
     private final TrophyRepository trophyRepository;
+    private final EmailTokenRepository emailTokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -55,7 +58,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private String sonmanduEmail;
 
     @Override
-    @Transactional
     public void signup(SignupRequest signupRequest) {
         Member newMember = Member.builder()
                 .id(signupRequest.getId())
@@ -68,8 +70,10 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         memberRepository.save(newMember);
     }
 
-    public String sendEmailToken(String email) throws MessagingException {
-        String emailToken = generateString();
+    public Long sendEmailToken(String email) throws MessagingException {
+        EmailToken emailToken = EmailToken.builder()
+                .token(generateString())
+                .build();
 
         MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, false, "UTF-8");
@@ -77,13 +81,15 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         mimeMessageHelper.setTo(email);
         mimeMessageHelper.setSubject("[손만두] 이메일 활성화");
         mimeMessageHelper.setText("<html><head></head>" +
-                "<body> <h1> 손만두 </h1> <a href='" + serverUrl +"/members/email-validation" +
-                "?emailToken=" + emailToken + "'> 계정 활성화 버튼 </a> </body>" +
+                "<body> <h1> 손만두 </h1>" +
+                "<h3> 인증번호 : " + emailToken.getToken() + "</h3> </body>" +
                 "</html>", true);
 
         javaMailSender.send(mimeMailMessage);
 
-        return emailToken;
+        emailTokenRepository.save(emailToken);
+        log.info("emial token : " + emailToken.toString());
+        return emailToken.getEmailTokenId();
     }
 
     @Override
@@ -127,6 +133,14 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .orElseThrow()
                 .getPassword()
                 .equals(password);
+    }
+
+    @Override
+    public Boolean checkValidEmailToken(EmailTokenRequest emailTokenResponse) {
+        return emailTokenRepository.findById(emailTokenResponse.getEmailTokenId())
+                .orElseThrow()
+                .getToken()
+                .equals(emailTokenResponse.getToken());
     }
 
     @Override
@@ -225,28 +239,13 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     public Boolean checkUniqueId(String id) {
-        return memberRepository.existsById(id);
+        return !memberRepository.existsById(id);
     }
 
     @Override
     public Boolean checkUniqueNickname(String nickname) {
-        return memberRepository.existsByNickname(nickname);
+        return !memberRepository.existsByNickname(nickname);
     }
-
-    @Override
-    @Transactional
-    public HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest){
-        //TODO Exception
-        Member member = memberRepository.findById(emailValidationRequest.getMemberId()).orElseThrow();
-
-        if(!member.getEmailToken().equals(emailValidationRequest.getEmailToken())){
-            return HttpStatus.BAD_REQUEST;
-        }
-        member.succeedEmailToken();
-
-        return HttpStatus.MOVED_PERMANENTLY;
-    }
-
 
     @Override
     @Transactional
@@ -269,12 +268,12 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        log.info("load user by username");
+//        log.info("load user by username");
         Member member = memberRepository.findById((long) Integer.parseInt(username))
                 .orElseThrow(() -> new UsernameNotFoundException(username + "Not Found Member by Id"));
-        log.info(member.toString());
+//        log.info(member.toString());
         member.setUserRole();
-        log.info(member.toString());
+//        log.info(member.toString());
 
         return member;
     }

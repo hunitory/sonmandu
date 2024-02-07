@@ -30,13 +30,13 @@ public interface MemberService {
 
     Boolean checkUniqueNickname(String nickname);
 
-    HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest);
-
     void updateMemberInformationCommon(Long memberId, String informationType, String value);
 
     void deleteMember(Long memberId);
 
     void updateMemberInformationImage(Long memberId, MultipartFile image);
 
-    String sendEmailToken(String email) throws MessagingException;
+    Long sendEmailToken(String email) throws MessagingException;
+
+    Boolean checkValidEmailToken(EmailTokenRequest emailTokenResponse);
 }

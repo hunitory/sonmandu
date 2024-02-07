@@ -43,13 +43,15 @@ public class MemberController {
     @PostMapping("/signup")
     public HttpStatus signup(@RequestBody @Valid SignupRequest signupRequest) throws MessagingException {
         memberService.signup(signupRequest);
-        return HttpStatus.OK;
+        return HttpStatus.NO_CONTENT;
     }
 
-//    @PostMapping("/emailToken")
-//    public ResponseEntity<String> sendEmailToken(@Email String email){
-//        return ResponseEntity.ok(memberService.sendEmailToken(email));
-//    }
+    @PostMapping("/email-token")
+    public ResponseEntity<Long> sendEmailToken(@Email String email) throws MessagingException {
+        log.info("/members/email-token");
+        log.info("email : " + email);
+        return ResponseEntity.ok(memberService.sendEmailToken(email));
+    }
 
     //로그인
     @PostMapping("/login")
@@ -81,6 +83,12 @@ public class MemberController {
 
 
 //-- GetMapping
+
+    @GetMapping("/email-token")
+    public ResponseEntity<Boolean> checkEmailToken(@RequestBody @Valid EmailTokenRequest emailTokenResponse){
+        log.info(emailTokenResponse.toString());
+        return ResponseEntity.ok(memberService.checkValidEmailToken(emailTokenResponse));
+    }
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")
@@ -141,17 +149,6 @@ public class MemberController {
         return ResponseEntity.ok(checkUniqueResponse);
     }
 
-
-    @GetMapping("/email-validation")
-    public HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest, HttpServletResponse httpServletResponse) throws IOException {
-        HttpStatus response = memberService.updateIsValidated(emailValidationRequest);
-
-        if(response.is3xxRedirection()){
-            httpServletResponse.sendRedirect(clientUrl);
-        }
-
-        return response;
-    }
 
 //-- PutMapping
 

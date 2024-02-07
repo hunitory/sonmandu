@@ -8,6 +8,7 @@ import com.nofriend.sonmandube.handwriting.controller.response.*;
 import com.nofriend.sonmandube.handwriting.domain.*;
 import com.nofriend.sonmandube.handwriting.repository.*;
 import com.nofriend.sonmandube.handwritingstory.domain.HandwritingStory;
+import com.nofriend.sonmandube.handwritingstory.repository.HandwritingStoryRepository;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.s3.S3Service;
 import com.nofriend.sonmandube.util.FileDto;
@@ -32,6 +33,7 @@ public class HandwritingServiceImpl implements HandwritingService{
     private final HandwritingLikeRepository handwritingLikeRepository;
     private final HandwritingDownloadRepository handwritingDownloadRepository;
     private final HandwritingHitRepository handwritingHitRepository;
+    private final HandwritingStoryRepository handwritingStoryRepository;
     private final S3Service s3UploadService;
 
     @Override
@@ -286,5 +288,17 @@ public class HandwritingServiceImpl implements HandwritingService{
         return simpleHandwritingResponseList;
     }
 
+    @Override
+    public List<UnwrittenStoriesResponse> getUnwrittenStories(Long memberId) {
+        return handwritingRepository.findAllByHandwritingApplicationMemberMemberId(memberId)
+                .stream()
+                .filter(handwriting -> !handwritingStoryRepository.existsById(handwriting.getHandwritingId()))
+                .map(handwriting -> {
+                    return UnwrittenStoriesResponse.builder()
+                            .handwritingId(handwriting.getHandwritingId())
+                            .name(handwriting.getName())
+                            .build();
+                }).toList();
+    }
 
 }

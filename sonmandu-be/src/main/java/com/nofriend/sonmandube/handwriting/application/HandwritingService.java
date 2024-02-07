@@ -34,4 +34,6 @@ public interface HandwritingService {
     RankingResponse getRankingList();
 
     List<SimpleHandwritingResponse> getPopularHandwritingList(Long memberId);
+
+    List<UnwrittenStoriesResponse> getUnwrittenStories(Long memberId);
 }

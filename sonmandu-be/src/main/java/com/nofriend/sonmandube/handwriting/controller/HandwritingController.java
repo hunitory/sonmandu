@@ -116,4 +116,10 @@ public class HandwritingController {
         return ResponseEntity.ok(popularList);
     }
 
+    @GetMapping("/unwritten-stories")
+    public ResponseEntity<List<UnwrittenStoriesResponse>> getUnwrittenStories(Authentication authentication){
+        Long memberId = Long.valueOf(authentication.getName());
+        return ResponseEntity.ok(handwritingService.getUnwrittenStories(memberId));
+    }
+
 }

@@ -33,10 +33,6 @@ export default function FilterList({ className, createQueryString }: FilterListP
     });
   };
 
-  useEffect(() => {
-    console.log(`options :`, options);
-  }, [options]);
-
   return (
     <S.FilterListsWrapper className={className}>
       <span>정렬</span>

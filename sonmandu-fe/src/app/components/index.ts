@@ -23,11 +23,13 @@ import ProfileInfoModal from './ProfileInfoModal';
 import FontStep from './Applications/FontStep';
 import LoginModal from './Modals/LoginModal';
 import SignUpModal from './Modals/SignUpModal';
-import FindIDModal from './Modals/FindIDModal';
-import FindPasswordModal from './Modals/FindPasswordModal';
+import FindInfoModal from './Modals/FindInfoModal';
+// import FindIDModal from './Modals/FindIDModal';
+// import FindPasswordModal from './Modals/FindPasswordModal';
 import UnRegisterModal from './Modals/UnregisterModal';
 import Thumbnail from './Thumbnail';
 import FontStoryComment from './FontStoryComment';
+import UserModalInput from './UserModalInput';
 
 export {
   BaseHeader,
@@ -53,9 +55,11 @@ export {
   ProfileInfoModal,
   LoginModal,
   SignUpModal,
-  FindIDModal,
-  FindPasswordModal,
+  FindInfoModal,
+  // FindIDModal,
+  // FindPasswordModal,
   UnRegisterModal,
   Thumbnail,
   FontStoryComment,
+  UserModalInput,
 };

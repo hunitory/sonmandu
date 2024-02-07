@@ -19,6 +19,7 @@ export interface BaseLabelProps {
   onDragLeave?: (...args: any[]) => void;
   onDragOver?: (...args: any[]) => void;
   onDrop?: (...args: any[]) => void;
+  onClick?: (...args: any[]) => void;
   role?: string;
 }
 

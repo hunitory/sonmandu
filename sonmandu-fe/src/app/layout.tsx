@@ -1,12 +1,8 @@
 import type { Metadata } from 'next';
 import { notoSansKr } from 'styles';
-import {
-  StyledComponentsRegistry,
-  RecoilRootWrapper,
-  ReactQueryProvider,
-} from '@/lib';
+import { StyledComponentsRegistry, RecoilRootWrapper, ReactQueryProvider } from '@/lib';
 import './styles/globals.css';
-import { BaseHeader } from 'components';
+import { BaseHeader, FindInfoModal, LoginModal, SignUpModal } from 'components';
 
 export const metadata: Metadata = {
   title: '손만두',
@@ -20,15 +16,15 @@ export default function RootLayout({
 }>) {
   return (
     <html>
-      <body
-        className={notoSansKr.regular.className}
-        suppressHydrationWarning={true}
-      >
+      <body className={notoSansKr.regular.className} suppressHydrationWarning={true}>
         <ReactQueryProvider>
           <RecoilRootWrapper>
             <StyledComponentsRegistry>
               <BaseHeader></BaseHeader>
               {children}
+              <FindInfoModal />
+              <LoginModal />
+              <SignUpModal />
             </StyledComponentsRegistry>
           </RecoilRootWrapper>
         </ReactQueryProvider>

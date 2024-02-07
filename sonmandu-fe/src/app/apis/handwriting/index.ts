@@ -42,6 +42,14 @@ export async function loadFontInService({
   return await customFont.load();
 }
 
-export async function fontDetail({ fontId }: { fontId: number }) {
+export async function fontDetail({ fontId }: { fontId: string }): Promise<AxiosResponse> {
   return instanceJsonContent.get(`/handwritings/gallery/${fontId}`);
+}
+
+export async function fontLikesClick({ fontId }: { fontId: string }) {
+  return instanceJsonContent.patch(`/handwritings/gallery/${fontId}/likes`);
+}
+
+export async function fontDownload({ fontId }: { fontId: string }) {
+  return instanceJsonContent.patch(`/handwritings/gallery/${fontId}/download`);
 }

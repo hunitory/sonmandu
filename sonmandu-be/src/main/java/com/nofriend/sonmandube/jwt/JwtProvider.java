@@ -32,7 +32,11 @@ public class JwtProvider {
     private String secret;
     private Key key;
     private final String AUTHORITIES_KEY = "auth";
+<<<<<<< HEAD
     private final long accessTokenValidTime = (60 * 1000) * 60 * 3;
+=======
+    private final long accessTokenValidTime = (60 * 1000);
+>>>>>>> fa401ea (feat: change token time)
     private final long refreshTokenValidTime = (60 * 1000) * 60 * 24 * 7;
     private final MemberRepository memberRepository;
 

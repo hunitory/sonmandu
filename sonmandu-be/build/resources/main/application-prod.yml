@@ -15,8 +15,12 @@ server:
 logging:
   level:
 <<<<<<< HEAD
+<<<<<<< HEAD
     root: info
 =======
     root: debug
 >>>>>>> a88b847 (teat: wss)
+=======
+    root: info
+>>>>>>> fa401ea (feat: change token time)
 

@@ -2,6 +2,21 @@ import React from 'react';
 import * as S from './style';
 import Image from 'next/image';
 
+interface BaseStoryCardProps {
+  handwritingStoryId: number;
+  title: string;
+  name: string;
+  thumbnail: string;
+  hitCount: number;
+  likeCount: number;
+  member: {
+    memberId: number;
+    name: string;
+    imageUrl: string | null;
+  };
+  isLike: boolean;
+}
+
 function BaseStoryCard() {
   return (
     <S.StoryCardWrapper>

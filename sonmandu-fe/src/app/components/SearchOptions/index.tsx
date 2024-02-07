@@ -1,11 +1,8 @@
-import React, { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useCallback, useRef, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { FilterList, SearchInput } from './Subs';
 import * as S from './style';
 import Image from 'next/image';
-import { PALETTE } from 'styles';
-import { BaseLabelWithInput } from 'components';
-import { FilterList } from './Subs';
-import { useDebouncing } from 'customhook';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 interface CreateQueryStringArgs {
   name: 'sort' | 'tagId' | 'name';
@@ -17,8 +14,11 @@ function SearchOptions() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const [searchInputValue, setSearchInputValue] = useState('');
+
+  const handleFocusInput = () => {
+    ref.current?.focus();
+  };
 
   const createQueryString = useCallback(
     ({ name, value }: CreateQueryStringArgs) => {
@@ -49,36 +49,26 @@ function SearchOptions() {
     [searchParams],
   );
 
-  useDebouncing({
-    delay: 1000,
-    value: searchInputValue,
-    callback: () => createQueryString({ name: 'name', value: searchInputValue }),
-  });
-
   const handleTitleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(e.target.value);
   };
 
-  const handleFocusInput = () => {
-    ref.current?.focus();
+  const handleSearchValueSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    createQueryString({ name: 'name', value: searchInputValue });
   };
 
   return (
-    <S.UserInteractionWrapper onClick={handleFocusInput} id="search-font">
+    <S.UserInteractionWrapper onClick={handleFocusInput} id="search-font" onSubmit={handleSearchValueSubmit}>
       <S.SearchOptionsContainer>
-        <BaseLabelWithInput.Label id="search-font" className="search-font-label">
-          <BaseLabelWithInput.Input
-            ref={ref}
-            id="search-font"
-            type="text"
-            value={searchInputValue}
-            onChange={handleTitleOnChange}
-            placeholder="폰트명으로 검색해보세요!"
-          />
-          <S.StyledButton type="button" disabled={false} bgColor={PALETTE.MAIN_ORANGE}>
-            <Image src={'/image/search-icon.svg'} alt="검색" width={16} height={16} />
-          </S.StyledButton>
-        </BaseLabelWithInput.Label>
+        <SearchInput
+          ref={ref}
+          id="search-font"
+          placeholder="폰트명으로 검색해보세요!"
+          flexible={{ able: true }}
+          value={searchInputValue}
+          onChange={handleTitleOnChange}
+        />
         <S.StyledButton type="button" disabled={false} bgColor="white">
           <Image src={'/image/filter-icon.svg'} alt="필터" width={20} height={20} />
         </S.StyledButton>
@@ -87,5 +77,7 @@ function SearchOptions() {
     </S.UserInteractionWrapper>
   );
 }
+
+SearchOptions.Input = SearchInput;
 
 export default SearchOptions;

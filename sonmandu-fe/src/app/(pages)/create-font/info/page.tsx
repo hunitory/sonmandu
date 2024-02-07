@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import * as Comp from 'components';
 import * as Styled from './style';
 import { WHOLE_HASH_TAGES } from '@/constants';
 import { useRouter } from 'next/navigation';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Atom } from 'store';
-import axios from 'axios';
+import { instanceMultipartContent, instanceJsonContent } from 'apis/_instance';
 
 interface selectedHashTags {
   tagIdList: string[];
@@ -20,29 +20,32 @@ interface CreateQueryStringArgs {
 
 export default function FontInfo() {
   const router = useRouter();
-  const [FontName, setFontName] = useState('');
+  const [fontInfoState, setfontNameState] = useRecoilState(Atom.fontInfoState);
   const uploadedFiles = useRecoilValue(Atom.uploadedFilesState);
 
   const NameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFontName(event.target.value);
+    setfontNameState(prevState => ({
+      ...prevState,
+      name: event.target.value
+    }));
   };
-  const [selectedHashTags, setSelectedHashTags] = useState<selectedHashTags>({ tagIdList: [] });
 
   const handleOptionsClick = ({ name, value }: CreateQueryStringArgs) => {
-    setSelectedHashTags((prev) => {
+    setfontNameState((prevState) => {
       if (name === 'tagIdList') {
-        const selectedTags = prev.tagIdList;
+        const selectedTags = prevState.tagIdList;
         const maxSelectableTags = 3;
-        const isTagSelected = selectedTags.includes(value);
-
+        const tagValue = Number(value);
+        const isTagSelected = selectedTags.includes(tagValue);
+  
         if (!isTagSelected && selectedTags.length < maxSelectableTags) {
-          return { ...prev, tagIdList: [...selectedTags, value] };
+          return { ...prevState, tagIdList: [...selectedTags, tagValue] };
         } else if (isTagSelected) {
-          const updatedTags = selectedTags.filter((tag) => tag !== value);
-          return { ...prev, tagIdList: updatedTags };
+          const updatedTags = selectedTags.filter((tag) => tag !== tagValue);
+          return { ...prevState, tagIdList: updatedTags };
         }
       }
-      return { ...prev };
+      return { ...prevState };
     });
   };
 
@@ -50,54 +53,46 @@ export default function FontInfo() {
     router.back();
   };
   const onNext = () => {
-    const isFontNameValid = FontName.trim().length > 0;
-    const isTagsSelected = selectedHashTags.tagIdList.length > 0;
+    const isFontNameValid = fontInfoState.name.trim().length > 0;
+    const isTagsSelected = fontInfoState.tagIdList.length > 0;
+  
+    if (isFontNameValid && isTagsSelected && uploadedFiles.length > 0) {
+      const apiUrl = '/handwritings';
+      
+      const formData = new FormData();
+      formData.append('info', JSON.stringify({
+        name: fontInfoState.name,
+        tagIdList: fontInfoState.tagIdList,
+      }));
+  
+      uploadedFiles.forEach(file => {
+        formData.append('image', file);
+      });
+      
 
-    // if (!isFontNameValid && !isTagsSelected) {
-    //   alert('손글씨 이름, 태그 정보가 올바르지 않습니다.');
-    //   return;
-    // }
-    // if (!isFontNameValid) {
-    //   alert('손글씨 이름 정보가 올바르지 않습니다.');
-    //   return;
-    // }
-    // if (!isTagsSelected) {
-    //   alert('태그 정보가 올바르지 않습니다.');
-    //   return;
-    // }
-
-    // if (uploadedFiles.length === 0) {
-    //   alert('파일을 다시 확인해주세요.');
-    //   return;
-    // }
-
-    if (isFontNameValid && isTagsSelected) {
-      // 필요한 처리 로직 추가
-      const apiUrl = process.env.NEXT_PUBLIC_DEVELOP_END_POINT + '/handwritings'; // 실제 엔드포인트에 맞게 수정
-      const requestData = {
-        FontName: FontName,
-        selectedHashTags: selectedHashTags.tagIdList,
-        uploadedFiles: uploadedFiles,
-      };
-
-      // Axios를 사용하여 POST 요청 보내기
-      axios
-        .post(apiUrl, requestData)
-        .then((response) => {
+      instanceMultipartContent.post(apiUrl, formData)
+        .then(response => {
           console.log('POST 요청 성공:', response.data);
-          // 필요한 처리 로직 추가
           router.push('/create-font/complete');
         })
-        .catch((error) => {
+        .catch(error => {
           console.error('POST 요청 실패:', error);
-          alert('뭐하냐');
+          alert('업로드에 실패했습니다.');
         });
+    } else {
+      if (!isFontNameValid) {
+        alert('손글씨 이름 정보가 올바르지 않습니다.');
+      } else if (!isTagsSelected) {
+        alert('태그 정보가 올바르지 않습니다.');
+      } else if (uploadedFiles.length === 0) {
+        alert('파일을 다시 확인해주세요.');
+      }
     }
+
   };
 
   useEffect(() => {
-    console.log(FontName);
-    console.log(selectedHashTags);
+    console.log(fontInfoState)
     console.log(uploadedFiles);
   });
   return (
@@ -118,10 +113,10 @@ export default function FontInfo() {
               입력하신 이름 앞에 <span>'손만두'</span>가 기본적으로 붙습니다. ex) 손만두 홍길동체
             </Styled.ContentFontNametContent>
             <Styled.ContentFontNameInputWrapper>
-              <Styled.ContentFontNameInputPlaceholder $fontname={!FontName}>
+              <Styled.ContentFontNameInputPlaceholder $fontname={!fontInfoState.name}>
                 <span>손글씨 이름</span>을 입력해주세요. 최대 20자
               </Styled.ContentFontNameInputPlaceholder>
-              <Styled.ContentFontNameInput id="name" type="text" value={FontName} onChange={NameInput} />
+              <Styled.ContentFontNameInput id="name" type="text" value={fontInfoState.name} onChange={NameInput} />
             </Styled.ContentFontNameInputWrapper>
           </Styled.ContentFontNameWrapper>
           <Styled.ContentFontTagWrapper>
@@ -133,7 +128,7 @@ export default function FontInfo() {
                   type="button"
                   disabled={false}
                   key={hashTag.id}
-                  selected={selectedHashTags.tagIdList.includes(String(hashTag.id))}
+                  selected={fontInfoState.tagIdList.includes(Number(hashTag.id))}
                   onClick={() => handleOptionsClick({ name: 'tagIdList', value: String(hashTag.id) })}
                 >
                   {hashTag.text}

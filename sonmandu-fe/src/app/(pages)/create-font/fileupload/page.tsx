@@ -10,10 +10,8 @@ import { Atom } from 'store/index';
 
 export default function FontFileUpload() {
   const router = useRouter();
-  /* 이걸 recoil을 사용해야 할 것 같음*/
   const [uploadedFiles, setUploadedFiles] = useRecoilState(Atom.uploadedFilesState);
   const [isDragging, setIsDragging] = useState(false);
-  const asd = useRecoilValue(Atom.uploadedFilesState)
 
   const OnFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
@@ -77,7 +75,6 @@ export default function FontFileUpload() {
 
   useEffect(() => {
     console.log(uploadedFiles) 
-    console.log(asd)
    })
   return (
     <Styled.Wrapper>

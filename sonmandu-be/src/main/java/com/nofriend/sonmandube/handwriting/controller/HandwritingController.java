@@ -25,7 +25,7 @@ public class HandwritingController {
 
     private final HandwritingService handwritingService;
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @PostMapping
     public ResponseEntity<Void> applyHandwriting(
             @RequestPart(name = "image") MultipartFile image,

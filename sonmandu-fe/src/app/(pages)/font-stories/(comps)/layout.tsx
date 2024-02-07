@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './style';
 
-export default function FontGalleryLayout({
+export default function FontStoriesLayout({
   TitleSection,
   PostersSection,
 }: Readonly<{

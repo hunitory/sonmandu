@@ -33,25 +33,13 @@ export const UserInteractionWrapper = styled.form`
   padding: 8px;
   position: relative;
 
-  &,
-  .search-font-label,
-  #search-font {
+  & {
     border-radius: 50px;
     transition: width 0.5s ease, padding 0.5s ease;
   }
 
-  &,
-  .search-font-label {
+  & {
     display: flex;
-  }
-
-  .search-font-label {
-    width: fit-content;
-    justify-content: end;
-    border: 1px solid ${PALETTE.SUB_WHITE};
-    #search-font {
-      width: 0px;
-    }
   }
 
   &:focus-within {
@@ -63,21 +51,8 @@ export const UserInteractionWrapper = styled.form`
       visibility: visible;
     }
 
-    ${StyledButton}, .search-font-label {
+    ${StyledButton} {
       border: 1px solid ${PALETTE.LIGHT_BLACK};
-    }
-
-    &,
-    .search-font-label {
-    }
-
-    .search-font-label {
-      width: calc(100% - 32px);
-      background-color: white;
-      #search-font {
-        width: calc(100% - 32px);
-        padding: 0px 12px;
-      }
     }
   }
 `;

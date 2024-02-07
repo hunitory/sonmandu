@@ -10,6 +10,7 @@ import com.nofriend.sonmandube.member.controller.response.MemberInformationRespo
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +45,11 @@ public class MemberController {
         memberService.signup(signupRequest);
         return HttpStatus.OK;
     }
+
+//    @PostMapping("/emailToken")
+//    public ResponseEntity<String> sendEmailToken(@Email String email){
+//        return ResponseEntity.ok(memberService.sendEmailToken(email));
+//    }
 
     //로그인
     @PostMapping("/login")

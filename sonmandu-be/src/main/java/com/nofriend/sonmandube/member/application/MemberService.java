@@ -37,4 +37,6 @@ public interface MemberService {
     void deleteMember(Long memberId);
 
     void updateMemberInformationImage(Long memberId, MultipartFile image);
+
+    String sendEmailToken(String email) throws MessagingException;
 }

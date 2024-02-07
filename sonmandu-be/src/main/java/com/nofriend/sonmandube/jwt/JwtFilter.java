@@ -1,11 +1,7 @@
 package com.nofriend.sonmandube.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nofriend.sonmandube.exception.RefreshTokenExpireException;
-import com.nofriend.sonmandube.exception.TokenDenyException;
-import com.nofriend.sonmandube.exception.TokenExpireException;
 import com.nofriend.sonmandube.exception.handler.ErrorMessage;
-import com.nofriend.sonmandube.member.domain.Member;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,10 +12,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.lang.model.type.ErrorType;
 import java.io.IOException;
 
 @Slf4j
@@ -32,6 +28,13 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String accessToken = resolveToken(request, "Authorization");
         String refreshToken = request.getHeader("x-refresh-token");
+        if(accessToken == null){
+            accessToken = "null";
+        }
+        if(refreshToken == null){
+            refreshToken = "null";
+        }
+
         boolean hasToken = !accessToken.equals("null");
         boolean hasRefreshToken = !refreshToken.equals("null");
 

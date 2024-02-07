@@ -63,28 +63,27 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .name(signupRequest.getName())
                 .nickname(signupRequest.getNickname())
                 .email(signupRequest.getEmail())
-                .isValidated(false)
-                .emailToken(UUID.randomUUID().toString())
                 .build();
 
         memberRepository.save(newMember);
-
-        sendEmailToken(newMember);
     }
 
-    private void sendEmailToken(Member newMember) throws MessagingException {
+    public String sendEmailToken(String email) throws MessagingException {
+        String emailToken = generateString();
+
         MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, false, "UTF-8");
         mimeMessageHelper.setFrom(sonmanduEmail);
-        mimeMessageHelper.setTo(newMember.getEmail());
+        mimeMessageHelper.setTo(email);
         mimeMessageHelper.setSubject("[손만두] 이메일 활성화");
         mimeMessageHelper.setText("<html><head></head>" +
                 "<body> <h1> 손만두 </h1> <a href='" + serverUrl +"/members/email-validation" +
-                "?memberId=" + newMember.getMemberId() +
-                "&emailToken=" + newMember.getEmailToken() + "'> 계정 활성화 버튼 </a> </body>" +
+                "?emailToken=" + emailToken + "'> 계정 활성화 버튼 </a> </body>" +
                 "</html>", true);
 
         javaMailSender.send(mimeMailMessage);
+
+        return emailToken;
     }
 
     @Override
@@ -92,10 +91,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     public LoginResponse login(LoginRequest loginRequest) {
         Member member = memberRepository.findById(loginRequest.getId())
                 .orElseThrow();
-
-        if(!member.isValidated()){
-            return null;
-        }
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(member.getMemberId(), loginRequest.getPassword());

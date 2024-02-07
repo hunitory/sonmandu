@@ -29,6 +29,7 @@ public class Member implements UserDetails {
     @Column(unique = true)
     private String id;
 
+    @JsonIgnore
     @Setter
     private String password;
 
@@ -49,8 +50,10 @@ public class Member implements UserDetails {
     @Setter
     private String refreshToken;
 
-    private boolean isValidated;
+    @JsonIgnore
+    private boolean enabled;
 
+    @JsonIgnore
     private String emailToken;
 
     private boolean isBadge;
@@ -62,45 +65,39 @@ public class Member implements UserDetails {
     private List<GrantedAuthority> authorities;
 
     public void succeedEmailToken(){
-        this.isValidated = true;
+        this.enabled = true;
     }
 
     public void setUserRole(){
         this.authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
-    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
     }
 
-    @JsonIgnore
     @Override
     public String getUsername() {
         return String.valueOf(this.memberId);
     }
 
-    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
-    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
-    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
-    @JsonIgnore
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.enabled;
     }
 }

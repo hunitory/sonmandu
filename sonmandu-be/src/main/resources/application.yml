@@ -20,10 +20,14 @@ spring:
     #    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
 <<<<<<< HEAD
+<<<<<<< HEAD
       ddl-auto: validate        # DB 초기화 전략 (none, create, create-drop, update, validate)
 =======
       ddl-auto: create        # DB 초기화 전략 (none, create, create-drop, update, validate)
 >>>>>>> 17e760e (feat: change JwtFilter Exception Message)
+=======
+      ddl-auto: update        # DB 초기화 전략 (none, create, create-drop, update, validate)
+>>>>>>> 24c81ec (feat: change JwtFilter Exception Message)
     properties:
       hibernate:
         #        dialect: org.hibernate.dialect.H2Dialect

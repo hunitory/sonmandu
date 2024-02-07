@@ -13,17 +13,25 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import lombok.Setter;
 =======
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+import lombok.Setter;
+>>>>>>> 738ebf3 (feat: change JwtFilter Exception Message)
 import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 @Getter
 <<<<<<< HEAD
+<<<<<<< HEAD
 @Setter
 =======
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+@Setter
+>>>>>>> 738ebf3 (feat: change JwtFilter Exception Message)
 @ToString
 @RequiredArgsConstructor
 public class ChatRequest {

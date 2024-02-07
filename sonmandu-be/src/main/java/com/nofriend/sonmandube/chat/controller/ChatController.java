@@ -78,8 +78,10 @@ public class ChatController {
     log.info("chatting1");
         token = token.substring(7);
 
-        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
-
+//        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
+    Long memberId = 1L;
+    chatRequest.setHandwritingId(1L);
+    chatRequest.setMessage("fsdf");
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
 
         HandwritingNameDownloadUrlProjection handwritingNameDownloadUrlProjection = handwritingRepository.findNameDownloadUrlByHandwritingId(chatRequest.getHandwritingId());
@@ -89,16 +91,22 @@ public class ChatController {
                 memberNickname,
 >>>>>>> 723abc5 (feat: add spring security chatting)
                 chatRequest.getHandwritingId(),
-                handwritingNameDownloadUrlProjection.getName(),
-                handwritingNameDownloadUrlProjection.getDownloadUrl(),
+"1","!'",
+//                handwritingNameDownloadUrlProjection.getName(),
+//                handwritingNameDownloadUrlProjection.getDownloadUrl(),
                 chatRequest.getMessage()
         );
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.out.println(newChat.toString());
         chatRepository.save(newChat);
         System.out.println(newChat.toString());
+=======
+//        chatRepository.save(newChat);
+        log.info("send message: " + newChat.getMessage() + ", pub: " + newChat.getMember().getMemberId() );
+>>>>>>> 738ebf3 (feat: change JwtFilter Exception Message)
 
         return newChat.toChatResponse();
     }

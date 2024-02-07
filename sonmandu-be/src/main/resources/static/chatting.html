@@ -100,7 +100,7 @@
         var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNiIsImF1dGgiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6MjYsImV4cCI6MTcwNzI4MTk0OX0.U7NnGOCMP56Y9o-VEw4buaK86dWL_6ASPieSmdAVHHR5WoCZTvYrC9fd9vOk47Y9-EXl6Wl3ltSJMsszLk-cAQ'
 
         const stompClient = new StompJs.Client({
-            brokerURL: 'ws://localhost:8080/chat-connection',
+            brokerURL: 'wss://i10b111.p.ssafy.io/dev/api/chat-connection',
             connectHeaders: {
                 "Authorization" : token
             }

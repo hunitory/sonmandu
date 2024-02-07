@@ -56,6 +56,7 @@ export const FormWrapper = styled.form`
 `;
 
 export const InputsWrapper = styled.div<{ $sendCodeHidden: boolean }>`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,6 +74,11 @@ export const CustomButton = styled(BaseButton)`
   padding: 6px 12px;
   background-color: ${PALETTE.MAIN_ORANGE};
   color: white;
+
+  @media (max-width: 768px) {
+    font-size: 10px;
+    padding: 6px;
+  }
 `;
 
 export const SubmitButton = styled(BaseButton)`

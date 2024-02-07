@@ -50,6 +50,7 @@ export const CustomInput = styled(BaseLabelWithInput.Input)`
   min-width: 368px;
   height: 16px;
   padding-left: 12px;
+
   @media (max-width: 768px) {
     min-width: 0px;
   }

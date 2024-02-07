@@ -12,18 +12,16 @@ interface ValueBasket {
   [key: string]: string;
 }
 
-// qweqweqwe1
-// 123123123
-
 function LoginModal() {
   const loginModal = useModal('login');
+  const findInfoModal = useModal('findInfo');
   const [checkYourValues, setCheckYourValues] = useState(false);
   const [valuesBasket, setValuesBasket] = useState<ValueBasket>({
     id: '',
     password: '',
   });
   const { mutate } = useMutation({
-    mutationKey: [],
+    mutationKey: ['request-login'],
     mutationFn: () => API.member.login({ ...valuesBasket }),
     onSuccess: (res) => {
       localStorage.setItem('access_token', res.data.token);
@@ -42,8 +40,13 @@ function LoginModal() {
     mutate();
   };
 
-  const closeModal = () => {
+  const closeLoginModal = () => {
     loginModal.closeModal();
+  };
+
+  const openFindInfoModal = () => {
+    loginModal.closeModal();
+    findInfoModal.openModal();
   };
 
   const INPUT_PROPS = [
@@ -58,7 +61,7 @@ function LoginModal() {
   return (
     <>
       {loginModal.modal.isOpen && (
-        <Comp.BaseModal size="small" onClose={closeModal}>
+        <Comp.BaseModal size="small" onClose={closeLoginModal}>
           <S.ModalContainer>
             <S.WelcomeWrapper>
               <span className="welcome-title">환영합니다!</span>
@@ -83,7 +86,9 @@ function LoginModal() {
                 <span>로그인하기</span>
               </S.SubmitButton>
               <S.FindInfomation>
-                <span>아이디</span>또는<span>비밀번호 찾기</span>
+                <span onClick={openFindInfoModal}>
+                  <span>아이디</span>또는<span>비밀번호 찾기</span>
+                </span>
               </S.FindInfomation>
             </S.FormWrapper>
           </S.ModalContainer>

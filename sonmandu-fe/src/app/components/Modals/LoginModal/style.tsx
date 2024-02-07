@@ -59,7 +59,7 @@ export const SubmitButton = styled(BaseButton)`
   margin-top: 24px;
 `;
 
-export const FindInfomation = styled.p`
+export const FindInfomation = styled.span`
   width: 100%;
   text-align: end;
   color: ${PALETTE.LIGHT_BLACK};
@@ -67,9 +67,10 @@ export const FindInfomation = styled.p`
   font-family: ${notoSansKr.thin.style.fontFamily};
   font-weight: ${notoSansKr.thin.style.fontWeight};
 
-  span {
+  span > span {
     font-family: ${notoSansKr.semiBold.style.fontFamily};
     font-weight: ${notoSansKr.semiBold.style.fontWeight};
     padding: 0px 2px;
+    cursor: pointer;
   }
 `;

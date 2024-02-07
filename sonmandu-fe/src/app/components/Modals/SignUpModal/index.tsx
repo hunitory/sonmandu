@@ -42,7 +42,7 @@ function SignUpModal() {
 
   // requestSignUp -> onSuccess -> requestLogin()
   const { mutate: requestSignUp } = useMutation({
-    mutationKey: [],
+    mutationKey: ['request-sign-up'],
     mutationFn: () => API.member.signUp({ ...valuesBasket }),
     onSuccess: () => {},
   });
@@ -68,10 +68,9 @@ function SignUpModal() {
     { id: 'email', type: 'email', placeholder: '이메일를 입력해주세요', subContent: subContent.email },
   ];
 
-  // signUpModal.modal.isOpen
   return (
     <>
-      {false && (
+      {signUpModal.modal.isOpen && (
         <Comp.BaseModal size="large" onClose={closeModal}>
           <S.ModalContainer>
             <S.WelcomeWrapper>

@@ -1,3 +1,3 @@
-import { modalState } from './modalState';
+import { modalIdsAtom, modalsAtomFamily } from './modal';
 
-export { modalState };
+export { modalIdsAtom, modalsAtomFamily };

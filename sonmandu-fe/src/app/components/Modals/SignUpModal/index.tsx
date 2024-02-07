@@ -1,124 +1,121 @@
 import React, { useState } from 'react';
-import * as Styled from './style';
+import * as S from './style';
+import * as API from '@/apis';
 import * as Comp from 'components';
+import useModal from 'customhook/useModal';
 import Image from 'next/image';
+import { useMutation } from '@tanstack/react-query';
+
+interface ValueBasket {
+  id: string;
+  password: string;
+  name: string;
+  nickname: string;
+  email: string;
+  [key: string]: string;
+}
 
 function SignUpModal() {
-  const LogoURL = '/image/logo.png';
-  const [MemberID, setMemberID] = useState('');
-  const [Password, setPassword] = useState('');
+  const signUpModal = useModal('signUp');
+  const [buttonsDisable, setButtonDisable] = useState({ sendEmailAndCodeCheck: true, submit: true });
+  const [valuesBasket, setValuesBasket] = useState<ValueBasket>({
+    name: '',
+    id: '',
+    password: '',
+    nickname: '',
+    email: '',
+    sendedCode: '',
+  });
 
+  const handleValuesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValuesBasket((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
 
-  /* 로그인 확인 */
-  const FailLogin = false;
-  
   const closeModal = () => {
-    
-  }
-
-  const NameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMemberID(event.target.value);
+    signUpModal.closeModal();
   };
 
-  const PasswordInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
+  const handleSubmitButtonAble = () => {
+    // valueBasket.emil이 있다면,
+    // 만약 이메일 인증을 완료했다면 && 내부의 value들이 다 들어있다면,
   };
 
-  const OnLogin = () => {
-    /* 로그인 로직*/
-    console.log('로그인 시도:', MemberID, Password);
+  // requestSignUp -> onSuccess -> requestLogin()
+  const { mutate: requestSignUp } = useMutation({
+    mutationKey: [],
+    mutationFn: () => API.member.signUp({ ...valuesBasket }),
+    onSuccess: () => {},
+  });
+
+  const subContent = {
+    email: (
+      <S.CustomButton disabled={buttonsDisable.sendEmailAndCodeCheck} type="button">
+        이메일 인증하기
+      </S.CustomButton>
+    ),
+    sendCode: (
+      <S.CustomButton disabled={buttonsDisable.sendEmailAndCodeCheck} type="button">
+        인증하기
+      </S.CustomButton>
+    ),
   };
 
+  const INPUT_PROPS = [
+    { id: 'name', type: 'text', placeholder: '이름을 입력해주세요', subContent: null },
+    { id: 'id', type: 'text', placeholder: '아이디를 입력해주세요', subContent: null },
+    { id: 'password', type: 'password', placeholder: '비밀번호를 입력해주세요', subContent: null },
+    { id: 'nickname', type: 'text', placeholder: '닉네임를 입력해주세요', subContent: null },
+    { id: 'email', type: 'email', placeholder: '이메일를 입력해주세요', subContent: subContent.email },
+  ];
+
+  // signUpModal.modal.isOpen
   return (
-    <Comp.BaseModal size="large" onClose={closeModal}>
-      <Styled.ModalWapper>
-        <Styled.WelcomeWrapper>
-          <Styled.WelcomeTitle>환영합니다.</Styled.WelcomeTitle>
-          <Styled.LogoWrapper>
-            <Image src={LogoURL} alt="손만두" width={123} height={52} priority></Image>
-          </Styled.LogoWrapper>
-          <Styled.WelcomeContent>손글씨를 폰트로 만들어 드립니다!</Styled.WelcomeContent>
-          <Styled.WelcomeContent>
-            회원가입을 한 후 여러 사람들의 <p></p>손글씨와 이야기를 즐겨보세요!
-          </Styled.WelcomeContent>
-        </Styled.WelcomeWrapper>
-        {/* --------구분선-------- */}
-        <Styled.SignUpLine />
-        {/* --------구분선-------- */}
-        <Styled.SignUpForm>
-          <Styled.SignWrapper>
-            <Styled.SignUpInputWrapper>
-              <Styled.SignUpInputPlaceholder $isempty={!Password}>
-                <span>이름</span>을 입력해주세요.
-              </Styled.SignUpInputPlaceholder>
-              <Styled.SignUpInput id="name" type="text" value={Password} onChange={PasswordInput} />
-            </Styled.SignUpInputWrapper>
-
-            <Styled.SignUpInputWrapper>
-              <Styled.SignUpInputPlaceholder $isempty={!MemberID}>
-                <span>아이디</span>를 입력해주세요.
-              </Styled.SignUpInputPlaceholder>
-              <Styled.SignUpInput id="id" type="text" value={MemberID} onChange={NameInput} />
-            </Styled.SignUpInputWrapper>
-
-            <Styled.SignUpInputWrapper>
-              <Styled.SignUpInputPlaceholder $isempty={!Password}>
-                <span>비밀번호</span>를 입력해주세요.
-              </Styled.SignUpInputPlaceholder>
-              <Styled.SignUpInput id="password" type="password" value={Password} onChange={PasswordInput} />
-            </Styled.SignUpInputWrapper>
-
-            <Styled.SignUpInputWrapper>
-              <Styled.InputWithButtonWrapper>
-                <Styled.SignUpInputPlaceholder $isempty={!Password}>
-                  <span>닉네임</span>을 입력해주세요.
-                </Styled.SignUpInputPlaceholder>
-                <Styled.SignUpInput id="nickname" type="text" value={Password} onChange={PasswordInput} />
-                <Styled.ButtonWrapper>
-                  <Styled.DuplicationButton onClick={OnLogin} type="button" disabled={false}>
-                    <Styled.DuplicationButtonText>중복 체크</Styled.DuplicationButtonText>
-                  </Styled.DuplicationButton>
-                </Styled.ButtonWrapper>
-              </Styled.InputWithButtonWrapper>
-            </Styled.SignUpInputWrapper>
-
-            <Styled.SignUpInputWrapper>
-              <Styled.InputWithButtonWrapper>
-                <Styled.SignUpInputPlaceholder $isempty={!Password}>
-                  <span>이메일</span>을 입력해주세요.
-                </Styled.SignUpInputPlaceholder>
-                <Styled.SignUpInput id="email" type="text" value={Password} onChange={PasswordInput} />
-                <Styled.ButtonWrapper>
-                  <Styled.DuplicationButton onClick={OnLogin} type="button" disabled={false}>
-                    <Styled.DuplicationButtonText>인증하기</Styled.DuplicationButtonText>
-                  </Styled.DuplicationButton>
-                </Styled.ButtonWrapper>
-              </Styled.InputWithButtonWrapper>
-            </Styled.SignUpInputWrapper>
-            {/* 6자리 주는 거면 6자리 채웠을때 자동 확인 할 수 있게 해도 될듯? */}
-            {/* <Styled.SignUpInputWrapper>
-              <Styled.InputWithButtonWrapper>
-                <Styled.SignUpInputPlaceholder $isempty={!Password}>
-                  <span>전송 받은 코드</span>를 입력해주세요.
-                </Styled.SignUpInputPlaceholder>
-                <Styled.SignUpInput id="email-code" type="text" value={Password} onChange={PasswordInput} />
-                <Styled.ButtonWrapper>
-                  <Styled.DuplicationButton onClick={OnLogin} type="button" disabled={false}>
-                    <Styled.DuplicationButtonText>확인하기</Styled.DuplicationButtonText>
-                  </Styled.DuplicationButton>
-                </Styled.ButtonWrapper>
-              </Styled.InputWithButtonWrapper>
-            </Styled.SignUpInputWrapper> */}
-          </Styled.SignWrapper>
-          <Styled.ButtonWrapper>
-            <Styled.SignUpButton onClick={OnLogin} type="button" disabled={false}>
-              <Styled.SignUpButtonText>회원가입하기</Styled.SignUpButtonText>
-            </Styled.SignUpButton>
-          </Styled.ButtonWrapper>
-        </Styled.SignUpForm>
-
-      </Styled.ModalWapper>
-    </Comp.BaseModal>
+    <>
+      {false && (
+        <Comp.BaseModal size="large" onClose={closeModal}>
+          <S.ModalContainer>
+            <S.WelcomeWrapper>
+              <span>환영합니다!</span>
+              <Image src={'/image/logo.png'} alt="로고" width={142} height={62} />
+              <span>손글씨로 폰트를 만들어 드립니다!</span>
+              <span>회원가입을 한 후 여러 사람들의 폰트와 이야기를 즐겨보세요!</span>
+            </S.WelcomeWrapper>
+            <S.HrLine />
+            <S.FormWrapper>
+              <S.InputsWrapper $sendCodeHidden={buttonsDisable.sendEmailAndCodeCheck}>
+                {INPUT_PROPS.map((props) => {
+                  return (
+                    <Comp.UserModalInput
+                      id={props.id}
+                      type={props.type}
+                      value={valuesBasket[props.id]}
+                      onChange={handleValuesChange}
+                      key={props.id}
+                      withSubContent={props.subContent}
+                    >
+                      {props.placeholder}
+                    </Comp.UserModalInput>
+                  );
+                })}
+                <Comp.UserModalInput
+                  id={'sendedCode'}
+                  type={'text'}
+                  value={valuesBasket.sendedCode}
+                  onChange={handleValuesChange}
+                  key={'sendedCode'}
+                  withSubContent={subContent.sendCode}
+                >
+                  전송 받은 코드를 입력해주세요
+                </Comp.UserModalInput>
+              </S.InputsWrapper>
+              <S.SubmitButton disabled={false} type="submit">
+                <span>회원가입하기</span>
+              </S.SubmitButton>
+            </S.FormWrapper>
+          </S.ModalContainer>
+        </Comp.BaseModal>
+      )}
+    </>
   );
 }
 

@@ -1,3 +1,3 @@
-import * as Atom from './atoms';
+import { modalIdsAtom, modalsAtomFamily } from './atoms';
 
-export { Atom };
+export { modalIdsAtom, modalsAtomFamily };

@@ -1,5 +1,4 @@
 import { instanceJsonContent } from 'apis/_instance';
-import axios, { AxiosResponse } from 'axios';
 
 export async function getProfileMember(memberId: number) {
   return instanceJsonContent.get(`/members?memberId=${memberId}`);
@@ -29,6 +28,10 @@ export async function login({ id, password }: { id: string; password: string }) 
   });
 }
 
+export async function logout() {
+  return instanceJsonContent.post(`/members/logout`);
+}
+
 export async function findUserId({ email, name }: { email: string; name: string }) {
   return instanceJsonContent.get(`/members?email=${email}&name=${name}`);
 }
@@ -36,3 +39,8 @@ export async function findUserId({ email, name }: { email: string; name: string 
 export async function findUserPassword({ name, id, email }: { id: string; email: string; name: string }) {
   return instanceJsonContent.get(`/members?name=${name}&id=${id}&email=${email}`);
 }
+
+// - 아이디 중복
+// - 닉네임 중복
+// - 인증코드 이메일로 전송
+// - 인증코드 인증

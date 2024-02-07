@@ -1,16 +1,35 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Link from 'next/link';
 import * as S from './style';
+import * as API from '@/apis';
 import { useGetDeviceSize } from 'customhook';
 import Image from 'next/image';
 import useModal from 'customhook/useModal';
+import { useMutation } from '@tanstack/react-query';
 
 export default function ProfileHamburger() {
   const loginModal = useModal('login');
   const signUpModal = useModal('signUp');
 
+  const [authorizationUser, setAuthorizationUser] = useState(false);
   const [dropBoxView, setDropBoxView] = useState(false);
   const windowWidth = useGetDeviceSize();
+
+  const { mutate: requestLogout } = useMutation({
+    mutationKey: ['logout'],
+    mutationFn: () => API.member.logout(),
+    onSuccess: (res) => {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      return res.data;
+    },
+  });
+
+  useLayoutEffect(() => {
+    if (localStorage.getItem('access_token') !== null) {
+      setAuthorizationUser(true);
+    }
+  }, []);
 
   const handleDropBoxView = () => {
     setDropBoxView((prev) => !prev);
@@ -30,12 +49,20 @@ export default function ProfileHamburger() {
       </div>
       {dropBoxView && (
         <S.DropBoxWrapper>
-          <S.DropBoxList onClick={() => signUpModal.openModal()}>회원가입</S.DropBoxList>
-          <S.DropBoxList onClick={() => loginModal.openModal()}>로그인</S.DropBoxList>
-          {/* ------------------------------ */}
-          <S.DropBoxList>손글씨 채팅</S.DropBoxList>
-          <S.DropBoxList>마이 프로필</S.DropBoxList>
-          <S.DropBoxList>로그아웃</S.DropBoxList>
+          {authorizationUser ? (
+            <>
+              <Link href={'/chatting'}>
+                <S.DropBoxList>손글씨 채팅</S.DropBoxList>
+              </Link>
+              <S.DropBoxList>마이 프로필</S.DropBoxList>
+              <S.DropBoxList onClick={() => requestLogout()}>로그아웃</S.DropBoxList>
+            </>
+          ) : (
+            <>
+              <S.DropBoxList onClick={() => signUpModal.openModal()}>회원가입</S.DropBoxList>
+              <S.DropBoxList onClick={() => loginModal.openModal()}>로그인</S.DropBoxList>
+            </>
+          )}
           {windowWidth !== null && windowWidth <= 768 && (
             <>
               <Link href={'/create-font'}>

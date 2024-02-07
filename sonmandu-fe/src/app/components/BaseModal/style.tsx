@@ -22,6 +22,7 @@ export const Modal = styled.div<BaseModalProps>`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 101;
 
   @media (max-width: 768px) {
     width: 100vw;
@@ -41,7 +42,7 @@ export const ModalWapper = styled.div`
 
 export const BackLayOutModal = styled.div`
   width: 100vw;
-  height: calc(100vh - 56px);
+  height: 100vh;
   background-color: rgba(160, 160, 160, 0.4);
   display: flex;
   justify-content: center;

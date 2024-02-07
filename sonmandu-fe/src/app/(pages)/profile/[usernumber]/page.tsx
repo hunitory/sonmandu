@@ -102,7 +102,7 @@ export default function ProfilePage() {
   useEffect(() => {
     (async () => {
       try {
-        const info = await API.member.getProfileMember(5);
+        const info = await API.member.getProfileMember(2);
         console.log(info);
       } catch (error) {
         console.log('Error fetching member info:', error);
@@ -209,7 +209,12 @@ export default function ProfilePage() {
                   // const idx = Math.floor(Math.random() * 10);
                   if (handwriting.state > 3) {
                     return (
-                      <Comp.ProfileFontCard key={index} index={index} isMypage={isMypage} handwriting={handwriting} />
+                      <Comp.ProfileFontCard
+                        key={index}
+                        index={Math.floor(Math.random() * 10)}
+                        isMypage={isMypage}
+                        handwriting={handwriting}
+                      />
                     );
                   } else {
                     return <Comp.ProfileFontCardMaking key={index} isMypage={isMypage} handwriting={handwriting} />;

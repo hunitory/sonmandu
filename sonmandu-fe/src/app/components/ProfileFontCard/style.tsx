@@ -3,7 +3,7 @@ import { BaseButton } from 'components';
 import { PALETTE, notoSansKr } from 'styles';
 
 export const ProfileFontCardWrapper = styled.div`
-  width: 300px;
+  width: max(272px, 14.7vw);
   height: 432px;
   display: flex;
   flex-direction: column;
@@ -13,6 +13,10 @@ export const ProfileFontCardWrapper = styled.div`
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
+
+  @media screen and (max-width: 1675px) {
+    width: 300px;
+  }
 `;
 
 export const UpperWrapper = styled.div`

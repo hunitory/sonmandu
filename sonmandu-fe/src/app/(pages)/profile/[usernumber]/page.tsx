@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
 import { ProfileBoxProps, Handwriting } from 'types';
 import { useRouter } from 'next/navigation';
+import * as API from '@/apis';
 
 const { member, handwritings, handwritingStories } = {
   member: {
@@ -98,8 +99,18 @@ const { member, handwritings, handwritingStories } = {
 };
 
 export default function ProfilePage() {
-  // const resp = await fetch('https://api...');
-  // const user = await resp.json();
+  useEffect(() => {
+    (async () => {
+      try {
+        const info = await API.member.getProfileMember(5);
+        console.log(info);
+      } catch (error) {
+        console.log('Error fetching member info:', error);
+      }
+    })();
+    // fetchMemberInfo();
+  }, []);
+
   // const ProfileBoxProps = {
   // 	id: user.memberId,
   // 	src: user.image_url,
@@ -108,12 +119,12 @@ export default function ProfilePage() {
   // 	badge: user.badge, // ?
   // 	noLink: true
   // }
-  // dummy
 
   const ProfileBoxProps: ProfileBoxProps = {
-    src: member.imageUrl,
+    imageUrl: member.imageUrl,
     nickname: member.nickname,
     badge: member.badge,
+    imgSize: '10vw',
     fontSize: '1.4vw',
     className: 'vertical',
   };

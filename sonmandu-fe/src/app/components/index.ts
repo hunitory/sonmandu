@@ -15,10 +15,6 @@ import ProfileTrophy from './ProfileTrophy';
 import ProfileInput from './ProfileInput/Index';
 import ProfilePasswordInput from './ProfilePasswordInput/Index';
 import SearchOptions from './SearchOptions';
-import FontStart from './Applications/FontStart';
-import FontFileUpload from './Applications/FontFileUpload';
-import FontInfo from './Applications/FontInfo';
-import FontComplete from './Applications/FontComplete';
 import ProfileInfoModal from './ProfileInfoModal';
 import FontStep from './Applications/FontStep';
 import LoginModal from './Modals/LoginModal';
@@ -26,7 +22,10 @@ import SignUpModal from './Modals/SignUpModal';
 import FindInfoModal from './Modals/FindInfoModal';
 import UnRegisterModal from './Modals/UnregisterModal';
 import Thumbnail from './Thumbnail';
+import FontStoryComment from './FontStoryComment';
 import UserModalInput from './UserModalInput';
+import DownLoadTemplateButton from './Applications/FontStart/DownLoadTemplateButton';
+import NextButton from './Applications/FontStart/NextButton';
 
 export {
   BaseHeader,
@@ -44,10 +43,6 @@ export {
   ProfileInput,
   ProfilePasswordInput,
   SearchOptions,
-  FontStart,
-  FontFileUpload,
-  FontInfo,
-  FontComplete,
   FontStep,
   ProfileInfoModal,
   LoginModal,
@@ -55,5 +50,8 @@ export {
   FindInfoModal,
   UnRegisterModal,
   Thumbnail,
+  FontStoryComment,
   UserModalInput,
+  DownLoadTemplateButton,
+  NextButton,
 };

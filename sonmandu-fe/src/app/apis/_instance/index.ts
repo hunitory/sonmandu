@@ -11,6 +11,7 @@ const customInstance = (contentType: string) => {
   dynamicContentInstance.interceptors.request.use((config) => {
     if (typeof window !== undefined) {
       const token = localStorage.getItem('access_token');
+      // const token = '';  // 로그인권한 토큰 여기에
       config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;

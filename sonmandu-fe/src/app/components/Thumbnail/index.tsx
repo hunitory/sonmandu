@@ -6,7 +6,6 @@ import { FontFileUploadProps } from 'types';
 export default function Thumbnail(props: FontFileUploadProps) {
   const { onBack, onNext } = props;
   const UploadURL = '/image/fileupload.png';
-  /* 이걸 recoil을 사용해야 할 것 같음*/
   const [UploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
 
@@ -87,7 +86,7 @@ export default function Thumbnail(props: FontFileUploadProps) {
         onDrop={onDrop}
         isDragging={isDragging}
       >
-        <Image src={UploadURL} alt="업로드" width={50} height={50} />
+        <Image src={'/image/downloadIcon-orange.svg'} alt="파일업로드" width={50} height={50} />
         <S.ContentFileUploadTextbold>
           썸네일 이미지를
           <br /> 업로드 해주세요

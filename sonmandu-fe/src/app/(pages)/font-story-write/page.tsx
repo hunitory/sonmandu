@@ -69,9 +69,9 @@ export default function FontStoryWritePage() {
       <S.BackgroundWrapper></S.BackgroundWrapper>
       <S.WriteWrapper>
         <S.WriteDiv>
+          <S.WriteIndexSpan>이야기 작성하기</S.WriteIndexSpan>
           <S.UpperWrapper>
             <S.LeftWrapper>
-              <S.WriteIndexSpan>이야기 작성하기</S.WriteIndexSpan>
               <S.WriteTitleWrapper>
                 <S.WriteTitleRequest>이야기 제목을 입력해주세요</S.WriteTitleRequest>
                 <S.TitleWrapper>
@@ -87,9 +87,9 @@ export default function FontStoryWritePage() {
                 <S.WriteTitleRequest>어떤 글씨체의 이야기를 하시겠어요?</S.WriteTitleRequest>
                 <S.TagWrapper>
                   <S.CarouselBackButtonWrapper>
-                    <button type="button" onClick={handlePrev}>
+                    <div onClick={handlePrev}>
                       <Image src={'/image/nexticon.png'} alt="back" width={14} height={14} />
-                    </button>
+                    </div>
                   </S.CarouselBackButtonWrapper>
                   {unusedHandwritings.map((unusedHandwriting, index) => {
                     return (
@@ -113,9 +113,9 @@ export default function FontStoryWritePage() {
                     );
                   })}
                   <S.CarouselNextButtonWrapper>
-                    <button type="button" onClick={handleNext}>
+                    <div onClick={handleNext}>
                       <Image src={'/image/nexticon.png'} alt="back" width={14} height={14} />
-                    </button>
+                    </div>
                   </S.CarouselNextButtonWrapper>
                 </S.TagWrapper>
               </S.WriteTagWrapper>

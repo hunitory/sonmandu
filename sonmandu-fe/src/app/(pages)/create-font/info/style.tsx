@@ -145,11 +145,19 @@ export const ContentFontTagtContent = styled.div`
 
 export const ContentFontTagListWrapper = styled.div``;
 
-export const ContentFontTags = styled(BaseHashTags)`
+export const ContentFontTags = styled.div`
+  display: flex;
   flex-wrap: wrap;
   justify-content: start;
+  button {
+    margin: 8px;
+  }
 `;
-export const ContentFontTag = styled(BaseHashTags.OneTag)``;
+
+export const ContentFontTag = styled(BaseHashTags.OneTag)<{ selected: boolean }>`
+  background-color: ${(props) => props.selected && PALETTE.LIGHT_ORANGE};
+  border: 2px solid ${(props) => (props.selected ? PALETTE.MAIN_ORANGE : PALETTE.SUB_WHITE)};
+`;
 
 /*---------- button ---------- */
 export const ButtonWrapper = styled.div`

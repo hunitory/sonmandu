@@ -66,6 +66,7 @@ export const ProfileBoxDiv = styled.div`
   display: flex;
   padding: 12px 14px;
   font-weight: ${notoSansKr.black.style.fontWeight};
+  font-family: ${notoSansKr.black.style.fontFamily};
   color: ${PALETTE.MAIN_BLACK};
 
   @media screen and (max-width: 1150px) {
@@ -97,6 +98,7 @@ export const ProfileIndexDiv = styled.div`
   span {
     font-size: clamp(18.5px, 1.5vw, 21px);
     font-weight: ${notoSansKr.bold.style.fontWeight};
+    font-family: ${notoSansKr.bold.style.fontFamily};
   }
 `;
 
@@ -164,21 +166,24 @@ export const ProfileIntroSpan = styled.span`
   height: fit-content;
   color: ${PALETTE.MAIN_BLACK};
   font-weight: ${notoSansKr.black.style.fontWeight};
+  font-family: ${notoSansKr.black.style.fontFamily};
   font-size: clamp(28px, 1.5vw, 33px);
   @media screen and (max-width: 1150px) {
     font-size: clamp(28px, 3vw, 33px);
   }
 `;
 
-export const ProfileIntroContents = styled.p`
+export const ProfileIntroContents = styled.div`
   width: 100%;
   height: fit-content;
   font-size: 16px;
+  white-space: pre-line;
   @media screen and (max-width: 676) {
     font-size: 14px;
   }
   color: ${PALETTE.MAIN_BLACK};
   font-weight: ${notoSansKr.regular.style.fontWeight};
+  font-family: ${notoSansKr.regular.style.fontFamily};
 `;
 
 export const BaseButtonWrapper = styled.div`
@@ -197,6 +202,7 @@ export const EditButton = styled(BaseButton)`
   color: ${PALETTE.LIGHT_BLACK};
   font-size: clamp(12px, 1vw, 20px);
   font-weight: ${notoSansKr.medium.style.fontWeight};
+  font-family: ${notoSansKr.medium.style.fontFamily};
 `;
 
 export const ProfileIntroDivDown = styled.div``;
@@ -226,6 +232,7 @@ export const ProfileHandwritingsSpanDiv = styled.div`
 
 export const ProfileHandwritingsSpan1 = styled.span`
   font-weight: ${notoSansKr.black.style.fontWeight};
+  font-family: ${notoSansKr.black.style.fontFamily};
   color: ${PALETTE.MAIN_BLACK};
   font-size: clamp(28px, 1.5vw, 33px);
   @media screen and (max-width: 1150px) {
@@ -235,6 +242,7 @@ export const ProfileHandwritingsSpan1 = styled.span`
 
 export const ProfileHandwritingsSpan2 = styled.span`
   font-weight: ${notoSansKr.black.style.fontWeight};
+  font-family: ${notoSansKr.black.style.fontFamily};
   color: ${PALETTE.MAIN_ORANGE};
   font-size: clamp(28px, 1.5vw, 33px);
   @media screen and (max-width: 1150px) {
@@ -282,6 +290,7 @@ export const ProfileHandwritingStoriesSpan1 = styled.span`
 
 export const ProfileHandwritingStoriesSpan2 = styled.span`
   font-weight: ${notoSansKr.black.style.fontWeight};
+  font-family: ${notoSansKr.black.style.fontFamily};
   color: ${PALETTE.MAIN_ORANGE};
   font-size: clamp(28px, 1.5vw, 33px);
   @media screen and (max-width: 1150px) {

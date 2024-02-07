@@ -21,8 +21,8 @@ export const MainBanner = styled.div`
 `;
 
 export const MainTextContainer = styled.div`
-  width: 728px;
-  height: 358px;
+  width: 50%;
+  height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -33,6 +33,7 @@ export const MainTitle = styled.div`
   font-size: 38px;
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
+  text-align: center;
 `;
 
 export const Maincontent = styled.div`
@@ -50,7 +51,6 @@ export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
   gap: 8%;
-
 `;
 
 export const ApplicationButton = styled(BaseButton)`

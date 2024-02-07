@@ -34,6 +34,7 @@ export const WelcomeWrapper = styled.section`
   span:nth-of-type(2) {
     display: inline-block;
     height: 34px;
+    font-size: 12px;
   }
 `;
 

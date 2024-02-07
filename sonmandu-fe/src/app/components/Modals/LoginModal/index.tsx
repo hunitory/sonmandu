@@ -5,18 +5,13 @@ import * as API from '@/apis';
 import Image from 'next/image';
 import useModal from 'customhook/useModal';
 import { useMutation } from '@tanstack/react-query';
-
-interface ValueBasket {
-  id: string;
-  password: string;
-  [key: string]: string;
-}
+import { LoginValueBasket } from 'types';
 
 function LoginModal() {
   const loginModal = useModal('login');
   const findInfoModal = useModal('findInfo');
   const [checkYourValues, setCheckYourValues] = useState(false);
-  const [valuesBasket, setValuesBasket] = useState<ValueBasket>({
+  const [valuesBasket, setValuesBasket] = useState<LoginValueBasket>({
     id: '',
     password: '',
   });

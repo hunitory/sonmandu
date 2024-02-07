@@ -21,15 +21,40 @@ export const Modal = styled.div<BaseModalProps>`
   position: absolute;
   bottom: 50%;
   left: 50%;
-  transform: translate(-50%, 50%);
   z-index: 101;
+  animation: slide-up 0.2s ease-out forwards;
 
   @media (max-width: 768px) {
     width: 100vw;
     bottom: ${(props) => modalSizes[props.size].height / 2}px;
     left: 0;
-    transform: translate(0, 50%);
+    animation: sub-slide-up 0.2s ease-out forwards;
+    /* transform: translate(0, 50%); */
     border-radius: 10px 10px 0px 0px;
+  }
+
+  @keyframes slide-up {
+    from {
+      transform: translate(-50%, 80%);
+      @media (max-width: 768px) {
+        transform: translate(0%, 80%);
+      }
+    }
+    to {
+      transform: translate(-50%, 50%);
+      @media (max-width: 768px) {
+        transform: translate(0%, 50%);
+      }
+    }
+  }
+
+  @keyframes sub-slide-up {
+    from {
+      transform: translate(0%, 80%);
+    }
+    to {
+      transform: translate(0%, 50%);
+    }
   }
 `;
 

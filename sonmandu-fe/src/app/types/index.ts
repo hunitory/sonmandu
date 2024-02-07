@@ -1,4 +1,10 @@
-import { BaseModalProps } from './components/Modal/index';
+import {
+  BaseModalProps,
+  FindInfoPasswordValueBasket,
+  FindInfoIdValueBasket,
+  LoginValueBasket,
+  SignUpValueBasket,
+} from './components/Modal/index';
 import { FontStartProps, FontFileUploadProps, FontInfoProps, FontStepProps } from './components/Applications/index';
 import { BaseButtonProps } from './components/BaseButton';
 import { BaseInputProps, BaseLabelProps, BaseLabelWithInputProps } from './components/BaseInput';
@@ -42,4 +48,8 @@ export type {
   FontDetailResponse,
   ModalId,
   ModalInfo,
+  FindInfoPasswordValueBasket as PasswordValueBasket,
+  FindInfoIdValueBasket as IdValueBasket,
+  LoginValueBasket,
+  SignUpValueBasket,
 };

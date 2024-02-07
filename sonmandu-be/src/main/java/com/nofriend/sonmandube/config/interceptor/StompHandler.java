@@ -47,13 +47,25 @@ public class StompHandler implements ChannelInterceptor {
 
         String rawToken = Objects.requireNonNull(accessor).getFirstNativeHeader("Authorization");
 
+<<<<<<< HEAD
         String token = StringUtils.hasText(rawToken) && rawToken.startsWith("Bearer ")
                 ? Objects.requireNonNull(rawToken).substring(7)
                 : "null";
 
         if(accessor.getCommand() == CONNECT && !token.equals("null") && jwtProvider.validateToken(token) == JwtCode.ACCESS) {
-            Authentication authentication = jwtProvider.getAuthentication(token);
+=======
+        String rawToken = accessor.getFirstNativeHeader("Authorization");
 
+        log.info("command: " + String.valueOf(accessor.getCommand()));
+        if(accessor.getCommand() == StompCommand.CONNECT && rawToken != null) {
+
+            String token = Objects.requireNonNull(rawToken).substring(7);
+            log.info(token);
+>>>>>>> 54005b2e (feat: change JwtFilter Exception Message)
+            Authentication authentication = jwtProvider.getAuthentication(token);
+            log.info(authentication.toString());
+
+<<<<<<< HEAD
             accessor.setUser(authentication);
             return message;
         }else if(accessor.getUser() != null){
@@ -111,6 +123,15 @@ public class StompHandler implements ChannelInterceptor {
                     .getRefreshToken();
 //            log.info(String.valueOf(jwtProvider.validateToken(token) != JwtCode.ACCESS));
 //            log.info(String.valueOf(!token.equals(dbRefreshToken)));
+=======
+            Long memberId = Long.valueOf(authentication.getName());
+            log.info(String.valueOf(memberId));
+            String dbRefreshToken = memberRepository.findById(memberId).orElseThrow()
+                    .getRefreshToken();
+
+            log.info(dbRefreshToken);
+            log.info(String.valueOf(jwtProvider.validateToken(token) != JwtCode.ACCESS || !token.equals(dbRefreshToken)));
+>>>>>>> 54005b2e (feat: change JwtFilter Exception Message)
             if (jwtProvider.validateToken(token) != JwtCode.ACCESS || !token.equals(dbRefreshToken)){
                 throw new JwtException("Not Valid Token");
             }

@@ -13,8 +13,8 @@ interface PosterSectionProps {
 export default function PostersSection({ searchParams }: PosterSectionProps) {
   const [currentItemCount, setCurrentItemCount] = useState(0);
 
-  // const queryKey = ['font-gallery-search', searchParams.name, searchParams.tagId, searchParams.sort];
-  const queryKey = ['font-gallery-search', searchParams];
+  const queryKey = ['font-gallery-search', searchParams.name, searchParams.tagId, searchParams.sort];
+  // const queryKey = ['font-gallery-search', searchParams];
   const { data: response, isFetching } = useQuery({
     queryKey: queryKey,
     queryFn: () =>

@@ -35,9 +35,13 @@ public interface MemberService {
 
     void updateMemberInformationImage(Long memberId, MultipartFile image);
 
+<<<<<<< HEAD
     Long sendEmailToken(String email) throws MessagingException;
 
     Boolean checkValidEmailToken(EmailTokenRequest emailTokenResponse);
 
     String updateToken(String refreshToken);
+=======
+    String sendEmailToken(String email) throws MessagingException;
+>>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
 }

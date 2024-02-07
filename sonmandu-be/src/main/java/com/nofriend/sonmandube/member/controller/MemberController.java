@@ -8,6 +8,11 @@ import com.nofriend.sonmandube.member.controller.request.*;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
 import jakarta.mail.MessagingException;
+<<<<<<< HEAD
+=======
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.constraints.Email;
+>>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -66,6 +71,11 @@ public class MemberController {
         response.put("emailTokenId", emailTokenId);
         return ResponseEntity.ok(response);
     }
+
+//    @PostMapping("/emailToken")
+//    public ResponseEntity<String> sendEmailToken(@Email String email){
+//        return ResponseEntity.ok(memberService.sendEmailToken(email));
+//    }
 
     //로그인
     @PostMapping("/login")

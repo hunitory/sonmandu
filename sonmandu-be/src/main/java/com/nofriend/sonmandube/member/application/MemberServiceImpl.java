@@ -88,6 +88,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
         memberRepository.save(newMember);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
         sendEmailToken(newMember);
@@ -98,6 +99,12 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         EmailToken emailToken = EmailToken.builder()
                 .token(generateString())
                 .build();
+=======
+    }
+
+    public String sendEmailToken(String email) throws MessagingException {
+        String emailToken = generateString();
+>>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
 
         MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, false, "UTF-8");
@@ -105,22 +112,35 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         mimeMessageHelper.setTo(email);
         mimeMessageHelper.setSubject("[손만두] 이메일 활성화");
         mimeMessageHelper.setText("<html><head></head>" +
+<<<<<<< HEAD
                 "<body> <h1> 손만두 </h1>" +
                 "<h3> 인증번호 : " + emailToken.getToken() + "</h3> </body>" +
+=======
+                "<body> <h1> 손만두 </h1> <a href='" + serverUrl +"/members/email-validation" +
+                "?emailToken=" + emailToken + "'> 계정 활성화 버튼 </a> </body>" +
+>>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
                 "</html>", true);
 
         javaMailSender.send(mimeMailMessage);
 
+<<<<<<< HEAD
         emailTokenRepository.save(emailToken);
         log.info("emial token : " + emailToken.toString());
         return emailToken.getEmailTokenId();
+=======
+        return emailToken;
+>>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
     }
 
     @Override
     @Transactional
     public LoginResponse login(LoginRequest loginRequest) {
         Member member = memberRepository.findById(loginRequest.getId())
+<<<<<<< HEAD
                 .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
+=======
+                .orElseThrow();
+>>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(member.getMemberId(), loginRequest.getPassword());

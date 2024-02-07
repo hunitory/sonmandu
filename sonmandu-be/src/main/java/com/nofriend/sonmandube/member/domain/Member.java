@@ -54,6 +54,15 @@ public class Member implements UserDetails {
     @Column(length = 512)
     private String refreshToken;
 
+<<<<<<< HEAD
+=======
+    @JsonIgnore
+    private boolean enabled;
+
+    @JsonIgnore
+    private String emailToken;
+
+>>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
     private boolean isBadge;
 
     @CreatedDate
@@ -62,6 +71,13 @@ public class Member implements UserDetails {
     @Transient
     private List<GrantedAuthority> authorities;
 
+<<<<<<< HEAD
+=======
+    public void succeedEmailToken(){
+        this.enabled = true;
+    }
+
+>>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
     public void setUserRole(){
         this.authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
@@ -92,6 +108,6 @@ public class Member implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.enabled;
     }
 }

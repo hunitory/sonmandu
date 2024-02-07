@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ErrorHandler {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @ExceptionHandler(MessageDeliveryException.class)
     public ResponseEntity<ErrorMessage> messageDeliveryException(MessageDeliveryException e){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -74,6 +75,8 @@ public class ErrorHandler {
 
 =======
 >>>>>>> e2b9b34 (feat: change token exception)
+=======
+>>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
     @ExceptionHandler(FailedFileSaveException.class)
     public ResponseEntity<ErrorMessage> failedFileSaveException(FailedFileSaveException e) {
         return ResponseEntity.status(e.getStatus())

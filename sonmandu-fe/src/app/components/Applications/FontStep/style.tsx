@@ -1,9 +1,19 @@
 import { PALETTE, notoSansKr } from 'styles';
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 interface FontStepProps {
   $isactive: string;
+  $animation?: string;
 }
+
+const colorChange = keyframes`
+  from {
+    background-color: ${PALETTE.LIGHT_ORANGE};
+  }
+  to {
+    background-color: ${PALETTE.MAIN_ORANGE};
+  }
+`;
 
 export const StepWrapper = styled.div`
   width: 100%;
@@ -55,9 +65,9 @@ export const StepLine = styled.div<FontStepProps>`
   max-width: 270px;
   min-width: 200px;
   height: 10px;
-  background-color: ${(props) =>
-    props.$isactive === 'true' ? PALETTE.MAIN_ORANGE : PALETTE.LIGHT_ORANGE};
-  z-index: ${(props) => (props.$isactive === 'true' ? 2 : 1)};
+  background-color: ${(props) => (props.$isactive === 'true' ? PALETTE.MAIN_ORANGE : PALETTE.LIGHT_ORANGE)};
+  z-index: 1;
+  
 
   @media (min-width: 1500px) {
     width: 290px;
@@ -67,8 +77,8 @@ export const StepLine = styled.div<FontStepProps>`
 export const StepCircle = styled.div<FontStepProps>`
   width: 32px;
   height: 32px;
-  background-color: ${(props) =>
-    props.$isactive === 'true' ? PALETTE.MAIN_ORANGE : PALETTE.LIGHT_ORANGE};
+  background-color: ${(props) => (props.$isactive === 'true' ? PALETTE.MAIN_ORANGE : PALETTE.LIGHT_ORANGE)};
   border-radius: 50px;
-  z-index: ${(props) => (props.$isactive === 'true' ? 2 : 1)};
+  z-index: 2;
+  
 `;

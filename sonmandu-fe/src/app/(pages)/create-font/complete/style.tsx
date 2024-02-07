@@ -1,5 +1,5 @@
 import { PALETTE, notoSansKr } from 'styles';
-import BaseButton from '../../BaseButton';
+import BaseButton from 'components/BaseButton';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`

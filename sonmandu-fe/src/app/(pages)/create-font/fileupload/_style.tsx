@@ -1,7 +1,26 @@
 import { PALETTE, notoSansKr } from 'styles';
-import BaseButton from '../../BaseButton';
-import BaseLabelWithInput from '../../BaseInput';
+import BaseButton from 'components/BaseButton';
+import BaseLabelWithInput from 'components/BaseInput';
 import styled from 'styled-components';
+
+export const MainWrapper = styled.main`
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 70px;
+`;
+
+export const MainContainer = styled.div`
+  width: 85%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 1240px) {
+    width: 100%;
+  }
+`;
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -61,13 +80,11 @@ export const ContentFileUploadInput = styled(BaseLabelWithInput.Input)`
   z-index: -1;
 `;
 
-export const ContentFileUploadLabel = styled(BaseLabelWithInput.Label)<{isDragging?: boolean;}>`
+export const ContentFileUploadLabel = styled(BaseLabelWithInput.Label)<{ isDragging?: boolean }>`
   width: 600px;
   height: 220px;
   border-radius: 15px;
-  border: 5px dashed
-    ${(props) =>
-      props.isDragging ? PALETTE.MAIN_ORANGE : PALETTE.LIGHT_ORANGE};
+  border: 5px dashed ${(props) => (props.isDragging ? PALETTE.MAIN_ORANGE : PALETTE.LIGHT_ORANGE)};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -166,6 +183,16 @@ export const NextButton = styled(BaseButton)`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  &:disabled {
+    background-color: ${PALETTE.LIGHT_BLACK};
+    color: ${PALETTE.MAIN_ORANGE};
+    border: 0;
+    cursor: not-allowed;
+    * {
+      color: ${PALETTE.SUB_WHITE};
+    }
+  }
 `;
 
 export const BackButtonText = styled.p`

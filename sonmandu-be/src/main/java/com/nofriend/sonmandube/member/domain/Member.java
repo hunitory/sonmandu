@@ -108,6 +108,8 @@ public class Member implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.enabled;
+
+//        return this.enabled;
+        return true;
     }
 }

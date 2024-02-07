@@ -75,7 +75,7 @@ public class ChatController {
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
     public Chat chatting(@Valid ChatRequest chatRequest, @Header("Authorization") String token) {
-
+    log.info("chatting1");
         token = token.substring(7);
 
         Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());

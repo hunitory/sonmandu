@@ -80,7 +80,11 @@ public class MemberController {
     //로그인
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
+<<<<<<< HEAD
         log.info("/members/login");
+=======
+        log.info("/login");
+>>>>>>> e41d808 (feat: change JwtFilter Exception Message)
         LoginResponse loginResponse = memberService.login(loginRequest);
         if(loginResponse == null) {
             ResponseEntity.badRequest().build();

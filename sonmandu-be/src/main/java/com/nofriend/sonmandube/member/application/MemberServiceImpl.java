@@ -64,6 +64,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private String sonmanduEmail;
 
     @Override
+<<<<<<< HEAD
     public String updateToken(String refreshToken) {
         JwtCode refreshTokenValidation = jwtProvider.validateToken(refreshToken);
 
@@ -77,6 +78,9 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     }
 
     @Override
+=======
+    @Transactional
+>>>>>>> e41d808 (feat: change JwtFilter Exception Message)
     public void signup(SignupRequest signupRequest) {
         Member newMember = Member.builder()
                 .id(signupRequest.getId())
@@ -140,6 +144,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 =======
                 .orElseThrow();
+<<<<<<< HEAD
 >>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
@@ -149,11 +154,23 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
+=======
+        log.info("login member info" + member.toString());
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                new UsernamePasswordAuthenticationToken(member.getMemberId(), loginRequest.getPassword());
+        log.info(usernamePasswordAuthenticationToken.toString());
+        Authentication authentication =  authenticationManagerBuilder.getObject().authenticate(usernamePasswordAuthenticationToken);
+        log.info("2");
+        log.info(authentication.toString());
+        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        log.info("3");
+>>>>>>> e41d808 (feat: change JwtFilter Exception Message)
         String token = jwtProvider.generateToken(authentication);
         String refreshToken = jwtProvider.generateRefreshToken(authentication);
 
         member.setRefreshToken(refreshToken);
-
+        log.info(token);
+        log.info(refreshToken);
         return LoginResponse.builder()
                 .token(token)
                 .refreshToken(refreshToken)
@@ -311,10 +328,16 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("load user by username");
         Member member = memberRepository.findById((long) Integer.parseInt(username))
                 .orElseThrow(() -> new UsernameNotFoundException(username + "Not Found Member by Id"));
+<<<<<<< HEAD
 
+=======
+        log.info(member.toString());
+>>>>>>> e41d808 (feat: change JwtFilter Exception Message)
         member.setUserRole();
+        log.info(member.toString());
 
         return member;
     }

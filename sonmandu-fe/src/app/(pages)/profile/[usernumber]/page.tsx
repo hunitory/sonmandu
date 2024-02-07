@@ -121,7 +121,7 @@ export default function ProfilePage() {
   // }
 
   const ProfileBoxProps: ProfileBoxProps = {
-    src: member.imageUrl,
+    imageUrl: member.imageUrl,
     nickname: member.nickname,
     badge: member.badge,
     imgSize: '10vw',

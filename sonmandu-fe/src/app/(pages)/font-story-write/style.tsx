@@ -59,14 +59,18 @@ export const FontStoryWriteWrapper = styled.div`
 `;
 
 export const WriteWrapper = styled.div`
-  width: 38vw;
+  /* width: 38vw; */
+  width: 730px;
   height: fit-content;
   display: flex;
   justify-content: center;
   border-radius: 18px;
   padding: 7vh 0;
   background-color: white;
-  /* box-shadow: 2px 2px 4px 4px ${PALETTE.MAIN_BLACK}; */
+
+  @media screen and (max-width: 768px) {
+    width: 90vw;
+  }
 `;
 
 export const WriteDiv = styled.div`

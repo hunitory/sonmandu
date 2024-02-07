@@ -27,6 +27,7 @@ import FindIDModal from './Modals/FindIDModal';
 import FindPasswordModal from './Modals/FindPasswordModal';
 import UnRegisterModal from './Modals/UnregisterModal';
 import Thumbnail from './Thumbnail';
+import FontStoryComment from './FontStoryComment';
 
 export {
   BaseHeader,
@@ -55,5 +56,6 @@ export {
   FindIDModal,
   FindPasswordModal,
   UnRegisterModal,
-  Thumbnail
+  Thumbnail,
+  FontStoryComment,
 };

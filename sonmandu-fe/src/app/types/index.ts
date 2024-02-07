@@ -12,6 +12,7 @@ import { isActive } from './components/ProfileInfoModal';
 import { ProfileInputProps } from './components/ProfileInput';
 import { ProfilePasswordInputProps } from './components/ProfilePasswordInput';
 import { Trophy } from './components/ProfileTrophy';
+import { CommentProps } from './components/FontStoryComment';
 
 export type {
   BaseButtonProps,
@@ -33,4 +34,5 @@ export type {
   ProfileInputProps,
   ProfilePasswordInputProps,
   Trophy,
+  CommentProps,
 };

@@ -15,16 +15,20 @@ import { ProfileBoxProps } from 'types';
  */
 
 export default function ProfileBox(props: ProfileBoxProps) {
-  const { src, nickname, badge, imgSize, fontSize, className } = props;
+  const { imageUrl, nickname, badge, imgSize, fontSize, className } = props;
   return (
     <S.ProfileBoxWrapper className={className}>
       <S.ProfileImageWrapper size={imgSize}>
-        <div>{src && <Image src={src} alt="#" fill priority sizes="10vw" style={{ objectFit: 'cover' }} />}</div>
+        <div>
+          {imageUrl && <Image src={imageUrl} alt="#" fill priority sizes="10vw" style={{ objectFit: 'cover' }} />}
+        </div>
       </S.ProfileImageWrapper>
       <S.BadgeNameDiv fontSize={fontSize}>
-        <S.BadgeWrapper fontSize={fontSize}>
-          {badge && <Image src="/image/weekly-medal.svg" alt="#" fill />}
-        </S.BadgeWrapper>
+        {badge && (
+          <S.BadgeWrapper fontSize={fontSize}>
+            <Image src="/image/weekly-medal.svg" alt="#" fill />
+          </S.BadgeWrapper>
+        )}
         <span>{nickname}</span>
       </S.BadgeNameDiv>
     </S.ProfileBoxWrapper>

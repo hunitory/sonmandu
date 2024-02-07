@@ -1,5 +1,5 @@
 export interface ProfileBoxProps {
-  src: string;
+  imageUrl: string;
   nickname: React.ReactNode;
   badge: boolean;
   imgSize: string;

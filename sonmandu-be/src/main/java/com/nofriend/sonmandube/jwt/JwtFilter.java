@@ -1,5 +1,8 @@
 package com.nofriend.sonmandube.jwt;
 
+import com.nofriend.sonmandube.exception.RefreshTokenExpireException;
+import com.nofriend.sonmandube.exception.TokenDenyException;
+import com.nofriend.sonmandube.exception.TokenExpireException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,6 +32,9 @@ public class JwtFilter extends OncePerRequestFilter {
             request.setAttribute("memberId", authentication.getName());
         } else if (StringUtils.hasText(accessToken) && jwtProvider.validateToken(accessToken) == JwtCode.EXPIRED){
             String refreshToken1 = request.getHeader("x-refresh-token");
+            if(!StringUtils.hasText(refreshToken1)){
+                throw new TokenExpireException("Expired access token");
+            }
             Authentication authentication = jwtProvider.getAuthentication(refreshToken1);
             String refreshToken2 = jwtProvider.getRefreshToken(Long.valueOf(authentication.getName()));
 
@@ -37,7 +43,13 @@ public class JwtFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 request.setAttribute("memberId", authentication.getName());
                 response.setHeader(HttpHeaders.AUTHORIZATION, newAccessToken);
+            } else if(jwtProvider.validateToken(refreshToken1) == JwtCode.EXPIRED && refreshToken1.equals(refreshToken2)){
+                throw new RefreshTokenExpireException("Expired refresh token");
+            }else if(jwtProvider.validateToken(refreshToken1) == JwtCode.DENIED && refreshToken1.equals(refreshToken2)){
+                throw new TokenDenyException("Denied refresh token");
             }
+        } else if (StringUtils.hasText(accessToken) && jwtProvider.validateToken(accessToken) == JwtCode.DENIED){
+            throw new TokenDenyException("Denied access token");
         }
 
 

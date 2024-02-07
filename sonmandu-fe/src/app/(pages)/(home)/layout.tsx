@@ -1,14 +1,6 @@
 import React from 'react';
-import * as S from './_style';
+import * as Styled from './_style';
 
-export default function HomeLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <S.StyledMain>
-      {children}
-    </S.StyledMain>
-  );
+export default function HomeLayout({ children }: { children: React.ReactNode }) {
+  return <Styled.StyledMain>{children}</Styled.StyledMain>;
 }

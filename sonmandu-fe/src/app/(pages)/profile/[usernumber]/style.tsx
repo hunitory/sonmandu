@@ -176,7 +176,7 @@ export const ProfileIntroSpan = styled.span`
 export const ProfileIntroContents = styled.div`
   width: 100%;
   height: fit-content;
-  font-size: 16px;
+  font-size: max(16px, 1vw);
   white-space: pre-line;
   @media screen and (max-width: 676) {
     font-size: 14px;

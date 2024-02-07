@@ -125,6 +125,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Transactional
     public LoginResponse login(LoginRequest loginRequest) {
         Member member = memberRepository.findById(loginRequest.getId())
+<<<<<<< HEAD
                 .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
@@ -134,11 +135,24 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
+=======
+                .orElseThrow();
+        log.info("login member info" + member.toString());
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                new UsernamePasswordAuthenticationToken(member.getMemberId(), loginRequest.getPassword());
+        log.info(usernamePasswordAuthenticationToken.toString());
+        Authentication authentication =  authenticationManagerBuilder.getObject().authenticate(usernamePasswordAuthenticationToken);
+        log.info("2");
+        log.info(authentication.toString());
+        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+        log.info("3");
+>>>>>>> 56e8dcff (feat: change JwtFilter Exception Message)
         String token = jwtProvider.generateToken(authentication);
         String refreshToken = jwtProvider.generateRefreshToken(authentication);
 
         member.setRefreshToken(refreshToken);
-
+        log.info(token);
+        log.info(refreshToken);
         return LoginResponse.builder()
                 .token(token)
                 .refreshToken(refreshToken)
@@ -296,8 +310,15 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        log.info("load user by username");
         Member member = memberRepository.findById((long) Integer.parseInt(username))
                 .orElseThrow(() -> new UsernameNotFoundException(username + "Not Found Member by Id"));
+<<<<<<< HEAD
+=======
+        log.info(member.toString());
+        member.setUserRole();
+        log.info(member.toString());
+>>>>>>> 56e8dcff (feat: change JwtFilter Exception Message)
 
         return member;
     }

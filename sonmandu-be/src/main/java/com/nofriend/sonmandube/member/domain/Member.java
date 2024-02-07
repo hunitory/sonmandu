@@ -91,6 +91,11 @@ public class Member implements UserDetails {
 
     @Override
     public boolean isEnabled() {
+<<<<<<< HEAD
+=======
+
+//        return this.enabled;
+>>>>>>> 56e8dcff (feat: change JwtFilter Exception Message)
         return true;
     }
 }

@@ -77,6 +77,7 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication(String token){
+        System.out.println("getAU");
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()

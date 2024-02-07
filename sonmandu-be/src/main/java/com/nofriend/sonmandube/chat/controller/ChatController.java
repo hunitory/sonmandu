@@ -53,11 +53,21 @@ public class ChatController {
 
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
+<<<<<<< HEAD
     public ChatResponse chatting(Principal principal, @Valid ChatRequest chatRequest) {
         Long memberId = Long.valueOf(principal.getName());
 
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IdNotFoundException("해당하는 회원이 없습니다."));
+=======
+    public Chat chatting(@Valid ChatRequest chatRequest, @Header("Authorization") String token) {
+    log.info("chatting1");
+        token = token.substring(7);
+
+        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
+
+        String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
+>>>>>>> 56e8dcff (feat: change JwtFilter Exception Message)
 
         HandwritingNameDownloadUrlProjection handwritingNameDownloadUrlProjection = handwritingRepository.findNameDownloadUrlByHandwritingId(chatRequest.getHandwritingId());
 

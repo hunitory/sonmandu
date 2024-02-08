@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
+import * as API from '@/apis';
 import Image from 'next/image';
+import { useMutation } from '@tanstack/react-query';
 
 interface BaseStoryCardProps {
   handwritingStoryId: number;
@@ -17,7 +19,18 @@ interface BaseStoryCardProps {
   isLike: boolean;
 }
 
-function BaseStoryCard() {
+function BaseStoryCard(props: BaseStoryCardProps) {
+  const { handwritingStoryId, title, name, thumbnail, hitCount, likeCount, member, isLike } = props;
+  const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
+  const { mutate, data: resLikeClick } = useMutation({
+    mutationKey: ['font-gallery-click-like', handwritingStoryId],
+    mutationFn: () => API.handwriting.fontLikesClick({ fontId: String(handwritingStoryId) }),
+    onSuccess: () =>
+      setCopyIsLikeAndCount((prev) => {
+        if (prev.isLike) return { ...prev, isLike: !prev.isLike, count: prev.count - 1 };
+        return { ...prev, isLike: !prev.isLike, count: prev.count + 1 };
+      }),
+  });
   return (
     <S.StoryCardWrapper>
       <S.ImageArea>
@@ -30,14 +43,13 @@ function BaseStoryCard() {
         </S.StoryTextContentWrapper>
         <S.InteractionWrapper>
           <div className="profile-box-wrapper">
-            {/* <S.StyledProfileBox
-            id={1}
-            src="/vercel.svg"
-            nickname={'바다의 여인'}
-            badge={false}
-            fontSize="12px"
-            noLink
-          /> */}
+            <S.StyledProfileBox
+              imageUrl="/vercel.svg"
+              imgSize="36px"
+              nickname={'바다의 여인'}
+              badge={false}
+              fontSize="12px"
+            />
           </div>
           <S.IconWithNumberWrapper>
             <Image src={'/image/empty-orange-heart.svg'} alt="빈 하트" width={24} height={20} />

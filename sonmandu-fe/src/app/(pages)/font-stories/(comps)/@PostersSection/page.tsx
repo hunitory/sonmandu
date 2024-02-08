@@ -31,6 +31,7 @@ export default function PosterSection({ searchParams }: PosterSectionProps) {
 
   return (
     <S.CardsGridWrapper>
+      {/* <Comp.BaseStoryCard></Comp.BaseStoryCard>
       <Comp.BaseStoryCard></Comp.BaseStoryCard>
       <Comp.BaseStoryCard></Comp.BaseStoryCard>
       <Comp.BaseStoryCard></Comp.BaseStoryCard>
@@ -38,8 +39,7 @@ export default function PosterSection({ searchParams }: PosterSectionProps) {
       <Comp.BaseStoryCard></Comp.BaseStoryCard>
       <Comp.BaseStoryCard></Comp.BaseStoryCard>
       <Comp.BaseStoryCard></Comp.BaseStoryCard>
-      <Comp.BaseStoryCard></Comp.BaseStoryCard>
-      <Comp.BaseStoryCard></Comp.BaseStoryCard>
+      <Comp.BaseStoryCard></Comp.BaseStoryCard> */}
     </S.CardsGridWrapper>
   );
 }

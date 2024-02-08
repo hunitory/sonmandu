@@ -61,7 +61,7 @@ public class ChatController {
                 chatRequest.getMessage()
         );
 
-//        chatRepository.save(newChat);
+        chatRepository.save(newChat);
         log.info("send message: " + newChat.getMessage() + ", pub: " + newChat.getMember().getMemberId() );
 
         return newChat;

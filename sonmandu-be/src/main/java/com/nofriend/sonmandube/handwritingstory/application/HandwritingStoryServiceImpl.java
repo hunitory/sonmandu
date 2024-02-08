@@ -22,6 +22,7 @@ import com.nofriend.sonmandube.util.FileDto;
 import com.nofriend.sonmandube.util.FileUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +32,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class HandwritingStoryServiceImpl implements HandwritingStoryService{
 
     private final HandwritingStoryRepository handwritingStoryRepository;
@@ -43,6 +45,10 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
 
     @Transactional
     public void save(Long memberId, HandwritingStoryRequest handwritingStoryRequest, MultipartFile thumbnail) {
+
+        log.info("memberId : " + memberId);
+        log.info("handwritingStoryRequest : " + handwritingStoryRequest.toString());
+
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IdNotFoundException("회원이 존재하지 않습니다."));
         Handwriting handwriting = handwritingRepository.findById(handwritingStoryRequest.getHandwritingId())
@@ -56,6 +62,7 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
             FileDto fileDto = s3Service.saveFile(thumbnail, FileUtil.createFileName(thumbnail));
             handwritingStory = handwritingStoryRequest.toEntity(member, handwriting, fileDto.getUrl());
         }
+        log.info("success save handwrtingStory");
         handwritingStoryRepository.save(handwritingStory);
     }
 

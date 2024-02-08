@@ -3,15 +3,15 @@ import * as S from './style';
 
 function ChattingLayout({
   children,
-  ChatContainer,
+  ChattingMessageContainer,
 }: {
   children: Readonly<React.ReactNode>;
-  ChatContainer: Readonly<React.ReactNode>;
+  ChattingMessageContainer: Readonly<React.ReactNode>;
 }) {
   return (
     <S.MainWrapper>
+      {ChattingMessageContainer}
       {children}
-      {ChatContainer}
     </S.MainWrapper>
   );
 }

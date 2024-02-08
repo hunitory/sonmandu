@@ -13,3 +13,7 @@ export async function handwritingStoryList({ startIdx, takeCount, sort, name }: 
     `/handwritings/story?start=${startIdx}&count=${takeCount}&name=${name}&title=${name}&sort=${sort}`,
   );
 }
+
+export async function handwritingStoryLike({ id }: { id: number }) {
+  return instanceJsonContent.post(`/handsritings/story/${id}/likes`);
+}

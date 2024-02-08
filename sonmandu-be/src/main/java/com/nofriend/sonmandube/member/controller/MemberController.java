@@ -9,8 +9,11 @@ import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
 import jakarta.mail.MessagingException;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import jakarta.servlet.http.HttpServletResponse;
+=======
+>>>>>>> 7b5a9b2 (feat: change dateTime)
 import jakarta.validation.constraints.Email;
 >>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
 import jakarta.validation.constraints.NotEmpty;
@@ -77,10 +80,13 @@ public class MemberController {
     }
 
     @PostMapping("/email-token")
-    public ResponseEntity<Long> sendEmailToken(@Email String email) throws MessagingException {
+    public ResponseEntity<Map<String, Long>> sendEmailToken(@Email String email) throws MessagingException {
         log.info("/members/email-token");
         log.info("email : " + email);
-        return ResponseEntity.ok(memberService.sendEmailToken(email));
+        Long emailTokenId = memberService.sendEmailToken(email);
+        Map<String, Long> response = new HashMap<>();
+        response.put("emailTokenId", emailTokenId);
+        return ResponseEntity.ok(response);
     }
 
     //로그인
@@ -131,8 +137,12 @@ public class MemberController {
         log.info("/members/email-token");
 =======
     @GetMapping("/email-token")
+<<<<<<< HEAD
     public ResponseEntity<Boolean> checkEmailToken(@RequestBody @Valid EmailTokenRequest emailTokenResponse){
 >>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
+=======
+    public ResponseEntity<Boolean> checkEmailToken(@Valid EmailTokenRequest emailTokenResponse){
+>>>>>>> 7b5a9b2 (feat: change dateTime)
         log.info(emailTokenResponse.toString());
         return ResponseEntity.ok(memberService.checkValidEmailToken(emailTokenResponse));
     }

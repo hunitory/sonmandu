@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@stomp/stompjs": "^7.0.0",
     "@tanstack/react-query": "^5.17.19",
+    "@types/stompjs": "^2.3.9",
     "axios": "^1.6.7",
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",

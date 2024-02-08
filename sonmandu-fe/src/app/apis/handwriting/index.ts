@@ -55,5 +55,5 @@ export async function fontDownload({ fontId }: { fontId: string }) {
 }
 
 export async function rankingFont() {
-  return instanceJsonContent.get(`/hadwritings/ranking`);
+  return instanceJsonContent.get(`/handwritings/ranking`);
 }

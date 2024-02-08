@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public class FailedFileSaveException extends RuntimeException {
 
-    private final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
+    private final HttpStatus status = HttpStatus.BAD_REQUEST;
     private final String errorMessage;
 
 }

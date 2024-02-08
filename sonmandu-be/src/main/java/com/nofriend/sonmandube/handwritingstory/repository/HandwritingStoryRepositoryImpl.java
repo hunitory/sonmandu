@@ -35,6 +35,7 @@ public class HandwritingStoryRepositoryImpl implements HandwritingStoryRepositor
         if(condition.getName() != null && !condition.getName().equals("")) {
             builder.and(handwritingStory.handwriting.name.containsIgnoreCase(condition.getName()));
         }
+
         List<HandwritingStory> result = jpaQueryFactory.selectFrom(handwritingStory)
                 .where(builder)
                 .offset(start)
@@ -50,6 +51,9 @@ public class HandwritingStoryRepositoryImpl implements HandwritingStoryRepositor
     정렬 방식에 따른 쿼리 생성
      */
     private OrderSpecifier<?> sortCondition(String sort) {
+        if(sort == null){
+            sort = "default";
+        }
         switch (sort) {
             case "hit":
                 return new OrderSpecifier<>(Order.DESC, QHandwritingStory.handwritingStory.hitCount);

@@ -111,15 +111,6 @@ export default function ProfilePage() {
     // fetchMemberInfo();
   }, []);
 
-  // const ProfileBoxProps = {
-  // 	id: user.memberId,
-  // 	src: user.image_url,
-  // 	nickname: user.nickname,
-  // 	vertical: true,
-  // 	badge: user.badge, // ?
-  // 	noLink: true
-  // }
-
   const ProfileBoxProps: ProfileBoxProps = {
     imageUrl: member.imageUrl,
     nickname: member.nickname,
@@ -141,6 +132,12 @@ export default function ProfilePage() {
   const filteredHandwriting = handwritings.filter((handwriting) => handwriting && handwriting.state > 3);
   const numberOfHandwriting = filteredHandwriting.length;
   const handwritinggroup = isMypage ? handwritings : filteredHandwriting;
+
+  // 수정하기 버튼입력
+  const [isEdit, setIsEdit] = useState(false);
+  const handleEdit = (isEdit: boolean) => {
+    setIsEdit(!isEdit);
+  };
 
   return (
     <>
@@ -180,13 +177,15 @@ export default function ProfilePage() {
                 <S.ProfileIntroSpan>소개</S.ProfileIntroSpan>
                 <S.ProfileIntroContents>{member.introduction}</S.ProfileIntroContents>
                 <S.BaseButtonWrapper>
-                  <S.EditButton
-                    type={'button'}
-                    onClick={() => router.push('/profile/usernumber/edit')}
-                    disabled={false}
-                  >
-                    <span>수정하기</span>
-                  </S.EditButton>
+                  {isEdit ? (
+                    <S.EditButton type={'button'} onClick={() => setIsEdit(!isEdit)} disabled={false}>
+                      <span>수정완료</span>
+                    </S.EditButton>
+                  ) : (
+                    <S.EditButton type={'button'} onClick={() => setIsEdit(!isEdit)} disabled={false}>
+                      <span>수정하기</span>
+                    </S.EditButton>
+                  )}
                 </S.BaseButtonWrapper>
               </S.ProfileIntroDivUp>
               <S.ProfileIntroDivDown>
@@ -211,7 +210,8 @@ export default function ProfilePage() {
                     return (
                       <Comp.ProfileFontCard
                         key={index}
-                        index={Math.floor(Math.random() * 10)}
+                        index={handwriting.handwritingId}
+                        // index={Math.floor(Math.random() * 10)}
                         isMypage={isMypage}
                         handwriting={handwriting}
                       />

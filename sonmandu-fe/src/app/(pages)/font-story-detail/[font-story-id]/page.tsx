@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState, useRef, ChangeEvent, MouseEvent } from 'react';
+import React, { useState, useRef, useEffect, ChangeEvent, MouseEvent } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
-import { ProfileBoxProps } from 'types';
+import { ProfileBoxProps, FontStoryDetailResponse } from 'types';
 import Image from 'next/image';
 import Link from 'next/link';
+import * as API from '@/apis';
+import { info } from 'console';
 
 //더미데이터
 const HandwritingStoryData = {
@@ -63,9 +65,27 @@ const HandwritingStoryData = {
   ],
 };
 export default function FontStoryDetailPage() {
+  const [response, setResponse] = useState<FontStoryDetailResponse | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await API.handwritingStory.handwritingStoryDetail({ handwritingStoryId: 2 });
+        setResponse(res.data);
+        console.log(res.data);
+        // console.log(res.data.member.memberId);
+      } catch (error) {
+        console.log('Error fetching member info:', error);
+      }
+    })();
+  }, []);
+
+  const { CommentList, content, createDate, handwritingStoryId, hitCount, isLike, likeCount, member, name, title } =
+    response || {};
+
   const ProfileBoxProps: ProfileBoxProps = {
     imageUrl: HandwritingStoryData.imageUrl,
-    nickname: HandwritingStoryData.nickName,
+    nickname: name,
     badge: HandwritingStoryData.badge,
     imgSize: '50px',
     fontSize: '1vw',
@@ -73,7 +93,7 @@ export default function FontStoryDetailPage() {
 
   const VerticalProfileBoxProps: ProfileBoxProps = {
     imageUrl: HandwritingStoryData.imageUrl,
-    nickname: HandwritingStoryData.nickName,
+    nickname: name,
     badge: HandwritingStoryData.badge,
     imgSize: '96px',
     fontSize: '1vw',
@@ -114,33 +134,33 @@ export default function FontStoryDetailPage() {
             <S.DetailInfoWrapper>
               <div>
                 <Image src={'/image/orange-heart.svg'} alt="empty-heart" width={30} height={28} />
-                {HandwritingStoryData.likeCount}
+                {likeCount}
               </div>
               <div>
                 <Image src={'/image/view.svg'} alt="empty-heart" width={30} height={30} />
-                {HandwritingStoryData.hitCount}
+                {hitCount}
               </div>
               <div>
                 <Image src={'/image/comment.svg'} alt="empty-heart" width={28} height={26} />
-                {HandwritingStoryData.HandwritingStoryComments.length}
+                {CommentList?.length}
               </div>
             </S.DetailInfoWrapper>
           </S.UpperHeadWrapper>
-          <S.TitleSpan>{HandwritingStoryData.title}</S.TitleSpan>
+          <S.TitleSpan>{title}</S.TitleSpan>
           <S.FontDateWrapper>
             <Link href={`/font-detail/${HandwritingStoryData.HandwritingId}`}>
               <S.FontLinkWrapper>
-                <span>{HandwritingStoryData.name}</span>
+                <span>{name}</span>
                 <Image src={'/image/font-link-pointer.svg'} alt="font-link-pointer" width={14} height={20} />
               </S.FontLinkWrapper>
             </Link>
-            <S.FontStoryDateWrapper>{HandwritingStoryData.createDate}</S.FontStoryDateWrapper>
+            <S.FontStoryDateWrapper>{createDate}</S.FontStoryDateWrapper>
           </S.FontDateWrapper>
           <S.TagsWrapper>
             <Comp.BaseHashTags hashTagIdList={HandwritingStoryData.tags} direction="row" />
           </S.TagsWrapper>
         </S.UpperWrapper>
-        <S.FontStoryText>{HandwritingStoryData.content}</S.FontStoryText>
+        <S.FontStoryText>{content}</S.FontStoryText>
         <S.ProfileWrapper>
           <S.VerticalProfileBoxDiv>
             <S.Line />
@@ -173,7 +193,7 @@ export default function FontStoryDetailPage() {
                 onChange={handleCommentOnChange}
               />
               <S.CommentButtonDiv $isExpanded={isExpanded}>
-                <Link href={`/profile/${HandwritingStoryData.memberId}`}>
+                <Link href={`/profile/${member?.memberId}`}>
                   <S.CommentWriteButton type="button" disabled={false}>
                     <span>댓글 달기</span>
                   </S.CommentWriteButton>

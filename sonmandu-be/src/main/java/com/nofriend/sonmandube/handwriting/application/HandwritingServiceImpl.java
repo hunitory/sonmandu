@@ -75,6 +75,11 @@ public class HandwritingServiceImpl implements HandwritingService{
         Handwriting handwriting = Handwriting.builder()
                 .name(name)
                 .downloadUrl(fileDto.getUrl())
+                .handwritingApplication(
+                        HandwritingApplication.builder()
+                                .handwritingApplicationId(1L)
+                                .build()
+                )
                 .build();
         handwritingRepository.save(handwriting);
     }

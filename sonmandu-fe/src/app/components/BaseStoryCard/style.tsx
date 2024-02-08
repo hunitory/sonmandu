@@ -59,12 +59,14 @@ export const InteractionWrapper = styled.div`
   .profile-box-wrapper {
     width: 120px;
     height: 48px;
-    background-color: azure;
   }
 `;
 
 export const StyledProfileBox = styled(ProfileBox)`
   flex-direction: row;
+  img {
+    border: 1px solid ${PALETTE.LIGHT_BLACK};
+  }
 `;
 
 export const IconWithNumberWrapper = styled.div`

@@ -53,3 +53,7 @@ export async function fontLikesClick({ fontId }: { fontId: string }) {
 export async function fontDownload({ fontId }: { fontId: string }) {
   return instanceJsonContent.patch(`/handwritings/gallery/${fontId}/download`);
 }
+
+export async function rankingFont() {
+  return instanceJsonContent.get(`/hadwritings/ranking`);
+}

@@ -1,3 +1,4 @@
 import FilterList from './FilterLIst';
+import SearchInput from './SearchInput';
 
-export { FilterList };
+export { FilterList, SearchInput };

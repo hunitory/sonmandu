@@ -51,22 +51,22 @@ export default function FontInfo() {
   const onNext = () => {
     const isFontNameValid = fontInfo.name.trim().length > 0;
     const isTagsSelected = fontInfo.tagIdList.length > 0;
+    const info = {
+      name: fontInfo.name,
+      tagIdList: fontInfo.tagIdList
+    }
 
     if (isFontNameValid && isTagsSelected && uploadedFiles.length > 0) {
       const apiUrl = '/handwritings';
 
       const formData = new FormData();
-      formData.append(
-        'info',
-        JSON.stringify({
-          name: fontInfo.name,
-          tagIdList: fontInfo.tagIdList,
-        }),
-      );
-
+      const jsonApplicationData = JSON.stringify(info);
+      const ApplyInfo = new Blob([jsonApplicationData], { type: 'application/json' });
+      formData.append('info', ApplyInfo);
       uploadedFiles.forEach((file) => {
         formData.append('image', file);
       });
+
 
       instanceMultipartContent
         .post(apiUrl, formData)

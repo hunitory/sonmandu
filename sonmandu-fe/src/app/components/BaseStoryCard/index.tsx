@@ -4,33 +4,33 @@ import * as API from '@/apis';
 import Image from 'next/image';
 import { useMutation } from '@tanstack/react-query';
 
-interface BaseStoryCardProps {
-  handwritingStoryId: number;
-  title: string;
-  name: string;
-  thumbnail: string;
-  hitCount: number;
-  likeCount: number;
-  member: {
-    memberId: number;
-    name: string;
-    imageUrl: string | null;
-  };
-  isLike: boolean;
-}
+// interface BaseStoryCardProps {
+//   handwritingStoryId: number;
+//   title: string;
+//   name: string;
+//   thumbnail: string;
+//   hitCount: number;
+//   likeCount: number;
+//   member: {
+//     memberId: number;
+//     name: string;
+//     imageUrl: string | null;
+//   };
+//   isLike: boolean;
+// }
 
-function BaseStoryCard(props: BaseStoryCardProps) {
-  const { handwritingStoryId, title, name, thumbnail, hitCount, likeCount, member, isLike } = props;
-  const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
-  const { mutate, data: resLikeClick } = useMutation({
-    mutationKey: ['font-gallery-click-like', handwritingStoryId],
-    mutationFn: () => API.handwriting.fontLikesClick({ fontId: String(handwritingStoryId) }),
-    onSuccess: () =>
-      setCopyIsLikeAndCount((prev) => {
-        if (prev.isLike) return { ...prev, isLike: !prev.isLike, count: prev.count - 1 };
-        return { ...prev, isLike: !prev.isLike, count: prev.count + 1 };
-      }),
-  });
+function BaseStoryCard() {
+  // const { handwritingStoryId, title, name, thumbnail, hitCount, likeCount, member, isLike } = props;
+  // const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
+  // const { mutate, data: resLikeClick } = useMutation({
+  //   mutationKey: ['font-gallery-click-like', handwritingStoryId],
+  //   mutationFn: () => API.handwriting.fontLikesClick({ fontId: String(handwritingStoryId) }),
+  //   onSuccess: () =>
+  //     setCopyIsLikeAndCount((prev) => {
+  //       if (prev.isLike) return { ...prev, isLike: !prev.isLike, count: prev.count - 1 };
+  //       return { ...prev, isLike: !prev.isLike, count: prev.count + 1 };
+  //     }),
+  // });
   return (
     <S.StoryCardWrapper>
       <S.ImageArea>

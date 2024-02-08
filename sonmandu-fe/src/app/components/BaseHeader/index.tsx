@@ -7,7 +7,7 @@ function BaseHeader() {
   return (
     <S.HeaderWrapper>
       <Link href={'/'}>
-        <S.LogoImage src={'/image/logo.png'} alt="손만두 로고" width={88.32} height={38} priority />
+        <S.LogoImage src={'/image/logo.png'} alt="손만두 로고" width={66} height={28} priority />
       </Link>
       <S.UserInteractionWrapper>
         <S.LinkWrapper>

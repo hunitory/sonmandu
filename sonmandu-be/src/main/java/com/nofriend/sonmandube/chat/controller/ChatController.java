@@ -105,11 +105,15 @@ public class ChatController {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.out.println(newChat.toString());
         chatRepository.save(newChat);
         System.out.println(newChat.toString());
 =======
 //        chatRepository.save(newChat);
+=======
+        chatRepository.save(newChat);
+>>>>>>> 927096d (feat: change dateTime)
         log.info("send message: " + newChat.getMessage() + ", pub: " + newChat.getMember().getMemberId() );
 >>>>>>> 738ebf3 (feat: change JwtFilter Exception Message)
 

@@ -1,9 +1,11 @@
 'use client';
 
-import React, { ChangeEvent, useState, useRef } from 'react';
+import React, { ChangeEvent, useState, useRef, useEffect } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
 import Image from 'next/image';
+import { instanceMultipartContent } from 'apis/_instance';
+import { useRouter } from 'next/navigation';
 
 export default function FontStoryWritePage() {
   // 현재 유저가 제작은 했지만 이야기는 쓰지 않은 손글씨 정보를 받아야함
@@ -11,7 +13,7 @@ export default function FontStoryWritePage() {
     memberId: 1,
     unusedHandwritings: [
       {
-        handwritingId: 1,
+        handwritingId: 3,
         name: '손만두체',
       },
       {
@@ -20,6 +22,7 @@ export default function FontStoryWritePage() {
       },
     ],
   };
+  const router = useRouter();
 
   const ref = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState<string>('');
@@ -28,12 +31,14 @@ export default function FontStoryWritePage() {
   };
 
   const refText = useRef<HTMLTextAreaElement>(null);
-  const [text, setText] = useState<string>('');
+  const [content, setContent] = useState<string>('');
   const handleTextOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setText(e.target.value);
+    setContent(e.target.value);
   };
 
   const [handwriting, setHandwriting] = useState<number | null>(null);
+
+  const [selectedFile, setSelectedFile] = useState<File>();
 
   //썸네일 부분
   const [currentStep, setCurrentStep] = useState(1);
@@ -63,7 +68,45 @@ export default function FontStoryWritePage() {
       setCurrentIndex(unusedHandwritings.length - 1);
     }
   };
+  useEffect(() => {
+    console.log(handwriting);
+    console.log(title);
+    console.log(content);
+    console.log(selectedFile);
+  });
 
+  const handleFileSelect = (file: File) => {
+    setSelectedFile(file);
+  };
+
+  const PostStory = () => {
+    const data = {
+      handwritingId: 3,
+      title: title,
+      content: content,
+    };
+
+    const apiUrl = '/handwritings/story';
+
+    const formData = new FormData();
+    const jsonApplicationData = JSON.stringify(data);
+    const StoryData = new Blob([jsonApplicationData], { type: 'application/json' });
+    formData.append('data', StoryData);
+    if (selectedFile) {
+      formData.append('thumbnail', selectedFile);
+    }
+
+    instanceMultipartContent
+      .post(apiUrl, formData)
+      .then((response) => {
+        console.log('POST 요청 성공', response.data);
+        // router.push('font-stories')
+      })
+      .catch((error) => {
+        console.log('POST 요청 실패:', error);
+        alert('업로드에 실패했습니다.');
+      });
+  };
   return (
     <>
       <S.BackgroundWrapper></S.BackgroundWrapper>
@@ -121,22 +164,22 @@ export default function FontStoryWritePage() {
               </S.WriteTagWrapper>
             </S.LeftWrapper>
             <S.RightWrapper>
-              <Comp.Thumbnail onNext={OnHandleNext} onBack={OnhandleBack} />
+              <Comp.Thumbnail onFileSelect={handleFileSelect} />
             </S.RightWrapper>
           </S.UpperWrapper>
-          <S.WriteTextWrapper>
+          <S.WriteContentWrapper>
             <S.WriteTitleRequest>이야기를 적어주세요</S.WriteTitleRequest>
-            <S.TextWrapper>
-              <S.TextInputAreaWrapper>
-                <S.TextInputPlaceholder $isempty2={!text}>
+            <S.ContentWrapper>
+              <S.ContentInputAreaWrapper>
+                <S.ContentInputPlaceholder $isempty2={!content}>
                   <span>작가님의 이야기를 적어주세요</span>
-                </S.TextInputPlaceholder>
-                <S.TextInputArea ref={refText} id="text" value={text} onChange={handleTextOnChange} />
-              </S.TextInputAreaWrapper>
-            </S.TextWrapper>
-          </S.WriteTextWrapper>
+                </S.ContentInputPlaceholder>
+                <S.ContentInputArea ref={refText} id="text" value={content} onChange={handleTextOnChange} />
+              </S.ContentInputAreaWrapper>
+            </S.ContentWrapper>
+          </S.WriteContentWrapper>
           <S.ButtonWrapper>
-            <S.SubmitButton type="button" onClick={() => console.log('11')} disabled={false}>
+            <S.SubmitButton type="button" onClick={PostStory} disabled={false}>
               <span>작성 완료</span>
             </S.SubmitButton>
           </S.ButtonWrapper>

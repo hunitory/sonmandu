@@ -213,23 +213,23 @@ export const TagButton = styled(BaseButton)<TagButtonProps>`
   }
 `;
 
-export const WriteTextWrapper = styled.div`
+export const WriteContentWrapper = styled.div`
   width: 100%;
   height: fit-content;
 `;
 
-export const TextWrapper = styled.div`
+export const ContentWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-export const TextInputAreaWrapper = styled.div`
+export const ContentInputAreaWrapper = styled.div`
   width: 100%;
   height: fit-content;
   padding: 12px 0 0 0;
 `;
 
-export const TextInputPlaceholder = styled.div<PlaceholderTextProps>`
+export const ContentInputPlaceholder = styled.div<PlaceholderTextProps>`
   position: absolute;
   color: ${PALETTE.LIGHT_BLACK};
   font-size: 14px;
@@ -240,7 +240,7 @@ export const TextInputPlaceholder = styled.div<PlaceholderTextProps>`
   display: ${(props) => (props.$isempty2 ? 'block' : 'none')};
 `;
 
-export const TextInputArea = styled.textarea`
+export const ContentInputArea = styled.textarea`
   width: 100%;
   height: 34vh;
   font-size: max(14px, 0.8vw);

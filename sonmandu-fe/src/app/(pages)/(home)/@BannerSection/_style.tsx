@@ -7,13 +7,11 @@ import { PALETTE, notoSansKr } from 'styles';
 export const MainBanner = styled.div`
   position: relative;
   width: 100vw;
-  height: 800px;
+  height: 700px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: ${PALETTE.LIGHT_BLACK};
-  opacity: 0.8;
-  img {
+  img  {
     position: absolute;
     top: 0;
     left: 0;
@@ -21,7 +19,16 @@ export const MainBanner = styled.div`
     height: 100%;
     object-fit: cover;
     z-index: 1;
+    opacity: 0.8;
   }
+`;
+
+export const ToneUpBanner = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: ${PALETTE.MAIN_BLACK};
+  z-index: 2;
+  opacity: 0.72;
 `;
 
 export const MainTextContainer = styled.div`
@@ -29,36 +36,49 @@ export const MainTextContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 50%;
   height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  z-index: 2;
+  z-index: 3;
 `;
 
 export const MainTitle = styled.div`
-  width: 725px;
+  width: fit-content;
+  white-space: nowrap;
   color: ${PALETTE.SUB_WHITE};
-  font-size: 38px;
+  font-size: 50px;
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   text-align: center;
 `;
 
-export const Maincontent = styled.div`
+export const MainContentWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+export const MainContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   p {
-    width: 725px;
+    width: fit-content;
+    white-space: nowrap;
     color: ${PALETTE.SUB_WHITE};
-    font-size: 18px;
+    font-size: 22px;
     font-family: ${notoSansKr.medium.style.fontFamily};
     font-weight: ${notoSansKr.medium.style.fontWeight};
     text-align: center;
+    margin: 5px 0px;
   }
 `;
 
 export const ButtonWrapper = styled.div`
-  width: 725px;
+  width: 100%;
+  min-width: 725px;
   display: flex;
   justify-content: center;
   gap: 8%;

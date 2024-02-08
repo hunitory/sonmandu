@@ -195,7 +195,7 @@ export const TagButton = styled(BaseButton)<TagButtonProps>`
   padding: clamp(4px, 0.3vw, 10px) clamp(9px, 0.8vw, 10px);
   border: 1px solid ${PALETTE.LIGHT_BLACK};
   border-radius: 20px;
-  color: ${PALETTE.LIGHT_BLACK};
+  color: ${PALETTE.MAIN_BLACK};
 
   display: ${(props) =>
     props.currentIndex !== undefined ? (props.currentIndex === props.index ? 'block' : 'none') : 'block'};
@@ -266,8 +266,11 @@ export const SubmitButton = styled(BaseButton)`
   padding: clamp(4px, 0.3vw, 10px) clamp(9px, 0.8vw, 20px);
   border: 2px solid ${PALETTE.MAIN_ORANGE};
   border-radius: 18px;
-  color: ${PALETTE.MAIN_ORANGE};
+  color: white;
+  background-color: ${PALETTE.MAIN_ORANGE};
   font-size: clamp(12px, 1vw, 16px);
-  font-weight: ${notoSansKr.bold.style.fontWeight};
-  font-family: ${notoSansKr.bold.style.fontFamily};
+  span {
+    font-weight: ${notoSansKr.medium.style.fontWeight};
+    font-family: ${notoSansKr.medium.style.fontFamily};
+  }
 `;

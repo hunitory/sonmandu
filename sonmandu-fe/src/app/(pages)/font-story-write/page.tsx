@@ -84,7 +84,7 @@ export default function FontStoryWritePage() {
                 </S.TitleWrapper>
               </S.WriteTitleWrapper>
               <S.WriteTagWrapper>
-                <S.WriteTitleRequest>어떤 글씨체의 이야기를 하시겠어요?</S.WriteTitleRequest>
+                <S.WriteTitleRequest>어떤 글씨체에 대해 이야기를 쓰시겠어요?</S.WriteTitleRequest>
                 <S.TagWrapper>
                   <S.CarouselBackButtonWrapper>
                     <div onClick={handlePrev}>

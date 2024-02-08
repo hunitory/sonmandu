@@ -16,11 +16,19 @@ interface CommentInputDivProps {
 export const FontStoryDetailWrapper = styled.div`
   width: 100%;
   height: fit-content;
+  display: flex;
+  position: relative;
+  justify-content: center;
+  padding: 6vh;
+  gap: 100px;
+`;
+
+export const DetailPageWrapper = styled.div`
+  width: 100%;
+  height: fit-content;
   position: relative;
   display: flex;
   justify-content: center;
-  padding: 6vh;
-  gap: 64px;
 `;
 
 export const DetailWrapper = styled.div`
@@ -101,6 +109,17 @@ export const FontLinkWrapper = styled.div`
 
 export const FontStoryDateWrapper = styled.span`
   font-size: max(14px, 0.8vw);
+`;
+
+export const FontStoryTextWrapper = styled.div`
+  position: relative;
+`;
+
+export const SideBarWrapper = styled.div`
+  position: relative;
+  width: fit-content;
+  height: 100%;
+  display: flex;
 `;
 
 export const TagsWrapper = styled.div`

@@ -6,12 +6,12 @@ export default function SideBar() {
   return (
     <S.SideBarWrapper>
       <S.LikeWrapper>
-        <Image src={'/image/gray-heart.svg'} alt='gray-heart' fill  />
+        <Image src={'/image/gray-heart.svg'} alt="gray-heart" width={26} height={24} />
       </S.LikeWrapper>
-
+      <span>7</span>
       <S.LinkWrapper>
-        <Image src={'/image/Link.png'} alt='link' fill />
+        <Image src={'/image/Link.png'} alt="link" width={24} height={24} />
       </S.LinkWrapper>
     </S.SideBarWrapper>
-  )
+  );
 }

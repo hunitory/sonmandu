@@ -103,112 +103,112 @@ export default function FontStoryDetailPage() {
   };
 
   return (
-  <>
-    <Comp.SideBar />
-    <S.DetailWrapper>
-      <S.UpperWrapper>
-        <S.UpperHeadWrapper>
-          <S.ProfileBoxDiv>
-            <Comp.ProfileBox {...ProfileBoxProps} />
-          </S.ProfileBoxDiv>
-          <S.DetailInfoWrapper>
-            <div>
-              <Image src={'/image/orange-heart.svg'} alt="empty-heart" width={30} height={28} />
-              {HandwritingStoryData.likeCount}
-            </div>
-            <div>
-              <Image src={'/image/view.svg'} alt="empty-heart" width={30} height={30} />
-              {HandwritingStoryData.hitCount}
-            </div>
-            <div>
-              <Image src={'/image/comment.svg'} alt="empty-heart" width={28} height={26} />
-              {HandwritingStoryData.HandwritingStoryComments.length}
-            </div>
-          </S.DetailInfoWrapper>
-        </S.UpperHeadWrapper>
-        <S.TitleSpan>{HandwritingStoryData.title}</S.TitleSpan>
-        <S.FontDateWrapper>
-          <Link href={`/font-detail/${HandwritingStoryData.HandwritingId}`}>
-            <S.FontLinkWrapper>
-              <span>{HandwritingStoryData.name}</span>
-              <Image src={'/image/font-link-pointer.svg'} alt="font-link-pointer" width={14} height={20} />
-            </S.FontLinkWrapper>
+    <>
+      <Comp.SideBar />
+      <S.DetailWrapper>
+        <S.UpperWrapper>
+          <S.UpperHeadWrapper>
+            <S.ProfileBoxDiv>
+              <Comp.ProfileBox {...ProfileBoxProps} />
+            </S.ProfileBoxDiv>
+            <S.DetailInfoWrapper>
+              <div>
+                <Image src={'/image/orange-heart.svg'} alt="empty-heart" width={30} height={28} />
+                {HandwritingStoryData.likeCount}
+              </div>
+              <div>
+                <Image src={'/image/view.svg'} alt="empty-heart" width={30} height={30} />
+                {HandwritingStoryData.hitCount}
+              </div>
+              <div>
+                <Image src={'/image/comment.svg'} alt="empty-heart" width={28} height={26} />
+                {HandwritingStoryData.HandwritingStoryComments.length}
+              </div>
+            </S.DetailInfoWrapper>
+          </S.UpperHeadWrapper>
+          <S.TitleSpan>{HandwritingStoryData.title}</S.TitleSpan>
+          <S.FontDateWrapper>
+            <Link href={`/font-detail/${HandwritingStoryData.HandwritingId}`}>
+              <S.FontLinkWrapper>
+                <span>{HandwritingStoryData.name}</span>
+                <Image src={'/image/font-link-pointer.svg'} alt="font-link-pointer" width={14} height={20} />
+              </S.FontLinkWrapper>
+            </Link>
+            <S.FontStoryDateWrapper>{HandwritingStoryData.createDate}</S.FontStoryDateWrapper>
+          </S.FontDateWrapper>
+          <S.TagsWrapper>
+            <Comp.BaseHashTags hashTagIdList={HandwritingStoryData.tags} direction="row" />
+          </S.TagsWrapper>
+        </S.UpperWrapper>
+        <S.FontStoryText>{HandwritingStoryData.content}</S.FontStoryText>
+        <S.ProfileWrapper>
+          <S.VerticalProfileBoxDiv>
+            <S.Line />
+            <S.WhiteSquare />
+            <Comp.ProfileBox {...VerticalProfileBoxProps} />
+          </S.VerticalProfileBoxDiv>
+          <S.ProfileIntroduction>{HandwritingStoryData.introduction}</S.ProfileIntroduction>
+          <Link href={`/profile/${HandwritingStoryData.memberId}`}>
+            <S.LinkButton type="button" disabled={false}>
+              <span>프로필 보기</span>
+            </S.LinkButton>
           </Link>
-          <S.FontStoryDateWrapper>{HandwritingStoryData.createDate}</S.FontStoryDateWrapper>
-        </S.FontDateWrapper>
-        <S.TagsWrapper>
-          <Comp.BaseHashTags hashTagIdList={HandwritingStoryData.tags} direction="row" />
-        </S.TagsWrapper>
-      </S.UpperWrapper>
-      <S.FontStoryText>{HandwritingStoryData.content}</S.FontStoryText>
-      <S.ProfileWrapper>
-        <S.VerticalProfileBoxDiv>
-          <S.Line />
-          <S.WhiteSquare />
-          <Comp.ProfileBox {...VerticalProfileBoxProps} />
-        </S.VerticalProfileBoxDiv>
-        <S.ProfileIntroduction>{HandwritingStoryData.introduction}</S.ProfileIntroduction>
-        <Link href={`/profile/${HandwritingStoryData.memberId}`}>
-          <S.LinkButton type="button" disabled={false}>
-            <span>프로필 보기</span>
-          </S.LinkButton>
-        </Link>
-      </S.ProfileWrapper>
-      <S.LowerWrapper>
-        <S.LowerHeadWrapper>
-          <S.CommentReportSpan>
-            {HandwritingStoryData.HandwritingStoryComments.length}개의 댓글이 달렸습니다
-          </S.CommentReportSpan>
-          <S.CommentHeadLine />
-          <S.CommentInputAreaWrapper>
-            <S.CommentInputPlaceholder $isempty={!comment}>
-              <span>댓글을 남겨 보세요</span>
-            </S.CommentInputPlaceholder>
-            <S.CommentInputArea
-              ref={ref}
-              id="comment"
-              value={comment}
-              $isExpanded={isExpanded}
-              onFocus={handleExpansion}
-              onChange={handleCommentOnChange}
-            />
-            <S.CommentButtonDiv $isExpanded={isExpanded}>
-              <Link href={`/profile/${HandwritingStoryData.memberId}`}>
-                <S.CommentWriteButton type="button" disabled={false}>
-                  <span>댓글 달기</span>
-                </S.CommentWriteButton>
-              </Link>
-              <S.CommentWriteBackButton type="button" onFocus={handleCollapse} disabled={false}>
-                <span>접기</span>
-              </S.CommentWriteBackButton>
-            </S.CommentButtonDiv>
-          </S.CommentInputAreaWrapper>
-        </S.LowerHeadWrapper>
-        <S.CommentsListWrapper>
-          {HandwritingStoryData.HandwritingStoryComments.map((StoryComment, index) => {
-            return (
-              <React.Fragment key={StoryComment.HandwritingStoryComment.HandwritingStoryCommentId}>
-                <Comp.FontStoryComment
-                  profileBoxProps={{
-                    imageUrl: StoryComment.Member.imageUrl,
-                    nickname: StoryComment.Member.nickname,
-                    badge: StoryComment.Member.badge,
-                    imgSize: 'max(40px, 2.2vw)',
-                    fontSize: 'max(14px, 0.8vw)',
-                  }}
-                  commentProps={{
-                    HandwritingStoryCommentId: StoryComment.HandwritingStoryComment.HandwritingStoryCommentId,
-                    content: StoryComment.HandwritingStoryComment.content,
-                    createDate: StoryComment.HandwritingStoryComment.createDate,
-                  }}
-                />
-                {index !== HandwritingStoryData.HandwritingStoryComments.length - 1 && <S.CommentHeadLine />}
-              </React.Fragment>
-            );
-          })}
-        </S.CommentsListWrapper>
-      </S.LowerWrapper>
-    </S.DetailWrapper>
-  </>
+        </S.ProfileWrapper>
+        <S.LowerWrapper>
+          <S.LowerHeadWrapper>
+            <S.CommentReportSpan>
+              {HandwritingStoryData.HandwritingStoryComments.length}개의 댓글이 달렸습니다
+            </S.CommentReportSpan>
+            <S.CommentHeadLine />
+            <S.CommentInputAreaWrapper>
+              <S.CommentInputPlaceholder $isempty={!comment}>
+                <span>댓글을 남겨 보세요</span>
+              </S.CommentInputPlaceholder>
+              <S.CommentInputArea
+                ref={ref}
+                id="comment"
+                value={comment}
+                $isExpanded={isExpanded}
+                onFocus={handleExpansion}
+                onChange={handleCommentOnChange}
+              />
+              <S.CommentButtonDiv $isExpanded={isExpanded}>
+                <Link href={`/profile/${HandwritingStoryData.memberId}`}>
+                  <S.CommentWriteButton type="button" disabled={false}>
+                    <span>댓글 달기</span>
+                  </S.CommentWriteButton>
+                </Link>
+                <S.CommentWriteBackButton type="button" onFocus={handleCollapse} disabled={false}>
+                  <span>접기</span>
+                </S.CommentWriteBackButton>
+              </S.CommentButtonDiv>
+            </S.CommentInputAreaWrapper>
+          </S.LowerHeadWrapper>
+          <S.CommentsListWrapper>
+            {HandwritingStoryData.HandwritingStoryComments.map((StoryComment, index) => {
+              return (
+                <React.Fragment key={StoryComment.HandwritingStoryComment.HandwritingStoryCommentId}>
+                  <Comp.FontStoryComment
+                    profileBoxProps={{
+                      imageUrl: StoryComment.Member.imageUrl,
+                      nickname: StoryComment.Member.nickname,
+                      badge: StoryComment.Member.badge,
+                      imgSize: 'max(40px, 2.2vw)',
+                      fontSize: 'max(14px, 0.8vw)',
+                    }}
+                    commentProps={{
+                      HandwritingStoryCommentId: StoryComment.HandwritingStoryComment.HandwritingStoryCommentId,
+                      content: StoryComment.HandwritingStoryComment.content,
+                      createDate: StoryComment.HandwritingStoryComment.createDate,
+                    }}
+                  />
+                  {index !== HandwritingStoryData.HandwritingStoryComments.length - 1 && <S.CommentHeadLine />}
+                </React.Fragment>
+              );
+            })}
+          </S.CommentsListWrapper>
+        </S.LowerWrapper>
+      </S.DetailWrapper>
+    </>
   );
 }

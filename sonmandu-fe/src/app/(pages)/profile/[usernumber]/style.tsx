@@ -61,14 +61,16 @@ export const ProfileLeftDiv = styled.div`
 // border-bottom: 2px solid ${PALETTE.SUB_WHITE};
 
 export const ProfileBoxDiv = styled.div`
-  width: 100%;
+  width: fit-content;
   height: fit-content;
   display: flex;
   padding: 12px 14px;
   font-weight: ${notoSansKr.black.style.fontWeight};
   font-family: ${notoSansKr.black.style.fontFamily};
   color: ${PALETTE.MAIN_BLACK};
-
+  & .vertical {
+    padding: 0;
+  }
   @media screen and (max-width: 1150px) {
     width: 60%;
   }

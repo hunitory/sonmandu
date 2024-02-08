@@ -89,16 +89,20 @@ public class JwtProvider {
 
     public Authentication getAuthentication(String token){
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
         System.out.println("getAU");
 >>>>>>> e41d808 (feat: change JwtFilter Exception Message)
+=======
+        System.out.println("getAuthentication");
+>>>>>>> 32d7084 (feat: change dateTime)
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        System.out.println("getAU");
+        System.out.println("getAuthentication1");
 
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))

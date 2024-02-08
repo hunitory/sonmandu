@@ -4,12 +4,14 @@ import * as API from '@/apis';
 import * as Comp from 'components';
 import useModal from 'customhook/useModal';
 import Image from 'next/image';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { SignUpValueBasket } from 'types';
 
 function SignUpModal() {
   const signUpModal = useModal('signUp');
-  const [buttonsDisable, setButtonDisable] = useState({ sendEmailAndCodeCheck: true, submit: true });
+  const [emailTokenId, setEmailTokenId] = useState('');
+  const [checkUniqueValues, setCheckUniqueValues] = useState({ id: false, nickname: false, authCode: false });
+  const [buttonsAble, setButtonAble] = useState({ sendEmailAndCodeCheck: false, submit: false });
   const [valuesBasket, setValuesBasket] = useState<SignUpValueBasket>({
     name: '',
     id: '',
@@ -17,6 +19,50 @@ function SignUpModal() {
     nickname: '',
     email: '',
     sendedCode: '',
+  });
+
+  const handleIdChange = () => {
+    const { data: resCheckId } = useQuery({
+      queryKey: ['check-id-unique', valuesBasket.id],
+      queryFn: () => API.member.checkIdUnique({ id: valuesBasket.id }),
+    });
+    console.log(`아이디 중복 체크 :`, resCheckId);
+  };
+  const handleNicknameChange = () => {
+    const { data: resCheckNickname } = useQuery({
+      queryKey: ['check-nickname-unique', valuesBasket.nickname],
+      queryFn: () => API.member.checkNicknameUnique({ nickname: valuesBasket.nickname }),
+    });
+    console.log(`닉네임 중복 체크 :`, resCheckNickname);
+  };
+
+  const handleAuthCodeChange = () => {
+    const { data: resCheckAuthCode } = useQuery({
+      queryKey: ['check-auth-code'],
+      queryFn: () =>
+        API.member.checkCode({ emailTokenId: emailTokenId, codeValue: valuesBasket.sendedCode }).then((res) => {
+          // setCheckUniqueValues((prev) => ({ ...prev, authCode: res.data }));
+          return res;
+        }),
+    });
+    console.log(`인증번호 확인 :`, resCheckAuthCode);
+  };
+
+  const { mutate: requestSendCode } = useMutation({
+    mutationKey: ['send-emil-with-code'],
+    mutationFn: () => API.member.sendCodeUsingEmail({ email: valuesBasket.email }),
+    onSuccess: (res) => {
+      setEmailTokenId(emailTokenId);
+      console.log(`이메일 전송 완료, 해당 토큰 아이디는 :`, emailTokenId);
+    },
+  });
+
+  const { mutate: requestSignUp } = useMutation({
+    mutationKey: ['request-sign-up'],
+    mutationFn: () => API.member.signUp({ ...valuesBasket }),
+    onSuccess: (res) => {
+      console.log(`회원가입 요청 :`, res.data);
+    },
   });
 
   const handleValuesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,31 +79,28 @@ function SignUpModal() {
   };
 
   // requestSignUp -> onSuccess -> requestLogin()
-  const { mutate: requestSignUp } = useMutation({
-    mutationKey: ['request-sign-up'],
-    mutationFn: () => API.member.signUp({ ...valuesBasket }),
-    onSuccess: () => {},
-  });
 
-  const subContent = {
+  const subContent: { [key: string]: React.ReactNode } = {
+    name: null,
+    id: <S.CheckValueFailed>{checkUniqueValues.id && '사용중인 아이디입니다.'}</S.CheckValueFailed>,
+    password: null,
+    nickname: <S.CheckValueFailed>{checkUniqueValues.id && '사용중인 닉네임입니다.'}</S.CheckValueFailed>,
     email: (
-      <S.CustomButton disabled={buttonsDisable.sendEmailAndCodeCheck} type="button">
+      <S.CustomButton disabled={!buttonsAble.sendEmailAndCodeCheck} type="button" onClick={requestSendCode}>
         이메일 인증하기
       </S.CustomButton>
     ),
     sendCode: (
-      <S.CustomButton disabled={buttonsDisable.sendEmailAndCodeCheck} type="button">
-        인증하기
-      </S.CustomButton>
+      <S.CheckValueFailed>{checkUniqueValues.authCode ? '인증되었습니다!' : '다시 확인해주세요.'}</S.CheckValueFailed>
     ),
   };
 
   const INPUT_PROPS = [
-    { id: 'name', type: 'text', placeholder: '이름을 입력해주세요', subContent: null },
-    { id: 'id', type: 'text', placeholder: '아이디를 입력해주세요', subContent: null },
-    { id: 'password', type: 'password', placeholder: '비밀번호를 입력해주세요', subContent: null },
-    { id: 'nickname', type: 'text', placeholder: '닉네임를 입력해주세요', subContent: null },
-    { id: 'email', type: 'email', placeholder: '이메일를 입력해주세요', subContent: subContent.email },
+    { id: 'name', type: 'text', placeholder: '이름을 입력해주세요' },
+    { id: 'id', type: 'text', placeholder: '아이디를 입력해주세요' },
+    { id: 'password', type: 'password', placeholder: '비밀번호를 입력해주세요' },
+    { id: 'nickname', type: 'text', placeholder: '닉네임를 입력해주세요' },
+    { id: 'email', type: 'email', placeholder: '이메일를 입력해주세요' },
   ];
 
   return (
@@ -73,7 +116,7 @@ function SignUpModal() {
             </S.WelcomeWrapper>
             <S.HrLine />
             <S.FormWrapper>
-              <S.InputsWrapper $sendCodeHidden={buttonsDisable.sendEmailAndCodeCheck}>
+              <S.InputsWrapper $emailSended={buttonsAble.sendEmailAndCodeCheck}>
                 {INPUT_PROPS.map((props) => {
                   return (
                     <Comp.UserModalInput
@@ -82,7 +125,7 @@ function SignUpModal() {
                       value={valuesBasket[props.id]}
                       onChange={handleValuesChange}
                       key={props.id}
-                      withSubContent={props.subContent}
+                      withSubContent={subContent[props.id]}
                     >
                       {props.placeholder}
                     </Comp.UserModalInput>

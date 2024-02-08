@@ -15,3 +15,14 @@ export interface FontStoryDetailResponse {
   name: string;
   title: string;
 }
+
+export interface IsLikeCount {
+  isLike: boolean | undefined;
+  count: number | undefined;
+}
+
+export interface SideBarProps {
+  handleLikeClick: () => void;
+  isLike: boolean;
+  likeCount: number;
+}

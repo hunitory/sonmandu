@@ -3,11 +3,12 @@
 import React, { useState, useRef, useEffect, ChangeEvent, MouseEvent } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
-import { ProfileBoxProps, FontStoryDetailResponse } from 'types';
+import { ProfileBoxProps, FontStoryDetailResponse, IsLikeCount } from 'types';
 import Image from 'next/image';
 import Link from 'next/link';
 import * as API from '@/apis';
-import { info } from 'console';
+import { useMutation } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 //더미데이터
 const HandwritingStoryData = {
@@ -15,6 +16,7 @@ const HandwritingStoryData = {
   content:
     '그때의 일기, 지금 읽으니 마음이 선하다.\n어색한 언어 속에서도 꾸준한 노력과 모험으로 가득 찬 나날들\n힘들었던 순간들과 웃음 가득한 순간들, 모두가 나를 이끌어 키운 보물 같아 보인다.\n 그때의 나는 얼마나 순수하게 꿈을 향해 나아갔는지를 떠올리며, 현재의 내가 그 꿈을 향해 달려가고 있다는 것에 감사를 느낀다.\n앞으로의 날들도 그때와 같은 열정으로 빛나기를 바라며, 그 시절의 나에게 고맙다고 속삭인다.',
   createDate: '2024년01월15일 10시14분',
+  handwritingStoryId: 3,
   hitCount: 7,
   likeCount: 12,
 
@@ -64,28 +66,22 @@ const HandwritingStoryData = {
     },
   ],
 };
+
 export default function FontStoryDetailPage() {
-  const [response, setResponse] = useState<FontStoryDetailResponse | null>(null);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await API.handwritingStory.handwritingStoryDetail({ handwritingStoryId: 2 });
-        setResponse(res.data);
-        console.log(res.data);
-        // console.log(res.data.member.memberId);
-      } catch (error) {
-        console.log('Error fetching member info:', error);
-      }
-    })();
-  }, []);
+  const { data: response, isFetching } = useQuery({
+    queryKey: ['font-story-detail', HandwritingStoryData.handwritingStoryId],
+    queryFn: () => API.handwritingStory.handwritingStoryDetail({
+      handwritingStoryId : HandwritingStoryData.handwritingStoryId,
+    }),
+  })
 
-  const { CommentList, content, createDate, handwritingStoryId, hitCount, isLike, likeCount, member, name, title } =
-    response || {};
+  const { CommentList, content, createDate, handwritingStoryId, hitCount, isLike, likeCount, member, name, title } = response?.data || {};
+
 
   const ProfileBoxProps: ProfileBoxProps = {
     imageUrl: HandwritingStoryData.imageUrl,
-    nickname: name,
+    nickname: HandwritingStoryData.name,
     badge: HandwritingStoryData.badge,
     imgSize: '50px',
     fontSize: '1vw',
@@ -93,7 +89,7 @@ export default function FontStoryDetailPage() {
 
   const VerticalProfileBoxProps: ProfileBoxProps = {
     imageUrl: HandwritingStoryData.imageUrl,
-    nickname: name,
+    nickname: HandwritingStoryData.name,
     badge: HandwritingStoryData.badge,
     imgSize: '96px',
     fontSize: '1vw',
@@ -107,6 +103,29 @@ export default function FontStoryDetailPage() {
   };
 
   // 사용자가 좋아요 눌렀을 때
+  const [ copyIsLikeAndCount, setCopyIsLikeAndCount ] = useState<IsLikeCount | undefined>({ isLike: isLike, count: likeCount })
+  const { mutate, data: resLikeClick } = useMutation({
+    mutationKey: ['font-story-detail-click-like', handwritingStoryId],
+    mutationFn: () => API.handwritingStory.handwritingStoryLike({ id: handwritingStoryId }),
+    onSuccess: () => setCopyIsLikeAndCount((prev) => {
+      if (prev?.isLike) return { ...prev, isLike: !prev.isLike, count: (prev.count || 0) - 1 };
+      return { ...prev, isLike: !prev?.isLike, count: (prev?.count || 0) + 1}
+    })
+  })
+
+  useEffect(() => {
+    setCopyIsLikeAndCount((prev) => ({
+      ...prev,
+      isLike: prev?.isLike,
+      count: likeCount,
+    }))
+    console.log(likeCount)
+  }, [response]);
+
+  const handleLikeClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    mutate();
+  }
 
   // 자기가 작성한 페이지일 때
 
@@ -124,7 +143,12 @@ export default function FontStoryDetailPage() {
 
   return (
     <>
-      <Comp.SideBar />
+    {
+      isFetching ? (
+        <div>Loading...</div>
+      ) : (
+      <>
+      <Comp.SideBar  />
       <S.DetailWrapper>
         <S.UpperWrapper>
           <S.UpperHeadWrapper>
@@ -133,16 +157,16 @@ export default function FontStoryDetailPage() {
             </S.ProfileBoxDiv>
             <S.DetailInfoWrapper>
               <div>
-                <Image src={'/image/orange-heart.svg'} alt="empty-heart" width={30} height={28} />
-                {likeCount}
+                <Image src={`/image/${copyIsLikeAndCount?.isLike ? 'fill' : 'empty'}-orange-heart.svg`} alt="empty-heart" width={30} height={28} onClick={handleLikeClick} />
+                {copyIsLikeAndCount?.count}
               </div>
               <div>
                 <Image src={'/image/view.svg'} alt="empty-heart" width={30} height={30} />
-                {hitCount}
+                {HandwritingStoryData.hitCount}
               </div>
               <div>
                 <Image src={'/image/comment.svg'} alt="empty-heart" width={28} height={26} />
-                {CommentList?.length}
+                {/* {CommentList?.length} */}
               </div>
             </S.DetailInfoWrapper>
           </S.UpperHeadWrapper>
@@ -150,17 +174,17 @@ export default function FontStoryDetailPage() {
           <S.FontDateWrapper>
             <Link href={`/font-detail/${HandwritingStoryData.HandwritingId}`}>
               <S.FontLinkWrapper>
-                <span>{name}</span>
+                <span>{HandwritingStoryData.name}</span>
                 <Image src={'/image/font-link-pointer.svg'} alt="font-link-pointer" width={14} height={20} />
               </S.FontLinkWrapper>
             </Link>
-            <S.FontStoryDateWrapper>{createDate}</S.FontStoryDateWrapper>
+            <S.FontStoryDateWrapper>{HandwritingStoryData.createDate}</S.FontStoryDateWrapper>
           </S.FontDateWrapper>
           <S.TagsWrapper>
             <Comp.BaseHashTags hashTagIdList={HandwritingStoryData.tags} direction="row" />
           </S.TagsWrapper>
         </S.UpperWrapper>
-        <S.FontStoryText>{content}</S.FontStoryText>
+        <S.FontStoryText>{HandwritingStoryData.content}</S.FontStoryText>
         <S.ProfileWrapper>
           <S.VerticalProfileBoxDiv>
             <S.Line />
@@ -193,11 +217,11 @@ export default function FontStoryDetailPage() {
                 onChange={handleCommentOnChange}
               />
               <S.CommentButtonDiv $isExpanded={isExpanded}>
-                <Link href={`/profile/${member?.memberId}`}>
+                {/* <Link href={`/profile/${member?.memberId}`}>
                   <S.CommentWriteButton type="button" disabled={false}>
                     <span>댓글 달기</span>
                   </S.CommentWriteButton>
-                </Link>
+                </Link> */}
                 <S.CommentWriteBackButton type="button" onFocus={handleCollapse} disabled={false}>
                   <span>접기</span>
                 </S.CommentWriteBackButton>
@@ -229,6 +253,9 @@ export default function FontStoryDetailPage() {
           </S.CommentsListWrapper>
         </S.LowerWrapper>
       </S.DetailWrapper>
+      </>
+      )
+    }
     </>
   );
 }

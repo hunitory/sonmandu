@@ -15,7 +15,7 @@ export async function handwritingStoryList({ startIdx, takeCount, sort, name }: 
 }
 
 export async function handwritingStoryLike({ id }: { id: number }) {
-  return instanceJsonContent.post(`/handsritings/story/${id}/likes`);
+  return instanceJsonContent.post(`/handwritings/story/${id}/likes`);
 }
 
 export async function handwritingStoryDetail({ handwritingStoryId }: { handwritingStoryId: number }) {

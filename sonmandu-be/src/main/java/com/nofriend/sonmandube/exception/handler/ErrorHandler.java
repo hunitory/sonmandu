@@ -2,10 +2,14 @@ package com.nofriend.sonmandube.exception.handler;
 
 import com.nofriend.sonmandube.exception.*;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 =======
 >>>>>>> e2b9b34 (feat: change token exception)
+=======
+import org.springframework.dao.DataIntegrityViolationException;
+>>>>>>> c31b9a8 (feat: change dateTime)
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.MessageDeliveryException;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ErrorHandler {
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     @ExceptionHandler(MessageDeliveryException.class)
@@ -67,16 +72,21 @@ public class ErrorHandler {
 
 <<<<<<< HEAD
     // 이미 있는 데이터
+=======
+>>>>>>> c31b9a8 (feat: change dateTime)
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorMessage> dataIntegrityViolationException(DataIntegrityViolationException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(ErrorMessageFactory.from(HttpStatus.CONFLICT, e.getMessage()));
     }
 
+<<<<<<< HEAD
 =======
 >>>>>>> e2b9b34 (feat: change token exception)
 =======
 >>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
+=======
+>>>>>>> c31b9a8 (feat: change dateTime)
     @ExceptionHandler(FailedFileSaveException.class)
     public ResponseEntity<ErrorMessage> failedFileSaveException(FailedFileSaveException e) {
         return ResponseEntity.status(e.getStatus())

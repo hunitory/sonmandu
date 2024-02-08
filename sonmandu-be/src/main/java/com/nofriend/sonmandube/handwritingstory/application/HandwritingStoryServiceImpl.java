@@ -63,6 +63,7 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
             handwritingStory = handwritingStoryRequest.toEntity(member, handwriting, fileDto.getUrl());
         }
         log.info("success save handwrtingStory");
+        log.info(handwritingStory.toString());
         handwritingStoryRepository.save(handwritingStory);
     }
 

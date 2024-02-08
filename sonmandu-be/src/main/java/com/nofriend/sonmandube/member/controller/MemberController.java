@@ -9,7 +9,6 @@ import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import jakarta.mail.MessagingException;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
@@ -25,7 +24,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/members")
@@ -47,10 +47,13 @@ public class MemberController {
     }
 
     @PostMapping("/email-token")
-    public ResponseEntity<Long> sendEmailToken(@Email String email) throws MessagingException {
+    public ResponseEntity<Map<String, Long>> sendEmailToken(@Email String email) throws MessagingException {
         log.info("/members/email-token");
         log.info("email : " + email);
-        return ResponseEntity.ok(memberService.sendEmailToken(email));
+        Long emailTokenId = memberService.sendEmailToken(email);
+        Map<String, Long> response = new HashMap<>();
+        response.put("emailTokenId", emailTokenId);
+        return ResponseEntity.ok(response);
     }
 
     //로그인
@@ -85,7 +88,7 @@ public class MemberController {
 //-- GetMapping
 
     @GetMapping("/email-token")
-    public ResponseEntity<Boolean> checkEmailToken(@RequestBody @Valid EmailTokenRequest emailTokenResponse){
+    public ResponseEntity<Boolean> checkEmailToken(@Valid EmailTokenRequest emailTokenResponse){
         log.info(emailTokenResponse.toString());
         return ResponseEntity.ok(memberService.checkValidEmailToken(emailTokenResponse));
     }

@@ -84,10 +84,16 @@ public class HandwritingServiceImpl implements HandwritingService{
         Handwriting handwriting = Handwriting.builder()
                 .name(fontname)
                 .downloadUrl(fileDto.getUrl())
+<<<<<<< HEAD
                 .isSelected(true)
                 .handwritingApplication(
                         HandwritingApplication.builder()
                                 .handwritingApplicationId(handwritingApplicationId)
+=======
+                .handwritingApplication(
+                        HandwritingApplication.builder()
+                                .handwritingApplicationId(1L)
+>>>>>>> cfcf232 (feat: change dateTime)
                                 .build()
                 )
                 .build();

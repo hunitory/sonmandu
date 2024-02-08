@@ -20,10 +20,14 @@ spring:
     #    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
 <<<<<<< HEAD
+<<<<<<< HEAD
       ddl-auto: validate        # DB 초기화 전략 (none, create, create-drop, update, validate)
 =======
       ddl-auto: create        # DB 초기화 전략 (none, create, create-drop, update, validate)
 >>>>>>> fb2197d (feat: member, handwriting, handwritingstory api)
+=======
+      ddl-auto: update        # DB 초기화 전략 (none, create, create-drop, update, validate)
+>>>>>>> e58e8a5 (feat: change dateTime)
     properties:
       hibernate:
         #        dialect: org.hibernate.dialect.H2Dialect

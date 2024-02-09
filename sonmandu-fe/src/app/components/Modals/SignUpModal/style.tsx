@@ -55,7 +55,7 @@ export const FormWrapper = styled.form`
   padding: 0px 18px;
 `;
 
-export const InputsWrapper = styled.div<{ $sendCodeHidden: boolean }>`
+export const InputsWrapper = styled.div<{ $emailSended: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -64,7 +64,7 @@ export const InputsWrapper = styled.div<{ $sendCodeHidden: boolean }>`
   gap: 18px;
 
   div:nth-last-of-type(1) {
-    visibility: ${({ $sendCodeHidden }) => ($sendCodeHidden ? 'hidden' : 'visible')};
+    visibility: ${({ $emailSended }) => ($emailSended ? 'visible' : 'hidden')};
   }
 `;
 
@@ -79,6 +79,13 @@ export const CustomButton = styled(BaseButton)`
     font-size: 10px;
     padding: 6px;
   }
+`;
+
+export const CheckValueFailed = styled.span`
+  font-size: 11px;
+  color: ${PALETTE.MAIN_ORANGE};
+  font-family: ${notoSansKr.regular.style.fontFamily};
+  font-weight: ${notoSansKr.regular.style.fontWeight};
 `;
 
 export const SubmitButton = styled(BaseButton)`

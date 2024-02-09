@@ -20,6 +20,24 @@ export async function signUp({ id, password, name, nickname, email }: SignUpArgs
     email: email,
   });
 }
+export async function checkIdUnique({ id }: { id: string }) {
+  return instanceJsonContent.get(`/api/members/unique?id=${id}`);
+}
+export async function checkNicknameUnique({ nickname }: { nickname: string }) {
+  return instanceJsonContent.get(`/api/members/unique?nickname=${nickname}`);
+}
+export async function sendCodeUsingEmail({ email }: { email: string }) {
+  return instanceJsonContent.post(`/members/email-token?email=${email}`);
+  // res: {
+  //   "emailTokenId": 5
+  // }
+}
+export async function checkCode({ emailTokenId, codeValue }: { emailTokenId: string; codeValue: string }) {
+  return instanceJsonContent.get(`/members/email-token?emailTokenId=${emailTokenId}&token=${codeValue}`);
+  //   res: {
+  // 		true or false
+  // }
+}
 
 export async function login({ id, password }: { id: string; password: string }) {
   return instanceJsonContent.post(`/members/login`, {

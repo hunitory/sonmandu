@@ -43,22 +43,22 @@ public class JwtProvider {
     }
 
     public String generateToken(Authentication authentication, Long accessTokenValidTime){
-        String authorities  = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
+//        String authorities  = authentication.getAuthorities().stream()
+//                .map(GrantedAuthority::getAuthority)
+//                .collect(Collectors.joining(","));
 
-        Date now = new Date();
-        Date expiration = new Date(now.getTime() + accessTokenValidTime);
+//        Date now = new Date();
+//        Date expiration = new Date(now.getTime() + accessTokenValidTime);
 
         Member member = memberRepository.findById((long) Integer.parseInt(authentication.getName()))
                 .orElseThrow(() -> new RuntimeException("not Found member"));
 
+        String imagePrefix = "https://sonmando.s3.ap-northeast-2.amazonaws.com";
+
         return Jwts.builder()
-                .setSubject(authentication.getName())
-                .claim(AUTHORITIES_KEY, authorities)
                 .claim("memberId", member.getMemberId())
-                .claim("imageUrl", member.getImageUrl())
-                .setExpiration(expiration)
+                .claim("nickName", member.getNickname())
+                .claim("imageUrl", member.getImageUrl().substring(imagePrefix.length()))
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 

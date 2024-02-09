@@ -51,6 +51,7 @@ public class HandwritingController {
         log.info("/handwritings/save");
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         handwritingService.saveFont(Long.parseLong(handwritingApplicationId), font);
         return ResponseEntity.noContent().build();
 =======
@@ -61,6 +62,9 @@ public class HandwritingController {
 
         }
 >>>>>>> 3540f78 (feat: update jwt token informantion)
+=======
+        handwritingService.saveFont(name, font);
+>>>>>>> 47bb621 (hotfix: delete test code)
         return ResponseEntity.status(HttpStatus.OK).build();
 >>>>>>> ae05ff2 (feat: update logout security)
     }

@@ -30,7 +30,7 @@ spring:
     multipart:
       enabled: true # 멀티 파트 업로드 지원 여부
       file-size-threshold: 0B # 파일을 디스크에 저장하지 않고 메모리에 저장하는 최소 크기
-      location: /sonmando-store/temp # 업로드된 파일이 임시로 저장하는 디스크 위치
+      location: ~/sonmando-store/temp # 업로드된 파일이 임시로 저장하는 디스크 위치
       max-file-size: 15MB # 한개 파일의 최대 사이즈
       max-request-size: 100MB # 한개 요청의 최대 사이즈
 
@@ -47,7 +47,9 @@ cloud:
     stack:
       auto: false
 
-
+server:
+  tomcat:
+    connection-timeout: 1800000
 
 
 

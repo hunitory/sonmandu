@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class JwtProvider {
     @Value("${jwt.secret}")
     private String secret;
@@ -71,13 +73,13 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication(String token){
-        System.out.println("getAuthentication");
+//        System.out.println("getAuthentication");
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        System.out.println("getAuthentication1");
+//        System.out.println("getAuthentication1");
 
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
@@ -85,6 +87,7 @@ public class JwtProvider {
                         .collect(Collectors.toList());
 //        System.out.println(authorities.isEmpty());
         User principal = new User(claims.getSubject(), "", authorities);
+        log.info("success get authentication");
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 

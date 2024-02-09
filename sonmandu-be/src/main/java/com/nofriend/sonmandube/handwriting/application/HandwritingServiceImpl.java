@@ -15,6 +15,7 @@ import com.nofriend.sonmandube.util.FileDto;
 import com.nofriend.sonmandube.util.FileUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +26,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class HandwritingServiceImpl implements HandwritingService{
 
     private final HandwritingApplicationRepository handwritingApplicationRepository;
@@ -67,8 +69,9 @@ public class HandwritingServiceImpl implements HandwritingService{
     @Transactional
     public void saveFont(String name, MultipartFile font) {
         // 폰트 파일 저장
-        FileDto fileDto = s3UploadService.saveFile(font, FileUtil.createFontName(name, font));
 
+        FileDto fileDto = s3UploadService.saveFile(font, FileUtil.createFontName(name, font));
+        log.info(fileDto.toString());
         // TODO : 폰트 지원서 연결
 
         // 폰트 데이터 저장
@@ -77,11 +80,12 @@ public class HandwritingServiceImpl implements HandwritingService{
                 .downloadUrl(fileDto.getUrl())
                 .handwritingApplication(
                         HandwritingApplication.builder()
-                                .handwritingApplicationId(1L)
+                                .handwritingApplicationId(1L) // 일단 1번으로
                                 .build()
                 )
                 .build();
         handwritingRepository.save(handwriting);
+        log.info("success save handwriting");
     }
 
     /*

@@ -6,6 +6,7 @@ import com.nofriend.sonmandube.handwriting.controller.request.HandwritingApplica
 import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionRequest;
 import com.nofriend.sonmandube.handwriting.controller.response.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/handwritings")
+@Slf4j
 public class HandwritingController {
 
     private final HandwritingService handwritingService;
@@ -41,6 +43,7 @@ public class HandwritingController {
     @PostMapping("/save")
     public ResponseEntity<Void> saveFont(@RequestPart(name = "name") String name,
                                          @RequestPart(name = "font") MultipartFile font) {
+        log.info("/handwritings/save");
         handwritingService.saveFont(name, font);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -54,6 +57,7 @@ public class HandwritingController {
             @RequestParam(name = "tagId", required = false, defaultValue = "") String tagId,
             Authentication authentication
             ) {
+        log.info("/handwritings/gallery");
         Long memberId = null;
         if(authentication != null) memberId = Long.parseLong(authentication.getName());
         List<Integer> tagIdList = new ArrayList<>();

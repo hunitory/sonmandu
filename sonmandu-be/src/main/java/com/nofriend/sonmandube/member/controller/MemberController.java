@@ -69,9 +69,9 @@ public class MemberController {
     //로그아웃
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/logout")
-    public HttpStatus logout(HttpServletRequest request){
+    public HttpStatus logout(HttpServletRequest request, Authentication authentication){
         log.info("/members/logout");
-        Long memberId = Long.valueOf(String.valueOf(request.getAttribute("memberId")));
+        Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
         memberService.logout(memberId);
         return HttpStatus.OK;
     }

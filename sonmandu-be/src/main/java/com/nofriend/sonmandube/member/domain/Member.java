@@ -50,7 +50,10 @@ public class Member implements UserDetails {
     private String introduction;
 
     @Setter
+<<<<<<< HEAD
     @JsonIgnore
+=======
+>>>>>>> 6167459 (feat: add imageUrl in jwt token)
     @Column(length = 512)
     private String refreshToken;
 

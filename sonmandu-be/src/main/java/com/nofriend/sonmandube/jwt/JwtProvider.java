@@ -89,10 +89,14 @@ public class JwtProvider {
                 .claim("memberId", member.getMemberId())
                 .claim("nickName", member.getNickname())
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .claim("imageUrl", member.getImageUrl().substring(imagePrefix.length()))
 >>>>>>> 3540f78 (feat: update jwt token informantion)
 =======
 //                .claim("imageUrl", member.getImageUrl().substring(imagePrefix.length()))
+=======
+                .claim("imageUrl", member.getImageUrl())
+>>>>>>> 6167459 (feat: add imageUrl in jwt token)
 //                .setExpiration(expiration)
 >>>>>>> 48c83fa (fix: login 500)
                 .signWith(key, SignatureAlgorithm.HS512)

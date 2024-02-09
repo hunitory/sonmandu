@@ -62,7 +62,7 @@ public class JwtProvider {
                 .claim(AUTHORITIES_KEY, authorities)
                 .claim("memberId", member.getMemberId())
                 .claim("nickName", member.getNickname())
-//                .claim("imageUrl", member.getImageUrl().substring(imagePrefix.length()))
+                .claim("imageUrl", member.getImageUrl())
 //                .setExpiration(expiration)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();

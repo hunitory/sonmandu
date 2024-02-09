@@ -50,6 +50,7 @@ public class Member implements UserDetails {
     private String introduction;
 
     @Setter
+    @Column(length = 512)
     private String refreshToken;
 
     @JsonIgnore

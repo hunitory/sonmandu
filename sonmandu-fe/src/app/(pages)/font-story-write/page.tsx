@@ -81,7 +81,8 @@ export default function FontStoryWritePage() {
 
   const PostStory = () => {
     const data = {
-      handwritingId: 3,
+      /* 나중에 자기 폰트 id 받을 수 있게 연결하면 됨(post db 저장까지 완료)*/
+      handwritingId: 30,
       title: title,
       content: content,
     };
@@ -99,7 +100,7 @@ export default function FontStoryWritePage() {
     instanceMultipartContent
       .post(apiUrl, formData)
       .then((response) => {
-        console.log('POST 요청 성공', response.data);
+        console.log('POST 요청 성공', response);
         // router.push('font-stories')
       })
       .catch((error) => {

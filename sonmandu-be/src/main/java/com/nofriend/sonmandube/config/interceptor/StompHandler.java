@@ -29,9 +29,9 @@ public class StompHandler implements ChannelInterceptor {
 
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
 
-        String rawToken = accessor.getFirstNativeHeader("Authorization");
 //        String rawToken = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyOSIsImF1dGgiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6MjksImV4cCI6MTcwNzk2MjQ3OX0.6TMBRyhHLNEnQK7IhG0YCQ49OI58v8SbJHl0amGvKoHlIQ3qYlrYVYc9Z_dJpqETDWQLs_luE71DedVeBt_xsg";
 
+        String rawToken = accessor.getFirstNativeHeader("Authorization");
 
         log.info("command: " + String.valueOf(accessor.getCommand()));
         if(accessor.getCommand() == StompCommand.CONNECT && rawToken != null) {

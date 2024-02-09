@@ -34,8 +34,6 @@ public class JwtFilter extends OncePerRequestFilter {
         if(refreshToken == null){
             refreshToken = "null";
         }
-//        log.info("token: " + accessToken);
-//        log.info("refresh token: " + refreshToken);
 
         boolean hasToken = !accessToken.equals("null");
         boolean hasRefreshToken = !refreshToken.equals("null");
@@ -43,6 +41,7 @@ public class JwtFilter extends OncePerRequestFilter {
         if(!hasToken){
             filterChain.doFilter(request, response);
         }
+
         else if(jwtProvider.validateToken(accessToken) == JwtCode.ACCESS){
 
             Authentication authentication = jwtProvider.getAuthentication(accessToken);

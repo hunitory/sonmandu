@@ -47,15 +47,11 @@ public class JwtProvider {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-//        Date now = new Date();
-//        Date expiration = new Date(now.getTime() + accessTokenValidTime);
+        Date now = new Date();
+        Date expiration = new Date(now.getTime() + accessTokenValidTime);
 
         Member member = memberRepository.findById((long) Integer.parseInt(authentication.getName()))
                 .orElseThrow(() -> new RuntimeException("not Found member"));
-
-        log.info(member.getImageUrl());
-        String imagePrefix = "https://sonmando.s3.ap-northeast-2.amazonaws.com";
-        log.info(member.getImageUrl().substring(imagePrefix.length()));
 
         return Jwts.builder()
 //                .setSubject(authentication.getName())
@@ -63,7 +59,7 @@ public class JwtProvider {
                 .claim("memberId", member.getMemberId())
                 .claim("nickName", member.getNickname())
                 .claim("imageUrl", member.getImageUrl())
-//                .setExpiration(expiration)
+                .setExpiration(expiration)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
@@ -78,20 +74,20 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication(String token){
-//        System.out.println("getAuthentication");
+
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-//        System.out.println("getAuthentication1");
 
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
-//        System.out.println(authorities.isEmpty());
+
         User principal = new User(String.valueOf(claims.get("memberId")), "", authorities);
+        
         log.info("success get authentication");
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }

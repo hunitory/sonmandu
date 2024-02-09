@@ -1,12 +1,12 @@
 'use client';
 
-import Link from 'next/link';
+import * as Styled from './_style';
+import BannerSection from './@BannerSection/page';
 
 export default function HomePage() {
+
   return (
-    <div>
-      <span>메인 페이지</span>
-      <Link href={'/font-stories'}>폰트 이야기로 가기</Link>
-    </div>
+    <>
+    </>
   );
 }

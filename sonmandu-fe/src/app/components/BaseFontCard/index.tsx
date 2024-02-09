@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 function BaseFontCard(props: FontCard) {
-  const { handwritingId, name, downloadUrl, hitCount, likeCount, downloadCount, tag, isLike } = props;
+  const { handwritingId, name, downloadUrl, hitCount, likeCount, downloadCount, tag, isLike, removeLetter } = props;
   const route = useRouter();
   const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
   const { data: responseFromS3, isFetching: isFileFetching } = useQuery({
@@ -44,7 +44,7 @@ function BaseFontCard(props: FontCard) {
         <S.FontCardWrapper onClick={() => route.push(`/font-detail/${handwritingId}`)}>
           <S.FontCardContainer name={name}>
             <S.FontName>{name}</S.FontName>
-            <BaseLetterField letterImgUrl="/image/letter-1.png" />
+            {!removeLetter && <BaseLetterField letterImgUrl="/image/letter-1.png" />}
             <S.EtcInfomationWrapper>
               <S.EctInfoVerticalContainer>
                 <S.IconWithNumberWrapper disabled={false} type="button" onClick={handleLikeClick}>

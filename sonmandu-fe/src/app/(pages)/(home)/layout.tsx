@@ -1,14 +1,12 @@
 import React from 'react';
-import * as S from './_style';
+import * as Styled from './_style';
 
 export default function HomeLayout({
   children,
+  BannerSection,
 }: {
   children: React.ReactNode;
+  BannerSection: React.ReactNode;
 }) {
-  return (
-    <S.StyledMain>
-      {children}
-    </S.StyledMain>
-  );
+  return <Styled.StyledMain>{BannerSection}{children}</Styled.StyledMain>;
 }

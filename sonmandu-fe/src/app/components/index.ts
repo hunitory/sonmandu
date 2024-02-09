@@ -26,6 +26,7 @@ import FontStoryComment from './FontStoryComment';
 import UserModalInput from './UserModalInput';
 import DownLoadTemplateButton from './Applications/FontStart/DownLoadTemplateButton';
 import NextButton from './Applications/FontStart/NextButton';
+import MainFontCard from './MainFontCard'
 
 export {
   BaseHeader,
@@ -54,4 +55,5 @@ export {
   UserModalInput,
   DownLoadTemplateButton,
   NextButton,
+  MainFontCard
 };

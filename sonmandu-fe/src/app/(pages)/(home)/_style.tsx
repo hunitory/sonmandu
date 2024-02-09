@@ -5,8 +5,8 @@ import styled from 'styled-components';
 import { PALETTE, notoSansKr } from 'styles';
 
 export const StyledMain = styled.main`
-  width: 100px;
-  height: 100px;
+  width: fit-content;
+  height: fit-content;
   background-color: white;
 `;
 

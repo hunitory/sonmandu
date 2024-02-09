@@ -4,10 +4,15 @@ import { BaseButton } from 'components';
 import styled from 'styled-components';
 import { PALETTE, notoSansKr } from 'styles';
 
+export const MainWrapper = styled.div`
+  width: 100vw;
+  height: 1300px;
+`;
+
 export const MainBanner = styled.div`
   position: relative;
-  width: 100vw;
-  height: 700px;
+  width: 100%;
+  height: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -115,4 +120,28 @@ export const LoginButtonText = styled.div`
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   color: ${PALETTE.SUB_WHITE};
+`;
+
+
+export const CardsGridWrapper = styled.section`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 52px;
+  transition: padding 0.5s ease;
+  padding-bottom: 48px;
+
+  @media (max-width: 1400px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (max-width: 1128px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(1, 1fr);
+    padding: 0px 2vw 48px 2vw;
+    justify-items: center;
+  }
 `;

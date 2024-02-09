@@ -81,11 +81,10 @@ function SignUpModal() {
 
   // requestSignUp -> onSuccess -> requestLogin()
   const isUniqueId = useDebouncing({
-    value: resCheckId?.isPossible,
+    value: valuesBasket.id,
     callback: () => setCheckUniqueValues((prev) => ({ ...prev, id: resCheckId?.isPossible })),
     delay: 1000,
   });
-  console.log(`isUniqueId :`, isUniqueId);
 
   const subContent: { [key: string]: React.ReactNode } = {
     name: null,
@@ -113,7 +112,7 @@ function SignUpModal() {
   // signUpModal.modal.isOpen
   return (
     <>
-      {true && (
+      {signUpModal.modal.isOpen && (
         <Comp.BaseModal size="large" onClose={closeModal}>
           <S.ModalContainer>
             <S.WelcomeWrapper>

@@ -90,6 +90,7 @@ public class JwtProvider {
     public Authentication getAuthentication(String token){
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
         System.out.println("getAU");
@@ -97,12 +98,15 @@ public class JwtProvider {
 =======
         System.out.println("getAuthentication");
 >>>>>>> 32d7084 (feat: change dateTime)
+=======
+//        System.out.println("getAuthentication");
+>>>>>>> ae05ff2 (feat: update logout security)
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-        System.out.println("getAuthentication1");
+//        System.out.println("getAuthentication1");
 
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
@@ -116,7 +120,11 @@ public class JwtProvider {
 =======
 //        System.out.println(authorities.isEmpty());
         User principal = new User(claims.getSubject(), "", authorities);
+<<<<<<< HEAD
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+        log.info("success get authentication");
+>>>>>>> ae05ff2 (feat: update logout security)
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 

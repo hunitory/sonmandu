@@ -120,6 +120,7 @@ public class MemberController {
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/logout")
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ResponseEntity<HttpStatus> logout(Authentication authentication){
         log.info("/members/logout");
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
@@ -128,6 +129,11 @@ public class MemberController {
         log.info("/members/logout");
         Long memberId = Long.valueOf(String.valueOf(request.getAttribute("memberId")));
 >>>>>>> c31b9a8 (feat: change dateTime)
+=======
+    public HttpStatus logout(HttpServletRequest request, Authentication authentication){
+        log.info("/members/logout");
+        Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
+>>>>>>> ae05ff2 (feat: update logout security)
         memberService.logout(memberId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

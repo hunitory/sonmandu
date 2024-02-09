@@ -72,11 +72,15 @@ public class HandwritingServiceImpl implements HandwritingService{
     public void saveFont(Long handwritingApplicationId, MultipartFile font) {
         // 폰트 파일 저장
 
+<<<<<<< HEAD
         String fontname = handwritingApplicationRepository.findById(handwritingApplicationId)
                 .orElseThrow(() -> new IdNotFoundException("해당하는 신청서가 없습니다."))
                 .getName();
 
         FileDto fileDto = s3UploadService.saveFile(font, FileUtil.createFontName(fontname, font));
+=======
+        FileDto fileDto = s3UploadService.saveFile(font, FileUtil.createFontName(name, font));
+>>>>>>> ae05ff2 (feat: update logout security)
         log.info(fileDto.toString());
         // TODO : 폰트 지원서 연결
 
@@ -92,16 +96,23 @@ public class HandwritingServiceImpl implements HandwritingService{
 =======
                 .handwritingApplication(
                         HandwritingApplication.builder()
+<<<<<<< HEAD
                                 .handwritingApplicationId(1L)
 >>>>>>> cfcf232 (feat: change dateTime)
+=======
+                                .handwritingApplicationId(1L) // 일단 1번으로
+>>>>>>> ae05ff2 (feat: update logout security)
                                 .build()
                 )
                 .build();
         handwritingRepository.save(handwriting);
+<<<<<<< HEAD
         handwritingApplicationRepository.findById(handwritingApplicationId)
                 .orElseThrow(() -> new IdNotFoundException("해당하는 이야기가 없습니다."))
                 .saveFont();
 
+=======
+>>>>>>> ae05ff2 (feat: update logout security)
         log.info("success save handwriting");
     }
 

@@ -55,9 +55,9 @@ public class JwtProvider {
     }
 
     public String generateToken(Authentication authentication, Long accessTokenValidTime){
-//        String authorities  = authentication.getAuthorities().stream()
-//                .map(GrantedAuthority::getAuthority)
-//                .collect(Collectors.joining(","));
+        String authorities  = authentication.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
 
 //        Date now = new Date();
 //        Date expiration = new Date(now.getTime() + accessTokenValidTime);
@@ -65,6 +65,7 @@ public class JwtProvider {
         Member member = memberRepository.findById((long) Integer.parseInt(authentication.getName()))
                 .orElseThrow(() -> new RuntimeException("not Found member"));
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         String iamgeUrl = member.getImageUrl() == null ? "null" : member.getImageUrl();
 
@@ -76,13 +77,24 @@ public class JwtProvider {
                 .claim("imageUrl", iamgeUrl)
                 .setExpiration(expiration)
 =======
+=======
+        log.info(member.getImageUrl());
+>>>>>>> 48c83fa (fix: login 500)
         String imagePrefix = "https://sonmando.s3.ap-northeast-2.amazonaws.com";
+        log.info(member.getImageUrl().substring(imagePrefix.length()));
 
         return Jwts.builder()
+//                .setSubject(authentication.getName())
+                .claim(AUTHORITIES_KEY, authorities)
                 .claim("memberId", member.getMemberId())
                 .claim("nickName", member.getNickname())
+<<<<<<< HEAD
                 .claim("imageUrl", member.getImageUrl().substring(imagePrefix.length()))
 >>>>>>> 3540f78 (feat: update jwt token informantion)
+=======
+//                .claim("imageUrl", member.getImageUrl().substring(imagePrefix.length()))
+//                .setExpiration(expiration)
+>>>>>>> 48c83fa (fix: login 500)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 

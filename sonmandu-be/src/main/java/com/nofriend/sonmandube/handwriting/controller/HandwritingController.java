@@ -44,10 +44,7 @@ public class HandwritingController {
     public ResponseEntity<Void> saveFont(@RequestPart(name = "name") String name,
                                          @RequestPart(name = "font") MultipartFile font) {
         log.info("/handwritings/save");
-        for(int i = 0; i < 100; i++){
-            handwritingService.saveFont(name, font);
-
-        }
+        handwritingService.saveFont(name, font);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

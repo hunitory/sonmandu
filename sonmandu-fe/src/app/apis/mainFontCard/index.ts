@@ -2,7 +2,7 @@ import { instanceJsonContent } from 'apis/_instance';
 import axios, { AxiosResponse } from 'axios';
 
 export async function PopolarfontList() {
-  return instanceJsonContent.get(`/handwritings/gallery`);
+  return instanceJsonContent.get(`/handwritings/gallery/popular`);
 }
 
 export async function getPopolarFontFileFromS3({ url }: { url: string }) {

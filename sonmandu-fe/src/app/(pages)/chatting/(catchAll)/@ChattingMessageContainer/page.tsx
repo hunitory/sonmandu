@@ -23,7 +23,7 @@ export default function ChattingMessageContainer() {
       message: messageInputValue,
       handwritingId: 3,
     };
-    stompClient.publish({ destination: '/topic/sonmandu', body: JSON.stringify(body) });
+    stompClient.publish({ destination: '/app/sonmandu', body: JSON.stringify(body) });
   };
 
   const connect = useCallback(() => {

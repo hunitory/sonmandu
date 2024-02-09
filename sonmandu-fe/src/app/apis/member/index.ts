@@ -21,10 +21,10 @@ export async function signUp({ id, password, name, nickname, email }: SignUpArgs
   });
 }
 export async function checkIdUnique({ id }: { id: string }) {
-  return instanceJsonContent.get(`/api/members/unique?id=${id}`);
+  return instanceJsonContent.get(`/members/unique?id=${id}`);
 }
 export async function checkNicknameUnique({ nickname }: { nickname: string }) {
-  return instanceJsonContent.get(`/api/members/unique?nickname=${nickname}`);
+  return instanceJsonContent.get(`/members/unique?nickname=${nickname}`);
 }
 export async function sendCodeUsingEmail({ email }: { email: string }) {
   return instanceJsonContent.post(`/members/email-token?email=${email}`);

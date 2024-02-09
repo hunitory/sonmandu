@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useCallback, useState } from 'react';
 import * as S from './style';
 import * as API from '@/apis';
 import * as Comp from 'components';
@@ -6,6 +6,7 @@ import useModal from 'customhook/useModal';
 import Image from 'next/image';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { SignUpValueBasket } from 'types';
+import { useDebouncing } from 'customhook';
 
 function SignUpModal() {
   const signUpModal = useModal('signUp');
@@ -21,32 +22,27 @@ function SignUpModal() {
     sendedCode: '',
   });
 
-  const handleIdChange = () => {
-    const { data: resCheckId } = useQuery({
-      queryKey: ['check-id-unique', valuesBasket.id],
-      queryFn: () => API.member.checkIdUnique({ id: valuesBasket.id }),
-    });
-    console.log(`아이디 중복 체크 :`, resCheckId);
-  };
-  const handleNicknameChange = () => {
-    const { data: resCheckNickname } = useQuery({
-      queryKey: ['check-nickname-unique', valuesBasket.nickname],
-      queryFn: () => API.member.checkNicknameUnique({ nickname: valuesBasket.nickname }),
-    });
-    console.log(`닉네임 중복 체크 :`, resCheckNickname);
-  };
+  const { data: resCheckId, refetch: requestCheckId } = useQuery({
+    queryKey: ['check-id-unique', valuesBasket.id],
+    queryFn: () => API.member.checkIdUnique({ id: valuesBasket.id }).then((res) => res.data),
+    enabled: valuesBasket.id ? true : false,
+  });
+  console.log(`아이디 중복 체크 :`, resCheckId);
 
-  const handleAuthCodeChange = () => {
-    const { data: resCheckAuthCode } = useQuery({
-      queryKey: ['check-auth-code'],
-      queryFn: () =>
-        API.member.checkCode({ emailTokenId: emailTokenId, codeValue: valuesBasket.sendedCode }).then((res) => {
-          // setCheckUniqueValues((prev) => ({ ...prev, authCode: res.data }));
-          return res;
-        }),
-    });
-    console.log(`인증번호 확인 :`, resCheckAuthCode);
-  };
+  const { data: resCheckNickname, refetch: requestCheckNickname } = useQuery({
+    queryKey: ['check-nickname-unique', valuesBasket.nickname],
+    queryFn: () => API.member.checkNicknameUnique({ nickname: valuesBasket.nickname }).then((res) => res.data),
+    enabled: valuesBasket.nickname ? true : false,
+  });
+  console.log(`닉네임 중복 체크 :`, resCheckNickname);
+
+  const { data: resCheckAuthCode, refetch: requestCheckAuthCode } = useQuery({
+    queryKey: ['check-auth-code', valuesBasket.sendedCode],
+    queryFn: () =>
+      API.member.checkCode({ emailTokenId: emailTokenId, codeValue: valuesBasket.sendedCode }).then((res) => res.data),
+    enabled: valuesBasket.sendedCode ? true : false,
+  });
+  console.log(`코드 중복 체크 :`, resCheckAuthCode);
 
   const { mutate: requestSendCode } = useMutation({
     mutationKey: ['send-emil-with-code'],
@@ -78,13 +74,24 @@ function SignUpModal() {
     // 만약 이메일 인증을 완료했다면 && 내부의 value들이 다 들어있다면,
   };
 
+  const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    requestSignUp();
+  };
+
   // requestSignUp -> onSuccess -> requestLogin()
+  const isUniqueId = useDebouncing({
+    value: resCheckId?.isPossible,
+    callback: () => setCheckUniqueValues((prev) => ({ ...prev, id: resCheckId?.isPossible })),
+    delay: 1000,
+  });
+  console.log(`isUniqueId :`, isUniqueId);
 
   const subContent: { [key: string]: React.ReactNode } = {
     name: null,
-    id: <S.CheckValueFailed>{checkUniqueValues.id && '사용중인 아이디입니다.'}</S.CheckValueFailed>,
+    id: <S.CheckValueFailed>{checkUniqueValues.id && '사용 가능한 아이디입니다.'}</S.CheckValueFailed>,
     password: null,
-    nickname: <S.CheckValueFailed>{checkUniqueValues.id && '사용중인 닉네임입니다.'}</S.CheckValueFailed>,
+    nickname: <S.CheckValueFailed>{resCheckNickname?.isPossible && '사용 가능한 닉네임입니다.'}</S.CheckValueFailed>,
     email: (
       <S.CustomButton disabled={!buttonsAble.sendEmailAndCodeCheck} type="button" onClick={requestSendCode}>
         이메일 인증하기
@@ -103,9 +110,10 @@ function SignUpModal() {
     { id: 'email', type: 'email', placeholder: '이메일를 입력해주세요' },
   ];
 
+  // signUpModal.modal.isOpen
   return (
     <>
-      {signUpModal.modal.isOpen && (
+      {true && (
         <Comp.BaseModal size="large" onClose={closeModal}>
           <S.ModalContainer>
             <S.WelcomeWrapper>
@@ -115,7 +123,7 @@ function SignUpModal() {
               <span>회원가입을 한 후 여러 사람들의 폰트와 이야기를 즐겨보세요!</span>
             </S.WelcomeWrapper>
             <S.HrLine />
-            <S.FormWrapper>
+            <S.FormWrapper onSubmit={handleOnSubmit}>
               <S.InputsWrapper $emailSended={buttonsAble.sendEmailAndCodeCheck}>
                 {INPUT_PROPS.map((props) => {
                   return (

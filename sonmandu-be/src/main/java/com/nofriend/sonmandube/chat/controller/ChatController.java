@@ -39,14 +39,10 @@ public class ChatController {
     @SendTo("/topic/sonmandu")
     public Chat chatting(@Valid ChatRequest chatRequest, @Header("Authorization") String token) {
     log.info("chatting1");
-//    token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyOSIsImF1dGgiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6MjksImV4cCI6MTcwNzk2MjQ3OX0.6TMBRyhHLNEnQK7IhG0YCQ49OI58v8SbJHl0amGvKoHlIQ3qYlrYVYc9Z_dJpqETDWQLs_luE71DedVeBt_xsg";;
 
         token = token.substring(7);
 
         Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
-//    Long memberId = 1L;
-//    chatRequest.setHandwritingId(1L);
-//    chatRequest.setMessage("fsdf");
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
 
         HandwritingNameDownloadUrlProjection handwritingNameDownloadUrlProjection = handwritingRepository.findNameDownloadUrlByHandwritingId(chatRequest.getHandwritingId());

@@ -47,7 +47,9 @@ cloud:
     stack:
       auto: false
 
-
+server:
+  tomcat:
+    connection-timeout: 1800000
 
 
 

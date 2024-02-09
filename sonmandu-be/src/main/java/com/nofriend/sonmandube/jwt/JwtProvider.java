@@ -144,10 +144,14 @@ public class JwtProvider {
 //        log.info("success get authentication");
 =======
 //        System.out.println(authorities.isEmpty());
+<<<<<<< HEAD
         User principal = new User(claims.getSubject(), "", authorities);
 <<<<<<< HEAD
 >>>>>>> 723abc5 (feat: add spring security chatting)
 =======
+=======
+        User principal = new User((String) claims.get("memberId"), "", authorities);
+>>>>>>> 4fce728 (feat: delete jwt Subject)
         log.info("success get authentication");
 >>>>>>> ae05ff2 (feat: update logout security)
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);

@@ -24,6 +24,7 @@ function LoginModal() {
       loginModal.closeModal();
       setValuesBasket((prev) => ({ ...prev, id: '', password: '' }));
       setCheckYourValues(false);
+      location.reload();
     },
     onError: (err) => {
       setCheckYourValues(true);

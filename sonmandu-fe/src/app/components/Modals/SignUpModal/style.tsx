@@ -81,9 +81,12 @@ export const CustomButton = styled(BaseButton)`
   }
 `;
 
-export const CheckValueFailed = styled.span`
+export const CheckValueFailed = styled.span<{ $isGood: boolean | null }>`
   font-size: 11px;
-  color: ${PALETTE.MAIN_ORANGE};
+  color: ${({ $isGood }) => {
+    if ($isGood === null) return 'white';
+    return $isGood ? PALETTE.LIGHT_BLACK : 'red';
+  }};
   font-family: ${notoSansKr.regular.style.fontFamily};
   font-weight: ${notoSansKr.regular.style.fontWeight};
 `;

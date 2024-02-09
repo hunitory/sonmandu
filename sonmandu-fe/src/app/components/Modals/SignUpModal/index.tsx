@@ -1,18 +1,19 @@
-import React, { FormEvent, useCallback, useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import * as S from './style';
 import * as API from '@/apis';
 import * as Comp from 'components';
 import useModal from 'customhook/useModal';
 import Image from 'next/image';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { SignUpValueBasket } from 'types';
 import { useDebouncing } from 'customhook';
 
 function SignUpModal() {
   const signUpModal = useModal('signUp');
+  const loginModal = useModal('login');
   const [emailTokenId, setEmailTokenId] = useState('');
-  const [checkUniqueValues, setCheckUniqueValues] = useState({ id: false, nickname: false, authCode: false });
-  const [buttonsAble, setButtonAble] = useState({ sendEmailAndCodeCheck: false, submit: false });
+  const [checkUniqueValues, setCheckUniqueValues] = useState({ id: null, nickname: null, authCode: null });
+  const [curSignUpFlow, setCurSignUpFlow] = useState({ sendEmailAndCodeCheck: false, submit: false });
   const [valuesBasket, setValuesBasket] = useState<SignUpValueBasket>({
     name: '',
     id: '',
@@ -22,42 +23,70 @@ function SignUpModal() {
     sendedCode: '',
   });
 
-  const { data: resCheckId, refetch: requestCheckId } = useQuery({
-    queryKey: ['check-id-unique', valuesBasket.id],
-    queryFn: () => API.member.checkIdUnique({ id: valuesBasket.id }).then((res) => res.data),
-    enabled: valuesBasket.id ? true : false,
+  useDebouncing({
+    value: valuesBasket.id,
+    callback: () =>
+      valuesBasket.id &&
+      API.member.checkIdUnique({ id: valuesBasket.id }).then((res) => {
+        setCheckUniqueValues((prev) => ({ ...prev, id: res.data.isPossible }));
+        return res.data;
+      }),
+    delay: 400,
   });
-  console.log(`아이디 중복 체크 :`, resCheckId);
 
-  const { data: resCheckNickname, refetch: requestCheckNickname } = useQuery({
-    queryKey: ['check-nickname-unique', valuesBasket.nickname],
-    queryFn: () => API.member.checkNicknameUnique({ nickname: valuesBasket.nickname }).then((res) => res.data),
-    enabled: valuesBasket.nickname ? true : false,
+  useDebouncing({
+    value: valuesBasket.nickname,
+    callback: () =>
+      valuesBasket.nickname &&
+      API.member.checkNicknameUnique({ nickname: valuesBasket.nickname }).then((res) => {
+        setCheckUniqueValues((prev) => ({ ...prev, nickname: res.data.isPossible }));
+        return res.data;
+      }),
+    delay: 400,
   });
-  console.log(`닉네임 중복 체크 :`, resCheckNickname);
 
-  const { data: resCheckAuthCode, refetch: requestCheckAuthCode } = useQuery({
-    queryKey: ['check-auth-code', valuesBasket.sendedCode],
-    queryFn: () =>
-      API.member.checkCode({ emailTokenId: emailTokenId, codeValue: valuesBasket.sendedCode }).then((res) => res.data),
-    enabled: valuesBasket.sendedCode ? true : false,
+  useDebouncing({
+    value: valuesBasket.sendedCode,
+    callback: () =>
+      valuesBasket.sendedCode &&
+      API.member.checkCode({ emailTokenId: emailTokenId, codeValue: valuesBasket.sendedCode }).then((res) => {
+        setCheckUniqueValues((prev) => ({ ...prev, authCode: res.data }));
+        return res.data;
+      }),
+    delay: 400,
   });
-  console.log(`코드 중복 체크 :`, resCheckAuthCode);
 
-  const { mutate: requestSendCode } = useMutation({
+  const { mutate: requestSendCode, isPending } = useMutation({
     mutationKey: ['send-emil-with-code'],
     mutationFn: () => API.member.sendCodeUsingEmail({ email: valuesBasket.email }),
     onSuccess: (res) => {
-      setEmailTokenId(emailTokenId);
-      console.log(`이메일 전송 완료, 해당 토큰 아이디는 :`, emailTokenId);
+      setEmailTokenId(res.data.emailTokenId);
+      setCurSignUpFlow((prev) => ({ ...prev, sendEmailAndCodeCheck: true }));
     },
   });
 
   const { mutate: requestSignUp } = useMutation({
     mutationKey: ['request-sign-up'],
-    mutationFn: () => API.member.signUp({ ...valuesBasket }),
-    onSuccess: (res) => {
-      console.log(`회원가입 요청 :`, res.data);
+    mutationFn: () =>
+      API.member.signUp({
+        name: valuesBasket.name,
+        id: valuesBasket.id,
+        password: valuesBasket.password,
+        nickname: valuesBasket.nickname,
+        email: valuesBasket.email,
+      }),
+    onSuccess: async (res) => {
+      console.log(`회원가입 요청 :`, res);
+      if (res.status === 200) {
+        signUpModal.closeModal();
+        loginModal.openModal();
+        await API.member.login({ id: valuesBasket.id, password: valuesBasket.password }).then((res) => {
+          localStorage.setItem('access_token', res.data.token);
+          localStorage.setItem('refresh_token', res.data.refreshToken);
+          loginModal.closeModal();
+          location.reload();
+        });
+      }
     },
   });
 
@@ -65,40 +94,53 @@ function SignUpModal() {
     setValuesBasket((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  const closeModal = () => {
-    signUpModal.closeModal();
-  };
-
-  const handleSubmitButtonAble = () => {
-    // valueBasket.emil이 있다면,
-    // 만약 이메일 인증을 완료했다면 && 내부의 value들이 다 들어있다면,
-  };
-
   const handleOnSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     requestSignUp();
   };
 
-  // requestSignUp -> onSuccess -> requestLogin()
-  const isUniqueId = useDebouncing({
-    value: resCheckId?.isPossible,
-    callback: () => setCheckUniqueValues((prev) => ({ ...prev, id: resCheckId?.isPossible })),
-    delay: 1000,
-  });
-  console.log(`isUniqueId :`, isUniqueId);
+  const showTextContent = ({
+    toggledValue,
+    textContents,
+  }: {
+    toggledValue: boolean | null;
+    textContents: { good: string; bad: string };
+  }) => {
+    if (toggledValue === null) return;
+    return toggledValue ? textContents.good : textContents.bad;
+  };
 
   const subContent: { [key: string]: React.ReactNode } = {
     name: null,
-    id: <S.CheckValueFailed>{checkUniqueValues.id && '사용 가능한 아이디입니다.'}</S.CheckValueFailed>,
+    id: (
+      <S.CheckValueFailed $isGood={checkUniqueValues.id}>
+        {showTextContent({
+          toggledValue: checkUniqueValues.id,
+          textContents: { good: '사용 가능한 아이디입니다.', bad: '이미 사용중입니다!' },
+        })}
+      </S.CheckValueFailed>
+    ),
     password: null,
-    nickname: <S.CheckValueFailed>{resCheckNickname?.isPossible && '사용 가능한 닉네임입니다.'}</S.CheckValueFailed>,
+    nickname: (
+      <S.CheckValueFailed $isGood={checkUniqueValues.nickname}>
+        {showTextContent({
+          toggledValue: checkUniqueValues.nickname,
+          textContents: { good: '사용 가능한 닉네임입니다.', bad: '이미 사용중입니다!' },
+        })}
+      </S.CheckValueFailed>
+    ),
     email: (
-      <S.CustomButton disabled={!buttonsAble.sendEmailAndCodeCheck} type="button" onClick={requestSendCode}>
-        이메일 인증하기
+      <S.CustomButton disabled={!valuesBasket.email} type="button" onClick={requestSendCode}>
+        {isPending ? '전송중...' : '이메일 인증하기'}
       </S.CustomButton>
     ),
     sendCode: (
-      <S.CheckValueFailed>{checkUniqueValues.authCode ? '인증되었습니다!' : '다시 확인해주세요.'}</S.CheckValueFailed>
+      <S.CheckValueFailed $isGood={checkUniqueValues.authCode}>
+        {showTextContent({
+          toggledValue: checkUniqueValues.authCode,
+          textContents: { good: '인증되었습니다!', bad: '다시 확인해주세요' },
+        })}
+      </S.CheckValueFailed>
     ),
   };
 
@@ -110,11 +152,10 @@ function SignUpModal() {
     { id: 'email', type: 'email', placeholder: '이메일를 입력해주세요' },
   ];
 
-  // signUpModal.modal.isOpen
   return (
     <>
-      {true && (
-        <Comp.BaseModal size="large" onClose={closeModal}>
+      {signUpModal.modal.isOpen && (
+        <Comp.BaseModal size="large" onClose={() => signUpModal.closeModal()}>
           <S.ModalContainer>
             <S.WelcomeWrapper>
               <span>환영합니다!</span>
@@ -124,7 +165,7 @@ function SignUpModal() {
             </S.WelcomeWrapper>
             <S.HrLine />
             <S.FormWrapper onSubmit={handleOnSubmit}>
-              <S.InputsWrapper $emailSended={buttonsAble.sendEmailAndCodeCheck}>
+              <S.InputsWrapper $emailSended={curSignUpFlow.sendEmailAndCodeCheck}>
                 {INPUT_PROPS.map((props) => {
                   return (
                     <Comp.UserModalInput

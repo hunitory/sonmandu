@@ -92,12 +92,16 @@ public class StompHandler implements ChannelInterceptor {
 >>>>>>> a88b847 (teat: wss)
         StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
 
+<<<<<<< HEAD
         String rawToken = accessor.getFirstNativeHeader("Authorization");
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> 5f2246a (feat: update jwt information)
 //        String rawToken = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyOSIsImF1dGgiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6MjksImV4cCI6MTcwNzk2MjQ3OX0.6TMBRyhHLNEnQK7IhG0YCQ49OI58v8SbJHl0amGvKoHlIQ3qYlrYVYc9Z_dJpqETDWQLs_luE71DedVeBt_xsg";
 >>>>>>> 32d7084 (feat: change dateTime)
 
+<<<<<<< HEAD
 //        log.info("command: " + String.valueOf(accessor.getCommand()));
 //        if(accessor.getCommand() == StompCommand.CONNECT && rawToken != null) {
 //
@@ -117,6 +121,29 @@ public class StompHandler implements ChannelInterceptor {
 //                throw new JwtException("Not Valid Token");
 //            }
 //        }
+=======
+        String rawToken = accessor.getFirstNativeHeader("Authorization");
+
+        log.info("command: " + String.valueOf(accessor.getCommand()));
+        if(accessor.getCommand() == StompCommand.CONNECT && rawToken != null) {
+
+            String token = Objects.requireNonNull(rawToken).substring(7);
+            log.info(token);
+            Authentication authentication = jwtProvider.getAuthentication(token);
+            log.info(authentication.toString());
+            log.info(authentication.getName());
+            Long memberId = Long.valueOf(authentication.getName());
+            log.info(String.valueOf(memberId));
+            String dbRefreshToken = memberRepository.findById(memberId).orElseThrow()
+                    .getRefreshToken();
+
+            log.info(dbRefreshToken);
+            log.info(String.valueOf(jwtProvider.validateToken(token) != JwtCode.ACCESS || !token.equals(dbRefreshToken)));
+            if (jwtProvider.validateToken(token) != JwtCode.ACCESS || !token.equals(dbRefreshToken)){
+                throw new JwtException("Not Valid Token");
+            }
+        }
+>>>>>>> 5f2246a (feat: update jwt information)
 
         log.info("success StompHandler");
         return message;

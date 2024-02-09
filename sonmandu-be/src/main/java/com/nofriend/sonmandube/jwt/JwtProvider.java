@@ -59,12 +59,13 @@ public class JwtProvider {
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
-//        Date now = new Date();
-//        Date expiration = new Date(now.getTime() + accessTokenValidTime);
+        Date now = new Date();
+        Date expiration = new Date(now.getTime() + accessTokenValidTime);
 
         Member member = memberRepository.findById((long) Integer.parseInt(authentication.getName()))
                 .orElseThrow(() -> new RuntimeException("not Found member"));
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         String iamgeUrl = member.getImageUrl() == null ? "null" : member.getImageUrl();
@@ -83,6 +84,8 @@ public class JwtProvider {
         String imagePrefix = "https://sonmando.s3.ap-northeast-2.amazonaws.com";
         log.info(member.getImageUrl().substring(imagePrefix.length()));
 
+=======
+>>>>>>> 5f2246a (feat: update jwt information)
         return Jwts.builder()
 //                .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
@@ -96,9 +99,13 @@ public class JwtProvider {
 //                .claim("imageUrl", member.getImageUrl().substring(imagePrefix.length()))
 =======
                 .claim("imageUrl", member.getImageUrl())
+<<<<<<< HEAD
 >>>>>>> 6167459 (feat: add imageUrl in jwt token)
 //                .setExpiration(expiration)
 >>>>>>> 48c83fa (fix: login 500)
+=======
+                .setExpiration(expiration)
+>>>>>>> 5f2246a (feat: update jwt information)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
@@ -116,6 +123,7 @@ public class JwtProvider {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
         System.out.println("getAU");
@@ -126,17 +134,20 @@ public class JwtProvider {
 =======
 //        System.out.println("getAuthentication");
 >>>>>>> ae05ff2 (feat: update logout security)
+=======
+
+>>>>>>> 5f2246a (feat: update jwt information)
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
-//        System.out.println("getAuthentication1");
 
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
+<<<<<<< HEAD
 <<<<<<< HEAD
 
         User principal = new User(String.valueOf(claims.get("memberId")), "", authorities);
@@ -156,6 +167,11 @@ public class JwtProvider {
 =======
         User principal = new User(String.valueOf(claims.get("memberId")), "", authorities);
 >>>>>>> 285c0fc (fix: Object to String)
+=======
+
+        User principal = new User(String.valueOf(claims.get("memberId")), "", authorities);
+        
+>>>>>>> 5f2246a (feat: update jwt information)
         log.info("success get authentication");
 >>>>>>> ae05ff2 (feat: update logout security)
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);

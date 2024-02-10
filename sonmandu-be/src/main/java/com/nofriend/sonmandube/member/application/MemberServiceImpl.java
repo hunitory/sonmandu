@@ -136,6 +136,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     }
 
     public Long sendEmailToken(@Email String email) throws MessagingException {
+<<<<<<< HEAD
         EmailToken emailToken = EmailToken.builder()
                 .token(generateString())
                 .build();
@@ -148,6 +149,8 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 >>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
 =======
     public Long sendEmailToken(String email) throws MessagingException {
+=======
+>>>>>>> 339b19b (fix: bugs)
         EmailToken emailToken = EmailToken.builder()
                 .token(generateString())
                 .build();

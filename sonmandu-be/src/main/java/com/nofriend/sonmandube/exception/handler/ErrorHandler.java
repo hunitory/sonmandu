@@ -84,12 +84,16 @@ public class ErrorHandler {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     // 이미 있는 데이터
 =======
 >>>>>>> c31b9a8 (feat: change dateTime)
 =======
     // @Valid에 잡힌 에러
 >>>>>>> 71d2f9b (feat: renew refresh token)
+=======
+    // 이미 있는 데이터
+>>>>>>> 339b19b (fix: bugs)
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorMessage> dataIntegrityViolationException(DataIntegrityViolationException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT)

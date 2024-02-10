@@ -152,7 +152,7 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
         HandwritingStoryCountId handwritingStoryHitId = new HandwritingStoryCountId(memberId, handwritingStoryId);
         Optional<HandwritingStoryHit> download = hitRepository.findById(handwritingStoryHitId);
         if(download.isEmpty()) {
-            HandwritingStory handwritingStory = handwritingStoryRepository.findByHandwritingStoryIdAndMemberMemberId(handwritingStoryId, memberId)
+            HandwritingStory handwritingStory = handwritingStoryRepository.findById(handwritingStoryId)
                     .orElseThrow(() -> new IdNotFoundException("일치하는 정보가 없습니다."));
             Member member = memberRepository.findById(memberId)
                     .orElseThrow(() -> new IdNotFoundException("회원이 존재하지 않습니다."));

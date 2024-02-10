@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @RequiredArgsConstructor
 public class IdNotFoundException extends RuntimeException {
 
-    private final HttpStatus status = HttpStatus.NOT_FOUND;
+    private final HttpStatus status = HttpStatus.BAD_REQUEST;
     private final String errorMessage;
 
 }

@@ -53,12 +53,14 @@ public class JwtProvider {
         Member member = memberRepository.findById((long) Integer.parseInt(authentication.getName()))
                 .orElseThrow(() -> new RuntimeException("not Found member"));
 
+        String iamgeUrl = member.getImageUrl() == null ? "null" : member.getImageUrl();
+
         return Jwts.builder()
 //                .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .claim("memberId", member.getMemberId())
                 .claim("nickName", member.getNickname())
-                .claim("imageUrl", member.getImageUrl())
+                .claim("imageUrl", iamgeUrl)
                 .setExpiration(expiration)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();

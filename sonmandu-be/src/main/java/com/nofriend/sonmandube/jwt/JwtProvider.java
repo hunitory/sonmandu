@@ -87,7 +87,7 @@ public class JwtProvider {
                         .collect(Collectors.toList());
 
         User principal = new User(String.valueOf(claims.get("memberId")), "", authorities);
-        
+
         log.info("success get authentication");
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }

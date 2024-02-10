@@ -1,9 +1,13 @@
 package com.nofriend.sonmandube.member.application;
 
+<<<<<<< HEAD
 import com.nofriend.sonmandube.exception.DenyRefreshTokenException;
 import com.nofriend.sonmandube.exception.ExpireRefreshTokenException;
 import com.nofriend.sonmandube.exception.IdNotFoundException;
 import com.nofriend.sonmandube.jwt.JwtCode;
+=======
+import com.nofriend.sonmandube.exception.IdNotFoundException;
+>>>>>>> d53225a (feat: apply IdNotFoundException)
 import com.nofriend.sonmandube.jwt.JwtProvider;
 import com.nofriend.sonmandube.member.controller.request.EmailTokenRequest;
 <<<<<<< HEAD
@@ -260,7 +264,11 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Override
     public MemberInformationResponse findMemberInformationAll(Long memberId) {
         Member member = memberRepository.findById(memberId)
+<<<<<<< HEAD
                 .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
+=======
+                .orElseThrow(() -> new IdNotFoundException("일치하는 회원이 없습니다."));
+>>>>>>> d53225a (feat: apply IdNotFoundException)
 
         return MemberInformationResponse.builder()
                 .imageUrl(member.getImageUrl())

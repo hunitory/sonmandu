@@ -52,7 +52,7 @@ export default function ProfileHamburger() {
     } else if (localStorage.getItem('access_token') === null) {
       setAuthorizationUser((prev) => ({ ...prev, isAuth: false, tokenPayload: null }));
     }
-  }, [localStorage.getItem('access_token')]);
+  }, []);
 
   const handleDropBoxView = () => {
     setDropBoxView((prev) => !prev);

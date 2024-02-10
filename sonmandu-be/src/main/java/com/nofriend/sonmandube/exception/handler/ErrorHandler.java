@@ -10,6 +10,21 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ErrorHandler {
 
+    // 유효하지 않은 리프레시 토큰
+    @ExceptionHandler(DenyRefreshTokenException.class)
+    public ResponseEntity<ErrorMessage> expireRefreshToken(DenyRefreshTokenException e){
+        return ResponseEntity.status(e.getStatus())
+                .body(ErrorMessageFactory.from(e.getStatus(), e.getErrorMessage()));
+    }
+
+    // 만료된 리프레시 토큰
+    @ExceptionHandler(ExpireRefreshTokenException.class)
+    public ResponseEntity<ErrorMessage> expireRefreshToken(ExpireRefreshTokenException e){
+        return ResponseEntity.status(e.getStatus())
+                .body(ErrorMessageFactory.from(e.getStatus(), e.getErrorMessage()));
+    }
+
+    // @Valid에 잡힌 에러
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorMessage> dataIntegrityViolationException(DataIntegrityViolationException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -24,7 +39,6 @@ public class ErrorHandler {
 
     @ExceptionHandler(IdNotFoundException.class)
     public ResponseEntity<ErrorMessage> idNotFoundException(IdNotFoundException e) {
-        e.printStackTrace();
         return ResponseEntity.status(e.getStatus())
                 .body(ErrorMessageFactory.from(e.getStatus(), e.getErrorMessage()));
     }

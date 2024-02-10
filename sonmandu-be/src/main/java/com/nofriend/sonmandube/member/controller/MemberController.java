@@ -2,16 +2,15 @@ package com.nofriend.sonmandube.member.controller;
 
 import com.nofriend.sonmandube.member.application.MemberService;
 import com.nofriend.sonmandube.member.controller.request.LoginRequest;
+import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import com.nofriend.sonmandube.member.controller.request.*;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
-import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import jakarta.mail.MessagingException;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,10 +30,18 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Slf4j
 public class MemberController {
-
     private final MemberService memberService;
 
     //--- PostMapping
+
+    @PostMapping("/token")
+    public ResponseEntity<Map<String, String>> updateToken(@RequestBody Map<String, String> request){
+        String newToken = memberService.updateToken(request.get("refreshToken"));
+
+        return ResponseEntity.ok(new HashMap<>(){{
+            put("token", newToken);
+        }});
+    }
 
     //회원가입
     @PostMapping("/signup")
@@ -69,7 +76,7 @@ public class MemberController {
     //로그아웃
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/logout")
-    public HttpStatus logout(HttpServletRequest request, Authentication authentication){
+    public HttpStatus logout(Authentication authentication){
         log.info("/members/logout");
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
         memberService.logout(memberId);
@@ -79,10 +86,13 @@ public class MemberController {
     //회원 정보 수정 시, 비밀번호 일치 확인
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/valid-password")
-    public ResponseEntity<Boolean>  checkValidPassword(@Size(min = 8, max = 20) String password, Authentication authentication){
+    public ResponseEntity<Boolean>  checkValidPassword(@RequestBody Map<String, String> request, Authentication authentication){
         log.info("/members/valid-password");
+        String password = request.get("password");
+
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
         boolean checkValidPasswordResponse = memberService.checkValidPassword(memberId, password);
+
         return ResponseEntity.ok(checkValidPasswordResponse);
     }
 
@@ -143,13 +153,11 @@ public class MemberController {
 
     // 회원 가입, 회원 수정 페이지 - 아이디나 비밀번호 중복확인
     @GetMapping("/unique")
-    public ResponseEntity<HashMap<String, Boolean>> checkUnique(@RequestParam(required = false) String id, @RequestParam(required = false) String nickname){
+    public ResponseEntity<Map<String, Boolean>> checkUnique(@RequestParam(required = false) String id, @RequestParam(required = false) String nickname){
         log.info("/members/unique");
         if((id == null) == (nickname == null)) {
             return ResponseEntity.badRequest().build();
         }
-
-        Map<String, Boolean> response = new HashMap<>();
 
         Boolean checkUniqueResponse = false;
 
@@ -162,7 +170,7 @@ public class MemberController {
         }
 
         Boolean finalCheckUniqueResponse = checkUniqueResponse;
-        return ResponseEntity.ok(new HashMap<String, Boolean>() {{
+        return ResponseEntity.ok(new HashMap<>() {{
             put("isPossible", finalCheckUniqueResponse);
         }});
     }

@@ -1,14 +1,16 @@
 package com.nofriend.sonmandube.member.application;
 
+import com.nofriend.sonmandube.exception.DenyRefreshTokenException;
+import com.nofriend.sonmandube.exception.ExpireRefreshTokenException;
 import com.nofriend.sonmandube.exception.IdNotFoundException;
+import com.nofriend.sonmandube.jwt.JwtCode;
 import com.nofriend.sonmandube.jwt.JwtProvider;
 import com.nofriend.sonmandube.member.controller.request.EmailTokenRequest;
-import com.nofriend.sonmandube.member.controller.request.EmailValidationRequest;
 import com.nofriend.sonmandube.member.controller.request.LoginRequest;
 import com.nofriend.sonmandube.member.controller.request.SignupRequest;
+import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
-import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import com.nofriend.sonmandube.member.domain.EmailToken;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.member.repository.EmailTokenRepository;
@@ -22,7 +24,6 @@ import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -57,6 +58,19 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private String serverUrl;
     @Value("${sonmandu.email}")
     private String sonmanduEmail;
+
+    @Override
+    public String updateToken(String refreshToken) {
+        JwtCode refreshTokenValidation = jwtProvider.validateToken(refreshToken);
+
+        if(refreshTokenValidation == JwtCode.ACCESS){
+            return jwtProvider.generateToken(jwtProvider.getAuthentication(refreshToken));
+        }else if(refreshTokenValidation == JwtCode.EXPIRED){
+            throw new ExpireRefreshTokenException("Expire refresh token");
+        }else{ // refreshTokenValidation == JwtCode.DENIED
+            throw new DenyRefreshTokenException("Deny refresh token");
+        }
+    }
 
     @Override
     public void signup(SignupRequest signupRequest) {
@@ -97,7 +111,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Transactional
     public LoginResponse login(LoginRequest loginRequest) {
         Member member = memberRepository.findById(loginRequest.getId())
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(member.getMemberId(), loginRequest.getPassword());
@@ -121,23 +135,24 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Transactional
     public void logout(Long memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         member.setRefreshToken(null);
     }
 
     @Override
     public boolean checkValidPassword(Long memberId, String password) {
-        return memberRepository.findById(memberId)
-                .orElseThrow()
-                .getPassword()
-                .equals(password);
+        String memberPassword = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."))
+                .getPassword();
+
+        return passwordEncoder.matches(password, memberPassword);
     }
 
     @Override
     public Boolean checkValidEmailToken(EmailTokenRequest emailTokenResponse) {
         return emailTokenRepository.findById(emailTokenResponse.getEmailTokenId())
-                .orElseThrow()
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 이메일이 없습니다."))
                 .getToken()
                 .equals(emailTokenResponse.getToken());
     }
@@ -145,7 +160,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Override
     public MeInformationResponse findMeInformation(Long memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         return MeInformationResponse.builder()
                 .nickname(member.getNickname())
@@ -158,7 +173,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Override
     public MemberInformationResponse findMemberInformationAll(Long memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IdNotFoundException("일치하는 회원이 없습니다."));
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         return MemberInformationResponse.builder()
                 .imageUrl(member.getImageUrl())
@@ -172,7 +187,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Override
     public void findMemberInformationId(String email, String name) throws MessagingException {
         Member member = memberRepository.findByEmailAndName(email, name)
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         sendEmail(email, member.getId());
     }
@@ -203,7 +218,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Override
     public void findMemberInformationPassword(String email, String name, String id) throws MessagingException {
         Member member = memberRepository.findByEmailAndNameAndId(email, name, id)
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         String newPassword = generateString();
 
@@ -250,7 +265,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Transactional
     public void updateMemberInformationCommon(Long memberId, String informationType, String value) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         switch (informationType){
             case "email" -> member.setEmail(value);
@@ -267,12 +282,10 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        log.info("load user by username");
         Member member = memberRepository.findById((long) Integer.parseInt(username))
                 .orElseThrow(() -> new UsernameNotFoundException(username + "Not Found Member by Id"));
-//        log.info(member.toString());
+
         member.setUserRole();
-//        log.info(member.toString());
 
         return member;
     }

@@ -2,11 +2,10 @@ package com.nofriend.sonmandube.member.application;
 
 
 import com.nofriend.sonmandube.member.controller.request.*;
+import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
-import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import jakarta.mail.MessagingException;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface MemberService {
@@ -39,4 +38,6 @@ public interface MemberService {
     Long sendEmailToken(String email) throws MessagingException;
 
     Boolean checkValidEmailToken(EmailTokenRequest emailTokenResponse);
+
+    String updateToken(String refreshToken);
 }

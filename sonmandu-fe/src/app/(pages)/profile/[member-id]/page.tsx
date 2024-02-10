@@ -101,28 +101,28 @@ const { member, handwritings, handwritingStories } = {
 
 export default function ProfilePage() {
   // 정보 요청
-  // const params = useParams();
-  // const queryKey = ['profile', params['member-id']];
-  // const { data: response, isFetching: isProfileFetching} = useQuery({
-  //   queryKey: queryKey,
-  //   queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string})
-  // })
-
-  // useEffect(() => {
-  //   console.log(response)
-  // }, [response])
+  const params = useParams();
+  const queryKey = ['profile', params['member-id']];
+  const { data: response, isFetching: isProfileFetching} = useQuery({
+    queryKey: queryKey,
+    queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string})
+  })
 
   useEffect(() => {
-    (async () => {
-      try {
-        const info = await API.member.getProfileMember(3);
-        console.log(info);
-      } catch (error) {
-        console.log('Error fetching member info:', error);
-      }
-    })();
-    // fetchMemberInfo();
-  }, []);
+    console.log(response)
+  }, [response])
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const info = await API.member.getProfileMember(3);
+  //       console.log(info);
+  //     } catch (error) {
+  //       console.log('Error fetching member info:', error);
+  //     }
+  //   })();
+  //   // fetchMemberInfo();
+  // }, []);
 
   const ProfileBoxProps: ProfileBoxProps = {
     imageUrl: member.imageUrl,

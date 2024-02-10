@@ -95,16 +95,20 @@ export const FontDateWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const FontLinkWrapper = styled.div<{name: string}>`
+export const FontLinkWrapper = styled.div<{ name: string }>`
   width: fit-content;
   height: fit-content;
   font-size: max(14px, 0.8vw);
   text-decoration: underline;
   font-weight: ${notoSansKr.bold.style.fontWeight};
-  font-family: ${(props) => (props.name ? props.name : notoSansKr.extraBold.style.fontFamily)};
   display: flex;
   align-items: center;
   gap: 0.5vw;
+  
+  span {
+    font-family: ${(props) => (props.name ? props.name : notoSansKr.extraBold.style.fontFamily)};
+    
+  }
 `;
 
 export const FontStoryDateWrapper = styled.span`

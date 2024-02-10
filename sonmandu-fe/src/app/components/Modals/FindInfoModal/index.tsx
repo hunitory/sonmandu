@@ -74,7 +74,7 @@ export default function FindInfoModal() {
             <S.WelcomeWrapper>
               <span className="welcome-title">어떤 정보를 찾으시나요?</span>
               <Image src={'/image/logo.png'} alt="로고" width={142} height={62} />
-              <span className="welcome-title">{checkYourValues && '입력하신 정보를 다시 확인해주세요!'}</span>
+              <span className="welcome-title">{checkYourValues && `입력하신 정보를 다시 확인해주세요!`}</span>
             </S.WelcomeWrapper>
             <S.CarouselWrapper>
               <S.CarouselContainer $curIdx={curContentIndex}>

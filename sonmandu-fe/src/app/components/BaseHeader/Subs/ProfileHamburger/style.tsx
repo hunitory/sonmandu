@@ -44,3 +44,8 @@ export const DropBoxList = styled.li`
   text-align: center;
   cursor: pointer;
 `;
+
+export const NullImgUser = styled.span`
+  width: 16px;
+  height: 16px;
+`;

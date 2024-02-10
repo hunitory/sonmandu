@@ -51,7 +51,8 @@ export const PageTitleWrapper = styled.section`
 `;
 
 export const FormWrapper = styled.form`
-  width: 340px;
+  width: 376px;
+  min-width: 340px;
   height: 100%;
   label {
     margin-bottom: 24px;

@@ -20,8 +20,9 @@ import { ProfilePasswordInputProps } from './components/ProfilePasswordInput';
 import { Trophy } from './components/ProfileTrophy';
 import { CommentProps } from './components/FontStoryComment';
 import { FontInfomationProps, FontDetailResponse } from './pages/FontDetail';
-
+import { FontStoryDetailResponse, IsLikeCount } from './pages/FontStoryDetail';
 import { ModalId, ModalInfo } from './store/modal';
+import { StoryData } from './components/FontStory';
 
 export type {
   BaseButtonProps,
@@ -52,4 +53,7 @@ export type {
   FindInfoIdValueBasket as IdValueBasket,
   LoginValueBasket,
   SignUpValueBasket,
+  FontStoryDetailResponse,
+  IsLikeCount,
+  StoryData
 };

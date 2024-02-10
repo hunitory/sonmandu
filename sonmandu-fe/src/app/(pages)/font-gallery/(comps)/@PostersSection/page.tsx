@@ -19,7 +19,7 @@ export default function PostersSection({ searchParams }: PosterSectionProps) {
     queryKey: queryKey,
     queryFn: () =>
       API.handwriting.fontListInGallery({
-        startIdx: currentItemCount,
+        startIdx: currentItemCount || 0,
         takeCount: 5,
         name: searchParams?.name || '',
         sort: searchParams?.sort || '',
@@ -34,7 +34,7 @@ export default function PostersSection({ searchParams }: PosterSectionProps) {
   return (
     <S.CardsGridWrapper>
       {response?.data.map((res: FontCard) => (
-        <Comp.BaseFontCard key={res.handwritingId} {...res} />
+        <Comp.BaseFontCard key={res.handwritingId} {...res} removeLetter={false} />
       ))}
     </S.CardsGridWrapper>
   );

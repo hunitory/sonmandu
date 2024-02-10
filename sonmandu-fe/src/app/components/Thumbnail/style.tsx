@@ -32,8 +32,9 @@ export const ContentFileUploadInput = styled(Comp.BaseLabelWithInput.Input)`
 `;
 
 export const ContentFileUploadLabel = styled(Comp.BaseLabelWithInput.Label)<{ isDragging?: boolean }>`
-  width: 100%;
-  height: 100%;
+  width: 187px;
+  height: 152px;
+  padding: 7px;
   border-radius: 15px;
   border: 5px dashed ${(props) => (props.isDragging ? PALETTE.MAIN_ORANGE : PALETTE.LIGHT_ORANGE)};
   display: flex;
@@ -43,6 +44,7 @@ export const ContentFileUploadLabel = styled(Comp.BaseLabelWithInput.Label)<{ is
   cursor: pointer;
   > * {
     opacity: ${(props) => (props.isDragging ? 0.7 : 1)};
+    border-radius: 10px;
   }
 `;
 

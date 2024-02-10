@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
 import { ProfileBoxProps, Handwriting } from 'types';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import * as API from '@/apis';
+import { useQuery } from '@tanstack/react-query';
 
 const { member, handwritings, handwritingStories } = {
   member: {
@@ -99,26 +100,29 @@ const { member, handwritings, handwritingStories } = {
 };
 
 export default function ProfilePage() {
-  useEffect(() => {
-    (async () => {
-      try {
-        const info = await API.member.getProfileMember(5);
-        console.log(info);
-      } catch (error) {
-        console.log('Error fetching member info:', error);
-      }
-    })();
-    // fetchMemberInfo();
-  }, []);
+  // 정보 요청
+  const params = useParams();
+  const queryKey = ['profile', params['member-id']];
+  const { data: response, isFetching: isProfileFetching} = useQuery({
+    queryKey: queryKey,
+    queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string})
+  })
 
-  // const ProfileBoxProps = {
-  // 	id: user.memberId,
-  // 	src: user.image_url,
-  // 	nickname: user.nickname,
-  // 	vertical: true,
-  // 	badge: user.badge, // ?
-  // 	noLink: true
-  // }
+  useEffect(() => {
+    console.log(response)
+  }, [response])
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const info = await API.member.getProfileMember(3);
+  //       console.log(info);
+  //     } catch (error) {
+  //       console.log('Error fetching member info:', error);
+  //     }
+  //   })();
+  //   // fetchMemberInfo();
+  // }, []);
 
   const ProfileBoxProps: ProfileBoxProps = {
     imageUrl: member.imageUrl,
@@ -141,6 +145,12 @@ export default function ProfilePage() {
   const filteredHandwriting = handwritings.filter((handwriting) => handwriting && handwriting.state > 3);
   const numberOfHandwriting = filteredHandwriting.length;
   const handwritinggroup = isMypage ? handwritings : filteredHandwriting;
+
+  // 수정하기 버튼입력
+  const [isEdit, setIsEdit] = useState(false);
+  const handleEdit = (isEdit: boolean) => {
+    setIsEdit(!isEdit);
+  };
 
   return (
     <>
@@ -180,13 +190,15 @@ export default function ProfilePage() {
                 <S.ProfileIntroSpan>소개</S.ProfileIntroSpan>
                 <S.ProfileIntroContents>{member.introduction}</S.ProfileIntroContents>
                 <S.BaseButtonWrapper>
-                  <S.EditButton
-                    type={'button'}
-                    onClick={() => router.push('/profile/usernumber/edit')}
-                    disabled={false}
-                  >
-                    <span>수정하기</span>
-                  </S.EditButton>
+                  {isEdit ? (
+                    <S.EditButton type={'button'} onClick={() => setIsEdit(!isEdit)} disabled={false}>
+                      <span>수정완료</span>
+                    </S.EditButton>
+                  ) : (
+                    <S.EditButton type={'button'} onClick={() => setIsEdit(!isEdit)} disabled={false}>
+                      <span>수정하기</span>
+                    </S.EditButton>
+                  )}
                 </S.BaseButtonWrapper>
               </S.ProfileIntroDivUp>
               <S.ProfileIntroDivDown>
@@ -209,7 +221,13 @@ export default function ProfilePage() {
                   // const idx = Math.floor(Math.random() * 10);
                   if (handwriting.state > 3) {
                     return (
-                      <Comp.ProfileFontCard key={index} index={index} isMypage={isMypage} handwriting={handwriting} />
+                      <Comp.ProfileFontCard
+                        key={index}
+                        index={handwriting.handwritingId}
+                        // index={Math.floor(Math.random() * 10)}
+                        isMypage={isMypage}
+                        handwriting={handwriting}
+                      />
                     );
                   } else {
                     return <Comp.ProfileFontCardMaking key={index} isMypage={isMypage} handwriting={handwriting} />;

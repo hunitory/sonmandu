@@ -1,5 +1,6 @@
 package com.nofriend.sonmandube.member.application;
 
+import com.nofriend.sonmandube.exception.IdNotFoundException;
 import com.nofriend.sonmandube.jwt.JwtProvider;
 import com.nofriend.sonmandube.member.controller.request.EmailTokenRequest;
 import com.nofriend.sonmandube.member.controller.request.EmailValidationRequest;
@@ -157,7 +158,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Override
     public MemberInformationResponse findMemberInformationAll(Long memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("일치하는 회원이 없습니다."));
 
         return MemberInformationResponse.builder()
                 .imageUrl(member.getImageUrl())

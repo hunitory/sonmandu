@@ -16,7 +16,7 @@ function useDebouncing({ value, delay, callback }: UseDebouncingArgs) {
     };
   }, [value]);
 
-  return;
+  return value;
 }
 
 export default useDebouncing;

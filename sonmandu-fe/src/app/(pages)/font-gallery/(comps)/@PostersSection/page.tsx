@@ -19,7 +19,7 @@ export default function PostersSection({ searchParams }: PosterSectionProps) {
     queryKey: queryKey,
     queryFn: () =>
       API.handwriting.fontListInGallery({
-        startIdx: currentItemCount,
+        startIdx: currentItemCount || 0,
         takeCount: 5,
         name: searchParams?.name || '',
         sort: searchParams?.sort || '',

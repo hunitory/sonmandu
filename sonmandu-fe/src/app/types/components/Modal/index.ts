@@ -29,5 +29,6 @@ export interface SignUpValueBasket {
   name: string;
   nickname: string;
   email: string;
+  sendedCode: string;
   [key: string]: string;
 }

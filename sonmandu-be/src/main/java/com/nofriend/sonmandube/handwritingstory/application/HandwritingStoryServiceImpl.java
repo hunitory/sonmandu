@@ -126,7 +126,7 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
             // 가중치, 횟수 감소
             updateCountWeight(HandwritingStoryCountType.LIKES_DOWN, handwritingStoryId);
         } else { // 좋아요가 눌러져있지 않음 -> 좋아요
-            HandwritingStory handwritingStory = handwritingStoryRepository.findByHandwritingStoryIdAndMemberMemberId(handwritingStoryId, memberId)
+            HandwritingStory handwritingStory = handwritingStoryRepository.findById(handwritingStoryId)
                     .orElseThrow(() -> new IdNotFoundException("일치하는 정보가 없습니다."));
             Member member = memberRepository.findById(memberId)
                     .orElseThrow(() -> new IdNotFoundException("회원이 존재하지 않습니다."));

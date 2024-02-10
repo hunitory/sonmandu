@@ -95,6 +95,7 @@ public class ErrorHandler {
 
     @ExceptionHandler(IdNotFoundException.class)
     public ResponseEntity<ErrorMessage> idNotFoundException(IdNotFoundException e) {
+        e.printStackTrace();
         return ResponseEntity.status(e.getStatus())
                 .body(ErrorMessageFactory.from(e.getStatus(), e.getErrorMessage()));
     }

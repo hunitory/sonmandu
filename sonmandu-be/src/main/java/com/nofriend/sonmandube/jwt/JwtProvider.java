@@ -68,6 +68,9 @@ public class JwtProvider {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f4ceb1d (feat: update imageUrl null data)
         String iamgeUrl = member.getImageUrl() == null ? "null" : member.getImageUrl();
 
         return Jwts.builder()

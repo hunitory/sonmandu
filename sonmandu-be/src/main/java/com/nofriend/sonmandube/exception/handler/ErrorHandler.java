@@ -24,7 +24,7 @@ public class ErrorHandler {
                 .body(ErrorMessageFactory.from(e.getStatus(), e.getErrorMessage()));
     }
 
-    // @Valid에 잡힌 에러
+    // 이미 있는 데이터
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorMessage> dataIntegrityViolationException(DataIntegrityViolationException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT)

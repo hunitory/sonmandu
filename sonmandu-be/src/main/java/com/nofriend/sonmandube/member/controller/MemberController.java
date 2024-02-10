@@ -53,9 +53,11 @@ public class MemberController {
 
     //이메일 토큰 보내기
     @PostMapping("/email-token")
-    public ResponseEntity<Map<String, Long>> sendEmailToken(@Email String email) throws MessagingException {
+    public ResponseEntity<Map<String, Long>> sendEmailToken(@RequestBody Map<String, String> request) throws MessagingException {
         log.info("/members/email-token");
+        String email = request.get("email");
         log.info("email : " + email);
+
         Long emailTokenId = memberService.sendEmailToken(email);
         Map<String, Long> response = new HashMap<>();
         response.put("emailTokenId", emailTokenId);
@@ -76,11 +78,11 @@ public class MemberController {
     //로그아웃
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/logout")
-    public HttpStatus logout(Authentication authentication){
+    public ResponseEntity<HttpStatus> logout(Authentication authentication){
         log.info("/members/logout");
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
         memberService.logout(memberId);
-        return HttpStatus.OK;
+        return ResponseEntity.noContent().build();
     }
 
     //회원 정보 수정 시, 비밀번호 일치 확인

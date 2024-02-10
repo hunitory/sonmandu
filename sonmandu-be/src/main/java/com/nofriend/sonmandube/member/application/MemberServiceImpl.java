@@ -21,6 +21,7 @@ import com.nofriend.sonmandube.util.FileDto;
 import com.nofriend.sonmandube.util.FileUtil;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -85,7 +86,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         memberRepository.save(newMember);
     }
 
-    public Long sendEmailToken(String email) throws MessagingException {
+    public Long sendEmailToken(@Email String email) throws MessagingException {
         EmailToken emailToken = EmailToken.builder()
                 .token(generateString())
                 .build();

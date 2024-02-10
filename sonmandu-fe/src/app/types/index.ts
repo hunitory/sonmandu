@@ -22,6 +22,7 @@ import { CommentProps } from './components/FontStoryComment';
 import { FontInfomationProps, FontDetailResponse } from './pages/FontDetail';
 import { FontStoryDetailResponse, IsLikeCount } from './pages/FontStoryDetail';
 import { ModalId, ModalInfo } from './store/modal';
+import { StoryData } from './components/FontStory';
 
 export type {
   BaseButtonProps,
@@ -53,5 +54,6 @@ export type {
   LoginValueBasket,
   SignUpValueBasket,
   FontStoryDetailResponse,
-  IsLikeCount
+  IsLikeCount,
+  StoryData
 };

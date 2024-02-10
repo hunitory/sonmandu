@@ -4,8 +4,9 @@ import React, { useState, useEffect } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
 import { ProfileBoxProps, Handwriting } from 'types';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import * as API from '@/apis';
+import { useQuery } from '@tanstack/react-query';
 
 const { member, handwritings, handwritingStories } = {
   member: {
@@ -99,10 +100,22 @@ const { member, handwritings, handwritingStories } = {
 };
 
 export default function ProfilePage() {
+  // 정보 요청
+  // const params = useParams();
+  // const queryKey = ['profile', params['member-id']];
+  // const { data: response, isFetching: isProfileFetching} = useQuery({
+  //   queryKey: queryKey,
+  //   queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string})
+  // })
+
+  // useEffect(() => {
+  //   console.log(response)
+  // }, [response])
+
   useEffect(() => {
     (async () => {
       try {
-        const info = await API.member.getProfileMember(2);
+        const info = await API.member.getProfileMember(3);
         console.log(info);
       } catch (error) {
         console.log('Error fetching member info:', error);

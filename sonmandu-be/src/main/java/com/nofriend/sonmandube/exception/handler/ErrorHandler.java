@@ -22,6 +22,7 @@ public class ErrorHandler {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @ExceptionHandler(MessageDeliveryException.class)
     public ResponseEntity<ErrorMessage> messageDeliveryException(MessageDeliveryException e){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
@@ -41,10 +42,16 @@ public class ErrorHandler {
     @ExceptionHandler(RefreshTokenExpireException.class)
     public ResponseEntity<ErrorMessage> refreshTokenExpireException(RefreshTokenExpireException e){
 >>>>>>> e2b9b34 (feat: change token exception)
+=======
+    // 유효하지 않은 리프레시 토큰
+    @ExceptionHandler(DenyRefreshTokenException.class)
+    public ResponseEntity<ErrorMessage> expireRefreshToken(DenyRefreshTokenException e){
+>>>>>>> 71d2f9b (feat: renew refresh token)
         return ResponseEntity.status(e.getStatus())
                 .body(ErrorMessageFactory.from(e.getStatus(), e.getErrorMessage()));
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     // 만료된 토큰
     @ExceptionHandler(ExpireTokenException.class)
@@ -66,14 +73,23 @@ public class ErrorHandler {
     @ExceptionHandler(TokenDenyException.class)
     public ResponseEntity<ErrorMessage> tokenDenyException(TokenDenyException e){
 >>>>>>> e2b9b34 (feat: change token exception)
+=======
+    // 만료된 리프레시 토큰
+    @ExceptionHandler(ExpireRefreshTokenException.class)
+    public ResponseEntity<ErrorMessage> expireRefreshToken(ExpireRefreshTokenException e){
+>>>>>>> 71d2f9b (feat: renew refresh token)
         return ResponseEntity.status(e.getStatus())
                 .body(ErrorMessageFactory.from(e.getStatus(), e.getErrorMessage()));
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // 이미 있는 데이터
 =======
 >>>>>>> c31b9a8 (feat: change dateTime)
+=======
+    // @Valid에 잡힌 에러
+>>>>>>> 71d2f9b (feat: renew refresh token)
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorMessage> dataIntegrityViolationException(DataIntegrityViolationException e) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -95,7 +111,6 @@ public class ErrorHandler {
 
     @ExceptionHandler(IdNotFoundException.class)
     public ResponseEntity<ErrorMessage> idNotFoundException(IdNotFoundException e) {
-        e.printStackTrace();
         return ResponseEntity.status(e.getStatus())
                 .body(ErrorMessageFactory.from(e.getStatus(), e.getErrorMessage()));
     }

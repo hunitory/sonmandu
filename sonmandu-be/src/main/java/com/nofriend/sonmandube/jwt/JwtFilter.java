@@ -24,13 +24,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.springframework.http.HttpHeaders;
 >>>>>>> d87b507 (feat: change JwtFilter Exception Handle)
+=======
+>>>>>>> 71d2f9b (feat: renew refresh token)
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -65,21 +67,17 @@ public class JwtFilter extends OncePerRequestFilter {
 =======
         log.info("------------------------------");
         log.info("Request start");
+<<<<<<< HEAD
 >>>>>>> c31b9a8 (feat: change dateTime)
         String accessToken = resolveToken(request, "Authorization");
         String refreshToken = request.getHeader("x-refresh-token");
+=======
+        String accessToken = resolveToken(request);
+>>>>>>> 71d2f9b (feat: renew refresh token)
 
-        if(refreshToken == null){
-            refreshToken = "null";
-        }
-
-        boolean hasToken = !accessToken.equals("null");
-        boolean hasRefreshToken = !refreshToken.equals("null");
-
-        if(!hasToken){
+        if(accessToken == null){
             filterChain.doFilter(request, response);
         }
-
         else if(jwtProvider.validateToken(accessToken) == JwtCode.ACCESS){
 <<<<<<< HEAD
 >>>>>>> c13f264 (feat: change token exception)
@@ -93,31 +91,7 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
 
         } else if (jwtProvider.validateToken(accessToken) == JwtCode.EXPIRED){
-
-            if(!hasRefreshToken){
-                handleJwtException(HttpStatus.UNAUTHORIZED, response);
-            }
-
-            if(jwtProvider.validateToken(refreshToken) == JwtCode.ACCESS){
-                Authentication authentication = jwtProvider.getAuthentication(refreshToken);
-                String memberRefreshToken = jwtProvider.getRefreshToken(Long.valueOf(authentication.getName()));
-                if(refreshToken.equals(memberRefreshToken)){
-                    String newAccessToken = jwtProvider.generateToken(authentication);
-
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-
-                    response.setHeader(HttpHeaders.AUTHORIZATION, newAccessToken);
-
-                    filterChain.doFilter(request, response);
-                }else {
-                    handleJwtException(HttpStatus.FORBIDDEN, response);
-                }
-
-            } else if(jwtProvider.validateToken(refreshToken) == JwtCode.EXPIRED){
-                handleJwtException(HttpStatus.GONE, response);
-            }else if(jwtProvider.validateToken(refreshToken) == JwtCode.DENIED){
-                handleJwtException(HttpStatus.FORBIDDEN, response);
-            }
+            handleJwtException(HttpStatus.UNAUTHORIZED, response);
         } else if (jwtProvider.validateToken(accessToken) == JwtCode.DENIED){
 <<<<<<< HEAD
             response.setStatus(HttpStatus.FORBIDDEN.value());
@@ -141,6 +115,7 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     private String resolveToken(HttpServletRequest request) {
+<<<<<<< HEAD
 
         String bearerToken = request.getHeader("Authorization");
 
@@ -153,14 +128,17 @@ public class JwtFilter extends OncePerRequestFilter {
 
 >>>>>>> 7792f5a (feat: change JwtFilter Exception Message)
     private String resolveToken(HttpServletRequest request, String header) {
+=======
+>>>>>>> 71d2f9b (feat: renew refresh token)
 
-        String bearerToken = request.getHeader(header);
+        String bearerToken = request.getHeader("Authorization");
 
 >>>>>>> d87b507 (feat: change JwtFilter Exception Handle)
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")){
             return bearerToken.substring(7);
         }
 
+<<<<<<< HEAD
         return "null";
 <<<<<<< HEAD
     }
@@ -183,6 +161,9 @@ public class JwtFilter extends OncePerRequestFilter {
         );
 =======
 >>>>>>> c13f264 (feat: change token exception)
+=======
+        return null;
+>>>>>>> 71d2f9b (feat: renew refresh token)
     }
 
     private void handleJwtException(HttpStatus httpStatus, HttpServletResponse response) throws IOException {
@@ -197,7 +178,6 @@ public class JwtFilter extends OncePerRequestFilter {
                         switch (httpStatus){
                             case UNAUTHORIZED -> "Expired token";
                             case FORBIDDEN -> "Denied token";
-                            case GONE -> "Expired refresh token";
                             default -> "JwtTokenFilter Error";
                         }
                 )

@@ -1,10 +1,14 @@
 package com.nofriend.sonmandube.member.application;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 71d2f9b (feat: renew refresh token)
 import com.nofriend.sonmandube.exception.DenyRefreshTokenException;
 import com.nofriend.sonmandube.exception.ExpireRefreshTokenException;
 import com.nofriend.sonmandube.exception.IdNotFoundException;
 import com.nofriend.sonmandube.jwt.JwtCode;
+<<<<<<< HEAD
 =======
 import com.nofriend.sonmandube.exception.IdNotFoundException;
 >>>>>>> d53225a (feat: apply IdNotFoundException)
@@ -14,15 +18,22 @@ import com.nofriend.sonmandube.member.controller.request.EmailTokenRequest;
 =======
 import com.nofriend.sonmandube.member.controller.request.EmailValidationRequest;
 >>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
+=======
+import com.nofriend.sonmandube.jwt.JwtProvider;
+import com.nofriend.sonmandube.member.controller.request.EmailTokenRequest;
+>>>>>>> 71d2f9b (feat: renew refresh token)
 import com.nofriend.sonmandube.member.controller.request.LoginRequest;
 import com.nofriend.sonmandube.member.controller.request.SignupRequest;
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 >>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
+=======
+>>>>>>> 71d2f9b (feat: renew refresh token)
 import com.nofriend.sonmandube.member.domain.EmailToken;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.member.repository.EmailTokenRepository;
@@ -82,6 +93,9 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Override
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 71d2f9b (feat: renew refresh token)
     public String updateToken(String refreshToken) {
         JwtCode refreshTokenValidation = jwtProvider.validateToken(refreshToken);
 
@@ -95,11 +109,14 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     }
 
     @Override
+<<<<<<< HEAD
 =======
     @Transactional
 >>>>>>> e41d808 (feat: change JwtFilter Exception Message)
 =======
 >>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
+=======
+>>>>>>> 71d2f9b (feat: renew refresh token)
     public void signup(SignupRequest signupRequest) {
         Member newMember = Member.builder()
                 .id(signupRequest.getId())
@@ -178,11 +195,15 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     public LoginResponse login(LoginRequest loginRequest) {
         Member member = memberRepository.findById(loginRequest.getId())
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 =======
                 .orElseThrow();
 <<<<<<< HEAD
 >>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
+=======
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
+>>>>>>> 71d2f9b (feat: renew refresh token)
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(member.getMemberId(), loginRequest.getPassword());
@@ -230,6 +251,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .getPassword();
 
         return passwordEncoder.matches(password, memberPassword);
+<<<<<<< HEAD
     }
 
     @Override
@@ -238,12 +260,14 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 이메일이 없습니다."))
                 .getToken()
                 .equals(emailTokenResponse.getToken());
+=======
+>>>>>>> 71d2f9b (feat: renew refresh token)
     }
 
     @Override
     public Boolean checkValidEmailToken(EmailTokenRequest emailTokenResponse) {
         return emailTokenRepository.findById(emailTokenResponse.getEmailTokenId())
-                .orElseThrow()
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 이메일이 없습니다."))
                 .getToken()
                 .equals(emailTokenResponse.getToken());
     }
@@ -265,10 +289,14 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     public MemberInformationResponse findMemberInformationAll(Long memberId) {
         Member member = memberRepository.findById(memberId)
 <<<<<<< HEAD
+<<<<<<< HEAD
                 .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 =======
                 .orElseThrow(() -> new IdNotFoundException("일치하는 회원이 없습니다."));
 >>>>>>> d53225a (feat: apply IdNotFoundException)
+=======
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
+>>>>>>> 71d2f9b (feat: renew refresh token)
 
         return MemberInformationResponse.builder()
                 .imageUrl(member.getImageUrl())
@@ -377,9 +405,9 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        log.info("load user by username");
         Member member = memberRepository.findById((long) Integer.parseInt(username))
                 .orElseThrow(() -> new UsernameNotFoundException(username + "Not Found Member by Id"));
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 
@@ -389,8 +417,10 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 =======
 //        log.info(member.toString());
 >>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
+=======
+
+>>>>>>> 71d2f9b (feat: renew refresh token)
         member.setUserRole();
-//        log.info(member.toString());
 
         return member;
     }

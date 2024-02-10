@@ -3,17 +3,30 @@
 import React, { ChangeEvent, useState, useRef, useEffect } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
+import * as API from '@/apis';
 import Image from 'next/image';
 import { instanceMultipartContent } from 'apis/_instance';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
+import { useRecoilValue } from 'recoil';
+import { storyInfoState } from 'store/atoms';
 
-export default function FontStoryWritePage() {
+export default function FontStoryEditPage() {
+
+  // 정보 요청
+  const params = useParams();
+  const queryKey = ['font-story-detail', params['font-story-id']];
+  const { data: res, isFetching: isFontStoryDetailFetching } = useQuery({
+    queryKey: queryKey,
+    queryFn: () => API.handwritingStory.handwritingStoryDetail({ fontStoryId: params['font-story-id'] as string})
+  });
+
   // 현재 유저가 제작은 했지만 이야기는 쓰지 않은 손글씨 정보를 받아야함
   const { memberId, unusedHandwritings } = {
     memberId: 1,
     unusedHandwritings: [
       {
-        handwritingId: 3,
+        handwritingId: 4,
         name: '손만두체',
       },
       {
@@ -23,21 +36,28 @@ export default function FontStoryWritePage() {
     ],
   };
 
+  
+  // 기존데이터 불러오기
+  const storyInfo = useRecoilValue(storyInfoState);
+  console.log('hi')
+  console.log(storyInfo)
+
+  
   const router = useRouter();
 
   const ref = useRef<HTMLInputElement>(null);
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>(storyInfo.title);
   const handleTitleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
   const refText = useRef<HTMLTextAreaElement>(null);
-  const [content, setContent] = useState<string>('');
+  const [content, setContent] = useState<string>(storyInfo.content);
   const handleTextOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
-  const [handwriting, setHandwriting] = useState<number | null>(null);
+  const [handwriting, setHandwriting] = useState<number | null>(storyInfo.handwritingId);
 
   const [selectedFile, setSelectedFile] = useState<File>();
 
@@ -53,6 +73,13 @@ export default function FontStoryWritePage() {
       setCurrentStep(currentStep - 1);
     }
   };
+
+  
+  // useEffect(() => {
+  //   setTitle(storyInfo.title)
+  //   setContent(storyInfo.content)
+  //   setHandwriting(storyInfo.handwritingId)
+  // }, [])
 
   //태그 캐로셀 부분
 

@@ -1,5 +1,6 @@
 export interface CommentProps {
-  HandwritingStoryCommentId: number;
+  handwritingStoryId: number;
+  handwritingStoryCommentId: number;
   content: string;
   createDate: string;
 }

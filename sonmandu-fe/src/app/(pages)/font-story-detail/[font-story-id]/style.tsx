@@ -17,8 +17,18 @@ export const FontStoryDetailWrapper = styled.div`
   width: 100%;
   height: fit-content;
   display: flex;
+  position: relative;
   justify-content: center;
   padding: 6vh;
+  gap: 100px;
+`;
+
+export const DetailPageWrapper = styled.div`
+  width: 100%;
+  height: fit-content;
+  position: relative;
+  display: flex;
+  justify-content: center;
 `;
 
 export const DetailWrapper = styled.div`
@@ -72,10 +82,10 @@ export const DetailInfoWrapper = styled.div`
   }
 `;
 
-export const TitleSpan = styled.span`
+export const TitleSpan = styled.span<{ name: string }>`
   font-size: 1.6vw;
   font-weight: ${notoSansKr.bold.style.fontWeight};
-  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-family: ${(props) => (props.name ? props.name: notoSansKr.extraBold.style.fontFamily)};
 `;
 
 export const FontDateWrapper = styled.div`
@@ -85,13 +95,13 @@ export const FontDateWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const FontLinkWrapper = styled.div`
+export const FontLinkWrapper = styled.div<{name: string}>`
   width: fit-content;
   height: fit-content;
   font-size: max(14px, 0.8vw);
   text-decoration: underline;
   font-weight: ${notoSansKr.bold.style.fontWeight};
-  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-family: ${(props) => (props.name ? props.name : notoSansKr.extraBold.style.fontFamily)};
   display: flex;
   align-items: center;
   gap: 0.5vw;
@@ -101,16 +111,44 @@ export const FontStoryDateWrapper = styled.span`
   font-size: max(14px, 0.8vw);
 `;
 
+export const FontStoryTextWrapper = styled.div`
+  position: relative;
+`;
+
+export const SideBarWrapper = styled.div`
+  position: relative;
+  width: fit-content;
+  height: 100%;
+  display: flex;
+`;
+
 export const TagsWrapper = styled.div`
   width: fit-content;
 `;
 
-export const FontStoryText = styled.div`
+export const FontStoryText = styled.div<{name: string}>`
   width: 95%;
   height: fit-content;
   font-size: max(14px, 1vw);
   line-height: 1.5;
   white-space: pre-line;
+  font-family: ${(props) => (props.name ? props.name : notoSansKr.extraBold.style.fontFamily)};
+`;
+
+export const EditDeleteWrapper = styled.div`
+width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 1vw;
+`;
+
+export const EditLink = styled.span`
+  text-decoration: underline;
+`;
+
+export const DeleteLink = styled.span`
+  text-decoration: underline;
 `;
 
 export const ProfileWrapper = styled.div`
@@ -120,7 +158,7 @@ export const ProfileWrapper = styled.div`
   flex-direction: column;
   gap: 2vh;
   align-items: center;
-  margin: 4vw 0 3vw 0;
+  margin-top: 3vw;
 `;
 
 export const VerticalProfileBoxDiv = styled.div`

@@ -30,3 +30,19 @@ export const CommentContentWrapper = styled.div`
   padding-left: 40px;
   font-size: max(14px, 0.9vw);
 `;
+
+export const EditDeleteWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 1vw;
+`;
+
+export const DeleteLink = styled.span`
+  text-decoration: underline;
+`;
+
+export const EditLink = styled.span`
+  text-decoration: underline;
+`;

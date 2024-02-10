@@ -99,6 +99,7 @@ function SignUpModal() {
     requestSignUp();
   };
 
+<<<<<<< HEAD
   const showTextContent = ({
     toggledValue,
     textContents,
@@ -109,6 +110,14 @@ function SignUpModal() {
     if (toggledValue === null) return;
     return toggledValue ? textContents.good : textContents.bad;
   };
+=======
+  // requestSignUp -> onSuccess -> requestLogin()
+  const isUniqueId = useDebouncing({
+    value: valuesBasket.id,
+    callback: () => setCheckUniqueValues((prev) => ({ ...prev, id: resCheckId?.isPossible })),
+    delay: 1000,
+  });
+>>>>>>> cda93113bb6483f293d76f3f0e1b434e5b657bbb
 
   const subContent: { [key: string]: React.ReactNode } = {
     name: null,
@@ -155,7 +164,11 @@ function SignUpModal() {
   return (
     <>
       {signUpModal.modal.isOpen && (
+<<<<<<< HEAD
         <Comp.BaseModal size="large" onClose={() => signUpModal.closeModal()}>
+=======
+        <Comp.BaseModal size="large" onClose={closeModal}>
+>>>>>>> cda93113bb6483f293d76f3f0e1b434e5b657bbb
           <S.ModalContainer>
             <S.WelcomeWrapper>
               <span>환영합니다!</span>

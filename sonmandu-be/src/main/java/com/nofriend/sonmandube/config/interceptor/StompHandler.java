@@ -1,6 +1,9 @@
 package com.nofriend.sonmandube.config.interceptor;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> be46cd8 (feat: chatting)
 import com.nofriend.sonmandube.exception.ExpireTokenException;
 import com.nofriend.sonmandube.jwt.JwtCode;
 import com.nofriend.sonmandube.jwt.JwtProvider;
@@ -18,6 +21,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> be46cd8 (feat: chatting)
 import org.springframework.messaging.MessageDeliveryException;
 import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.simp.stomp.StompCommand;
@@ -53,10 +59,10 @@ import static org.springframework.messaging.simp.stomp.StompCommand.CONNECT;
 @Slf4j
 public class StompHandler implements ChannelInterceptor {
     private final JwtProvider jwtProvider;
-    private final MemberRepository memberRepository;
 
     @Override
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -141,24 +147,42 @@ public class StompHandler implements ChannelInterceptor {
 >>>>>>> 7344e92 (test: chatting principal)
 
         log.info(rawToken);
+=======
+        log.info("================================");
+        log.info("start StompHandler");
+
+        StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
+
+        log.info(String.valueOf(accessor.getCommand()));
+
+        String rawToken = Objects.requireNonNull(accessor).getFirstNativeHeader("Authorization");
+
+>>>>>>> be46cd8 (feat: chatting)
         String token = StringUtils.hasText(rawToken) && rawToken.startsWith("Bearer ")
                 ? Objects.requireNonNull(rawToken).substring(7)
                 : "null";
-    log.info(token);
-        log.info("command: " + String.valueOf(accessor.getCommand()));
-        if(accessor.getCommand() == CONNECT && !token.equals("null")) {
-            log.info(token);
-            Authentication authentication = jwtProvider.getAuthentication(token);
-            log.info(authentication.toString());
-            log.info(authentication.getName());
 
-            accessor.setUser(jwtProvider.getAuthentication(token));
+        if(accessor.getCommand() == CONNECT && !token.equals("null") && jwtProvider.validateToken(token) == JwtCode.ACCESS) {
+            Authentication authentication = jwtProvider.getAuthentication(token);
+
+            accessor.setUser(authentication);
+            return message;
+        }else if(accessor.getUser() != null){
+            log.info(String.valueOf(accessor.getUser()));
+            log.info("success StompHandler");
+            return message;
+        }else{
+            log.info("failure stomp");
+            throw new MessageDeliveryException("토큰을 확인하십시오.");
         }
 >>>>>>> 5f2246a (feat: update jwt information)
 
+<<<<<<< HEAD
         log.info(String.valueOf(accessor.getUser()));
         log.info("success StompHandler");
         return message;
 >>>>>>> bb48a11 (feat: add WebSocket)
+=======
+>>>>>>> be46cd8 (feat: chatting)
     }
 }

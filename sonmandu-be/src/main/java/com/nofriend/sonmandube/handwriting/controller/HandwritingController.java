@@ -56,6 +56,7 @@ public class HandwritingController {
         return ResponseEntity.noContent().build();
 =======
         handwritingService.saveFont(name, font);
+<<<<<<< HEAD
 =======
         for(int i = 0; i < 100; i++){
             handwritingService.saveFont(name, font);
@@ -67,6 +68,9 @@ public class HandwritingController {
 >>>>>>> 47bb621 (hotfix: delete test code)
         return ResponseEntity.status(HttpStatus.OK).build();
 >>>>>>> ae05ff2 (feat: update logout security)
+=======
+        return ResponseEntity.noContent().build();
+>>>>>>> be46cd8 (feat: chatting)
     }
 
     @GetMapping("/gallery")

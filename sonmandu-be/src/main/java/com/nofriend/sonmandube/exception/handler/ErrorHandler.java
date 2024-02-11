@@ -27,14 +27,20 @@ public class ErrorHandler {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> be46cd8 (feat: chatting)
     @ExceptionHandler(MessageDeliveryException.class)
     public ResponseEntity<ErrorMessage> messageDeliveryException(MessageDeliveryException e){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(ErrorMessageFactory.from(HttpStatus.UNAUTHORIZED, e.getMessage()));
     }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 2a88da7 (refactor: status code)
+=======
+>>>>>>> be46cd8 (feat: chatting)
     @ExceptionHandler(InvalidDataAccessApiUsageException.class)
     public ResponseEntity<ErrorMessage> invalidDataAccessApiUsageException(InvalidDataAccessApiUsageException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -59,6 +65,7 @@ public class ErrorHandler {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     // 만료된 토큰
     @ExceptionHandler(ExpireTokenException.class)
     public ResponseEntity<ErrorMessage> expireToken(ExpireTokenException e){
@@ -67,11 +74,19 @@ public class ErrorHandler {
     @ExceptionHandler(TokenExpireException.class)
     public ResponseEntity<ErrorMessage> tokenExpireException(TokenExpireException e){
 >>>>>>> e2b9b34 (feat: change token exception)
+=======
+    // 만료된 토큰
+    @ExceptionHandler(ExpireTokenException.class)
+    public ResponseEntity<ErrorMessage> expireToken(ExpireTokenException e){
+>>>>>>> be46cd8 (feat: chatting)
         return ResponseEntity.status(e.getStatus())
                 .body(ErrorMessageFactory.from(e.getStatus(), e.getErrorMessage()));
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> be46cd8 (feat: chatting)
     // 만료된 리프레시 토큰
     @ExceptionHandler(ExpireRefreshTokenException.class)
     public ResponseEntity<ErrorMessage> expireRefreshToken(ExpireRefreshTokenException e){

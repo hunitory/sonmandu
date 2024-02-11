@@ -74,12 +74,13 @@ public class ChatController {
 
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
-    public Chat chatting(@Valid ChatRequest chatRequest, @Header("Authorization") String token) {
+    public Chat chatting(@Valid ChatRequest chatRequest, Authentication authentication) {
     log.info("chatting1");
 <<<<<<< HEAD
 =======
 //    token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyOSIsImF1dGgiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6MjksImV4cCI6MTcwNzk2MjQ3OX0.6TMBRyhHLNEnQK7IhG0YCQ49OI58v8SbJHl0amGvKoHlIQ3qYlrYVYc9Z_dJpqETDWQLs_luE71DedVeBt_xsg";;
 
+<<<<<<< HEAD
 >>>>>>> 32d7084 (feat: change dateTime)
         token = token.substring(7);
 
@@ -87,6 +88,13 @@ public class ChatController {
     Long memberId = 1L;
     chatRequest.setHandwritingId(1L);
     chatRequest.setMessage("fsdf");
+=======
+//        token = token.substring(7);
+//
+//        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
+        Long memberId = Long.valueOf(authentication.getName());
+        log.info(String.valueOf(memberId));
+>>>>>>> 5ff7c3c (refactor: chatting websocket)
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
 
         HandwritingNameDownloadUrlProjection handwritingNameDownloadUrlProjection = handwritingRepository.findNameDownloadUrlByHandwritingId(chatRequest.getHandwritingId());

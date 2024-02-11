@@ -37,7 +37,11 @@ import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+<<<<<<< HEAD
 >>>>>>> bb48a11 (feat: add WebSocket)
+=======
+import org.springframework.util.StringUtils;
+>>>>>>> 5ff7c3c (refactor: chatting websocket)
 
 import java.util.Objects;
 
@@ -124,24 +128,18 @@ public class StompHandler implements ChannelInterceptor {
 =======
         String rawToken = accessor.getFirstNativeHeader("Authorization");
 
-        log.info("command: " + String.valueOf(accessor.getCommand()));
-        if(accessor.getCommand() == StompCommand.CONNECT && rawToken != null) {
+        String token = StringUtils.hasText(rawToken) && rawToken.startsWith("Bearer ")
+                ? Objects.requireNonNull(rawToken).substring(7)
+                : null;
 
-            String token = Objects.requireNonNull(rawToken).substring(7);
+        log.info("command: " + String.valueOf(accessor.getCommand()));
+        if(accessor.getCommand() == StompCommand.CONNECT && token != null) {
             log.info(token);
             Authentication authentication = jwtProvider.getAuthentication(token);
             log.info(authentication.toString());
             log.info(authentication.getName());
-            Long memberId = Long.valueOf(authentication.getName());
-            log.info(String.valueOf(memberId));
-            String dbRefreshToken = memberRepository.findById(memberId).orElseThrow()
-                    .getRefreshToken();
 
-            log.info(dbRefreshToken);
-            log.info(String.valueOf(jwtProvider.validateToken(token) != JwtCode.ACCESS || !token.equals(dbRefreshToken)));
-            if (jwtProvider.validateToken(token) != JwtCode.ACCESS || !token.equals(dbRefreshToken)){
-                throw new JwtException("Not Valid Token");
-            }
+            accessor.setUser(jwtProvider.getAuthentication(token));
         }
 >>>>>>> 5f2246a (feat: update jwt information)
 

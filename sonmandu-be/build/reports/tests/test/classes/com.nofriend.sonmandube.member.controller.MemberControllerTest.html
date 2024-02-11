@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - MemberControllerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>MemberControllerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.nofriend.sonmandube.member.controller.html">com.nofriend.sonmandube.member.controller</a> &gt; MemberControllerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">6</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">2.573s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">본인 정보 가져오기 테스트-성공</td>
+<td class="success">testFindMeInformationSuccess()</td>
+<td class="success">0.126s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">로그인 테스트 - 성공</td>
+<td class="success">testLoginSuccess()</td>
+<td class="success">0.460s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">로그아웃 테스트-성공</td>
+<td class="success">testLogoutSuccess()</td>
+<td class="success">0.080s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">유저 정보 수정</td>
+<td class="success">testUpdateMemberInformation()</td>
+<td class="success">1.536s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">비밀번호 중복 체크-실패</td>
+<td class="success">testValidPasswordFailure()</td>
+<td class="success">0.204s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">비밀번호 중복 체크-성공</td>
+<td class="success">testValidPasswordSuccess()</td>
+<td class="success">0.167s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>12:07:55.862 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.nofriend.sonmandube.member.controller.MemberControllerTest]: MemberControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+12:07:56.166 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.nofriend.sonmandube.SonmanduBeApplication for test class com.nofriend.sonmandube.member.controller.MemberControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.2)
+
+2024-02-11T12:07:56.843+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : Starting MemberControllerTest using Java 17.0.9 with PID 15030 (started by seungmin in /Users/seungmin/mehot98/S10P12B111/sonmandu-be)
+2024-02-11T12:07:56.854+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : The following 2 profiles are active: &quot;env&quot;, &quot;prod&quot;
+2024-02-11T12:07:58.433+09:00  INFO 15030 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-02-11T12:07:58.637+09:00  INFO 15030 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 196 ms. Found 15 JPA repository interfaces.
+2024-02-11T12:07:59.765+09:00  INFO 15030 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-02-11T12:07:59.825+09:00  INFO 15030 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.1.Final
+2024-02-11T12:07:59.862+09:00  INFO 15030 --- [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-02-11T12:08:00.122+09:00  INFO 15030 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-02-11T12:08:00.158+09:00  INFO 15030 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-02-11T12:08:00.481+09:00  INFO 15030 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@70ecf57b
+2024-02-11T12:08:00.488+09:00  INFO 15030 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-02-11T12:08:01.370+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.nofriend.sonmandube.handwritingstory.domain.HandwritingStoryCountId
+2024-02-11T12:08:01.371+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.nofriend.sonmandube.handwritingstory.domain.HandwritingStoryCountId
+2024-02-11T12:08:01.372+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.nofriend.sonmandube.handwriting.domain.HandwritingCountId
+2024-02-11T12:08:01.372+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.nofriend.sonmandube.handwriting.domain.HandwritingCountId
+2024-02-11T12:08:01.372+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.nofriend.sonmandube.handwriting.domain.HandwritingCountId
+2024-02-11T12:08:01.372+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.nofriend.sonmandube.handwriting.domain.HandwritingCountId
+2024-02-11T12:08:01.373+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.nofriend.sonmandube.member.domain.TrophyId
+2024-02-11T12:08:01.373+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.nofriend.sonmandube.member.domain.TrophyId
+2024-02-11T12:08:01.374+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.nofriend.sonmandube.handwritingstory.domain.HandwritingStoryCountId
+2024-02-11T12:08:01.374+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.nofriend.sonmandube.handwritingstory.domain.HandwritingStoryCountId
+2024-02-11T12:08:01.378+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.nofriend.sonmandube.handwriting.domain.HandwritingCountId
+2024-02-11T12:08:01.379+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.nofriend.sonmandube.handwriting.domain.HandwritingCountId
+2024-02-11T12:08:01.380+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): com.nofriend.sonmandube.handwriting.domain.HandwritingTagId
+2024-02-11T12:08:01.381+09:00  WARN 15030 --- [    Test worker] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): com.nofriend.sonmandube.handwriting.domain.HandwritingTagId
+2024-02-11T12:08:02.518+09:00  INFO 15030 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-02-11T12:08:03.388+09:00  INFO 15030 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+현재 시간: 02월 11일 12시 08분 03초
+2024-02-11T12:08:04.110+09:00  INFO 15030 --- [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-02-11T12:08:06.284+09:00  WARN 15030 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-02-11T12:08:06.762+09:00  INFO 15030 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@65dff28b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1e499f1, org.springframework.security.web.context.SecurityContextHolderFilter@3c22a99a, org.springframework.security.web.header.HeaderWriterFilter@6f272dc4, org.springframework.web.filter.CorsFilter@13f6395d, org.springframework.security.web.csrf.CsrfFilter@e8c381e, org.springframework.security.web.authentication.logout.LogoutFilter@3ba55a6b, com.nofriend.sonmandube.jwt.JwtFilter@f1f41b5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@412b90cc, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6232cde5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@154ea177, org.springframework.security.web.access.ExceptionTranslationFilter@376b6d7d, org.springframework.security.web.access.intercept.AuthorizationFilter@1f81b020]
+2024-02-11T12:08:07.494+09:00  INFO 15030 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2024-02-11T12:08:07.496+09:00  INFO 15030 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2024-02-11T12:08:07.499+09:00  INFO 15030 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2024-02-11T12:08:07.538+09:00  INFO 15030 --- [    Test worker] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-02-11T12:08:07.544+09:00  INFO 15030 --- [    Test worker] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@223ed38f]]
+2024-02-11T12:08:07.546+09:00  INFO 15030 --- [    Test worker] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-02-11T12:08:07.560+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : Started MemberControllerTest in 11.224 seconds (process running for 13.544)
+2024-02-11T12:08:08.549+09:00  INFO 15030 --- [    Test worker] com.nofriend.sonmandube.jwt.JwtFilter    : ------------------------------
+2024-02-11T12:08:08.551+09:00  INFO 15030 --- [    Test worker] com.nofriend.sonmandube.jwt.JwtFilter    : Request start
+2024-02-11T12:08:08.777+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberController      : /members/{informationType}
+2024-02-11T12:08:08.778+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberController      : email
+2024-02-11T12:08:08.778+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberController      : sssss@sss.sss
+
+MockHttpServletRequest:
+      HTTP Method = PATCH
+      Request URI = /members/email
+       Parameters = {_csrf=[lJdgZS3leuEryAQw3QZeIJpPNXkzZt_dar3b9hrG_ISY-EySrKJTAE-HTdgG_WUE6ytqQqkpGBsFB-vwWtu5xHmnnbygmy6g]}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;27&quot;]
+             Body = {&quot;value&quot;: &quot;sssss@sss.sss&quot;}
+
+    Session Attrs = {SPRING_SECURITY_CONTEXT=SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=11, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]], Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]]}
+
+Handler:
+             Type = com.nofriend.sonmandube.member.controller.MemberController
+           Method = com.nofriend.sonmandube.member.controller.MemberController#updateMemberInformationCommon(String, Map, Authentication)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 204
+    Error message = null
+          Headers = [Vary:&quot;Origin&quot;, &quot;Access-Control-Request-Method&quot;, &quot;Access-Control-Request-Headers&quot;, X-Content-Type-Options:&quot;nosniff&quot;, X-XSS-Protection:&quot;0&quot;, Cache-Control:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;, Pragma:&quot;no-cache&quot;, Expires:&quot;0&quot;, X-Frame-Options:&quot;SAMEORIGIN&quot;]
+     Content type = null
+             Body = 
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2024-02-11T12:08:09.148+09:00  INFO 15030 --- [    Test worker] com.nofriend.sonmandube.jwt.JwtFilter    : ------------------------------
+2024-02-11T12:08:09.149+09:00  INFO 15030 --- [    Test worker] com.nofriend.sonmandube.jwt.JwtFilter    : Request start
+2024-02-11T12:08:09.154+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberController      : /members/valid-password
+2024-02-11T12:08:09.353+09:00  INFO 15030 --- [    Test worker] com.nofriend.sonmandube.jwt.JwtFilter    : ------------------------------
+2024-02-11T12:08:09.353+09:00  INFO 15030 --- [    Test worker] com.nofriend.sonmandube.jwt.JwtFilter    : Request start
+2024-02-11T12:08:09.420+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberController      : /members/login
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /members/login
+       Parameters = {_csrf=[nXgT1ciz-cmGeH4Q4m3xo89s4ymBxI3qjV2C_HYbb7F1-CmVqx4jsfyFn_2rGh8p00DFxflfzkvi_O7H6Wi7nUAtWYVEmRD2]}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;47&quot;]
+             Body = {&quot;id&quot;:  &quot;ssafy1233&quot;,
+&quot;password&quot;:  &quot;123123123&quot;}
+
+    Session Attrs = {}
+
+Handler:
+             Type = com.nofriend.sonmandube.member.controller.MemberController
+           Method = com.nofriend.sonmandube.member.controller.MemberController#login(LoginRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:&quot;Origin&quot;, &quot;Access-Control-Request-Method&quot;, &quot;Access-Control-Request-Headers&quot;, Content-Type:&quot;application/json&quot;, X-Content-Type-Options:&quot;nosniff&quot;, X-XSS-Protection:&quot;0&quot;, Cache-Control:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;, Pragma:&quot;no-cache&quot;, Expires:&quot;0&quot;, X-Frame-Options:&quot;SAMEORIGIN&quot;]
+     Content type = application/json
+             Body = {&quot;token&quot;:&quot;eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwibWVtYmVySWQiOjExLCJuaWNrTmFtZSI6IuyCrOyCkOyCkDEyMzMiLCJpbWFnZVVybCI6Imh0dHBzOi8vc29ubWFuZG8uczMuYXAtbm9ydGhlYXN0LTIuYW1hem9uYXdzLmNvbS8yMDI0LzAyLzExLzg5ZjgyMDk1LWE2ZTQtNDg3NC04MjA4LTFmODJkY2MyMjRhNy5wbmciLCJleHAiOjE3MDc2MjA5MDl9.F3Bn2UoqD76lj40fyZaTQVKSJkP-Ie1aIRVimS-GYm2D6pLmpFXqMMNC-KNY2ldX-9UUn6MRW_hCS3HhMN2t-g&quot;,&quot;refreshToken&quot;:&quot;eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwibWVtYmVySWQiOjExLCJuaWNrTmFtZSI6IuyCrOyCkOyCkDEyMzMiLCJpbWFnZVVybCI6Imh0dHBzOi8vc29ubWFuZG8uczMuYXAtbm9ydGhlYXN0LTIuYW1hem9uYXdzLmNvbS8yMDI0LzAyLzExLzg5ZjgyMDk1LWE2ZTQtNDg3NC04MjA4LTFmODJkY2MyMjRhNy5wbmciLCJleHAiOjE3MDgyMjU2ODl9.pxVEQxPy2v8jsBvLYsjM1osNEjqKx00QdHljUHUHR0Dy3uyITMn4YHStYDBYqdCKJ77Jm0oLKbizhc0oNgDEvQ&quot;}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2024-02-11T12:08:09.841+09:00  INFO 15030 --- [    Test worker] com.nofriend.sonmandube.jwt.JwtFilter    : ------------------------------
+2024-02-11T12:08:09.845+09:00  INFO 15030 --- [    Test worker] com.nofriend.sonmandube.jwt.JwtFilter    : Request start
+2024-02-11T12:08:09.848+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberController      : /members/logout
+2024-02-11T12:08:09.902+09:00  INFO 15030 --- [    Test worker] com.nofriend.sonmandube.jwt.JwtFilter    : ------------------------------
+2024-02-11T12:08:09.902+09:00  INFO 15030 --- [    Test worker] com.nofriend.sonmandube.jwt.JwtFilter    : Request start
+2024-02-11T12:08:09.905+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberController      : /members/valid-password
+2024-02-11T12:08:10.072+09:00  INFO 15030 --- [    Test worker] com.nofriend.sonmandube.jwt.JwtFilter    : ------------------------------
+2024-02-11T12:08:10.072+09:00  INFO 15030 --- [    Test worker] com.nofriend.sonmandube.jwt.JwtFilter    : Request start
+2024-02-11T12:08:10.074+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberController      : /members/me
+2024-02-11T12:08:10.149+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberController      : MeInformationResponse(nickname=asdasd, id=qweqweqwe, name=ffff, email=value1111)
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /members/me
+       Parameters = {_csrf=[R71AkLr_oM0QF00GsGQSEV0PQEspCRUVUuZxuqumBWa3d0eDJo5yo47KlPo9dS5liEkmJzlubSpNPSc4ZtBG3p6fMFHRFSGx]}
+          Headers = []
+             Body = null
+    Session Attrs = {SPRING_SECURITY_CONTEXT=SecurityContextImpl [Authentication=UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=1, Password=[PROTECTED], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[ROLE_USER]], Credentials=[PROTECTED], Authenticated=true, Details=null, Granted Authorities=[ROLE_USER]]]}
+
+Handler:
+             Type = com.nofriend.sonmandube.member.controller.MemberController
+           Method = com.nofriend.sonmandube.member.controller.MemberController#findMeInformation(Authentication)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Vary:&quot;Origin&quot;, &quot;Access-Control-Request-Method&quot;, &quot;Access-Control-Request-Headers&quot;, Content-Type:&quot;application/json&quot;, X-Content-Type-Options:&quot;nosniff&quot;, X-XSS-Protection:&quot;0&quot;, Cache-Control:&quot;no-cache, no-store, max-age=0, must-revalidate&quot;, Pragma:&quot;no-cache&quot;, Expires:&quot;0&quot;, X-Frame-Options:&quot;SAMEORIGIN&quot;]
+     Content type = application/json
+             Body = {&quot;nickname&quot;:&quot;asdasd&quot;,&quot;id&quot;:&quot;qweqweqwe&quot;,&quot;name&quot;:&quot;ffff&quot;,&quot;email&quot;:&quot;value1111&quot;}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.5</a> at Feb 11, 2024, 12:08:10 PM</p>
+</div>
+</div>
+</body>
+</html>

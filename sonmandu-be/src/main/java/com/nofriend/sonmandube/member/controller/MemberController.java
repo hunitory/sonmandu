@@ -187,26 +187,27 @@ public class MemberController {
     // 회원 수정 페이지 - 프로필 사진 수정
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/image")
-    public HttpStatus updateMemberInformationImage(MultipartFile image, Authentication authentication){
+    public ResponseEntity<HttpStatus> updateMemberInformationImage(MultipartFile image, Authentication authentication){
         log.info("/members/image");
         log.info(image.getOriginalFilename());
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
         memberService.updateMemberInformationImage(memberId, image);
-        return HttpStatus.NO_CONTENT;
+        return ResponseEntity.noContent().build();
     }
 
 
     // 회원 수정  페이지 - 이메일, 비밀번호, 소개글, 닉네임, 프로필 이미지 수정
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/{informationType}")
-    public HttpStatus updateMemberInformationCommon(@PathVariable @NotEmpty String informationType, @RequestBody String value, Authentication authentication){
+    public ResponseEntity<HttpStatus> updateMemberInformationCommon(@PathVariable @NotEmpty String informationType, @RequestBody Map<String, String> request, Authentication authentication){
         log.info("/members/{informationType}");
         log.info(informationType);
+        String value = request.get("value");
         log.info(value);
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
 
         memberService.updateMemberInformationCommon(memberId, informationType, value);
-        return HttpStatus.NO_CONTENT;
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     //---DeleteMapping

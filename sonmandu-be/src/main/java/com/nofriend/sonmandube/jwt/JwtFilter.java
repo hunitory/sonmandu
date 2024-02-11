@@ -28,11 +28,7 @@ public class JwtFilter extends OncePerRequestFilter {
         log.info("Request start");
         String accessToken = resolveToken(request);
 
-        log.info(String.valueOf(request.getHeaderNames()));
-        log.info(String.valueOf(accessToken == null));
-        log.info(accessToken);
-        log.info(String.valueOf(accessToken == null ? "null" : jwtProvider.validateToken(accessToken)));
-        if(accessToken == null){
+        if(accessToken.equals("null")){
             filterChain.doFilter(request, response);
         }
         else if(jwtProvider.validateToken(accessToken) == JwtCode.ACCESS){
@@ -58,7 +54,7 @@ public class JwtFilter extends OncePerRequestFilter {
             return bearerToken.substring(7);
         }
 
-        return null;
+        return "null";
     }
 
     private void handleJwtException(HttpStatus httpStatus, HttpServletResponse response) throws IOException {

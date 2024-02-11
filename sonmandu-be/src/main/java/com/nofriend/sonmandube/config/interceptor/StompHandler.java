@@ -11,11 +11,14 @@ import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
+import org.springframework.messaging.support.MessageHeaderAccessor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Objects;
+
+import static org.springframework.messaging.simp.stomp.StompCommand.CONNECT;
 
 @RequiredArgsConstructor
 @Component
@@ -28,17 +31,19 @@ public class StompHandler implements ChannelInterceptor {
     public Message<?> preSend(Message<?> message, MessageChannel channel) {
         log.info("start StopmHandler");
 
-        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
+//        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
+        StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
 //        String rawToken = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyOSIsImF1dGgiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6MjksImV4cCI6MTcwNzk2MjQ3OX0.6TMBRyhHLNEnQK7IhG0YCQ49OI58v8SbJHl0amGvKoHlIQ3qYlrYVYc9Z_dJpqETDWQLs_luE71DedVeBt_xsg";
-        String rawToken = accessor.getFirstNativeHeader("Authorization");
+        String rawToken = Objects.requireNonNull(accessor).getFirstNativeHeader("Authorization");
 
+        log.info(rawToken);
         String token = StringUtils.hasText(rawToken) && rawToken.startsWith("Bearer ")
                 ? Objects.requireNonNull(rawToken).substring(7)
                 : "null";
-
+    log.info(token);
         log.info("command: " + String.valueOf(accessor.getCommand()));
-        if(!token.equals("null")) {
+        if(accessor.getCommand() == CONNECT && !token.equals("null")) {
             log.info(token);
             Authentication authentication = jwtProvider.getAuthentication(token);
             log.info(authentication.toString());
@@ -47,6 +52,7 @@ public class StompHandler implements ChannelInterceptor {
             accessor.setUser(jwtProvider.getAuthentication(token));
         }
 
+        log.info(String.valueOf(accessor.getUser()));
         log.info("success StompHandler");
         return message;
     }

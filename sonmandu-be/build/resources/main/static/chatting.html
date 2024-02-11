@@ -12,10 +12,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js"></script>
 <!--    <script src="/app.js"></script>-->
     <script>
-        var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyNiIsImF1dGgiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6MjYsImV4cCI6MTcwNzI4MTk0OX0.U7NnGOCMP56Y9o-VEw4buaK86dWL_6ASPieSmdAVHHR5WoCZTvYrC9fd9vOk47Y9-EXl6Wl3ltSJMsszLk-cAQ'
-
+        var token = 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJhdXRoIjoiUk9MRV9VU0VSIiwibWVtYmVySWQiOjExLCJuaWNrTmFtZSI6IuyCrOyCkOyCkDEyMzMiLCJpbWFnZVVybCI6Imh0dHBzOi8vc29ubWFuZG8uczMuYXAtbm9ydGhlYXN0LTIuYW1hem9uYXdzLmNvbS8yMDI0LzAyLzExLzViYzFiNjM4LWE5NTYtNDAxYS1hZTgzLTgwODhkMTY5OTFmNC5wbmciLCJleHAiOjE3MDgyMzY2NjV9.xVVkK_vpJPJHSv3IRfBuG1yVbYG1fMO1ymT0k39iOn9zo9qQnzcRCfCxN4Ey5GTUr49zJLqqQM_pStNcXx7tIQ'
         const stompClient = new StompJs.Client({
-            brokerURL: 'wss://i10b111.p.ssafy.io/dev/api/chat-connection',
+            brokerURL: 'ws://localhost:8080/chat-connection',
             connectHeaders: {
                 "Authorization" : token
             }
@@ -26,7 +25,7 @@
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/sonmandu', (chat) => {
                 showChatting(JSON.parse(chat.body).message);
-            }, {'Authorization': token});
+            });
         };
 
         stompClient.onWebSocketError = (error) => {

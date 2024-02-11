@@ -25,34 +25,34 @@ function SignUpModal() {
 
   useDebouncing({
     value: valuesBasket.id,
-    callback: () =>
+    callback: async () =>
       valuesBasket.id &&
-      API.member.checkIdUnique({ id: valuesBasket.id }).then((res) => {
+      (await API.member.checkIdUnique({ id: valuesBasket.id }).then((res) => {
         setCheckUniqueValues((prev) => ({ ...prev, id: res.data.isPossible }));
         return res.data;
-      }),
+      })),
     delay: 400,
   });
 
   useDebouncing({
     value: valuesBasket.nickname,
-    callback: () =>
+    callback: async () =>
       valuesBasket.nickname &&
-      API.member.checkNicknameUnique({ nickname: valuesBasket.nickname }).then((res) => {
+      (await API.member.checkNicknameUnique({ nickname: valuesBasket.nickname }).then((res) => {
         setCheckUniqueValues((prev) => ({ ...prev, nickname: res.data.isPossible }));
         return res.data;
-      }),
+      })),
     delay: 400,
   });
 
   useDebouncing({
     value: valuesBasket.sendedCode,
-    callback: () =>
+    callback: async () =>
       valuesBasket.sendedCode &&
-      API.member.checkCode({ emailTokenId: emailTokenId, codeValue: valuesBasket.sendedCode }).then((res) => {
+      (await API.member.checkCode({ emailTokenId: emailTokenId, codeValue: valuesBasket.sendedCode }).then((res) => {
         setCheckUniqueValues((prev) => ({ ...prev, authCode: res.data }));
         return res.data;
-      }),
+      })),
     delay: 400,
   });
 

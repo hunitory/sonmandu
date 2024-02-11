@@ -7,7 +7,7 @@ import Image from 'next/image';
 import useModal from 'customhook/useModal';
 import { useMutation } from '@tanstack/react-query';
 import { jwtDecode } from 'jwt-decode';
-import { instanceJsonContent } from 'apis/_instance';
+import { useRouter } from 'next/navigation';
 
 interface UnAuthorizationUser {
   isAuth: false;
@@ -22,6 +22,7 @@ interface AuthorizationUser {
 export default function ProfileHamburger() {
   const loginModal = useModal('login');
   const signUpModal = useModal('signUp');
+  const router = useRouter();
 
   const [authorizationUser, setAuthorizationUser] = useState<UnAuthorizationUser | AuthorizationUser>({
     isAuth: false,
@@ -52,7 +53,7 @@ export default function ProfileHamburger() {
     } else if (localStorage.getItem('access_token') === null) {
       setAuthorizationUser((prev) => ({ ...prev, isAuth: false, tokenPayload: null }));
     }
-  }, [localStorage.getItem('access_token')]);
+  }, []);
 
   const handleDropBoxView = () => {
     setDropBoxView((prev) => !prev);
@@ -70,7 +71,7 @@ export default function ProfileHamburger() {
       //       return res;
       //     });
       // }
-      return authorizationUser.tokenPayload.imageUrl !== null ? (
+      return authorizationUser.tokenPayload.imageUrl && authorizationUser.tokenPayload.imageUrl !== null ? (
         <Image src={`/vercel.svg`} alt="로그인 하고 이미지 있는 유저" width={18} height={18} priority />
       ) : (
         <S.NullImgUser>{authorizationUser.tokenPayload.nickName.slice(0, 1)}</S.NullImgUser>
@@ -78,6 +79,12 @@ export default function ProfileHamburger() {
     }
     return <Image src={'/image/unknown-user.svg'} alt="로그인 안한 유저" width={18} height={18} priority />;
   };
+
+  useEffect(() => {
+    if (localStorage.getItem('access_token') !== null) {
+      console.log(`jwtDecode() :`, jwtDecode(localStorage.getItem('access_token') || ''));
+    }
+  }, []);
 
   return (
     <S.HamburgerWrapper
@@ -93,12 +100,10 @@ export default function ProfileHamburger() {
         <S.DropBoxWrapper>
           {authorizationUser.isAuth ? (
             <>
-              <Link href={'/chatting'}>
-                <S.DropBoxList>손글씨 채팅</S.DropBoxList>
-              </Link>
-              <Link href={`/profile/${authorizationUser.tokenPayload?.memberId}`}>
-                <S.DropBoxList>마이 프로필</S.DropBoxList>
-              </Link>
+              <S.DropBoxList onClick={() => router.push('/chatting')}>손글씨 채팅</S.DropBoxList>
+              <S.DropBoxList onClick={() => router.push(`/profile/${authorizationUser.tokenPayload?.memberId}`)}>
+                마이 프로필
+              </S.DropBoxList>
               <S.DropBoxList onClick={() => requestLogout()}>로그아웃</S.DropBoxList>
             </>
           ) : (

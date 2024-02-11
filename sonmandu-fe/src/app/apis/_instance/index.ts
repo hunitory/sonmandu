@@ -36,8 +36,9 @@ const customInstance = (contentType: string) => {
 
           return await axios(originRequest).then((res) => {
             const newAccessToken = res.headers['authorization'];
-            localStorage.setItem('access_token', newAccessToken);
             console.log(`newAccessToken :`, newAccessToken);
+            localStorage.setItem('access_token', newAccessToken);
+            console.log(`localStorage.getItem('access_token') :`, localStorage.getItem('access_token'));
 
             return res;
           });

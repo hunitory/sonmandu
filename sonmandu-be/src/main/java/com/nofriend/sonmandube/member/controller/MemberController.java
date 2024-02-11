@@ -3,13 +3,11 @@ package com.nofriend.sonmandube.member.controller;
 import com.nofriend.sonmandube.member.application.MemberService;
 import com.nofriend.sonmandube.member.controller.request.LoginRequest;
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import com.nofriend.sonmandube.member.controller.request.*;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
 import jakarta.mail.MessagingException;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -45,10 +43,10 @@ public class MemberController {
 
     //회원가입
     @PostMapping("/signup")
-    public HttpStatus signup(@RequestBody @Valid SignupRequest signupRequest) throws MessagingException {
+    public ResponseEntity<HttpStatus> signup(@RequestBody @Valid SignupRequest signupRequest) throws MessagingException {
         log.info("/members/signup");
         memberService.signup(signupRequest);
-        return HttpStatus.NO_CONTENT;
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     //이메일 토큰 보내기
@@ -82,7 +80,7 @@ public class MemberController {
         log.info("/members/logout");
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
         memberService.logout(memberId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     //회원 정보 수정 시, 비밀번호 일치 확인
@@ -131,7 +129,7 @@ public class MemberController {
      * 아닐 시 리턴되는 정보 없음
      */
     @GetMapping("")
-    public ResponseEntity<MemberInformationResponse> findMemberInformation(@RequestParam(required = false) Long memberId, @RequestParam(required = false) String email, @RequestParam(required = false) String name, @RequestParam(required = false) String id) throws MessagingException {
+    public ResponseEntity<Object> findMemberInformation(@RequestParam(required = false) Long memberId, @RequestParam(required = false) String email, @RequestParam(required = false) String name, @RequestParam(required = false) String id) throws MessagingException {
         log.info("/members");
         if(memberId != null && email == null && name == null && id == null){
             MemberInformationResponse memberInformationResponse = memberService.findMemberInformationAll(memberId);
@@ -187,7 +185,7 @@ public class MemberController {
     // 회원 수정 페이지 - 프로필 사진 수정
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/image")
-    public ResponseEntity<HttpStatus> updateMemberInformationImage(MultipartFile image, Authentication authentication){
+    public ResponseEntity<Void> updateMemberInformationImage(MultipartFile image, Authentication authentication){
         log.info("/members/image");
         log.info(image.getOriginalFilename());
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
@@ -199,7 +197,7 @@ public class MemberController {
     // 회원 수정  페이지 - 이메일, 비밀번호, 소개글, 닉네임, 프로필 이미지 수정
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/{informationType}")
-    public ResponseEntity<HttpStatus> updateMemberInformationCommon(@PathVariable @NotEmpty String informationType, @RequestBody Map<String, String> request, Authentication authentication){
+    public ResponseEntity<Void> updateMemberInformationCommon(@PathVariable @NotEmpty String informationType, @RequestBody Map<String, String> request, Authentication authentication){
         log.info("/members/{informationType}");
         log.info(informationType);
         String value = request.get("value");
@@ -207,7 +205,7 @@ public class MemberController {
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
 
         memberService.updateMemberInformationCommon(memberId, informationType, value);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        return ResponseEntity.noContent().build();
     }
 
     //---DeleteMapping
@@ -215,10 +213,10 @@ public class MemberController {
     //회원 수정 페이지 - 회원 탈퇴
     @PreAuthorize("hasRole('USER')")
     @DeleteMapping("")
-    public HttpStatus deleteMember(HttpServletRequest httpServletRequest){
-        Long memberId = Long.valueOf(String.valueOf(httpServletRequest.getAttribute("memberId")));
+    public ResponseEntity<Void> deleteMember(Authentication authentication){
+        Long memberId = Long.valueOf(authentication.getName());
         memberService.deleteMember(memberId);
-        return HttpStatus.NO_CONTENT;
+        return ResponseEntity.noContent().build();
     }
 
 }

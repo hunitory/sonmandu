@@ -2,6 +2,7 @@ package com.nofriend.sonmandube.exception.handler;
 
 import com.nofriend.sonmandube.exception.*;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -9,6 +10,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class ErrorHandler {
+
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    public ResponseEntity<ErrorMessage> invalidDataAccessApiUsageException(InvalidDataAccessApiUsageException e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ErrorMessageFactory.from(HttpStatus.BAD_REQUEST, e.getMessage()));
+    }
 
     // 유효하지 않은 리프레시 토큰
     @ExceptionHandler(DenyRefreshTokenException.class)

@@ -37,6 +37,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7587597 (fix: spring security websocket)
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -74,12 +77,13 @@ public class ChatController {
 
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
-    public Chat chatting(@Valid ChatRequest chatRequest, Authentication authentication) {
+    public Chat chatting(@Valid ChatRequest chatRequest, Principal principal) {
     log.info("chatting1");
 <<<<<<< HEAD
 =======
 //    token = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIyOSIsImF1dGgiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6MjksImV4cCI6MTcwNzk2MjQ3OX0.6TMBRyhHLNEnQK7IhG0YCQ49OI58v8SbJHl0amGvKoHlIQ3qYlrYVYc9Z_dJpqETDWQLs_luE71DedVeBt_xsg";;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 32d7084 (feat: change dateTime)
         token = token.substring(7);
@@ -89,10 +93,13 @@ public class ChatController {
     chatRequest.setHandwritingId(1L);
     chatRequest.setMessage("fsdf");
 =======
+=======
+
+>>>>>>> 7587597 (fix: spring security websocket)
 //        token = token.substring(7);
 //
 //        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
-        Long memberId = Long.valueOf(authentication.getName());
+        Long memberId = Long.valueOf(principal.getName());
         log.info(String.valueOf(memberId));
 >>>>>>> 5ff7c3c (refactor: chatting websocket)
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();

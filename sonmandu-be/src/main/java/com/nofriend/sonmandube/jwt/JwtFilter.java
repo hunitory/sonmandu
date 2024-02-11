@@ -54,7 +54,11 @@ public class JwtFilter extends OncePerRequestFilter {
         String accessToken = resolveToken(request);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //        log.info(String.valueOf(accessToken == "null" ? "null" : jwtProvider.validateToken(accessToken)));
+=======
+        log.info(String.valueOf(accessToken == "null" ? "null" : jwtProvider.validateToken(accessToken)));
+>>>>>>> 7587597 (fix: spring security websocket)
 
         if(accessToken.equals("null")){
             filterChain.doFilter(request, response);

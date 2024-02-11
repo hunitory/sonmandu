@@ -75,8 +75,10 @@ public class JwtFilter extends OncePerRequestFilter {
         String accessToken = resolveToken(request);
 >>>>>>> 71d2f9b (feat: renew refresh token)
 
+        log.info(String.valueOf(request.getHeaderNames()));
+        log.info(String.valueOf(accessToken == null));
         log.info(accessToken);
-        log.info(String.valueOf(jwtProvider.validateToken(accessToken)));
+        log.info(String.valueOf(accessToken == null ? "null" : jwtProvider.validateToken(accessToken)));
         if(accessToken == null){
             filterChain.doFilter(request, response);
         }

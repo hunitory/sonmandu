@@ -3,13 +3,20 @@ package com.nofriend.sonmandube.chat.domain;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.nofriend.sonmandube.chat.controller.response.ChatHandwritingResponse;
 import com.nofriend.sonmandube.chat.controller.response.ChatMemberResponse;
+=======
+import com.fasterxml.jackson.annotation.JsonFormat;
+>>>>>>> e3c4175 (test: chatting principal)
 import com.nofriend.sonmandube.chat.controller.response.ChatResponse;
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
 import com.nofriend.sonmandube.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.cglib.core.Local;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -48,6 +55,9 @@ import java.util.Locale;
 @ToString
 @EntityListeners(AuditingEntityListener.class)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e3c4175 (test: chatting principal)
 public class Chat{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_id")
@@ -104,6 +114,7 @@ public class Chat implements ChatProjection{
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ChatResponse toChatResponse(){
         return ChatResponse.builder()
                 .chatId(this.chatId)
@@ -146,6 +157,9 @@ public class Chat implements ChatProjection{
     }
 
     //    public ChatResponse toChatResponse(){
+=======
+//    public ChatResponse toChatResponse(){
+>>>>>>> e3c4175 (test: chatting principal)
 //        return ChatResponse.builder()
 //                .chatId(this.chatId)
 //                .message(this.message)

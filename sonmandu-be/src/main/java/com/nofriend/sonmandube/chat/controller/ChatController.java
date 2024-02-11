@@ -7,11 +7,14 @@ import com.nofriend.sonmandube.chat.domain.Chat;
 import com.nofriend.sonmandube.chat.domain.ChatProjection;
 import com.nofriend.sonmandube.chat.repository.ChatRepository;
 import com.nofriend.sonmandube.exception.IdNotFoundException;
+<<<<<<< HEAD
 =======
 import com.nofriend.sonmandube.chat.domain.Chat;
 import com.nofriend.sonmandube.chat.domain.ChatProjection;
 import com.nofriend.sonmandube.chat.repository.ChatRepository;
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+>>>>>>> e3c4175 (test: chatting principal)
 import com.nofriend.sonmandube.handwriting.domain.HandwritingNameDownloadUrlProjection;
 import com.nofriend.sonmandube.handwriting.repository.HandwritingRepository;
 import com.nofriend.sonmandube.jwt.JwtProvider;
@@ -157,10 +160,15 @@ public class ChatController {
 >>>>>>> 738ebf3 (feat: change JwtFilter Exception Message)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         return newChat.toChatResponse();
 =======
         return (ChatProjection)newChat;
 >>>>>>> 25c114c (test: chatting principal)
+=======
+        return (ChatProjection) chatRepository.findById(newChat.getChatId())
+                .orElseThrow(() -> new IdNotFoundException("해당하는 채딩이 없습니다."));
+>>>>>>> e3c4175 (test: chatting principal)
     }
 
     @PreAuthorize("hasRole('USER')")

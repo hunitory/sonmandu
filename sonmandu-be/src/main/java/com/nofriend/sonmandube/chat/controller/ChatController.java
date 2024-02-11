@@ -15,11 +15,11 @@ import com.nofriend.sonmandube.chat.repository.ChatRepository;
 import com.nofriend.sonmandube.handwriting.domain.HandwritingNameDownloadUrlProjection;
 import com.nofriend.sonmandube.handwriting.repository.HandwritingRepository;
 import com.nofriend.sonmandube.jwt.JwtProvider;
-import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.member.repository.MemberRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -32,6 +32,11 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.security.core.Authentication;
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.access.prepost.PreAuthorize;
+>>>>>>> 7344e92 (test: chatting principal)
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

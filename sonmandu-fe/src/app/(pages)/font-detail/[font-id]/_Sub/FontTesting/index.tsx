@@ -48,10 +48,10 @@ function FontTesting({ fontName, isAllResourcesLoad }: FontTestingProps) {
             <S.LatterContainerButton
               type="button"
               key={i}
-              onClick={() => handleSelectedLetter(i + 1)}
-              selected={i + 1 === selectedLetter.idx}
+              onClick={() => handleSelectedLetter(i)}
+              selected={i === selectedLetter.idx}
             >
-              <Image src={`/image/letter-${i + 1}.png`} alt={`편지지-${i + 1}`} width={126} height={86} />
+              <Image src={`/image/letter-${i}.png`} alt={`편지지-${i}`} width={126} height={86} />
             </S.LatterContainerButton>
           ))}
         </S.SideBoxContainer>

@@ -10,6 +10,7 @@ export default function ChattingSideBar() {
   const { data: rankingFontResponse, isFetching } = useQuery({
     queryKey: ['ranking-font'],
     queryFn: () => API.handwriting.rankingFont(),
+    retry: 1,
   });
 
   const handleListIsOpen = (e: MouseEvent<HTMLDivElement>) => {
@@ -28,7 +29,7 @@ export default function ChattingSideBar() {
         $isOpen={fontListViews.ranking}
         onClick={() => setFontListViews((prev) => ({ ...prev, ranking: !prev.ranking }))}
       >
-        인기 손글씨들
+        <p>인기 손글씨들</p>
         <S.FontsContainer>
           <div></div>
           <div></div>
@@ -41,7 +42,7 @@ export default function ChattingSideBar() {
         $isOpen={fontListViews.owner}
         onClick={() => setFontListViews((prev) => ({ ...prev, owner: !prev.owner }))}
       >
-        내 손글씨들
+        <p>내 손글씨들</p>
         <S.FontsContainer>
           <div></div>
           <div></div>

@@ -77,7 +77,7 @@ function SignUpModal() {
       }),
     onSuccess: async (res) => {
       console.log(`회원가입 요청 :`, res);
-      if (res.status === 200) {
+      if (res.status === 204) {
         signUpModal.closeModal();
         loginModal.openModal();
         await API.member.login({ id: valuesBasket.id, password: valuesBasket.password }).then((res) => {

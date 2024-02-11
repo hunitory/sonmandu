@@ -16,7 +16,6 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -26,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -40,14 +38,14 @@ public class ChatController {
 
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
-    public Chat chatting(@Valid ChatRequest chatRequest, SimpMessageHeaderAccessor accessor) {
+    public Chat chatting(Principal principal, @Valid ChatRequest chatRequest) {
     log.info("chatting1");
 
 
 //        token = token.substring(7);
 //
 //        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
-        Long memberId = Long.valueOf(Objects.requireNonNull(accessor.getUser()).getName());
+        Long memberId = Long.valueOf(principal.getName());
         log.info(String.valueOf(memberId));
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
 

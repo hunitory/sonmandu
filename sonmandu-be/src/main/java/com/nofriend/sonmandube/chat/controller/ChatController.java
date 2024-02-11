@@ -37,12 +37,14 @@ public class ChatController {
 
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
-    public Chat chatting(@Valid ChatRequest chatRequest, @Header("Authorization") String token) {
+    public Chat chatting(@Valid ChatRequest chatRequest, Authentication authentication) {
     log.info("chatting1");
 
-        token = token.substring(7);
-
-        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
+//        token = token.substring(7);
+//
+//        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
+        Long memberId = Long.valueOf(authentication.getName());
+        log.info(String.valueOf(memberId));
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
 
         HandwritingNameDownloadUrlProjection handwritingNameDownloadUrlProjection = handwritingRepository.findNameDownloadUrlByHandwritingId(chatRequest.getHandwritingId());

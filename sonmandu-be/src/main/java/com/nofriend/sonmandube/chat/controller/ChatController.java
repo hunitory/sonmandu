@@ -1,10 +1,10 @@
 package com.nofriend.sonmandube.chat.controller;
 
 import com.nofriend.sonmandube.chat.controller.request.ChatRequest;
+import com.nofriend.sonmandube.chat.controller.response.ChatResponse;
 import com.nofriend.sonmandube.chat.domain.Chat;
 import com.nofriend.sonmandube.chat.domain.ChatProjection;
 import com.nofriend.sonmandube.chat.repository.ChatRepository;
-import com.nofriend.sonmandube.exception.IdNotFoundException;
 import com.nofriend.sonmandube.handwriting.domain.HandwritingNameDownloadUrlProjection;
 import com.nofriend.sonmandube.handwriting.repository.HandwritingRepository;
 import com.nofriend.sonmandube.jwt.JwtProvider;
@@ -29,17 +29,12 @@ public class ChatController {
     private final MemberRepository memberRepository;
     private final HandwritingRepository handwritingRepository;
     private final ChatRepository chatRepository;
-    private final JwtProvider jwtProvider;
-
 
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
-    public ChatProjection chatting(Principal principal, @Valid ChatRequest chatRequest) {
-    log.info("chatting1");
-
-
+    public ChatResponse chatting(Principal principal, @Valid ChatRequest chatRequest) {
         Long memberId = Long.valueOf(principal.getName());
-        log.info(String.valueOf(memberId));
+
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
 
         HandwritingNameDownloadUrlProjection handwritingNameDownloadUrlProjection = handwritingRepository.findNameDownloadUrlByHandwritingId(chatRequest.getHandwritingId());
@@ -55,10 +50,7 @@ public class ChatController {
 
         chatRepository.save(newChat);
 
-        log.info("send message: " + newChat.getMessage() + ", pub: " + newChat.getMember().getMemberId() );
-
-        return chatRepository.findByChatId(newChat.getChatId())
-                .orElseThrow(() -> new IdNotFoundException("해당하는 채딩이 없습니다."));
+        return newChat.toChatResponse();
     }
 
     @PreAuthorize("hasRole('USER')")

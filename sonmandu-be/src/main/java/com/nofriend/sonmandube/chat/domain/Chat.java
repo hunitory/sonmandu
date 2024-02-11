@@ -1,14 +1,12 @@
 package com.nofriend.sonmandube.chat.domain;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.nofriend.sonmandube.chat.controller.response.ChatHandwritingResponse;
+import com.nofriend.sonmandube.chat.controller.response.ChatMemberResponse;
 import com.nofriend.sonmandube.chat.controller.response.ChatResponse;
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
 import com.nofriend.sonmandube.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.cglib.core.Local;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -44,23 +42,25 @@ public class Chat{
         this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a H:mm", Locale.KOREAN));
     }
 
-//    public ChatResponse toChatResponse(){
-//        return ChatResponse.builder()
-//                .chatId(this.chatId)
-//                .message(this.message)
-//                .createTime(this.createTime)
-//                .member(
-//
-//
-//                )
-//                .handwriting(
-//                        ChatResponse.Handwriting.builder()
-//                                .handwritingId(this.handwriting.getHandwritingId())
-//                                .name(this.handwriting.getName())
-//                                .downloadUrl(this.handwriting.getDownloadUrl())
-//                                .build()
-//                )
-//                .build();
-//    }
+    public ChatResponse toChatResponse(){
+        return ChatResponse.builder()
+                .chatId(this.chatId)
+                .message(this.message)
+                .createTime(this.createTime)
+                .chatMemberResponse(
+                        ChatMemberResponse.builder()
+                                .memberId(this.member.getMemberId())
+                                .nickname(this.member.getNickname())
+                                .build()
+                )
+                .chatHandwritingResponse(
+                        ChatHandwritingResponse.builder()
+                                .handwritingId(this.handwriting.getHandwritingId())
+                                .name(this.handwriting.getName())
+                                .downloadUrl(this.handwriting.getDownloadUrl())
+                                .build()
+                )
+                .build();
+    }
 
 }

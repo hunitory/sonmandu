@@ -5,11 +5,14 @@ import com.nofriend.sonmandube.exception.*;
 <<<<<<< HEAD
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
+<<<<<<< HEAD
 =======
 >>>>>>> e2b9b34 (feat: change token exception)
 =======
 import org.springframework.dao.DataIntegrityViolationException;
 >>>>>>> c31b9a8 (feat: change dateTime)
+=======
+>>>>>>> 2a88da7 (refactor: status code)
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.MessageDeliveryException;
@@ -23,12 +26,15 @@ public class ErrorHandler {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @ExceptionHandler(MessageDeliveryException.class)
     public ResponseEntity<ErrorMessage> messageDeliveryException(MessageDeliveryException e){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(ErrorMessageFactory.from(HttpStatus.UNAUTHORIZED, e.getMessage()));
     }
 
+=======
+>>>>>>> 2a88da7 (refactor: status code)
     @ExceptionHandler(InvalidDataAccessApiUsageException.class)
     public ResponseEntity<ErrorMessage> invalidDataAccessApiUsageException(InvalidDataAccessApiUsageException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)

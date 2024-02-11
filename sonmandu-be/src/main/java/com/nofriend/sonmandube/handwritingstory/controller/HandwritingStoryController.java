@@ -54,7 +54,7 @@ public class HandwritingStoryController {
         log.info("/handwriting/story");
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.save(memberId, handwritingStoryRequest, thumbnail);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{handwritingStoryId}")
@@ -74,7 +74,7 @@ public class HandwritingStoryController {
     public ResponseEntity<Void> delete(@PathVariable Long handwritingStoryId, Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.delete(memberId, handwritingStoryId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -85,7 +85,7 @@ public class HandwritingStoryController {
                                        Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.modify(memberId, handwritingStoryId, request, thumbnail);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -94,7 +94,7 @@ public class HandwritingStoryController {
                                                 Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.changeLikeStatus(memberId, handwritingStoryId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -125,7 +125,7 @@ public class HandwritingStoryController {
                                               Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.deleteComment(memberId, handwritingStoryCommentId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/owner/{targetId}")

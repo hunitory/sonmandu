@@ -35,7 +35,7 @@ public class HandwritingController {
             ) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingService.applyHandwriting(memberId, handwritingApplicationRequest, image);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     // TODO : 테스트용 폰트 저장 API
@@ -45,7 +45,7 @@ public class HandwritingController {
                                          @RequestPart(name = "font") MultipartFile font) {
         log.info("/handwritings/save");
         handwritingService.saveFont(name, font);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/gallery")
@@ -80,14 +80,14 @@ public class HandwritingController {
     public ResponseEntity<Void> changeLikeStatus(@PathVariable Long handwritingId, Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingService.changeLikeStatus(memberId, handwritingId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/gallery/{handwritingId}/download")
     public ResponseEntity<Void> updateDownloadCount(@PathVariable Long handwritingId, Authentication authentication) {
         handwritingService.updateDownloadCount(Long.parseLong(authentication.getName()), handwritingId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('USER')")

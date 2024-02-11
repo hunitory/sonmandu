@@ -4,6 +4,7 @@ import * as API from '@/apis';
 import * as Styled from './_style';
 import * as Comp from '@/components';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import useModal from 'customhook/useModal';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
@@ -14,14 +15,19 @@ interface PosterSectionProps {
 }
 
 export default function BannerSection({ searchParams }: PosterSectionProps) {
-  const isLoggedIn = localStorage.getItem('access_token')
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const goNext = () => {
+    setCurrentIndex(currentIndex => (currentIndex + 1));
+  };
 
   const queryKey = ['popular-fonts-search'];
   // const queryKey = ['font-gallery-search', searchParams];
   const { data: response, isFetching } = useQuery({
     queryKey: queryKey,
-    queryFn: () =>
-      API.mainFontCard.PopolarfontList(),
+    queryFn: () => API.mainFontCard.PopolarfontList(),
   });
 
   const router = useRouter();
@@ -41,11 +47,18 @@ export default function BannerSection({ searchParams }: PosterSectionProps) {
     }
   };
 
+  useEffect(() => {
+    // 컴포넌트가 마운트된 후 localStorage를 체크
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
   return (
     <Styled.MainWrapper>
       <Styled.MainBanner>
         <Styled.ToneUpBanner />
-        <Image src={mainbanner} alt="배너" width={1920} height={800} />
+        <Image src={mainbanner} alt="배너" width={1000} height={800} />
         <Styled.MainTextContainer>
           <Styled.MainTitle>당신이 담긴 손글씨, 폰트로 만들어 드립니다.</Styled.MainTitle>
           <Styled.MainContentWrapper>
@@ -62,11 +75,16 @@ export default function BannerSection({ searchParams }: PosterSectionProps) {
           </Styled.ButtonWrapper>
         </Styled.MainTextContainer>
       </Styled.MainBanner>
-      <Styled.CardsGridWrapper>
-      {response?.data.map((res: FontCard) => (
-        <Comp.MainFontCard key={res.handwritingId} {...res} />
-      ))}
-      </Styled.CardsGridWrapper>
+      <Styled.CarouselWrapper>
+        <Styled.CarouselContainer $currentIndex={currentIndex}>
+          {response?.data.map((res: FontCard) => (
+            <Comp.MainFontCard key={res.handwritingId} {...res} />
+          ))}
+        </Styled.CarouselContainer>
+          <Styled.ArrowRightButton type="button" disabled={false} onClick={goNext}>
+            <Image src="/image/black-right-next.svg" alt="화살표" width={20} height={20} />
+          </Styled.ArrowRightButton>
+      </Styled.CarouselWrapper>
     </Styled.MainWrapper>
   );
 }

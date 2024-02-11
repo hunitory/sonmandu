@@ -33,8 +33,8 @@ export default function PostersSection({ searchParams }: PosterSectionProps) {
 
   return (
     <S.CardsGridWrapper>
-      {response?.data.map((res: FontCard) => (
-        <Comp.BaseFontCard key={res.handwritingId} {...res} removeLetter={false} />
+      {response?.data.map((res: FontCard, i: number) => (
+        <Comp.BaseFontCard key={res.handwritingId} {...res} letter={{ isShow: true, idx: i }} />
       ))}
     </S.CardsGridWrapper>
   );

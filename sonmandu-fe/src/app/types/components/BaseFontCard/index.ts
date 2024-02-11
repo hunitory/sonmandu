@@ -7,5 +7,5 @@ export interface FontCard {
   downloadCount: number;
   tag: number[];
   isLike: boolean;
-  removeLetter: boolean;
+  letter: { isShow: boolean; idx: number };
 }

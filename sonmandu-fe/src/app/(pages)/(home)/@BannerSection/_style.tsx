@@ -7,6 +7,7 @@ import { PALETTE, notoSansKr } from 'styles';
 export const MainWrapper = styled.div`
   width: 100vw;
   height: 1300px;
+  position: relative;
 `;
 
 export const MainBanner = styled.div`
@@ -16,7 +17,7 @@ export const MainBanner = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  img  {
+  img {
     position: absolute;
     top: 0;
     left: 0;
@@ -122,26 +123,30 @@ export const LoginButtonText = styled.div`
   color: ${PALETTE.SUB_WHITE};
 `;
 
+export const CarouselWrapper = styled.section`
+  width: 80%;
+  margin: 0 auto;
+  bottom: 15%;
+  overflow: hidden;
+  position: relative;
+  z-index: 5;
+`;
 
-export const CardsGridWrapper = styled.section`
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-gap: 52px;
-  transition: padding 0.5s ease;
-  padding-bottom: 48px;
+export const CarouselContainer = styled.div<{ $currentIndex: number }>`
+  display: flex;
+  transition: transform 0.3s ease;
+  gap: 5%;
+  transform: ${({ $currentIndex }) => `translateX(-${$currentIndex * 27}%)`};
+`;
 
-  @media (max-width: 1400px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (max-width: 1128px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 768px) {
-    grid-template-columns: repeat(1, 1fr);
-    padding: 0px 2vw 48px 2vw;
-    justify-items: center;
+export const ArrowRightButton = styled(BaseButton)`
+  padding: 5px;
+  position: absolute;
+  right: 1%;
+  top: 50%;
+  box-shadow: 0px 0px 4px ${PALETTE.MAIN_BLACK};
+  &:hover {
+    transform: translate(-1px, -1px);
+    transition: transform 0.25s ease-in;
   }
 `;

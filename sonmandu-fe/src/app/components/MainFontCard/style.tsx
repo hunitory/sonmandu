@@ -5,8 +5,8 @@ import { BaseButton } from 'components';
 import { BaseButtonProps } from 'types';
 
 export const FontCardWrapper = styled.li`
-  width: 100%;
-  max-width: 440px;
+  display: flex;
+  flex: 0 0 320px;
   max-height: 250px;
   aspect-ratio: 4 / 5.5;
   background-color: white;
@@ -14,15 +14,16 @@ export const FontCardWrapper = styled.li`
   border: 2px solid ${PALETTE.SUB_WHITE};
   overflow: hidden;
   cursor: pointer;
-
+  box-shadow: 0px 0px 5px ${PALETTE.LIGHT_BLACK};
   &:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 0px 2px 2px 2px ${PALETTE.SUB_WHITE};
-    transition: box-shadow 0.25s ease-in, transform 0.25s ease-in;
+    transform: translate(-2px, -2px);
+    transition:transform 0.25s ease-in;
   }
+
 `;
 
 export const FontCardContainer = styled.article<{ name: string }>`
+  width: 100%;
   display: grid;
   height: 100%;
   padding: 16px;

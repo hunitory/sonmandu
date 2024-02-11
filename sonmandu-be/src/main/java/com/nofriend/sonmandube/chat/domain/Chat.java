@@ -4,19 +4,21 @@ package com.nofriend.sonmandube.chat.domain;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.nofriend.sonmandube.chat.controller.response.ChatHandwritingResponse;
 import com.nofriend.sonmandube.chat.controller.response.ChatMemberResponse;
 =======
 import com.fasterxml.jackson.annotation.JsonFormat;
 >>>>>>> e3c4175 (test: chatting principal)
+=======
+import com.nofriend.sonmandube.chat.controller.response.ChatHandwritingResponse;
+import com.nofriend.sonmandube.chat.controller.response.ChatMemberResponse;
+>>>>>>> 9809c16 (feat: chatting)
 import com.nofriend.sonmandube.chat.controller.response.ChatResponse;
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
 import com.nofriend.sonmandube.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.cglib.core.Local;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -115,6 +117,9 @@ public class Chat implements ChatProjection{
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9809c16 (feat: chatting)
     public ChatResponse toChatResponse(){
         return ChatResponse.builder()
                 .chatId(this.chatId)
@@ -124,8 +129,11 @@ public class Chat implements ChatProjection{
                         ChatMemberResponse.builder()
                                 .memberId(this.member.getMemberId())
                                 .nickname(this.member.getNickname())
+<<<<<<< HEAD
                                 .badge(this.member.isBadge())
                                 .imageUrl(this.member.getImageUrl())
+=======
+>>>>>>> 9809c16 (feat: chatting)
                                 .build()
                 )
                 .chatHandwritingResponse(
@@ -137,6 +145,7 @@ public class Chat implements ChatProjection{
                 )
                 .build();
     }
+<<<<<<< HEAD
 =======
 >>>>>>> bb48a11 (feat: add WebSocket)
 =======
@@ -178,5 +187,7 @@ public class Chat implements ChatProjection{
 //                .build();
 //    }
 >>>>>>> 25c114c (test: chatting principal)
+=======
+>>>>>>> 9809c16 (feat: chatting)
 
 }

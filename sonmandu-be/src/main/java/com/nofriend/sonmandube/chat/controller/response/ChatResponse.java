@@ -13,6 +13,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 //@Builder
 @Builder
 @Getter
@@ -75,3 +76,15 @@ public class ChatResponse{//} extends Chat implements ChatProjection {
 >>>>>>> 25c114c (test: chatting principal)
 }
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+//@Builder
+@Builder
+@Getter
+public class ChatResponse {
+    private Long chatId;
+    private String message;
+    private String createTime;
+    private ChatMemberResponse chatMemberResponse;
+    private ChatHandwritingResponse chatHandwritingResponse;
+}
+>>>>>>> 9809c16 (feat: chatting)

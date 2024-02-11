@@ -114,7 +114,7 @@
             setConnected(true);
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/sonmandu', (chat) => {
-                showChatting(JSON.parse(chat.body).message);
+                showChatting(JSON.parse(chat.body));
             });
         };
 
@@ -162,7 +162,7 @@
 
         function showChatting(message) {
             console.log(message)
-            $("#greetings").append("<tr><td>" + message + "</td></tr>");
+            $("#greetings").append("<tr><td>" + message.message + "</td></tr>");
         }
 
         $(function () {

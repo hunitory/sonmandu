@@ -2,10 +2,14 @@ package com.nofriend.sonmandube.chat.controller;
 
 import com.nofriend.sonmandube.chat.controller.request.ChatRequest;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9809c16 (feat: chatting)
 import com.nofriend.sonmandube.chat.controller.response.ChatResponse;
 import com.nofriend.sonmandube.chat.domain.Chat;
 import com.nofriend.sonmandube.chat.domain.ChatProjection;
 import com.nofriend.sonmandube.chat.repository.ChatRepository;
+<<<<<<< HEAD
 import com.nofriend.sonmandube.exception.IdNotFoundException;
 <<<<<<< HEAD
 =======
@@ -15,6 +19,8 @@ import com.nofriend.sonmandube.chat.repository.ChatRepository;
 >>>>>>> 723abc5 (feat: add spring security chatting)
 =======
 >>>>>>> e3c4175 (test: chatting principal)
+=======
+>>>>>>> 9809c16 (feat: chatting)
 import com.nofriend.sonmandube.handwriting.domain.HandwritingNameDownloadUrlProjection;
 import com.nofriend.sonmandube.handwriting.repository.HandwritingRepository;
 import com.nofriend.sonmandube.jwt.JwtProvider;
@@ -70,6 +76,7 @@ public class ChatController {
     private final HandwritingRepository handwritingRepository;
     private final ChatRepository chatRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
@@ -120,6 +127,14 @@ public class ChatController {
         Long memberId = Long.valueOf(principal.getName());
         log.info(String.valueOf(memberId));
 >>>>>>> 5ff7c3c (refactor: chatting websocket)
+=======
+
+    @MessageMapping("/sonmandu")
+    @SendTo("/topic/sonmandu")
+    public ChatResponse chatting(Principal principal, @Valid ChatRequest chatRequest) {
+        Long memberId = Long.valueOf(principal.getName());
+
+>>>>>>> 9809c16 (feat: chatting)
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
 
         HandwritingNameDownloadUrlProjection handwritingNameDownloadUrlProjection = handwritingRepository.findNameDownloadUrlByHandwritingId(chatRequest.getHandwritingId());
@@ -155,6 +170,7 @@ public class ChatController {
 >>>>>>> 927096d (feat: change dateTime)
 =======
 
+<<<<<<< HEAD
 >>>>>>> 25c114c (test: chatting principal)
         log.info("send message: " + newChat.getMessage() + ", pub: " + newChat.getMember().getMemberId() );
 >>>>>>> 738ebf3 (feat: change JwtFilter Exception Message)
@@ -173,6 +189,9 @@ public class ChatController {
 >>>>>>> ba1bbfd (test: chatting principal)
                 .orElseThrow(() -> new IdNotFoundException("해당하는 채딩이 없습니다."));
 >>>>>>> e3c4175 (test: chatting principal)
+=======
+        return newChat.toChatResponse();
+>>>>>>> 9809c16 (feat: chatting)
     }
 
     @PreAuthorize("hasRole('USER')")

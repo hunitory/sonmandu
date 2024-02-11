@@ -133,7 +133,7 @@ public class StompHandler implements ChannelInterceptor {
                 : "null";
 
         log.info("command: " + String.valueOf(accessor.getCommand()));
-        if(accessor.getCommand() == StompCommand.CONNECT && !token.equals("null")) {
+        if(!token.equals("null")) {
             log.info(token);
             Authentication authentication = jwtProvider.getAuthentication(token);
             log.info(authentication.toString());

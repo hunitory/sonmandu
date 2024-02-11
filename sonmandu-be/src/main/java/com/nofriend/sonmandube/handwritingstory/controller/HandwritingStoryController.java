@@ -104,7 +104,7 @@ public class HandwritingStoryController {
                                            Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.addComment(memberId, handwritingStoryId, handwritingStoryCommentRequest);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok().build();
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -115,7 +115,7 @@ public class HandwritingStoryController {
                                               Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.modifyComment(memberId, handwritingStoryCommentId, handwritingStoryCommentRequest);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('USER')")

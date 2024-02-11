@@ -221,7 +221,7 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
 
     @Override
     public void modifyComment(Long memberId, Long handwritingStoryCommentId, HandwritingStoryCommentRequest handwritingStoryCommentRequest) {
-        HandwritingStoryComment comment = commentRepository.findById(handwritingStoryCommentId)
+        HandwritingStoryComment comment = commentRepository.findByHandwritingStoryCommentIdAndMemberMemberId(handwritingStoryCommentId, memberId)
                 .orElseThrow(() -> new IdNotFoundException("댓글이 존재하지 않습니다."));
         comment.setContent(handwritingStoryCommentRequest.getContent());
         commentRepository.save(comment);

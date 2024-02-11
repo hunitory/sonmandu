@@ -75,11 +75,7 @@ public class JwtFilter extends OncePerRequestFilter {
         String accessToken = resolveToken(request);
 >>>>>>> 71d2f9b (feat: renew refresh token)
 
-        log.info(String.valueOf(request.getHeaderNames()));
-        log.info(String.valueOf(accessToken == null));
-        log.info(accessToken);
-        log.info(String.valueOf(accessToken == null ? "null" : jwtProvider.validateToken(accessToken)));
-        if(accessToken == null){
+        if(accessToken.equals("null")){
             filterChain.doFilter(request, response);
         }
         else if(jwtProvider.validateToken(accessToken) == JwtCode.ACCESS){
@@ -143,6 +139,7 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         return "null";
 <<<<<<< HEAD
     }
@@ -168,6 +165,9 @@ public class JwtFilter extends OncePerRequestFilter {
 =======
         return null;
 >>>>>>> 71d2f9b (feat: renew refresh token)
+=======
+        return "null";
+>>>>>>> 603f9c6 (test: jwt filter)
     }
 
     private void handleJwtException(HttpStatus httpStatus, HttpServletResponse response) throws IOException {

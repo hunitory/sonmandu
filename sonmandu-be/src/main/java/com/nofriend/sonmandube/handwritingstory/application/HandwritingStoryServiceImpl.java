@@ -212,7 +212,7 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
     public void addComment(Long memberId, Long handwritingStoryId, HandwritingStoryCommentRequest handwritingStoryCommentRequest) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IdNotFoundException("회원이 존재하지 않습니다."));
-        HandwritingStory handwritingStory = handwritingStoryRepository.findByHandwritingStoryIdAndMemberMemberId(handwritingStoryId, memberId)
+        HandwritingStory handwritingStory = handwritingStoryRepository.findById(handwritingStoryId)
                 .orElseThrow(() -> new IdNotFoundException("일치하는 정보가 없습니다."));
 
         HandwritingStoryComment comment = handwritingStoryCommentRequest.toEntity(member, handwritingStory);

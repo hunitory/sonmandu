@@ -33,13 +33,10 @@ public class ChatController {
 
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
-    public Chat chatting(Principal principal, @Valid ChatRequest chatRequest) {
+    public ChatProjection chatting(Principal principal, @Valid ChatRequest chatRequest) {
     log.info("chatting1");
 
 
-//        token = token.substring(7);
-//
-//        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
         Long memberId = Long.valueOf(principal.getName());
         log.info(String.valueOf(memberId));
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
@@ -50,16 +47,16 @@ public class ChatController {
                 memberId,
                 memberNickname,
                 chatRequest.getHandwritingId(),
-//"1","!'",
                 handwritingNameDownloadUrlProjection.getName(),
                 handwritingNameDownloadUrlProjection.getDownloadUrl(),
                 chatRequest.getMessage()
         );
 
         chatRepository.save(newChat);
+
         log.info("send message: " + newChat.getMessage() + ", pub: " + newChat.getMember().getMemberId() );
 
-        return newChat;
+        return (ChatProjection)newChat;
     }
 
     @PreAuthorize("hasRole('USER')")

@@ -8,5 +8,10 @@ export default function HomeLayout({
   children: React.ReactNode;
   BannerSection: React.ReactNode;
 }) {
-  return <Styled.StyledMain>{BannerSection}{children}</Styled.StyledMain>;
+  return (
+    <Styled.StyledMain>
+      {BannerSection}
+      {children}
+    </Styled.StyledMain>
+  );
 }

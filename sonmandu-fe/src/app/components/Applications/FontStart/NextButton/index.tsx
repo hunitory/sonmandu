@@ -1,13 +1,13 @@
 import * as Styled from './style';
 import { useRouter } from 'next/navigation';
 
-interface ButtonProps{
+interface ButtonProps {
   children: React.ReactNode;
   link: string;
 }
 
-export default function Button(props : ButtonProps) {
-  const { children, link } = props
+export default function Button(props: ButtonProps) {
+  const { children, link } = props;
   const router = useRouter();
 
   const handleRouter = () => {
@@ -21,6 +21,4 @@ export default function Button(props : ButtonProps) {
       </Styled.NextButton>
     </Styled.NextButtonWrapper>
   );
-};
-
-
+}

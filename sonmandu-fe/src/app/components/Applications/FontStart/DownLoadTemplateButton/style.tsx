@@ -2,8 +2,6 @@ import { PALETTE, notoSansKr } from 'styles';
 import BaseButton from 'components/BaseButton';
 import styled from 'styled-components';
 
-
-
 export const DownloadButtonWrapper = styled.div`
   height: fit-content;
   display: flex;

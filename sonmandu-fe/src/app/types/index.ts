@@ -20,7 +20,7 @@ import { ProfilePasswordInputProps } from './components/ProfilePasswordInput';
 import { Trophy } from './components/ProfileTrophy';
 import { CommentProps } from './components/FontStoryComment';
 import { FontInfomationProps, FontDetailResponse } from './pages/FontDetail';
-import { FontStoryDetailResponse, IsLikeCount } from './pages/FontStoryDetail';
+import { FontStoryDetailResponse, IsLikeCount, SideBarProps } from './pages/FontStoryDetail';
 import { ModalId, ModalInfo } from './store/modal';
 import { StoryData } from './components/FontStory';
 
@@ -55,5 +55,6 @@ export type {
   SignUpValueBasket,
   FontStoryDetailResponse,
   IsLikeCount,
-  StoryData
+  StoryData,
+  SideBarProps,
 };

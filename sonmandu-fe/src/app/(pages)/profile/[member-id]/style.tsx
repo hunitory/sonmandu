@@ -18,7 +18,7 @@ export const WholeWrapper = styled.div`
 export const ProfileWrapper = styled.div`
   width: 68vw;
   height: fit-content;
-  gap: 15%;
+  gap: 10%;
   display: grid;
   grid-template-columns: clamp(100px, 20vw, 380px) 1fr;
   @media only screen and (max-width: 1150px) {
@@ -98,7 +98,7 @@ export const ProfileIndexDiv = styled.div`
   align-items: flex-end;
   padding-right: 30px;
   span {
-    font-size: clamp(18.5px, 1.5vw, 21px);
+    font-size: clamp(18px, 1.2vw, 21px);
     font-weight: ${notoSansKr.bold.style.fontWeight};
     font-family: ${notoSansKr.bold.style.fontFamily};
   }
@@ -169,9 +169,9 @@ export const ProfileIntroSpan = styled.span`
   color: ${PALETTE.MAIN_BLACK};
   font-weight: ${notoSansKr.black.style.fontWeight};
   font-family: ${notoSansKr.black.style.fontFamily};
-  font-size: clamp(28px, 1.5vw, 33px);
+  font-size: clamp(24px, 1.5vw, 33px);
   @media screen and (max-width: 1150px) {
-    font-size: clamp(28px, 3vw, 33px);
+    font-size: clamp(24px, 3vw, 33px);
   }
 `;
 
@@ -236,9 +236,9 @@ export const ProfileHandwritingsSpan1 = styled.span`
   font-weight: ${notoSansKr.black.style.fontWeight};
   font-family: ${notoSansKr.black.style.fontFamily};
   color: ${PALETTE.MAIN_BLACK};
-  font-size: clamp(28px, 1.5vw, 33px);
+  font-size: clamp(24px, 1.5vw, 33px);
   @media screen and (max-width: 1150px) {
-    font-size: clamp(28px, 3vw, 33px);
+    font-size: clamp(24px, 3vw, 33px);
   }
 `;
 
@@ -246,16 +246,19 @@ export const ProfileHandwritingsSpan2 = styled.span`
   font-weight: ${notoSansKr.black.style.fontWeight};
   font-family: ${notoSansKr.black.style.fontFamily};
   color: ${PALETTE.MAIN_ORANGE};
-  font-size: clamp(28px, 1.5vw, 33px);
+  font-size: clamp(24px, 1.5vw, 33px);
   @media screen and (max-width: 1150px) {
-    font-size: clamp(28px, 3vw, 33px);
+    font-size: clamp(24px, 3vw, 33px);
   }
 `;
 
 export const ProfileHandwritingsDiv = styled.div`
   padding: 0 1vw;
+  @media screen and (max-width: 1700px) {
+    padding: 0;
+  }
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   row-gap: 2vw;
   margin: 26px 0 56px 0;
   place-items: center;

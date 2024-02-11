@@ -1,6 +1,6 @@
 import { instanceJsonContent } from 'apis/_instance';
 
-export async function getProfileMember({memberId}:{memberId: string}) {
+export async function getProfileMember({ memberId }: { memberId: string }) {
   return instanceJsonContent.get(`/members?memberId=${memberId}`);
 }
 

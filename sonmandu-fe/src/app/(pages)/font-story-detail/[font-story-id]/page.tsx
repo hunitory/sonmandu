@@ -94,7 +94,7 @@ export default function FontStoryDetailPage() {
   const queryKey = ['font-story-detail', params['font-story-id']];
   const { data: response, isFetching: isFontStoryDetailFetching } = useQuery({
     queryKey: queryKey,
-    queryFn: () => API.handwritingStory.handwritingStoryDetail({ fontStoryId: params['font-story-id'] as string})
+    queryFn: () => API.handwritingStory.handwritingStoryDetail({ fontStoryId: params['font-story-id'] as string }),
   });
 
   // const { data: resFromS3, isFetching: isFileFetching } = useQuery({
@@ -113,36 +113,39 @@ export default function FontStoryDetailPage() {
 
   // const { CommentList, content, createDate, handwritingStoryId, hitCount, isLike, likeCount, member, name, title } = res?.data || {};
 
-  const [ editableInfo, setEditableInfo ] = useRecoilState(storyInfoState);
+  const [editableInfo, setEditableInfo] = useRecoilState(storyInfoState);
 
-  
   // 사용자가 좋아요 눌렀을 때
-  const [ copyIsLikeAndCount, setCopyIsLikeAndCount ] = useState<IsLikeCount | undefined>({ isLike: response?.data.isLike, count: response?.data.likeCount })
+  const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState<IsLikeCount | undefined>({
+    isLike: response?.data.isLike,
+    count: response?.data.likeCount,
+  });
   const { mutate, data: resLikeClick } = useMutation({
     mutationKey: ['font-story-detail-click-like', response?.data.handwritingStoryId],
     mutationFn: () => API.handwritingStory.handwritingStoryLike({ id: response?.data.handwritingStoryId }),
-    onSuccess: () => setCopyIsLikeAndCount((prev) => {
-      if (prev?.isLike) return { ...prev, isLike: !prev.isLike, count: (prev.count || 0) - 1 };
-      return { ...prev, isLike: !prev?.isLike, count: (prev?.count || 0) + 1}
-    })
-  })
-  
+    onSuccess: () =>
+      setCopyIsLikeAndCount((prev) => {
+        if (prev?.isLike) return { ...prev, isLike: !prev.isLike, count: (prev.count || 0) - 1 };
+        return { ...prev, isLike: !prev?.isLike, count: (prev?.count || 0) + 1 };
+      }),
+  });
+
   useEffect(() => {
     setCopyIsLikeAndCount((prev) => ({
       ...prev,
       isLike: prev?.isLike,
       count: response?.data.likeCount,
-    }))
-    console.log(response)
+    }));
+    console.log(response);
   }, [response]);
-  
+
   const handleLikeClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     mutate();
-  }
+  };
 
   const router = useRouter();
-  
+
   // 자기가 작성한 페이지일 때
   const isMypage = true; // member.memberId와 현재 사용자의 id비교
 
@@ -153,22 +156,22 @@ export default function FontStoryDetailPage() {
       content: response?.data.content,
       handwritingId: HandwritingStoryData.handwritingId,
       handwritingStoryId: response?.data.handwritingStoryId,
-    })
-    router.push(`/font-story-edit/${response?.data.handwritingStoryId}`)
-  }
+    });
+    router.push(`/font-story-edit/${response?.data.handwritingStoryId}`);
+  };
 
   // 게시글 삭제
 
   const { mutate: requestDelete } = useMutation({
     mutationKey: ['request-delete'],
-    mutationFn: () => API.handwritingStory.handwritingStoryDelete({ handwritingStoryId: response?.data.handwritingStoryId }),
+    mutationFn: () =>
+      API.handwritingStory.handwritingStoryDelete({ handwritingStoryId: response?.data.handwritingStoryId }),
     onSuccess: () => router.push('/font-stories'),
-  })
+  });
 
   const handleDeleteClick = () => {
     requestDelete();
-  }
-
+  };
 
   // 댓글 입력하기
   // 입력값 받는 부분
@@ -177,27 +180,32 @@ export default function FontStoryDetailPage() {
   const handleCommentOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
+
   // 댓글 작성 api
   const { mutate: requestComment } = useMutation({
     mutationKey: ['request-comment'],
-    mutationFn: () => API.handwritingStory.handwritingStoryComment({ handwritingStoryId: response?.data.handwritingStoryId, content: comment }),
+    mutationFn: () =>
+      API.handwritingStory.handwritingStoryComment({
+        handwritingStoryId: response?.data.handwritingStoryId,
+        content: comment,
+      }),
     onSuccess: () => {},
-    onError: () => console.log(comment)
-  })
+    onError: () => console.log(comment),
+  });
 
-//   const info = {
-//     content: comment,
-//   }
+  //   const info = {
+  //     content: comment,
+  //   }
 
-//   const handleCommentWrite = () => {
-//   instanceJsonContent.post(`/handwritings/story/${handwritingStoryId}/comment`, info)
-//     .then((response) => {
-//       console.log('POST 요청 성공', response.data);
-//     })
-//     .catch((error) => {
-//       console.error('요청 실패', error);
-//     });
-// };
+  //   const handleCommentWrite = () => {
+  //   instanceJsonContent.post(`/handwritings/story/${handwritingStoryId}/comment`, info)
+  //     .then((response) => {
+  //       console.log('POST 요청 성공', response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error('요청 실패', error);
+  //     });
+  // };
 
   //댓글입력창 여닫기
 
@@ -213,127 +221,132 @@ export default function FontStoryDetailPage() {
 
   return (
     <>
-    {
-      isFontStoryDetailFetching ? (
+      {isFontStoryDetailFetching ? (
         <div>Loading...</div>
       ) : (
-      <>
-      <Comp.SideBar  />
-      <S.DetailWrapper>
-        <S.UpperWrapper>
-          <S.UpperHeadWrapper>
-            <S.ProfileBoxDiv>
-              <Comp.ProfileBox {...ProfileBoxProps} />
-            </S.ProfileBoxDiv>
-            <S.DetailInfoWrapper>
-              <div>
-                <Image src={`/image/${copyIsLikeAndCount?.isLike ? 'fill' : 'empty'}-orange-heart.svg`} alt="empty-heart" width={30} height={28} onClick={handleLikeClick} />
-                {copyIsLikeAndCount?.count}
-              </div>
-              <div>
-                <Image src={'/image/view.svg'} alt="empty-heart" width={30} height={30} />
-                {HandwritingStoryData.hitCount}
-              </div>
-              <div>
-                <Image src={'/image/comment.svg'} alt="empty-heart" width={28} height={26} />
-                {response?.data.CommentList?.length}
-              </div>
-            </S.DetailInfoWrapper>
-          </S.UpperHeadWrapper>
-          <S.TitleSpan name={response?.data.name}>{response?.data.title}</S.TitleSpan>
-          <S.FontDateWrapper>
-            <Link href={`/font-detail/${HandwritingStoryData.handwritingId}`}>
-              <S.FontLinkWrapper name={response?.data.name}>
-                <span>{HandwritingStoryData.name}</span>
-                <Image src={'/image/font-link-pointer.svg'} alt="font-link-pointer" width={14} height={20} />
-              </S.FontLinkWrapper>
-            </Link>
-            <S.FontStoryDateWrapper>{HandwritingStoryData.createDate}</S.FontStoryDateWrapper>
-          </S.FontDateWrapper>
-          <S.TagsWrapper>
-            <Comp.BaseHashTags hashTagIdList={HandwritingStoryData.tags} direction="row" />
-          </S.TagsWrapper>
-        </S.UpperWrapper>
-        <S.FontStoryText name={ response?.data.name }>{HandwritingStoryData.content}</S.FontStoryText>
-        {
-          isMypage &&
-          <S.EditDeleteWrapper>
-            <S.DeleteLink onClick={handleDeleteClick}>삭제하기</S.DeleteLink>
-            <S.EditLink onClick={handleEditClick}>수정하기</S.EditLink>
-          </S.EditDeleteWrapper>
-        }
-        <S.ProfileWrapper>
-          <S.VerticalProfileBoxDiv>
-            <S.Line />
-            <S.WhiteSquare />
-            <Comp.ProfileBox {...VerticalProfileBoxProps} />
-          </S.VerticalProfileBoxDiv>
-          <S.ProfileIntroduction>{HandwritingStoryData.introduction}</S.ProfileIntroduction>
-          <Link href={`/profile/${HandwritingStoryData.memberId}`}>
-            <S.LinkButton type="button" disabled={false}>
-              <span>프로필 보기</span>
-            </S.LinkButton>
-          </Link>
-        </S.ProfileWrapper>
-        <S.LowerWrapper>
-          <S.LowerHeadWrapper>
-            <S.CommentReportSpan>
-              {HandwritingStoryData.HandwritingStoryComments.length}개의 댓글이 달렸습니다
-            </S.CommentReportSpan>
-            <S.CommentHeadLine />
-            <S.CommentInputAreaWrapper>
-              <S.CommentInputPlaceholder $isempty={!comment}>
-                <span>댓글을 남겨 보세요</span>
-              </S.CommentInputPlaceholder>
-              <S.CommentInputArea
-                ref={ref}
-                id="comment"
-                value={comment}
-                $isExpanded={isExpanded}
-                onFocus={handleExpansion}
-                onChange={handleCommentOnChange}
-              />
-              <S.CommentButtonDiv $isExpanded={isExpanded}>
-                  <S.CommentWriteButton type="button" disabled={false} onClick={requestComment}>
-                    <span>댓글 달기</span>
-                  </S.CommentWriteButton>
-                <S.CommentWriteBackButton type="button" onFocus={handleCollapse} disabled={false}>
-                  <span>접기</span>
-                </S.CommentWriteBackButton>
-              </S.CommentButtonDiv>
-            </S.CommentInputAreaWrapper>
-          </S.LowerHeadWrapper>
-          <S.CommentsListWrapper>
-            {HandwritingStoryData.HandwritingStoryComments.map((StoryComment, index) => {
-              return (
-                <React.Fragment key={StoryComment.HandwritingStoryComment.HandwritingStoryCommentId}>
-                  <Comp.FontStoryComment
-                    profileBoxProps={{
-                      imageUrl: StoryComment.Member.imageUrl,
-                      nickname: StoryComment.Member.nickname,
-                      badge: StoryComment.Member.badge,
-                      imgSize: 'max(40px, 2.2vw)',
-                      fontSize: 'max(14px, 0.8vw)',
-                    }}
-                    commentProps={{
-                      handwritingStoryId: response?.data.handwritingStoryId,
-                      handwritingStoryCommentId: StoryComment.HandwritingStoryComment.HandwritingStoryCommentId,
-                      content: StoryComment.HandwritingStoryComment.content,
-                      createDate: StoryComment.HandwritingStoryComment.createDate,
-                    }}
-                    // 현재 유저id === 댓글의 memberId
-                    isMycomment={true}
+        <>
+        <S.SideBarWrapper>
+          <Comp.SideBar {...copyIsLikeAndCount} setCopyIsLikeAndCount={setCopyIsLikeAndCount} handwritingStoryId={response?.data.handwritingStoryId} />
+        </S.SideBarWrapper>
+          <S.DetailWrapper>
+            <S.UpperWrapper>
+              <S.UpperHeadWrapper>
+                <S.ProfileBoxDiv>
+                  <Comp.ProfileBox {...ProfileBoxProps} />
+                </S.ProfileBoxDiv>
+                <S.DetailInfoWrapper>
+                  <S.HeartWrapper>
+                    <Image
+                      src={`/image/${copyIsLikeAndCount?.isLike ? 'fill' : 'empty'}-orange-heart.svg`}
+                      alt="empty-heart"
+                      width={30}
+                      height={28}
+                      onClick={handleLikeClick}
+                    />
+                    {copyIsLikeAndCount?.count}
+                  </S.HeartWrapper>
+                  <div>
+                    <Image src={'/image/view.svg'} alt="empty-heart" width={30} height={30} />
+                    {HandwritingStoryData.hitCount}
+                  </div>
+                  <div>
+                    <Image src={'/image/comment.svg'} alt="empty-heart" width={28} height={26} />
+                    {response?.data.CommentList?.length}
+                  </div>
+                </S.DetailInfoWrapper>
+              </S.UpperHeadWrapper>
+              <S.TitleSpan name={response?.data.name}>{response?.data.title}</S.TitleSpan>
+              <S.FontDateWrapper>
+                <Link href={`/font-detail/${HandwritingStoryData.handwritingId}`}>
+                  <S.FontLinkWrapper name={response?.data.name}>
+                    <span>{HandwritingStoryData.name}</span>
+                    <Image src={'/image/font-link-pointer.svg'} alt="font-link-pointer" width={14} height={20} />
+                  </S.FontLinkWrapper>
+                </Link>
+                <S.FontStoryDateWrapper>{HandwritingStoryData.createDate}</S.FontStoryDateWrapper>
+              </S.FontDateWrapper>
+              <S.TagsWrapper>
+                <Comp.BaseHashTags hashTagIdList={HandwritingStoryData.tags} direction="row" />
+              </S.TagsWrapper>
+            </S.UpperWrapper>
+            <S.FontStoryText name={response?.data.name}>{HandwritingStoryData.content}</S.FontStoryText>
+            {isMypage && (
+              <S.EditDeleteWrapper>
+                <S.DeleteLink onClick={handleDeleteClick}>삭제하기</S.DeleteLink>
+                <S.EditLink onClick={handleEditClick}>수정하기</S.EditLink>
+              </S.EditDeleteWrapper>
+            )}
+            <S.ProfileWrapper>
+              <S.VerticalProfileBoxDiv>
+                <S.Line />
+                <S.WhiteSquare />
+                <Comp.ProfileBox {...VerticalProfileBoxProps} />
+              </S.VerticalProfileBoxDiv>
+              <S.ProfileIntroduction>{HandwritingStoryData.introduction}</S.ProfileIntroduction>
+              <Link href={`/profile/${HandwritingStoryData.memberId}`}>
+                <S.LinkButton type="button" disabled={false}>
+                  <span>프로필 보기</span>
+                </S.LinkButton>
+              </Link>
+            </S.ProfileWrapper>
+            <S.LowerWrapper>
+              <S.LowerHeadWrapper>
+                <S.CommentReportSpan>
+                  {HandwritingStoryData.HandwritingStoryComments.length}개의 댓글이 달렸습니다
+                </S.CommentReportSpan>
+                <S.CommentHeadLine />
+                <S.CommentInputAreaWrapper>
+                  <S.CommentInputPlaceholder $isempty={!comment}>
+                    <span>댓글을 남겨 보세요</span>
+                  </S.CommentInputPlaceholder>
+                  <S.CommentInputArea
+                    ref={ref}
+                    id="comment"
+                    value={comment}
+                    $isExpanded={isExpanded}
+                    onFocus={handleExpansion}
+                    onChange={handleCommentOnChange}
                   />
-                  {index !== HandwritingStoryData.HandwritingStoryComments.length - 1 && <S.CommentHeadLine />}
-                </React.Fragment>
-              );
-            })}
-          </S.CommentsListWrapper>
-        </S.LowerWrapper>
-      </S.DetailWrapper>
-      </>
-       )
-    } 
+                  <S.CommentButtonDiv $isExpanded={isExpanded}>
+                    <S.CommentWriteButton type="button" disabled={false} onClick={requestComment}>
+                      <span>댓글 달기</span>
+                    </S.CommentWriteButton>
+                    <S.CommentWriteBackButton type="button" onFocus={handleCollapse} disabled={false}>
+                      <span>접기</span>
+                    </S.CommentWriteBackButton>
+                  </S.CommentButtonDiv>
+                </S.CommentInputAreaWrapper>
+              </S.LowerHeadWrapper>
+              <S.CommentsListWrapper>
+                {HandwritingStoryData.HandwritingStoryComments.map((StoryComment, index) => {
+                  return (
+                    <React.Fragment key={StoryComment.HandwritingStoryComment.HandwritingStoryCommentId}>
+                      <Comp.FontStoryComment
+                        profileBoxProps={{
+                          imageUrl: StoryComment.Member.imageUrl,
+                          nickname: StoryComment.Member.nickname,
+                          badge: StoryComment.Member.badge,
+                          imgSize: 'max(40px, 2.2vw)',
+                          fontSize: 'max(14px, 0.8vw)',
+                        }}
+                        commentProps={{
+                          handwritingStoryId: response?.data.handwritingStoryId,
+                          handwritingStoryCommentId: StoryComment.HandwritingStoryComment.HandwritingStoryCommentId,
+                          content: StoryComment.HandwritingStoryComment.content,
+                          createDate: StoryComment.HandwritingStoryComment.createDate,
+                        }}
+                        // 현재 유저id === 댓글의 memberId
+                        isMycomment={true}
+                      />
+                      {index !== HandwritingStoryData.HandwritingStoryComments.length - 1 && <S.CommentHeadLine />}
+                    </React.Fragment>
+                  );
+                })}
+              </S.CommentsListWrapper>
+            </S.LowerWrapper>
+          </S.DetailWrapper>
+        </>
+      )}
     </>
   );
 }

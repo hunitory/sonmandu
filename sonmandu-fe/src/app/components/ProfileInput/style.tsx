@@ -39,7 +39,6 @@ export const InfoInputWrapper = styled.div`
     grid-template-columns: 4fr 1fr;
   }
 `;
-  
 
 export const EditInputWrapper = styled.div`
   display: flex;
@@ -79,8 +78,7 @@ export const StyledButton = styled(BaseButton)`
   font-family: ${notoSansKr.semiBold.style.fontFamily};
 `;
 
-
 export const EditContentsWrapper = styled.div`
   font-size: max(12px, 0.6vw);
   color: ${PALETTE.LIGHT_BLACK};
-`
+`;

@@ -26,7 +26,9 @@ export const CustomLabel = styled(BaseLabelWithInput.Label)<{
   &,
   input {
     border-radius: 50px;
-    transition: width 0.5s ease, padding 0.5s ease;
+    transition:
+      width 0.5s ease,
+      padding 0.5s ease;
   }
   input {
     width: ${({ flexible }) => (flexible.able ? '0px' : 'calc(100% - 32px)')};

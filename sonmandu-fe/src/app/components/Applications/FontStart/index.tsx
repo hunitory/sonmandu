@@ -19,10 +19,7 @@ export default function NextButton(props: FontStartProps) {
       <Styled.StepWrapper>
         <Comp.FontStep value="시작하기" isactive="true"></Comp.FontStep>
         <Comp.FontStep value="파일 업로드" isactive="false"></Comp.FontStep>
-        <Comp.FontStep
-          value="손글씨 정보 입력"
-          isactive="false"
-        ></Comp.FontStep>
+        <Comp.FontStep value="손글씨 정보 입력" isactive="false"></Comp.FontStep>
         <Comp.FontStep value="신청완료" isactive="false"></Comp.FontStep>
       </Styled.StepWrapper>
       <Styled.Card>
@@ -55,14 +52,8 @@ export default function NextButton(props: FontStartProps) {
                 </Styled.MaterialImgWrapper>
               </Styled.MaterialWrapper>
               <Styled.DownloadButtonWrapper>
-                <Styled.DownloadButton
-                  onClick={onDownload}
-                  disabled={false}
-                  type="button"
-                >
-                  <Styled.DownloadButtonText>
-                    템플릿 다운로드
-                  </Styled.DownloadButtonText>
+                <Styled.DownloadButton onClick={onDownload} disabled={false} type="button">
+                  <Styled.DownloadButtonText>템플릿 다운로드</Styled.DownloadButtonText>
                 </Styled.DownloadButton>
               </Styled.DownloadButtonWrapper>
             </Styled.ContentContainer>
@@ -72,48 +63,20 @@ export default function NextButton(props: FontStartProps) {
 
               <Styled.CautionWrapper>
                 <Styled.CautionContentWrapper>
-                  <Image
-                    src={Caution1}
-                    alt="얼룩이 있는 경우"
-                    width={95}
-                    height={155}
-                  />
-                  <Styled.CautionContentText>
-                    얼룩이 있는 경우
-                  </Styled.CautionContentText>
+                  <Image src={Caution1} alt="얼룩이 있는 경우" width={95} height={155} />
+                  <Styled.CautionContentText>얼룩이 있는 경우</Styled.CautionContentText>
                 </Styled.CautionContentWrapper>
                 <Styled.CautionContentWrapper>
-                  <Image
-                    src={Caution2}
-                    alt="글 상자에 획이 닿는 경우"
-                    width={95}
-                    height={155}
-                  />
-                  <Styled.CautionContentText>
-                    글 상자에 획이 닿는 경우
-                  </Styled.CautionContentText>
+                  <Image src={Caution2} alt="글 상자에 획이 닿는 경우" width={95} height={155} />
+                  <Styled.CautionContentText>글 상자에 획이 닿는 경우</Styled.CautionContentText>
                 </Styled.CautionContentWrapper>
                 <Styled.CautionContentWrapper>
-                  <Image
-                    src={Caution3}
-                    alt="획이 겹치거나 닿은 경우"
-                    width={95}
-                    height={155}
-                  />
-                  <Styled.CautionContentText>
-                    획이 겹치거나 닿은 경우
-                  </Styled.CautionContentText>
+                  <Image src={Caution3} alt="획이 겹치거나 닿은 경우" width={95} height={155} />
+                  <Styled.CautionContentText>획이 겹치거나 닿은 경우</Styled.CautionContentText>
                 </Styled.CautionContentWrapper>
                 <Styled.CautionContentWrapper>
-                  <Image
-                    src={Caution4}
-                    alt="획이 끊어진 경우"
-                    width={95}
-                    height={155}
-                  />
-                  <Styled.CautionContentText>
-                    획이 끊어진 경우
-                  </Styled.CautionContentText>
+                  <Image src={Caution4} alt="획이 끊어진 경우" width={95} height={155} />
+                  <Styled.CautionContentText>획이 끊어진 경우</Styled.CautionContentText>
                 </Styled.CautionContentWrapper>
               </Styled.CautionWrapper>
             </Styled.CautionContainer>

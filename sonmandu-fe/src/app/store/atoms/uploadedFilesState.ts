@@ -1,6 +1,6 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 export const uploadedFilesState = atom({
-    key: 'uploadedFilesState',
-    default: [] as File[],
-  });
+  key: 'uploadedFilesState',
+  default: [] as File[],
+});

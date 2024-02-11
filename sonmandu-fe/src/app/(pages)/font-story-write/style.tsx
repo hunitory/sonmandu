@@ -203,7 +203,9 @@ export const TagButton = styled(BaseButton)<TagButtonProps>`
   &:not(.true):hover {
     transform: translate(-2px, -2px);
     box-shadow: 0px 2px 2px 2px ${PALETTE.SUB_WHITE};
-    transition: box-shadow 0.25s ease-in, transform 0.25s ease-in;
+    transition:
+      box-shadow 0.25s ease-in,
+      transform 0.25s ease-in;
   }
 
   &.true {

@@ -162,14 +162,4 @@ const thin = Noto_Sans_KR({
   ],
 });
 
-export {
-  thin,
-  extraLight,
-  light,
-  regular,
-  medium,
-  semiBold,
-  bold,
-  extraBold,
-  black,
-};
+export { thin, extraLight, light, regular, medium, semiBold, bold, extraBold, black };

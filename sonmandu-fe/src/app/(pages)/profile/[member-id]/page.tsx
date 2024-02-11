@@ -103,14 +103,14 @@ export default function ProfilePage() {
   // 정보 요청
   const params = useParams();
   const queryKey = ['profile', params['member-id']];
-  const { data: response, isFetching: isProfileFetching} = useQuery({
+  const { data: response, isFetching: isProfileFetching } = useQuery({
     queryKey: queryKey,
-    queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string})
-  })
+    queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string }),
+  });
 
   useEffect(() => {
-    console.log(response)
-  }, [response])
+    console.log(response);
+  }, [response]);
 
   // useEffect(() => {
   //   (async () => {

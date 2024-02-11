@@ -57,7 +57,7 @@ public class ChatController {
 
         log.info("send message: " + newChat.getMessage() + ", pub: " + newChat.getMember().getMemberId() );
 
-        return (ChatProjection) chatRepository.findById(newChat.getChatId())
+        return chatRepository.findByChatId(newChat.getChatId())
                 .orElseThrow(() -> new IdNotFoundException("해당하는 채딩이 없습니다."));
     }
 

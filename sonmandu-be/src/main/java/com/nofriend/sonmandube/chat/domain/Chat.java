@@ -1,9 +1,14 @@
 package com.nofriend.sonmandube.chat.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.nofriend.sonmandube.chat.controller.response.ChatResponse;
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
 import com.nofriend.sonmandube.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.cglib.core.Local;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -17,7 +22,7 @@ import java.util.Locale;
 @Builder
 @ToString
 @EntityListeners(AuditingEntityListener.class)
-public class Chat implements ChatProjection{
+public class Chat{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_id")
     private Long chatId;
@@ -39,15 +44,7 @@ public class Chat implements ChatProjection{
         this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a H:mm", Locale.KOREAN));
     }
 
-    public HandwritingProjection getHandwriting() {
-        return (HandwritingProjection) this.handwriting;
-    }
-
-    public MemberProjection getMember() {
-        return (MemberProjection) this.member;
-    }
-
-    //    public ChatResponse toChatResponse(){
+//    public ChatResponse toChatResponse(){
 //        return ChatResponse.builder()
 //                .chatId(this.chatId)
 //                .message(this.message)

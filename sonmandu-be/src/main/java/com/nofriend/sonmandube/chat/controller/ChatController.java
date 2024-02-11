@@ -4,6 +4,7 @@ import com.nofriend.sonmandube.chat.controller.request.ChatRequest;
 import com.nofriend.sonmandube.chat.domain.Chat;
 import com.nofriend.sonmandube.chat.domain.ChatProjection;
 import com.nofriend.sonmandube.chat.repository.ChatRepository;
+import com.nofriend.sonmandube.exception.IdNotFoundException;
 import com.nofriend.sonmandube.handwriting.domain.HandwritingNameDownloadUrlProjection;
 import com.nofriend.sonmandube.handwriting.repository.HandwritingRepository;
 import com.nofriend.sonmandube.jwt.JwtProvider;
@@ -56,7 +57,8 @@ public class ChatController {
 
         log.info("send message: " + newChat.getMessage() + ", pub: " + newChat.getMember().getMemberId() );
 
-        return (ChatProjection)newChat;
+        return (ChatProjection) chatRepository.findById(newChat.getChatId())
+                .orElseThrow(() -> new IdNotFoundException("해당하는 채딩이 없습니다."));
     }
 
     @PreAuthorize("hasRole('USER')")

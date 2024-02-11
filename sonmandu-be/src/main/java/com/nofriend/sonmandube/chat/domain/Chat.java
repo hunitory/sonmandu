@@ -2,6 +2,7 @@ package com.nofriend.sonmandube.chat.domain;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.nofriend.sonmandube.chat.controller.response.ChatHandwritingResponse;
 import com.nofriend.sonmandube.chat.controller.response.ChatMemberResponse;
 import com.nofriend.sonmandube.chat.controller.response.ChatResponse;
@@ -18,13 +19,12 @@ import java.util.Locale;
 =======
 import com.fasterxml.jackson.annotation.JsonFormat;
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+>>>>>>> 25c114c (test: chatting principal)
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
 import com.nofriend.sonmandube.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.cglib.core.Local;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -47,6 +47,7 @@ import java.util.Locale;
 @Builder
 @ToString
 @EntityListeners(AuditingEntityListener.class)
+<<<<<<< HEAD
 public class Chat{
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chat_id")
@@ -59,6 +60,9 @@ public class Chat{
 @ToString
 @EntityListeners(AuditingEntityListener.class)
 public class Chat {
+=======
+public class Chat implements ChatProjection{
+>>>>>>> 25c114c (test: chatting principal)
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 <<<<<<< HEAD
 >>>>>>> bb48a11 (feat: add WebSocket)
@@ -99,6 +103,7 @@ public class Chat {
         this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a h:mm", Locale.KOREAN));
     }
 
+<<<<<<< HEAD
     public ChatResponse toChatResponse(){
         return ChatResponse.builder()
                 .chatId(this.chatId)
@@ -131,5 +136,33 @@ public class Chat {
     }
 
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+    public HandwritingProjection getHandwriting() {
+        return (HandwritingProjection) this.handwriting;
+    }
+
+    public MemberProjection getMember() {
+        return (MemberProjection) this.member;
+    }
+
+    //    public ChatResponse toChatResponse(){
+//        return ChatResponse.builder()
+//                .chatId(this.chatId)
+//                .message(this.message)
+//                .createTime(this.createTime)
+//                .member(
+//
+//
+//                )
+//                .handwriting(
+//                        ChatResponse.Handwriting.builder()
+//                                .handwritingId(this.handwriting.getHandwritingId())
+//                                .name(this.handwriting.getName())
+//                                .downloadUrl(this.handwriting.getDownloadUrl())
+//                                .build()
+//                )
+//                .build();
+//    }
+>>>>>>> 25c114c (test: chatting principal)
 
 }

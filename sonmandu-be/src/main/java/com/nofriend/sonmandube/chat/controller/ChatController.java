@@ -89,7 +89,7 @@ public class ChatController {
 
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
-    public Chat chatting(Principal principal, @Valid ChatRequest chatRequest) {
+    public ChatProjection chatting(Principal principal, @Valid ChatRequest chatRequest) {
     log.info("chatting1");
 <<<<<<< HEAD
 =======
@@ -100,6 +100,7 @@ public class ChatController {
 >>>>>>> 32d7084 (feat: change dateTime)
         token = token.substring(7);
 
+<<<<<<< HEAD
 //        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
     Long memberId = 1L;
     chatRequest.setHandwritingId(1L);
@@ -111,6 +112,8 @@ public class ChatController {
 //        token = token.substring(7);
 //
 //        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
+=======
+>>>>>>> 25c114c (test: chatting principal)
         Long memberId = Long.valueOf(principal.getName());
         log.info(String.valueOf(memberId));
 >>>>>>> 5ff7c3c (refactor: chatting websocket)
@@ -123,9 +126,14 @@ public class ChatController {
                 memberNickname,
 >>>>>>> 723abc5 (feat: add spring security chatting)
                 chatRequest.getHandwritingId(),
+<<<<<<< HEAD
 "1","!'",
 //                handwritingNameDownloadUrlProjection.getName(),
 //                handwritingNameDownloadUrlProjection.getDownloadUrl(),
+=======
+                handwritingNameDownloadUrlProjection.getName(),
+                handwritingNameDownloadUrlProjection.getDownloadUrl(),
+>>>>>>> 25c114c (test: chatting principal)
                 chatRequest.getMessage()
         );
 
@@ -135,16 +143,24 @@ public class ChatController {
 <<<<<<< HEAD
         System.out.println(newChat.toString());
         chatRepository.save(newChat);
+<<<<<<< HEAD
         System.out.println(newChat.toString());
 =======
 //        chatRepository.save(newChat);
 =======
         chatRepository.save(newChat);
 >>>>>>> 927096d (feat: change dateTime)
+=======
+
+>>>>>>> 25c114c (test: chatting principal)
         log.info("send message: " + newChat.getMessage() + ", pub: " + newChat.getMember().getMemberId() );
 >>>>>>> 738ebf3 (feat: change JwtFilter Exception Message)
 
+<<<<<<< HEAD
         return newChat.toChatResponse();
+=======
+        return (ChatProjection)newChat;
+>>>>>>> 25c114c (test: chatting principal)
     }
 
     @PreAuthorize("hasRole('USER')")

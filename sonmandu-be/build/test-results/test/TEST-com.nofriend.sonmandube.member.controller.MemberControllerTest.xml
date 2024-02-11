@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1e329f9 (text: add text code)
 <testsuite name="com.nofriend.sonmandube.member.controller.MemberControllerTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2024-02-11T03:08:07" hostname="iseungmin-ui-MacBookAir.local" time="2.6">
   <properties/>
   <testcase name="유저 정보 수정" classname="com.nofriend.sonmandube.member.controller.MemberControllerTest" time="1.536"/>
@@ -10,6 +13,7 @@
   <testcase name="본인 정보 가져오기 테스트-성공" classname="com.nofriend.sonmandube.member.controller.MemberControllerTest" time="0.126"/>
   <system-out><![CDATA[12:07:55.862 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.nofriend.sonmandube.member.controller.MemberControllerTest]: MemberControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
 12:07:56.166 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.nofriend.sonmandube.SonmanduBeApplication for test class com.nofriend.sonmandube.member.controller.MemberControllerTest
+<<<<<<< HEAD
 =======
 <testsuite name="com.nofriend.sonmandube.member.controller.MemberControllerTest" tests="6" skipped="0" failures="6" errors="0" timestamp="2024-02-02T04:21:48" hostname="DESKTOP-LL7FDJ6" time="0.037">
   <properties/>
@@ -630,6 +634,8 @@ Caused by: org.springframework.data.mapping.PropertyReferenceException: No prope
   <system-out><![CDATA[13:21:43.512 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.nofriend.sonmandube.member.controller.MemberControllerTest]: MemberControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
 13:21:43.654 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.nofriend.sonmandube.SonmanduBeApplication for test class com.nofriend.sonmandube.member.controller.MemberControllerTest
 >>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
+=======
+>>>>>>> 1e329f9 (text: add text code)
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -640,6 +646,9 @@ Caused by: org.springframework.data.mapping.PropertyReferenceException: No prope
  :: Spring Boot ::                (v3.2.2)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1e329f9 (text: add text code)
 2024-02-11T12:07:56.843+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : Starting MemberControllerTest using Java 17.0.9 with PID 15030 (started by seungmin in /Users/seungmin/mehot98/S10P12B111/sonmandu-be)
 2024-02-11T12:07:56.854+09:00  INFO 15030 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : The following 2 profiles are active: "env", "prod"
 2024-02-11T12:07:58.433+09:00  INFO 15030 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
@@ -815,6 +824,7 @@ MockHttpServletResponse:
           Cookies = []
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
+<<<<<<< HEAD
 =======
 2024-02-02T13:21:44.110+09:00  INFO 15980 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : Starting MemberControllerTest using Java 21.0.1 with PID 15980 (started by SSAFY in C:\mehot98\S10P12B111\sonmandu-be)
 2024-02-02T13:21:44.113+09:00  INFO 15980 --- [    Test worker] c.n.s.m.controller.MemberControllerTest  : The following 2 profiles are active: "env", "prod"
@@ -1662,4 +1672,6 @@ Unconditional classes:
 
 ]]></system-err>
 >>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
+=======
+>>>>>>> 1e329f9 (text: add text code)
 </testsuite>

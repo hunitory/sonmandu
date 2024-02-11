@@ -313,19 +313,27 @@ public class MemberController {
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/image")
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ResponseEntity<Void> updateMemberInformationImage(MultipartFile image, Authentication authentication){
 =======
     public HttpStatus updateMemberInformationImage(MultipartFile image, Authentication authentication){
 >>>>>>> c31b9a8 (feat: change dateTime)
+=======
+    public ResponseEntity<HttpStatus> updateMemberInformationImage(MultipartFile image, Authentication authentication){
+>>>>>>> 1e329f9 (text: add text code)
         log.info("/members/image");
         log.info(image.getOriginalFilename());
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
         memberService.updateMemberInformationImage(memberId, image);
 <<<<<<< HEAD
+<<<<<<< HEAD
         return ResponseEntity.noContent().build();
 =======
         return HttpStatus.NO_CONTENT;
 >>>>>>> c31b9a8 (feat: change dateTime)
+=======
+        return ResponseEntity.noContent().build();
+>>>>>>> 1e329f9 (text: add text code)
     }
 
 
@@ -333,10 +341,14 @@ public class MemberController {
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/{informationType}")
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ResponseEntity<Void> updateMemberInformationCommon(@PathVariable @NotEmpty String informationType, @RequestBody Map<String, String> request, Authentication authentication){
 =======
     public HttpStatus updateMemberInformationCommon(@PathVariable @NotEmpty String informationType, @RequestBody String value, Authentication authentication){
 >>>>>>> c31b9a8 (feat: change dateTime)
+=======
+    public ResponseEntity<HttpStatus> updateMemberInformationCommon(@PathVariable @NotEmpty String informationType, @RequestBody Map<String, String> request, Authentication authentication){
+>>>>>>> 1e329f9 (text: add text code)
         log.info("/members/{informationType}");
         log.info(informationType);
         String value = request.get("value");
@@ -345,10 +357,14 @@ public class MemberController {
 
         memberService.updateMemberInformationCommon(memberId, informationType, value);
 <<<<<<< HEAD
+<<<<<<< HEAD
         return ResponseEntity.noContent().build();
 =======
         return HttpStatus.NO_CONTENT;
 >>>>>>> c31b9a8 (feat: change dateTime)
+=======
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+>>>>>>> 1e329f9 (text: add text code)
     }
 
     //---DeleteMapping

@@ -3,21 +3,17 @@ import * as S from './style';
 import ProductDate from './Subs/ProductDate';
 import Image from 'next/image';
 import { BaseButton, BaseHashTags } from 'components';
-import { BaseButtonProps, Handwriting } from 'types';
+import { BaseButtonProps, ProfileFontCardProps } from 'types';
 import { useRouter } from 'next/navigation';
 
 function ProfileFontCard({
-  index,
-  isMypage,
-  handwriting,
+  profileFontCardProps
 }: {
-  index: number;
-  isMypage: boolean;
-  handwriting: Handwriting;
+  profileFontCardProps: ProfileFontCardProps;
 }) {
   const router = useRouter();
 
-  const { handwritingId, name, state, likeCount, downloadCount, downloadUrl, createDate, tags } = handwriting;
+  const { downloadCount, downloadUrl, handwritingId, hitCount, isLike, likeCount, name, createTime, tag } = profileFontCardProps;
 
   const BaseButtonProps: BaseButtonProps = {
     children: '다운로드 받기',
@@ -26,19 +22,21 @@ function ProfileFontCard({
     disabled: false,
   };
 
+  const index = Math.floor(Math.random() * 10)
+
   return (
     <S.ProfileFontCardWrapper>
       <S.UpperWrapper>
-        <ProductDate date={createDate} />
+        <ProductDate date={createTime} />
         <Image src={`/image/complete-${index}.png`} alt="#" width={148} height={137} />
       </S.UpperWrapper>
       <S.LowerWrapper>
-        <S.LowerSpan>{handwriting.name}</S.LowerSpan>
+        <S.LowerSpan>{name}</S.LowerSpan>
         <S.LowerContentsWrapper>
           <S.LowerContentsUp>
             <S.LikeDiv>
               <Image
-                src={isMypage ? '/image/orange-heart-fill.png' : '/image/orange-heart.svg'}
+                src={isLike ? '/image/orange-heart-fill.png' : '/image/orange-heart.svg'}
                 alt="#"
                 width={30}
                 height={30}
@@ -52,7 +50,7 @@ function ProfileFontCard({
             <S.DownloadButton {...BaseButtonProps} />
           </S.LowerContentsUp>
           <S.LowerContentsDown>
-            <BaseHashTags hashTagIdList={tags} direction="row" />
+            <BaseHashTags hashTagIdList={tag} direction="row" />
           </S.LowerContentsDown>
         </S.LowerContentsWrapper>
       </S.LowerWrapper>

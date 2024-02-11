@@ -3,10 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
-import { ProfileBoxProps, Handwriting } from 'types';
+import { ProfileBoxProps, ProfileFontCardProps, ProfileStoryCardProps } from 'types';
 import { useParams, useRouter } from 'next/navigation';
 import * as API from '@/apis';
 import { useQuery } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
 const { member, handwritings, handwritingStories } = {
   member: {
@@ -100,51 +101,66 @@ const { member, handwritings, handwritingStories } = {
 };
 
 export default function ProfilePage() {
-  // 정보 요청
+
+  const isMypage: boolean = false; // isMypage 판별하는 식 추가해야함!!
+
+  // 회원 정보 요청
   const params = useParams();
   const queryKey = ['profile', params['member-id']];
-  const { data: response, isFetching: isProfileFetching } = useQuery({
+  const { data: memberRes, isFetching: isProfileFetching } = useQuery({
     queryKey: queryKey,
     queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string }),
   });
 
   useEffect(() => {
-    console.log(response);
-  }, [response]);
+    console.log(memberRes);
+  }, [memberRes]);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const info = await API.member.getProfileMember(3);
-  //       console.log(info);
-  //     } catch (error) {
-  //       console.log('Error fetching member info:', error);
-  //     }
-  //   })();
-  //   // fetchMemberInfo();
-  // }, []);
+
+  // 만든 폰트 목록 조회
+  const { data: fontRes, isFetching: isFontFetching } = useQuery({
+    queryKey: isMypage ? ['my-font'] : ['profile-font', params['member-id']],
+    queryFn: () => isMypage ? API.handwriting.getMyHandwriting() : API.handwriting.getProfileHandwriting({ memberId: params['member-id'] as string }),
+  });
+  
+  useEffect(() => {
+    console.log(fontRes);
+  }, [fontRes]);
+
+
+  // 폰트이야기 조회
+  const { data: storyRes, isFetching: isStoryFontFetching } = useQuery({
+    queryKey: ['font-story', params['member-id']],
+    queryFn: () => API.handwritingStory.getHandwritingStory({ memberId: params['member-id'] as string }),
+  });
+
+  useEffect(() => {
+    console.log(storyRes);
+  }, [storyRes]);
+
+
+
+
 
   const ProfileBoxProps: ProfileBoxProps = {
-    imageUrl: member.imageUrl,
-    nickname: member.nickname,
-    badge: member.badge,
+    imageUrl: memberRes?.data.imageUrl,
+    nickname: memberRes?.data.nickname,
+    badge: memberRes?.data.badge,
     imgSize: '10vw',
     fontSize: '1.4vw',
     className: 'vertical',
   };
 
-  const router = useRouter();
-
-  const isMypage: boolean = true; // isMypage 판별하는 식 추가해야함!!
+  const router = useRouter();  
 
   const [showModal, setShowModal] = useState(false);
   const clickModal = () => {
     setShowModal(!showModal);
   };
 
-  const filteredHandwriting = handwritings.filter((handwriting) => handwriting && handwriting.state > 3);
-  const numberOfHandwriting = filteredHandwriting.length;
-  const handwritinggroup = isMypage ? handwritings : filteredHandwriting;
+  // const filteredHandwriting = handwritings.filter((handwriting) => handwriting && handwriting.state > 3);
+  // const numberOfHandwriting = filteredHandwriting.length;
+  // const handwritinggroup = isMypage ? handwritings : filteredHandwriting;
 
   // 수정하기 버튼입력
   const [isEdit, setIsEdit] = useState(false);
@@ -188,21 +204,23 @@ export default function ProfilePage() {
             <S.ProfileIntroDiv>
               <S.ProfileIntroDivUp>
                 <S.ProfileIntroSpan>소개</S.ProfileIntroSpan>
-                <S.ProfileIntroContents>{member.introduction}</S.ProfileIntroContents>
+                <S.ProfileIntroContents>{memberRes?.data.introduction}</S.ProfileIntroContents>
                 <S.BaseButtonWrapper>
-                  {isEdit ? (
-                    <S.EditButton type={'button'} onClick={() => setIsEdit(!isEdit)} disabled={false}>
-                      <span>수정완료</span>
-                    </S.EditButton>
-                  ) : (
-                    <S.EditButton type={'button'} onClick={() => setIsEdit(!isEdit)} disabled={false}>
-                      <span>수정하기</span>
-                    </S.EditButton>
+                  { isMypage && (
+                    isEdit ? (
+                      <S.EditButton type={'button'} onClick={() => setIsEdit(!isEdit)} disabled={false}>
+                        <span>수정완료</span>
+                      </S.EditButton>
+                    ) : (
+                      <S.EditButton type={'button'} onClick={() => setIsEdit(!isEdit)} disabled={false}>
+                        <span>수정하기</span>
+                      </S.EditButton>
+                    )
                   )}
                 </S.BaseButtonWrapper>
               </S.ProfileIntroDivUp>
               <S.ProfileIntroDivDown>
-                <Comp.ProfileTrophy Trophies={member.trophy} />
+                <Comp.ProfileTrophy Trophies={memberRes?.data.trophies} />
               </S.ProfileIntroDivDown>
               <S.Line />
             </S.ProfileIntroDiv>
@@ -213,26 +231,33 @@ export default function ProfilePage() {
                 {isMypage ? (
                   <S.ProfileHandwritingsSpan2>{handwritings.length}</S.ProfileHandwritingsSpan2>
                 ) : (
-                  <S.ProfileHandwritingsSpan2>{numberOfHandwriting}</S.ProfileHandwritingsSpan2>
+                  <S.ProfileHandwritingsSpan2>{fontRes?.data.length}</S.ProfileHandwritingsSpan2>
                 )}
               </S.ProfileHandwritingsSpanDiv>
               <S.ProfileHandwritingsDiv>
-                {handwritinggroup.map((handwriting: Handwriting, index: number) => {
-                  // const idx = Math.floor(Math.random() * 10);
-                  if (handwriting.state > 3) {
+                { isMypage ?
+                fontRes?.data.map((props: ProfileFontCardProps) => {
+                  if (props.state && props.state > 3) {
                     return (
                       <Comp.ProfileFontCard
-                        key={index}
-                        index={handwriting.handwritingId}
-                        // index={Math.floor(Math.random() * 10)}
-                        isMypage={isMypage}
-                        handwriting={handwriting}
+                        key={props.handwritingId}
+                        profileFontCardProps={props}
                       />
                     );
                   } else {
-                    return <Comp.ProfileFontCardMaking key={index} isMypage={isMypage} handwriting={handwriting} />;
+                    return <Comp.ProfileFontCardMaking key={props.handwritingId} profileFontCardProps={props} />;
                   }
-                })}
+                })
+                 :
+                fontRes?.data.map((profileFontCardProps: ProfileFontCardProps) => {
+                  return (
+                    <Comp.ProfileFontCard
+                      key={profileFontCardProps.handwritingId}
+                      profileFontCardProps={profileFontCardProps}
+                    />
+                  )
+                })
+              }
               </S.ProfileHandwritingsDiv>
               <S.Line />
             </S.ProfileHandwritingsWrapper>
@@ -240,13 +265,13 @@ export default function ProfilePage() {
             <S.ProfileHandwritingsWrapper>
               <S.ProfileHandwritingsSpanDiv>
                 <S.ProfileHandwritingsSpan1>작성한 이야기</S.ProfileHandwritingsSpan1>
-                <S.ProfileHandwritingsSpan2>{handwritingStories.length}</S.ProfileHandwritingsSpan2>
+                <S.ProfileHandwritingsSpan2>{storyRes?.data.length}</S.ProfileHandwritingsSpan2>
               </S.ProfileHandwritingsSpanDiv>
               <S.ProfileHandwritingStoriesDiv>
-                {handwritingStories.map((handwritingStory) => {
+                {storyRes?.data.map((storyProps: ProfileStoryCardProps) => {
                   return (
-                    <S.BaseStoryCardWrapper key={handwritingStory.handwritingStoryId}>
-                      <Comp.BaseStoryCard key={handwritingStory.handwritingStoryId} />;
+                    <S.BaseStoryCardWrapper key={storyProps.handwritingStoryId}>
+                      <Comp.BaseStoryCard key={storyProps.handwritingStoryId} />;
                     </S.BaseStoryCardWrapper>
                   );
                 })}

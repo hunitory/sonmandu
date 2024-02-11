@@ -12,7 +12,7 @@ import { BaseHasTagsProps } from './components/BaseHashTags';
 import { BaseLetterFieldProps } from './components/BaseLetterTextField';
 import { FontCard } from './components/BaseFontCard';
 import { ProfileBoxProps } from './components/ProfileBox';
-import { Handwriting } from './components/ProfileFontCard';
+import { ProfileFontCardProps } from './components/ProfileFontCard';
 import { ProfileInfoModalProps } from './components/ProfileInfoModal';
 import { isActive } from './components/ProfileInfoModal';
 import { ProfileInputProps } from './components/ProfileInput';
@@ -23,6 +23,7 @@ import { FontInfomationProps, FontDetailResponse } from './pages/FontDetail';
 import { FontStoryDetailResponse, IsLikeCount, SideBarProps } from './pages/FontStoryDetail';
 import { ModalId, ModalInfo } from './store/modal';
 import { StoryData } from './components/FontStory';
+import { ProfileStoryCardProps } from './components/ProfileStoryCard';
 
 export type {
   BaseButtonProps,
@@ -38,7 +39,7 @@ export type {
   FontStepProps,
   BaseModalProps,
   ProfileBoxProps,
-  Handwriting,
+  ProfileFontCardProps,
   ProfileInfoModalProps,
   isActive,
   ProfileInputProps,
@@ -57,4 +58,5 @@ export type {
   IsLikeCount,
   StoryData,
   SideBarProps,
+  ProfileStoryCardProps,
 };

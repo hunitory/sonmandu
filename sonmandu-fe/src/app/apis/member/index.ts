@@ -4,6 +4,10 @@ export async function getProfileMember({ memberId }: { memberId: string }) {
   return instanceJsonContent.get(`/members?memberId=${memberId}`);
 }
 
+export async function getMemberInfo() {
+  return instanceJsonContent.get(`/members/me`);
+}
+
 interface SignUpArgs {
   id: string;
   password: string;

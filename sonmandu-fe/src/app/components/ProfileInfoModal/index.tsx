@@ -1,10 +1,13 @@
 'use client';
 
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import * as Comp from '@/components';
 import * as S from './style';
+import * as API from '@/apis';
+import { useParams } from 'next/navigation';
 import { ProfileInfoModalProps } from 'types';
+import { useQuery } from '@tanstack/react-query';
 
 export default function ProfileInfoModal(props: ProfileInfoModalProps) {
   const { clickModal } = props;
@@ -22,6 +25,17 @@ export default function ProfileInfoModal(props: ProfileInfoModalProps) {
     name: '오이김',
     email: 'lsdkfj@gmail.com',
   };
+
+  const params = useParams();
+  const queryKey = ['profile-info'];
+  const { data: infoRes, isFetching: isInfoFetching } = useQuery({
+    queryKey: queryKey,
+    queryFn: () => API.member.getMemberInfo()
+  })
+
+  useEffect(() => {
+    console.log(infoRes);
+  }, [infoRes]);
 
   const [isActive, setIsActive] = useState({
     nickname: true,

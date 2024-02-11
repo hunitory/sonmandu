@@ -89,3 +89,7 @@ export async function handwritingStoryCommentDelete({
 }) {
   return instanceJsonContent.delete(`/handwritings/story/${handwritingStoryId}/comments/${handwritingStoryCommentId}`);
 }
+
+export async function getHandwritingStory({ memberId }: { memberId: string }) {
+  return instanceJsonContent.get(`/handwritings/story/owner/${memberId}`)
+}

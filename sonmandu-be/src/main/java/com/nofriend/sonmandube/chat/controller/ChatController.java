@@ -29,7 +29,6 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.security.core.Authentication;
 >>>>>>> 723abc5 (feat: add spring security chatting)
@@ -44,6 +43,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.security.Principal;
 import java.util.List;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.Optional;
 =======
 import java.util.List;
@@ -51,6 +51,8 @@ import java.util.List;
 =======
 import java.util.Objects;
 >>>>>>> e68a7a3 (fix: chatting principal)
+=======
+>>>>>>> 03bb9db (test: chatting principal)
 
 @Controller
 @RequiredArgsConstructor
@@ -82,7 +84,7 @@ public class ChatController {
 
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
-    public Chat chatting(@Valid ChatRequest chatRequest, SimpMessageHeaderAccessor accessor) {
+    public Chat chatting(Principal principal, @Valid ChatRequest chatRequest) {
     log.info("chatting1");
 <<<<<<< HEAD
 =======
@@ -104,7 +106,7 @@ public class ChatController {
 //        token = token.substring(7);
 //
 //        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
-        Long memberId = Long.valueOf(Objects.requireNonNull(accessor.getUser()).getName());
+        Long memberId = Long.valueOf(principal.getName());
         log.info(String.valueOf(memberId));
 >>>>>>> 5ff7c3c (refactor: chatting websocket)
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();

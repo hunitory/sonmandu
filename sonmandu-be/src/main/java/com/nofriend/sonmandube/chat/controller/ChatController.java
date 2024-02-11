@@ -161,12 +161,16 @@ public class ChatController {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         return newChat.toChatResponse();
 =======
         return (ChatProjection)newChat;
 >>>>>>> 25c114c (test: chatting principal)
 =======
         return (ChatProjection) chatRepository.findById(newChat.getChatId())
+=======
+        return chatRepository.findByChatId(newChat.getChatId())
+>>>>>>> ba1bbfd (test: chatting principal)
                 .orElseThrow(() -> new IdNotFoundException("해당하는 채딩이 없습니다."));
 >>>>>>> e3c4175 (test: chatting principal)
     }

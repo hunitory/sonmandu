@@ -14,7 +14,7 @@ public interface ChatRepository extends JpaRepository<Chat, Long> {
     List<ChatProjection> findTop10ByOrderByChatIdDesc();
 =======
     List<ChatProjection> findTop20ByOrderByChatIdDesc();
-
+    Optional<ChatProjection> findByChatId(Long chatId);
 
 >>>>>>> 723abc5 (feat: add spring security chatting)
 }

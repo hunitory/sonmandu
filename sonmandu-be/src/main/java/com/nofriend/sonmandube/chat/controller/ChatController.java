@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -37,13 +38,14 @@ public class ChatController {
 
     @MessageMapping("/sonmandu")
     @SendTo("/topic/sonmandu")
-    public Chat chatting(@Valid ChatRequest chatRequest, Authentication authentication) {
+    public Chat chatting(@Valid ChatRequest chatRequest, Principal principal) {
     log.info("chatting1");
+
 
 //        token = token.substring(7);
 //
 //        Long memberId = Long.valueOf(jwtProvider.getAuthentication(token).getName());
-        Long memberId = Long.valueOf(authentication.getName());
+        Long memberId = Long.valueOf(principal.getName());
         log.info(String.valueOf(memberId));
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
 

@@ -28,6 +28,8 @@ public class JwtFilter extends OncePerRequestFilter {
         log.info("Request start");
         String accessToken = resolveToken(request);
 
+        log.info(String.valueOf(accessToken == "null" ? "null" : jwtProvider.validateToken(accessToken)));
+
         if(accessToken.equals("null")){
             filterChain.doFilter(request, response);
         }

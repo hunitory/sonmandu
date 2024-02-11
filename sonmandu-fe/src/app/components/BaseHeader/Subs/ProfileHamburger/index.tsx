@@ -34,7 +34,7 @@ export default function ProfileHamburger() {
     mutationKey: ['logout'],
     mutationFn: () => API.member.logout(),
     onSuccess: (res) => {
-      if (res.status === 200) {
+      if (res.status === 204) {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
         location.reload();

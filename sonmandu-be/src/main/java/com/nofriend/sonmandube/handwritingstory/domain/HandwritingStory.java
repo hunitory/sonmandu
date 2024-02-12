@@ -1,5 +1,6 @@
 package com.nofriend.sonmandube.handwritingstory.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
 import com.nofriend.sonmandube.member.domain.Member;
 import jakarta.persistence.*;

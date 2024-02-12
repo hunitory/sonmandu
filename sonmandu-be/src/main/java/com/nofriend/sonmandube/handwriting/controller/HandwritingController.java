@@ -7,7 +7,6 @@ import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionReq
 import com.nofriend.sonmandube.handwriting.controller.response.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -34,6 +33,7 @@ public class HandwritingController {
             Authentication authentication
             ) {
         Long memberId = Long.parseLong(authentication.getName());
+
         handwritingService.applyHandwriting(memberId, handwritingApplicationRequest, image);
         return ResponseEntity.noContent().build();
     }
@@ -95,6 +95,11 @@ public class HandwritingController {
     public ResponseEntity<List<MyHandwritingResponse>> getMyHandwritingList(Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         List<MyHandwritingResponse> myHandwritingResponseList = handwritingService.getMyHandwritingList(memberId);
+        System.out.println(myHandwritingResponseList.get(0).toString());
+//        Handwriting hand = myHandwritingResponseList.get(0);
+//        System.out.println(hand.getHandwritingApplication().getMember().getName());
+//        System.out.println(myHandwritingResponseList.get(0).getMember().getId());
+//        System.out.println(name);
         return ResponseEntity.ok(myHandwritingResponseList);
     }
 

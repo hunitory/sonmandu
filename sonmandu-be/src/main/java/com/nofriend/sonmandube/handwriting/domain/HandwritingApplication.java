@@ -1,11 +1,9 @@
 package com.nofriend.sonmandube.handwriting.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nofriend.sonmandube.member.domain.Member;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -23,6 +21,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @Builder
 @EntityListeners(AuditingEntityListener.class)
+@ToString
 public class HandwritingApplication {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

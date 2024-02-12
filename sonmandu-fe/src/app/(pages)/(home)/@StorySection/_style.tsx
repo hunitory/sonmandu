@@ -56,10 +56,25 @@ export const StoryCardsWrapper = styled.section`
   display: flex;
   justify-content: space-between;
   gap: 2%;
-  width: 1528px;
-  > li {
-    max-width: 400px;
-    width: 400px;
+
+  @media (max-width: 1500px) {
+    & > :nth-child(4) {
+      /* 네 번째 아이템 숨김 */
+      display: none;
+    }
+  }
+
+  @media (max-width: 1128px) {
+    & > :nth-child(3) {
+      /* 세 번째 아이템 숨김 */
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    & > :nth-child(2) {
+      /* 두 번째 아이템 숨김 */
+      display: none;
+    }
   }
 `;
-

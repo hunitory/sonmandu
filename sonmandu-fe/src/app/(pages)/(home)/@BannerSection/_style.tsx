@@ -6,7 +6,7 @@ import { PALETTE, notoSansKr } from 'styles';
 
 export const MainWrapper = styled.div`
   width: 100vw;
-  height: 1300px;
+  height: 1000px;
   position: relative;
 `;
 
@@ -124,26 +124,45 @@ export const LoginButtonText = styled.div`
 `;
 
 export const CarouselWrapper = styled.section`
-  width: 80%;
+  padding: 0px 12%;
+  width: 100%;
   margin: 0 auto;
-  bottom: 15%;
-  overflow: hidden;
+  bottom: 9%;
   position: relative;
   z-index: 5;
+  .slick-slider {
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    height: 280px;
+    > div {
+      width: 100%;
+      height: 260px;
+      padding: 5px;   
+    }
+  }
 `;
 
-export const CarouselContainer = styled.div<{ $currentIndex: number }>`
-  display: flex;
-  transition: transform 0.3s ease;
-  gap: 5%;
-  transform: ${({ $currentIndex }) => `translateX(-${$currentIndex * 27}%)`};
-`;
+
+// export const ArrowLeftButton = styled(BaseButton)`
+//   position: absolute;
+//   padding: 5px;
+//   left: 10%;
+//   top: 45%;
+//   box-shadow: 0px 0px 4px ${PALETTE.MAIN_BLACK};
+//   transform: scaleX(-1);
+//   z-index: 6;
+//   &:hover {
+//     transform: scaleX(-1) translate(-1px, -1px);
+//     transition: transform 0.25s ease-in;
+//   }
+// `;
 
 export const ArrowRightButton = styled(BaseButton)`
-  padding: 5px;
   position: absolute;
-  right: 1%;
-  top: 50%;
+  padding: 5px;
+  right: 11%;
+  top: 45%;
   box-shadow: 0px 0px 4px ${PALETTE.MAIN_BLACK};
   &:hover {
     transform: translate(-1px, -1px);

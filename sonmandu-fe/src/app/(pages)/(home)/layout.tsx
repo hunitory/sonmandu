@@ -15,7 +15,7 @@ export default function HomeLayout({
   return (
     <Styled.StyledMain>
       {BannerSection}
-      {/* {StorySection} */}
+      {StorySection}
       {children}
       {/* {AnimationSection} */}
     </Styled.StyledMain>

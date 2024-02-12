@@ -4,24 +4,64 @@ import * as API from '@/apis';
 import * as Styled from './_style';
 import * as Comp from '@/components';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import useModal from 'customhook/useModal';
 import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { FontCard } from 'types';
+import Slider from 'react-slick';
+import CustomSlider from 'react-slick';
 
 interface BannerSectionProps {
   searchParams: { tagId: string; name: string; sort: string };
 }
 
 export default function BannerSection({ searchParams }: BannerSectionProps) {
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0)
-
-  const goNext = () => {
-    setCurrentIndex(currentIndex => (currentIndex + 1));
+  const settings = {
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1500,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 1208,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   };
+
+  const slickRef = useRef<CustomSlider>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // const goPrevious = useCallback(() => {
+  //   if (slickRef.current) {
+  //     slickRef.current.slickPrev();
+  //   }
+  // }, []);
+
+  const goNext = useCallback(() => {
+    if (slickRef.current) {
+      slickRef.current.slickNext();
+    }
+  }, []);
 
   const queryKey = ['popular-fonts-search'];
   // const queryKey = ['font-gallery-search', searchParams];
@@ -75,14 +115,17 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
         </Styled.MainTextContainer>
       </Styled.MainBanner>
       <Styled.CarouselWrapper>
-        <Styled.CarouselContainer $currentIndex={currentIndex}>
+        {/* <Styled.ArrowLeftButton type="button" disabled={false} onClick={goPrevious}>
+          <Image src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />
+        </Styled.ArrowLeftButton> */}
+        <Slider {...settings} ref={slickRef}>
           {response?.data.map((res: FontCard) => (
             <Comp.MainFontCard key={res.handwritingId} {...res} />
           ))}
-        </Styled.CarouselContainer>
-          <Styled.ArrowRightButton type="button" disabled={false} onClick={goNext}>
-            <Image src="/image/black-right-next.svg" alt="화살표" width={20} height={20} />
-          </Styled.ArrowRightButton>
+        </Slider>
+        <Styled.ArrowRightButton type="button" disabled={false} onClick={goNext}>
+          <Image src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />
+        </Styled.ArrowRightButton>
       </Styled.CarouselWrapper>
     </Styled.MainWrapper>
   );

@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { notoSansKr } from 'styles';
 import { StyledComponentsRegistry, RecoilRootWrapper, ReactQueryProvider } from '@/lib';
 import './styles/globals.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { BaseHeader, FindInfoModal, LoginModal, SignUpModal } from 'components';
 
 export const metadata: Metadata = {

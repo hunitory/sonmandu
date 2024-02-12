@@ -5,8 +5,7 @@ import { BaseButton } from 'components';
 import { BaseButtonProps } from 'types';
 
 export const FontCardWrapper = styled.li`
-  display: flex;
-  flex: 0 0 320px;
+  min-width: 90%;
   max-height: 250px;
   aspect-ratio: 4 / 5.5;
   background-color: white;
@@ -17,9 +16,8 @@ export const FontCardWrapper = styled.li`
   box-shadow: 0px 0px 5px ${PALETTE.LIGHT_BLACK};
   &:hover {
     transform: translate(-2px, -2px);
-    transition:transform 0.25s ease-in;
+    transition: transform 0.25s ease-in;
   }
-
 `;
 
 export const FontCardContainer = styled.article<{ name: string }>`

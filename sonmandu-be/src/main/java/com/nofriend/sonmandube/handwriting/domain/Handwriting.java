@@ -47,6 +47,10 @@ public class Handwriting {
     @JoinColumn(name = "handwriting_application_id")
     private HandwritingApplication handwritingApplication;
 
+    public boolean getIsSelected(){
+        return this.isSelected;
+    }
+
     @PrePersist
     public void onPrePersist() {
         String customLocalDateTimeFormat = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));

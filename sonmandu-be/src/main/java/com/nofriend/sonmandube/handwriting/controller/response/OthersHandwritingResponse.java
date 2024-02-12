@@ -20,7 +20,11 @@ public class OthersHandwritingResponse {
     private int downloadCount;
     private boolean isLike;
     private List<Integer> tag;
+<<<<<<< HEAD
     private LocalDateTime createDate;
+=======
+    private LocalDateTime createTime;
+>>>>>>> 1c41759 (fix: status 500)
 
     @JsonProperty("isLike")
     public boolean getIsLike() {
@@ -35,7 +39,11 @@ public class OthersHandwritingResponse {
                 .hitCount(handwriting.getHitCount())
                 .likeCount(handwriting.getLikeCount())
                 .downloadCount(handwriting.getDownloadCount())
+<<<<<<< HEAD
                 .createDate(handwriting.getCreateDate())
+=======
+                .createTime(handwriting.getCreateDate())
+>>>>>>> 1c41759 (fix: status 500)
                 .isLike(isLike)
                 .tag(
                         handwriting.getHandwritingApplication()

@@ -8,9 +8,12 @@ import com.nofriend.sonmandube.handwriting.controller.response.*;
 import com.nofriend.sonmandube.handwriting.domain.*;
 import com.nofriend.sonmandube.handwriting.repository.*;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.nofriend.sonmandube.handwritingstory.domain.HandwritingStory;
 >>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
+=======
+>>>>>>> 1c41759 (fix: status 500)
 import com.nofriend.sonmandube.handwritingstory.repository.HandwritingStoryRepository;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.s3.S3Service;
@@ -250,22 +253,36 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     public List<MyHandwritingResponse> getMyHandwritingList(Long memberId) {
+<<<<<<< HEAD
         List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberIdOrderByStateAsc(memberId);
+=======
+        List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberId(memberId);
+>>>>>>> 1c41759 (fix: status 500)
         // 손글씨 별 좋아요 확인
         List<MyHandwritingResponse> myHandwritingResponses = new ArrayList<>();
         for (int i=0; i<handwritingApplicationList.size(); i++) {
             HandwritingApplication handwritingApplication = handwritingApplicationList.get(i);
+<<<<<<< HEAD
             Optional<Handwriting> handwriting = handwritingRepository.findByHandwritingApplicationHandwritingApplicationId(handwritingApplication.getHandwritingApplicationId());
+=======
+            Optional<Handwriting> handwriting = handwritingRepository.findByHandwritingApplicationHandwritingApplicationIdAndIsSelected(handwritingApplication.getHandwritingApplicationId(), true);
+>>>>>>> 1c41759 (fix: status 500)
             boolean isLike = false;
             if(handwriting.isPresent()) {
                 if(handwritingLikeRepository.existsById(new HandwritingCountId(memberId, handwriting.get().getHandwritingId()))){
                     isLike = true;
                 }
                 myHandwritingResponses.add(MyHandwritingResponse.from(handwriting.get(), isLike));
+<<<<<<< HEAD
             }
             else {
                 myHandwritingResponses.add(MyHandwritingResponse.from(handwritingApplication));
+=======
+>>>>>>> 1c41759 (fix: status 500)
             }
+//            else {
+//                myHandwritingResponses.add(MyHandwritingResponse.from(handwritingApplication));
+//            }
         }
         return myHandwritingResponses;
     }
@@ -273,7 +290,11 @@ public class HandwritingServiceImpl implements HandwritingService{
     @Override
     public List<OthersHandwritingResponse> getOthersHandwritingList(Long memberId, Long targetId) {
         // 타겟 회원의 손글씨 조회
+<<<<<<< HEAD
         List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(targetId, true, 4);
+=======
+        List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelected(targetId, true);
+>>>>>>> 1c41759 (fix: status 500)
 
         // 손글씨 별 좋아요 확인
         if(memberId == null) { // 비회원

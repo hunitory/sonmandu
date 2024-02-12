@@ -23,6 +23,7 @@ import { FontInfomationProps, FontDetailResponse } from './pages/FontDetail';
 import { FontStoryDetailResponse, IsLikeCount } from './pages/FontStoryDetail';
 import { ModalId, ModalInfo } from './store/modal';
 import { StoryData } from './components/FontStory';
+import { BaseStoryCard } from './components/BaseStoryCard';
 
 export type {
   BaseButtonProps,
@@ -55,5 +56,6 @@ export type {
   SignUpValueBasket,
   FontStoryDetailResponse,
   IsLikeCount,
-  StoryData
+  StoryData,
+  BaseStoryCard
 };

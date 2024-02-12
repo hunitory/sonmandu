@@ -7,7 +7,7 @@ import { WHOLE_HASH_TAGES } from '@/constants';
 import { useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { uploadedFilesState, fontInfoState } from 'store/index';
-import { instanceMultipartContent, instanceJsonContent } from 'apis/_instance';
+import { instanceMultipartContent } from 'apis/_instance';
 
 interface CreateQueryStringArgs {
   name: 'tagIdList';

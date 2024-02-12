@@ -24,6 +24,7 @@ import { FontStoryDetailResponse, IsLikeCount, SideBarProps } from './pages/Font
 import { ModalId, ModalInfo } from './store/modal';
 import { StoryData } from './components/FontStory';
 import { ProfileStoryCardProps } from './components/ProfileStoryCard';
+import { BaseStoryCard } from './components/BaseStoryCard';
 
 export type {
   BaseButtonProps,
@@ -59,4 +60,5 @@ export type {
   StoryData,
   SideBarProps,
   ProfileStoryCardProps,
+  BaseStoryCard
 };

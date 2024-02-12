@@ -11,7 +11,6 @@ const customInstance = (contentType: string) => {
   dynamicContentInstance.interceptors.request.use((config) => {
     if (typeof window !== undefined) {
       const token = localStorage.getItem('access_token');
-      // const token = '';  // 로그인권한 토큰 여기에
       config.headers['Authorization'] = `Bearer ${token}`;
     }
     return config;
@@ -27,20 +26,20 @@ const customInstance = (contentType: string) => {
 
       if (status === 401) {
         if (err.response.data.error === 'UNAUTHORIZED') {
-          const accessToken = localStorage.getItem('access_token');
           const refreshToken = localStorage.getItem('refresh_token');
 
-          originRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-          originRequest.headers['x-refresh-token'] = refreshToken;
+          const { data: newAccessToken } = await axios.post(
+            `${process.env.NEXT_PUBLIC_DEVELOP_END_POINT}/members/token`,
+            {
+              refreshToken: refreshToken,
+            },
+          );
+          localStorage.setItem('access_token', newAccessToken.token);
+
+          originRequest.headers['Authorization'] = `Bearer ${newAccessToken.token}`;
           originRequest.headers['Content-Type'] = contentType;
 
-          return await axios(originRequest).then((res) => {
-            const newAccessToken = res.headers['authorization'];
-            localStorage.setItem('access_token', newAccessToken);
-            console.log(`newAccessToken :`, newAccessToken);
-
-            return res;
-          });
+          return await axios(originRequest);
         }
       }
       console.log('response err', err);

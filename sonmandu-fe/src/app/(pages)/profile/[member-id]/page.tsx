@@ -322,7 +322,7 @@ export default function ProfilePage() {
                 {storyRes?.data.map((storyProps: ProfileStoryCardProps) => {
                   return (
                     <S.BaseStoryCardWrapper key={storyProps.handwritingStoryId}>
-                      <Comp.BaseStoryCard key={storyProps.handwritingStoryId} />;
+                      {/* <Comp.BaseStoryCard key={storyProps.handwritingStoryId} />; */}
                     </S.BaseStoryCardWrapper>
                   );
                 })}

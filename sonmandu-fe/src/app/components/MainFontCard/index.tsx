@@ -7,23 +7,24 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-function BaseFontCard(props: FontCard) {
-  const { handwritingId, name, downloadUrl, hitCount, likeCount, downloadCount, tag, isLike, letter } = props;
+function MainFontCard(props: FontCard) {
+  const { handwritingId, name, downloadUrl, hitCount, likeCount, downloadCount, tag, isLike } = props;
   const route = useRouter();
   const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
+  
   const { data: responseFromS3, isFetching: isFileFetching } = useQuery({
     queryKey: ['get-font-file', name],
-    queryFn: () => API.handwriting.getFontFileFromS3({ url: downloadUrl }),
+    queryFn: () => API.mainFontCard.getPopolarFontFileFromS3({ url: downloadUrl }),
   });
 
   const { data: loadResponse, isFetching: isLoadFetching } = useQuery({
     queryKey: ['load-font-file', responseFromS3],
-    queryFn: () => API.handwriting.loadFontInService({ getFontResponse: responseFromS3, name: name }),
+    queryFn: () => API.mainFontCard.loadFontInService({ getFontResponse: responseFromS3, name: name }),
   });
 
   const { mutate, data: resLikeClick } = useMutation({
     mutationKey: ['font-gallery-click-like', handwritingId],
-    mutationFn: () => API.handwriting.fontLikesClick({ fontId: String(handwritingId) }),
+    mutationFn: () => API.mainFontCard.fontLikesClick({ fontId: String(handwritingId) }),
     onSuccess: () =>
       setCopyIsLikeAndCount((prev) => {
         if (prev.isLike) return { ...prev, isLike: !prev.isLike, count: prev.count - 1 };
@@ -44,7 +45,6 @@ function BaseFontCard(props: FontCard) {
         <S.FontCardWrapper onClick={() => route.push(`/font-detail/${handwritingId}`)}>
           <S.FontCardContainer name={name}>
             <S.FontName>{name}</S.FontName>
-            {letter.isShow && <BaseLetterField letterImgUrl={`/image/letter-${letter.idx % 4}.png`} />}
             <S.EtcInfomationWrapper>
               <S.EctInfoVerticalContainer>
                 <S.IconWithNumberWrapper disabled={false} type="button" onClick={handleLikeClick}>
@@ -72,4 +72,4 @@ function BaseFontCard(props: FontCard) {
   );
 }
 
-export default BaseFontCard;
+export default MainFontCard;

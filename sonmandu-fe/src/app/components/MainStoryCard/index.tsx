@@ -4,7 +4,7 @@ import * as API from '@/apis';
 import Image from 'next/image';
 import { useMutation } from '@tanstack/react-query';
 
-interface BaseStoryCardProps {
+interface MainStoryCardProps {
   handwritingStoryId: number;
   title: string;
   name: string;
@@ -19,7 +19,7 @@ interface BaseStoryCardProps {
   isLike: boolean;
 }
 
-function BaseStoryCard(props: BaseStoryCardProps) {
+function MainStoryCard(props: MainStoryCardProps) {
   const { handwritingStoryId, title, name, thumbnail, hitCount, likeCount, member, isLike } = props;
   const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
   const { mutate: requestLikeClick, data: resLikeClick } = useMutation({
@@ -68,4 +68,4 @@ function BaseStoryCard(props: BaseStoryCardProps) {
   );
 }
 
-export default BaseStoryCard;
+export default MainStoryCard;

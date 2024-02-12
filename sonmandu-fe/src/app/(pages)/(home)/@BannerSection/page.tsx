@@ -10,11 +10,11 @@ import Image from 'next/image';
 import { useQuery } from '@tanstack/react-query';
 import { FontCard } from 'types';
 
-interface PosterSectionProps {
+interface BannerSectionProps {
   searchParams: { tagId: string; name: string; sort: string };
 }
 
-export default function BannerSection({ searchParams }: PosterSectionProps) {
+export default function BannerSection({ searchParams }: BannerSectionProps) {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -37,7 +37,7 @@ export default function BannerSection({ searchParams }: PosterSectionProps) {
 
   const renderLoginButton = () => {
     if (isLoggedIn) {
-      return null; // 로그인 상태일 때는 아무것도 렌더링하지 않음
+      return null;
     } else {
       return (
         <Styled.LoginButton onClick={() => loginModal.openModal()} disabled={false} type="button">
@@ -48,7 +48,6 @@ export default function BannerSection({ searchParams }: PosterSectionProps) {
   };
 
   useEffect(() => {
-    // 컴포넌트가 마운트된 후 localStorage를 체크
     const token = localStorage.getItem('access_token');
     if (token) {
       setIsLoggedIn(true);
@@ -71,7 +70,7 @@ export default function BannerSection({ searchParams }: PosterSectionProps) {
             <Styled.ApplicationButton onClick={() => router.push('/create-font')} disabled={false} type="button">
               <Styled.ApplicationButtonText>손글씨 만들기</Styled.ApplicationButtonText>
             </Styled.ApplicationButton>
-            {renderLoginButton()} {/* 로그인 버튼 조건부 렌더링 */}
+            {renderLoginButton()}
           </Styled.ButtonWrapper>
         </Styled.MainTextContainer>
       </Styled.MainBanner>

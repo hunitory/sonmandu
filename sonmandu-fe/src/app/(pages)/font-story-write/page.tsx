@@ -3,9 +3,22 @@
 import React, { ChangeEvent, useState, useRef, useEffect } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
+import * as API from '@/apis';
 import Image from 'next/image';
+import { useQuery } from '@tanstack/react-query';
 import { instanceMultipartContent } from 'apis/_instance';
-import { useRouter } from 'next/navigation';
+
+interface MyFont {
+  handwritingId: number,
+  name: string,
+  state: number,
+  downloadUrl: string,
+  hitCount: number,
+  likeCount: number,
+  downloadCount: number,
+  tag: number[],
+  isLike: boolean
+}
 
 export default function FontStoryWritePage() {
   // 현재 유저가 제작은 했지만 이야기는 쓰지 않은 손글씨 정보를 받아야함
@@ -23,7 +36,6 @@ export default function FontStoryWritePage() {
     ],
   };
 
-  const router = useRouter();
 
   const ref = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState<string>('');
@@ -39,6 +51,8 @@ export default function FontStoryWritePage() {
 
   const [handwriting, setHandwriting] = useState<number | null>(null);
 
+  const [completedFonts, setCompletedFonts] = useState<number[]>([])
+  
   const [selectedFile, setSelectedFile] = useState<File>();
 
   //썸네일 부분
@@ -59,31 +73,37 @@ export default function FontStoryWritePage() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((currentIndex + 1) % unusedHandwritings.length);
+    setCurrentIndex((currentIndex + 1) % completedFonts.length);
   };
 
   const handlePrev = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
     } else {
-      setCurrentIndex(unusedHandwritings.length - 1);
+      setCurrentIndex(completedFonts.length - 1);
     }
   };
-  useEffect(() => {
-    console.log(handwriting);
-    console.log(title);
-    console.log(content);
-    console.log(selectedFile);
-  });
 
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
   };
 
+    // 만든 폰트 목록 조회 ( 이야기가 안쓰인 것만 뽑기 )
+    const { data: fontRes, isFetching: isFontFetching } = useQuery({
+      queryKey: ['my-font'],
+      queryFn: () => API.handwriting.getMyHandwriting()
+    });
+    
+    useEffect(() => {
+      if (fontRes) {
+        setCompletedFonts(fontRes?.data.filter((font : MyFont) => font.state === 4))
+      }
+    }, [fontRes]);
+    
   const PostStory = () => {
     const data = {
       /* 나중에 자기 폰트 id 받을 수 있게 연결하면 됨(post db 저장까지 완료)*/
-      handwritingId: 30,
+      handwritingId: completedFonts[currentIndex],
       title: title,
       content: content,
     };
@@ -136,7 +156,7 @@ export default function FontStoryWritePage() {
                       <Image src={'/image/nexticon.png'} alt="back" width={14} height={14} />
                     </div>
                   </S.CarouselBackButtonWrapper>
-                  {unusedHandwritings.map((unusedHandwriting, index) => {
+                  {/* {unusedHandwritings.map((unusedHandwriting, index) => {
                     return (
                       <S.TagButton
                         key={unusedHandwriting.handwritingId}
@@ -154,6 +174,27 @@ export default function FontStoryWritePage() {
                         index={index}
                       >
                         {unusedHandwriting.name}
+                      </S.TagButton>
+                    );
+                  })} */}
+                  {completedFonts.map((handwritingId, name, state) => {
+                    return (
+                      <S.TagButton
+                        key={handwritingId}
+                        type="button"
+                        onClick={() => {
+                          if (handwriting === handwritingId) {
+                            setHandwriting(null);
+                          } else {
+                            setHandwriting(handwritingId);
+                          }
+                        }}
+                        disabled={false}
+                        className={[handwriting === handwritingId].toString()}
+                        currentIndex={currentIndex}
+                        index={handwritingId}
+                      >
+                        {name}
                       </S.TagButton>
                     );
                   })}

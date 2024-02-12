@@ -61,7 +61,7 @@ export async function handwritingStoryComment({
   handwritingStoryId: number;
   content: string;
 }) {
-  return instanceJsonContent.post(`/handsritings/story/${handwritingStoryId}/comment`, {
+  return instanceJsonContent.post(`/handwritings/story/${handwritingStoryId}/comment`, {
     content: content,
   });
 }

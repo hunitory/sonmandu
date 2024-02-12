@@ -47,22 +47,22 @@ export default function ProfileInfoModal(props: ProfileInfoModalProps) {
 
   const contents = {
     nickname: {
-      infoContent: member.nickname,
+      infoContent: infoRes?.data.nickname,
       infoHead: '닉네임',
       labelName: 'nickname',
     },
     id: {
-      infoContent: member.id,
+      infoContent: infoRes?.data.id,
       infoHead: '아이디',
       labelName: 'id',
     },
     name: {
-      infoContent: member.name,
+      infoContent: infoRes?.data.name,
       infoHead: '이름',
       labelName: 'name',
     },
     email: {
-      infoContent: member.email,
+      infoContent: infoRes?.data.email,
       infoHead: '이메일',
       labelName: 'email',
     },

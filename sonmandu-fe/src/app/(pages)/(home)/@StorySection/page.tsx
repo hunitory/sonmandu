@@ -18,38 +18,7 @@ interface StorySectionProps {
 }
 
 export default function StorySection({ searchParams }: StorySectionProps) {
-  const settings = {
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 1500,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 1208,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
-  const slickRef = useRef<CustomSlider>(null);
   const [currentItemCount, setCurrentItemCount] = useState(0);
-
-  const goNext = useCallback(() => {
-    if (slickRef.current) {
-      slickRef.current.slickNext();
-    }
-  }, []);
 
   const queryKey = ['font-gallery-search', searchParams.name, searchParams.sort];
   const { data: response, isFetching } = useQuery({

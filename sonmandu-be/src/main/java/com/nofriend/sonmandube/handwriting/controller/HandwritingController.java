@@ -95,7 +95,7 @@ public class HandwritingController {
     public ResponseEntity<List<MyHandwritingResponse>> getMyHandwritingList(Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         List<MyHandwritingResponse> myHandwritingResponseList = handwritingService.getMyHandwritingList(memberId);
-        System.out.println(myHandwritingResponseList.get(0).toString());
+//        System.out.println(myHandwritingResponseList.get(0).toString());
 //        Handwriting hand = myHandwritingResponseList.get(0);
 //        System.out.println(hand.getHandwritingApplication().getMember().getName());
 //        System.out.println(myHandwritingResponseList.get(0).getMember().getId());

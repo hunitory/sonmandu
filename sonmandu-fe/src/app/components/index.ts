@@ -29,6 +29,7 @@ import NextButton from './Applications/FontStart/NextButton';
 import MainFontCard from './MainFontCard'
 import MainStoryCard from './MainStoryCard';
 import SideBar from './SideBar';
+import SkeletonCard from './SkeletonCard';
 
 export {
   BaseHeader,
@@ -60,4 +61,5 @@ export {
   MainFontCard,
   MainStoryCard,
   SideBar,
+  SkeletonCard,
 };

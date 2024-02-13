@@ -4,8 +4,15 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ['sonmando.s3.ap-northeast-2.amazonaws.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'sonmando.s3.ap-northeast-2.amazonaws.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
   },
-}
+};
 
 export default nextConfig;

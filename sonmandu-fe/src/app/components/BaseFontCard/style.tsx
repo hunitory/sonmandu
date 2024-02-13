@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import BaseHashTags from '../BaseHashTags';
 import { PALETTE, notoSansKr } from 'styles';
 import { BaseButton } from 'components';
-import { BaseButtonProps } from 'types';
 
 export const FontCardWrapper = styled.li`
   width: 100%;
@@ -43,15 +42,16 @@ export const FontName = styled.p`
 
 export const EtcInfomationWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  gap: 4px;
   height: 100%;
 `;
 
-export const EctInfoVerticalContainer = styled.div`
+export const IconTextsWrapper = styled.div`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: end;
+  justify-content: space-between;
   gap: 8px;
 
   button:nth-of-type(1) {
@@ -61,32 +61,26 @@ export const EctInfoVerticalContainer = styled.div`
 
 export const StyledHashTags = styled(BaseHashTags)`
   gap: 4px;
+  justify-content: end;
+
+  & > button {
+    font-size: 10px;
+  }
+
   @media (max-width: 768px) {
     flex-direction: row;
   }
 `;
 
-export const IconWithNumberWrapper = styled(BaseButton)`
+export const IconWithNumberContainer = styled(BaseButton)`
   display: flex;
   align-items: center;
   gap: 4px;
-  width: 92px;
+  width: fit-content;
 
   span {
     font-size: 12px;
     display: inline-block;
     height: fit-content;
   }
-`;
-
-export const SkeletonCard = styled.li`
-  width: 100%;
-  max-width: 440px;
-  max-height: 446px;
-  aspect-ratio: 4 / 5.5;
-  border-radius: 20px;
-  background-color: ${PALETTE.SUB_WHITE};
-  border: 2px solid ${PALETTE.SUB_WHITE};
-  overflow: hidden;
-  cursor: pointer;
 `;

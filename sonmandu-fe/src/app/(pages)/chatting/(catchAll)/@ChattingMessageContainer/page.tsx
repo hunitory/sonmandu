@@ -1,10 +1,10 @@
 'use client';
 
-import React, { ChangeEvent, FormEvent, KeyboardEvent, useCallback, useEffect, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useState } from 'react';
 import * as S from './style';
 import * as API from '@/apis';
 import Image from 'next/image';
-import { Client, StompHeaders, StompSubscription } from '@stomp/stompjs';
+import { Client, IFrame, StompSubscription } from '@stomp/stompjs';
 import { BaseButton } from 'components';
 
 let stompClient: Client;
@@ -15,7 +15,9 @@ export default function ChattingMessageContainer() {
   const [messageInputValue, setMessageInputValue] = useState('');
   const config = {
     brokerURL: 'wss://i10b111.p.ssafy.io/dev/api/chat-connection',
-    onConnect: () => {},
+    onConnect: (frame: IFrame) => {
+      console.log(`frame IN CONFIG :`, frame);
+    },
   };
 
   const sendMessage = () => {
@@ -34,45 +36,21 @@ export default function ChattingMessageContainer() {
 
     stompClient.onConnect = () => {
       isConnected = true;
-      stompClient.subscribe('/topic/sonmandu', (message) => console.log(`Received: ${message.body}`));
+
+      const subscribe = stompClient.subscribe('/topic/sonmandu', (message) => {
+        const body = JSON.parse(JSON.stringify(message.body));
+        console.log(`Received: `, body);
+      });
+      subscriptions['/topic/sonmandu'] = subscribe;
     };
   }, []);
-
-  const send = useCallback(
-    (path: string, body: object, headers: StompHeaders) => {
-      stompClient.publish({
-        destination: path,
-        headers,
-        body: JSON.stringify(body),
-      });
-    },
-    [stompClient],
-  );
-
-  const subscribe = useCallback((path: string, callback: (msg: any) => void) => {
-    if (!stompClient) return;
-
-    if (subscriptions[path]) return;
-
-    const subscription = stompClient.subscribe(path, (message) => {
-      const body = JSON.parse(message.body);
-      callback(body);
-    });
-    subscriptions[path] = subscription;
-  }, []);
-
-  const unsubscribe = useCallback((path: string) => {
-    subscriptions[path].unsubscribe();
-    delete subscriptions[path];
-  }, []);
-
-  const disconnect = useCallback(() => {
-    stompClient.deactivate();
-  }, [stompClient]);
 
   useEffect(() => {
     connect();
     stompClient.connectHeaders['Authorization'] = `Bearer ${localStorage.getItem('refresh_token')}`;
+    // return () => {
+    //   if (subscriptions['/topic/sonmandu']) subscriptions['/topic/sonmandu'].unsubscribe();
+    // };
   }, []);
 
   const handleSubmit = (e: KeyboardEvent<HTMLTextAreaElement>) => {

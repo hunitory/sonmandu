@@ -5,6 +5,7 @@ import * as S from './style';
 import * as Comp from '@/components';
 import * as API from '@/apis';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { instanceMultipartContent } from 'apis/_instance';
 
@@ -21,6 +22,7 @@ interface MyFont {
 }
 
 export default function FontStoryWritePage() {
+  const router = useRouter();
   const ref = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState<string>('');
   const handleTitleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -91,7 +93,7 @@ export default function FontStoryWritePage() {
       .post(apiUrl, formData)
       .then((response) => {
         console.log('POST 요청 성공', response);
-        // router.push('font-stories')
+        router.push('font-stories')
       })
       .catch((error) => {
         console.log('POST 요청 실패:', error);

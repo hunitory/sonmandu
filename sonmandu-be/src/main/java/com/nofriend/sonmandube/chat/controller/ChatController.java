@@ -225,6 +225,7 @@ public class ChatController {
     @ResponseBody
     public List<ChatProjection> getChat(){
         return chatRepository.findTop10ByOrderByChatIdDesc();
+<<<<<<< HEAD
 =======
 //        log.info("newChat: " + newChat.toString());
 =======
@@ -240,6 +241,8 @@ public class ChatController {
     public List<ChatProjection> getChat(){
         return chatRepository.findTop20ByOrderByChatIdDesc();
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+>>>>>>> 1509951 (feat: setup table)
     }
 
 }

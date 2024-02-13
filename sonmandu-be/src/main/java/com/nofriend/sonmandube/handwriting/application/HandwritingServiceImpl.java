@@ -95,6 +95,7 @@ public class HandwritingServiceImpl implements HandwritingService{
                 .isSelected(true)
                 .handwritingApplication(
                         HandwritingApplication.builder()
+<<<<<<< HEAD
                                 .handwritingApplicationId(handwritingApplicationId)
 =======
                 .handwritingApplication(
@@ -105,6 +106,9 @@ public class HandwritingServiceImpl implements HandwritingService{
 =======
                                 .handwritingApplicationId(1L) // 일단 1번으로
 >>>>>>> ae05ff2 (feat: update logout security)
+=======
+                                .handwritingApplicationId(4L) // 일단 1번으로
+>>>>>>> 1509951 (feat: setup table)
                                 .build()
                 )
                 .build();

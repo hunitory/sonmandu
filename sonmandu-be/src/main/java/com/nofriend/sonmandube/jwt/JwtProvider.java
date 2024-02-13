@@ -160,6 +160,7 @@ public class JwtProvider {
         User principal = new User(String.valueOf(claims.get("memberId")), "", authorities);
 
 //        log.info("success get authentication");
+<<<<<<< HEAD
 =======
 //        System.out.println(authorities.isEmpty());
 <<<<<<< HEAD
@@ -181,6 +182,8 @@ public class JwtProvider {
 >>>>>>> 5f2246a (feat: update jwt information)
         log.info("success get authentication");
 >>>>>>> ae05ff2 (feat: update logout security)
+=======
+>>>>>>> 1509951 (feat: setup table)
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 

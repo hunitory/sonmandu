@@ -283,10 +283,14 @@ public class HandwritingServiceImpl implements HandwritingService{
         for (int i=0; i<handwritingApplicationList.size(); i++) {
             HandwritingApplication handwritingApplication = handwritingApplicationList.get(i);
 <<<<<<< HEAD
+<<<<<<< HEAD
             Optional<Handwriting> handwriting = handwritingRepository.findByHandwritingApplicationHandwritingApplicationId(handwritingApplication.getHandwritingApplicationId());
 =======
             Optional<Handwriting> handwriting = handwritingRepository.findByHandwritingApplicationHandwritingApplicationIdAndIsSelected(handwritingApplication.getHandwritingApplicationId(), true);
 >>>>>>> 1c41759 (fix: status 500)
+=======
+            Optional<Handwriting> handwriting = handwritingRepository.findByHandwritingApplicationHandwritingApplicationId(handwritingApplication.getHandwritingApplicationId());
+>>>>>>> 316711b (fix: get my profile)
             boolean isLike = false;
             if(handwriting.isPresent()) {
                 if(handwritingLikeRepository.existsById(new HandwritingCountId(memberId, handwriting.get().getHandwritingId()))){
@@ -300,9 +304,9 @@ public class HandwritingServiceImpl implements HandwritingService{
 =======
 >>>>>>> 1c41759 (fix: status 500)
             }
-//            else {
-//                myHandwritingResponses.add(MyHandwritingResponse.from(handwritingApplication));
-//            }
+            else {
+                myHandwritingResponses.add(MyHandwritingResponse.from(handwritingApplication));
+            }
         }
         return myHandwritingResponses;
     }

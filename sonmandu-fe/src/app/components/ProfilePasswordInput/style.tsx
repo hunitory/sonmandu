@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { BaseButton, BaseLabelWithInput } from 'components';
 import { PALETTE, notoSansKr } from 'styles';
 
-export const InfoWrapper = styled.div`
+export const InfoWrapper = styled.form`
   display: grid;
   width: 100%;
   height: fit-content;

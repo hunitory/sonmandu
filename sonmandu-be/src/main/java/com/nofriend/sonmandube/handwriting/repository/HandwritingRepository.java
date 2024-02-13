@@ -47,6 +47,7 @@ public interface HandwritingRepository extends JpaRepository<Handwriting, Long>,
 
     List<Handwriting> findAllByHandwritingApplicationMemberMemberIdAndIsSelected(Long memberId, boolean b);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     List<Handwriting> findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(Long targetId, boolean b, int i);
 
@@ -55,4 +56,8 @@ public interface HandwritingRepository extends JpaRepository<Handwriting, Long>,
 >>>>>>> 723abc5 (feat: add spring security chatting)
 =======
 >>>>>>> 1c41759 (fix: status 500)
+=======
+
+    List<Handwriting> findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(Long targetId, boolean b, int i);
+>>>>>>> 19c7009 (feat: add state filter)
 }

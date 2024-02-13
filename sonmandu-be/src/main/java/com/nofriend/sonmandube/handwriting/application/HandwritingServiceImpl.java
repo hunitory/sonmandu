@@ -266,10 +266,14 @@ public class HandwritingServiceImpl implements HandwritingService{
     @Override
     public List<MyHandwritingResponse> getMyHandwritingList(Long memberId) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberIdOrderByStateAsc(memberId);
 =======
         List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberId(memberId);
 >>>>>>> 1c41759 (fix: status 500)
+=======
+        List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberIdOrderByStateAsc(memberId);
+>>>>>>> 19c7009 (feat: add state filter)
         // 손글씨 별 좋아요 확인
         List<MyHandwritingResponse> myHandwritingResponses = new ArrayList<>();
         for (int i=0; i<handwritingApplicationList.size(); i++) {
@@ -303,10 +307,14 @@ public class HandwritingServiceImpl implements HandwritingService{
     public List<OthersHandwritingResponse> getOthersHandwritingList(Long memberId, Long targetId) {
         // 타겟 회원의 손글씨 조회
 <<<<<<< HEAD
+<<<<<<< HEAD
         List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(targetId, true, 4);
 =======
         List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelected(targetId, true);
 >>>>>>> 1c41759 (fix: status 500)
+=======
+        List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(targetId, true, 4);
+>>>>>>> 19c7009 (feat: add state filter)
 
         // 손글씨 별 좋아요 확인
         if(memberId == null) { // 비회원

@@ -71,7 +71,7 @@ export default function ProfileHamburger() {
           priority
         />
       ) : (
-        <Comp.NoProfileImage width={28} height={28} memberId={authorizationUser.tokenPayload.memberId}>
+        <Comp.NoProfileImage width={'28px'} height={'28px'} memberId={authorizationUser.tokenPayload.memberId}>
           {authorizationUser.tokenPayload.nickName}
         </Comp.NoProfileImage>
       );

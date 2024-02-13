@@ -27,3 +27,15 @@ export interface SideBarProps {
   setCopyIsLikeAndCount: React.Dispatch<React.SetStateAction<IsLikeCount | undefined>>;
   handwritingStoryId?: number | undefined;
 }
+
+export interface StoryComment {
+  commentId: number;
+  content: string;
+  createDate: string;
+  member: {
+    memberId: number;
+    nickname: string;
+    imageUrl: string;
+    badge?: boolean;
+  };
+}

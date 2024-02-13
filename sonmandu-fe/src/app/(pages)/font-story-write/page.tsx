@@ -69,7 +69,7 @@ export default function FontStoryWritePage() {
 
   useEffect(() => {
     if (fontRes) {
-      setCompletedFonts(fontRes.data)
+      setCompletedFonts(fontRes.data);
     }
   }, [fontRes]);
 
@@ -92,8 +92,8 @@ export default function FontStoryWritePage() {
     instanceMultipartContent
       .post(apiUrl, formData)
       .then((response) => {
-        alert('이야기가 작성되었습니다.')
-        router.push('font-stories')
+        alert('이야기가 작성되었습니다.');
+        router.push('font-stories');
       })
       .catch((error) => {
         alert('업로드에 실패했습니다.');
@@ -133,11 +133,11 @@ export default function FontStoryWritePage() {
                         type="button"
                         onClick={() => {
                           if (handwriting === font.handwritingId) {
-                            console.log(font.handwritingId)
+                            console.log(font.handwritingId);
                             setHandwriting(null);
                           } else {
                             setHandwriting(font.handwritingId);
-                            console.log(font.handwritingId)
+                            console.log(font.handwritingId);
                           }
                         }}
                         disabled={false}

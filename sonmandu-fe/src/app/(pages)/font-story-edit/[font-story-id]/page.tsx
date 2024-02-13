@@ -11,6 +11,18 @@ import { useQuery } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 import { storyInfoState } from 'store/atoms';
 
+interface MyFont {
+  handwritingId: number;
+  name: string;
+  state: number;
+  downloadUrl: string;
+  hitCount: number;
+  likeCount: number;
+  downloadCount: number;
+  tag: number[];
+  isLike: boolean;
+}
+
 export default function FontStoryEditPage() {
   // 정보 요청
   const params = useParams();
@@ -19,21 +31,6 @@ export default function FontStoryEditPage() {
     queryKey: queryKey,
     queryFn: () => API.handwritingStory.handwritingStoryDetail({ fontStoryId: params['font-story-id'] as string }),
   });
-
-  // 현재 유저가 제작은 했지만 이야기는 쓰지 않은 손글씨 정보를 받아야함
-  const { memberId, unusedHandwritings } = {
-    memberId: 1,
-    unusedHandwritings: [
-      {
-        handwritingId: 4,
-        name: '손만두체',
-      },
-      {
-        handwritingId: 2,
-        name: '손만두체2',
-      },
-    ],
-  };
 
   // 기존데이터 불러오기
   const storyInfo = useRecoilValue(storyInfoState);
@@ -54,50 +51,12 @@ export default function FontStoryEditPage() {
     setContent(e.target.value);
   };
 
-  const [handwriting, setHandwriting] = useState<number | null>(storyInfo.handwritingId);
+  // const [handwriting, setHandwriting] = useState<number | null>(storyInfo.handwritingId);
 
-  const [selectedFile, setSelectedFile] = useState<File>();
+  const [selectedFile, setSelectedFile] = useState<File | undefined>(new File([new Blob()], storyInfo.thumbnail));
 
   //썸네일 부분
   const [currentStep, setCurrentStep] = useState(1);
-
-  const OnHandleNext = () => {
-    setCurrentStep(currentStep + 1);
-  };
-
-  const OnhandleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
-  // useEffect(() => {
-  //   setTitle(storyInfo.title)
-  //   setContent(storyInfo.content)
-  //   setHandwriting(storyInfo.handwritingId)
-  // }, [])
-
-  //태그 캐로셀 부분
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const handleNext = () => {
-    setCurrentIndex((currentIndex + 1) % unusedHandwritings.length);
-  };
-
-  const handlePrev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    } else {
-      setCurrentIndex(unusedHandwritings.length - 1);
-    }
-  };
-  useEffect(() => {
-    console.log(handwriting);
-    console.log(title);
-    console.log(content);
-    console.log(selectedFile);
-  });
 
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
@@ -105,13 +64,12 @@ export default function FontStoryEditPage() {
 
   const PostStory = () => {
     const data = {
-      /* 나중에 자기 폰트 id 받을 수 있게 연결하면 됨(post db 저장까지 완료)*/
-      handwritingId: 30,
+      handwritingId: storyInfo.handwritingId,
       title: title,
       content: content,
     };
 
-    const apiUrl = '/handwritings/story';
+    const apiUrl = `/handwritings/story/${storyInfo.handwritingStoryId}`;
 
     const formData = new FormData();
     const jsonApplicationData = JSON.stringify(data);
@@ -122,10 +80,10 @@ export default function FontStoryEditPage() {
     }
 
     instanceMultipartContent
-      .post(apiUrl, formData)
+      .put(apiUrl, formData)
       .then((response) => {
         console.log('POST 요청 성공', response);
-        // router.push('font-stories')
+        router.push(`/font-story-detail/${storyInfo.handwritingStoryId}`);
       })
       .catch((error) => {
         console.log('POST 요청 실패:', error);
@@ -154,37 +112,10 @@ export default function FontStoryEditPage() {
               <S.WriteTagWrapper>
                 <S.WriteTitleRequest>어떤 글씨체에 대해 이야기를 쓰시겠어요?</S.WriteTitleRequest>
                 <S.TagWrapper>
-                  <S.CarouselBackButtonWrapper>
-                    <div onClick={handlePrev}>
-                      <Image src={'/image/nexticon.png'} alt="back" width={14} height={14} />
-                    </div>
-                  </S.CarouselBackButtonWrapper>
-                  {unusedHandwritings.map((unusedHandwriting, index) => {
-                    return (
-                      <S.TagButton
-                        key={unusedHandwriting.handwritingId}
-                        type="button"
-                        onClick={() => {
-                          if (handwriting === unusedHandwriting.handwritingId) {
-                            setHandwriting(null);
-                          } else {
-                            setHandwriting(unusedHandwriting.handwritingId);
-                          }
-                        }}
-                        disabled={false}
-                        className={[handwriting === unusedHandwriting.handwritingId].toString()}
-                        currentIndex={currentIndex}
-                        index={index}
-                      >
-                        {unusedHandwriting.name}
-                      </S.TagButton>
-                    );
-                  })}
-                  <S.CarouselNextButtonWrapper>
-                    <div onClick={handleNext}>
-                      <Image src={'/image/nexticon.png'} alt="back" width={14} height={14} />
-                    </div>
-                  </S.CarouselNextButtonWrapper>
+                  <S.TagButton type="button" disabled={false} className={'true'}>
+                    {storyInfo.handwritingName}
+                  </S.TagButton>
+                  <S.CarouselNextButtonWrapper></S.CarouselNextButtonWrapper>
                 </S.TagWrapper>
               </S.WriteTagWrapper>
             </S.LeftWrapper>

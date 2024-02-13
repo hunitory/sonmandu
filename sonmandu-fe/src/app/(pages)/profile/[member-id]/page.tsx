@@ -40,7 +40,7 @@ export default function ProfilePage() {
       setAuthorizationUser((prev) => ({ ...prev, isAuth: false, tokenPayload: null }));
     }
   }, []);
-  console.log(params);
+
   const isMypage = authorizationUser.tokenPayload
     ? authorizationUser.tokenPayload.memberId === parseInt(params['member-id'] as string)
     : false;

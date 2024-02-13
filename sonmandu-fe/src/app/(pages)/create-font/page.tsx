@@ -1,10 +1,21 @@
-'use client'
+'use client';
 
 import * as Styled from './_style';
 import * as Comp from '@/components';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function CreateFontPage() {
+  const router = useRouter();
+
+  const token = !!localStorage.getItem('access_token');
+  useEffect(() => {
+    if (!token) {
+      alert('로그인이 필요합니다.')
+      router.push('/')
+    }
+  });
   const TabletURL = '/image/tablet.png';
   const PaperURL = '/image/paper.png';
   const penURL = '/image/pen.png';

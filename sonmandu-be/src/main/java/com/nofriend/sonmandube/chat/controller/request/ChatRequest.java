@@ -26,13 +26,14 @@ public class ChatRequest {
     @NotEmpty
     private String message;
 
-    public Chat toEntity(Long memberId,String memberNickname,boolean memberBadge, Long handwritingId,  String handwritingName, String handwritingDownloadUrl, String message) {
+    public Chat toEntity(Long memberId,String memberNickname,boolean memberBadge, String imageUrl, Long handwritingId,  String handwritingName, String handwritingDownloadUrl, String message) {
         return Chat.builder()
                 .member(
                         Member.builder()
                                 .memberId(memberId)
                                 .nickname(memberNickname)
                                 .isBadge(memberBadge)
+                                .imageUrl(imageUrl)
                                 .build()
                 )
                 .handwriting(

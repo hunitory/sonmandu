@@ -52,6 +52,7 @@ public class Chat{
                                 .memberId(this.member.getMemberId())
                                 .nickname(this.member.getNickname())
                                 .badge(this.member.isBadge())
+                                .imageUrl(this.member.getImageUrl())
                                 .build()
                 )
                 .chatHandwritingResponse(

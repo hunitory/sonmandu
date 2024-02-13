@@ -9,4 +9,5 @@ public class ChatMemberResponse {
     private Long memberId;
     private String nickname;
     private boolean badge;
+    private String imageUrl;
 }

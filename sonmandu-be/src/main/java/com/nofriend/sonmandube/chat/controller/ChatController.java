@@ -47,6 +47,7 @@ public class ChatController {
                 memberId,
                 member.getNickname(),
                 member.isBadge(),
+                member.getImageUrl(),
                 chatRequest.getHandwritingId(),
                 handwritingNameDownloadUrlProjection.getName(),
                 handwritingNameDownloadUrlProjection.getDownloadUrl(),

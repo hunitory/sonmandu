@@ -3,15 +3,15 @@
 import React, { useState, useEffect, useRef, ChangeEvent, useLayoutEffect } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
+import * as T from '@/types';
 import { ProfileBoxProps, ProfileFontCardProps, ProfileStoryCardProps } from 'types';
 import { useParams, useRouter } from 'next/navigation';
 import * as API from '@/apis';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import Image from 'next/image';
 
-<<<<<<< HEAD
-=======
 interface UnAuthorizationUser {
   isAuth: false;
   tokenPayload: null;
@@ -22,7 +22,6 @@ interface AuthorizationUser {
   tokenPayload: { memberId: number; nickName: string; imageUrl: string | null };
 }
 
->>>>>>> 38645a7a5048b02dbd4419155938ed9c4c4b64fd
 export default function ProfilePage() {
   const params = useParams();
 
@@ -86,15 +85,34 @@ export default function ProfilePage() {
     console.log(storyRes);
   }, [storyRes]);
 
-<<<<<<< HEAD
+  // const [profileBoxProps, setProfileBoxProps] = useState<ProfileBoxProps>({
+  //   memberId: parseInt(params['member-id'] as string),
+  //   imageUrl: '',
+  //   nickname: '',
+  //   badge: false,
+  //   imgSize: '150px',
+  //   fontSize: '1.4vw',
+  //   className: 'vertical',
+  // });
 
-=======
->>>>>>> 38645a7a5048b02dbd4419155938ed9c4c4b64fd
+  // useEffect(() => {
+  //   if (memberRes && memberRes.data) {
+  //     setProfileBoxProps({
+  //       ...profileBoxProps,
+  //       memberId: memberRes.data.memberId,
+  //       imageUrl: memberRes.data.imageUrl,
+  //       nickname: memberRes.data.nickname,
+  //       badge: memberRes.data.badge,
+  //     });
+  //   }
+  // }, [memberRes]);
+
   const ProfileBoxProps: ProfileBoxProps = {
+    memberId: parseInt(params['member-id'] as string),
     imageUrl: memberRes?.data.imageUrl,
-    nickname: memberRes?.data.nickname,
+    nickname: memberRes?.data.nickname || '',
     badge: memberRes?.data.badge,
-    imgSize: '10vw',
+    imgSize: '150px',
     fontSize: '1.4vw',
     className: 'vertical',
   };
@@ -118,7 +136,7 @@ export default function ProfilePage() {
 
   // 수정하기 입력값 받는 부분
   const ref = useRef<HTMLTextAreaElement>(null);
-  const [intro, setIntro] = useState<string>('');
+  const [intro, setIntro] = useState<string>(memberRes?.data.introduction);
   const handleCommentOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setIntro(e.target.value);
   };
@@ -149,6 +167,17 @@ export default function ProfilePage() {
     }
   };
 
+  // 프사 바꾸기
+  const EditProfileImage = () => {
+
+  }
+
+  const storyCardMember = {
+    memberId: parseInt(params['member-id'] as string),
+    name: memberRes?.data.nickname,
+    imageUrl: memberRes?.data.imageUrl,
+  }
+
   return (
     <>
       {isMypage && showModal && (
@@ -163,6 +192,12 @@ export default function ProfilePage() {
               <S.ProfileBoxDiv>
                 <S.ProfileBoxInfoDiv>
                   <Comp.ProfileBox {...ProfileBoxProps} />
+                  {isMypage && <S.ProfileImageEditButton type='button' disabled={false}>
+                    <div>
+                      <Image src={'/image/profile-image-edit.svg'} alt={'image-edit'} width={15} height={15} />
+                      <span>수정</span>
+                    </div>
+                  </S.ProfileImageEditButton>}
                   {isMypage && (
                     <S.ProfileBoxInfoLink onClick={clickModal}>
                       <div>내 정보</div>
@@ -274,7 +309,7 @@ export default function ProfilePage() {
                 {storyRes?.data.map((storyProps: ProfileStoryCardProps) => {
                   return (
                     <S.BaseStoryCardWrapper key={storyProps.handwritingStoryId}>
-                      {/* <Comp.BaseStoryCard key={storyProps.handwritingStoryId} />; */}
+                      <Comp.BaseStoryCard {...storyProps} member={storyCardMember} />
                     </S.BaseStoryCardWrapper>
                   );
                 })}

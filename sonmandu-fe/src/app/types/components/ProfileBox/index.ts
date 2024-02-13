@@ -4,5 +4,6 @@ export interface ProfileBoxProps {
   badge?: boolean;
   imgSize: string;
   fontSize?: string;
+  memberId: number;
   className?: string;
 }

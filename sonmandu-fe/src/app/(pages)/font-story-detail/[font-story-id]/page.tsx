@@ -77,17 +77,19 @@ export default function FontStoryDetailPage() {
     : false;
 
   const ProfileBoxProps: ProfileBoxProps = {
-    imageUrl: response?.data.member.imageUrl,
-    nickname: response?.data.member.nickname,
-    badge: response?.data.member.badge,
+    memberId: response?.data.member.memberId || 0,
+    imageUrl: response?.data.member.imageUrl || '',
+    nickname: response?.data.member.nickname || '',
+    badge: response?.data.member.badge || false,
     imgSize: '50px',
     fontSize: '1vw',
   };
 
   const VerticalProfileBoxProps: ProfileBoxProps = {
-    imageUrl: response?.data.member.imageUrl,
-    nickname: response?.data.member.nickname,
-    badge: response?.data.member.badge,
+    memberId: response?.data.member.memberId || 0,
+    imageUrl: response?.data.member.imageUrl || '',
+    nickname: response?.data.member.nickname || '',
+    badge: response?.data.member.badge || false,
     imgSize: '96px',
     fontSize: '1vw',
     className: 'vertical',
@@ -297,9 +299,10 @@ export default function FontStoryDetailPage() {
                       <React.Fragment key={StoryComment.commentId}>
                         <Comp.FontStoryComment
                           profileBoxProps={{
-                            imageUrl: StoryComment.member.imageUrl,
-                            nickname: StoryComment.member.nickname,
-                            // badge: StoryComment.member.badge,
+                            memberId: StoryComment.member.memberId || 0,
+                            imageUrl: StoryComment.member.imageUrl || '',
+                            nickname: StoryComment.member.nickname || '',
+                            badge: StoryComment.member.badge,
                             imgSize: 'max(40px, 2.2vw)',
                             fontSize: 'max(14px, 0.8vw)',
                           }}

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import * as S from './style';
 import { PALETTE } from 'styles';
 
@@ -9,7 +9,8 @@ interface NoProfileImageProps {
   children: string;
 }
 
-function NoProfileImage({ memberId, width, height, children }: NoProfileImageProps) {
+function NoProfileBoxImage({ memberId, width, height, children }: NoProfileImageProps) {
+
   const randomIdxUsingMemberId = useMemo(() => {
     return memberId % 5;
   }, []);
@@ -23,9 +24,9 @@ function NoProfileImage({ memberId, width, height, children }: NoProfileImagePro
 
   return (
     <S.FirstOfNickname $width={width} $height={height} {...createRandomStyleByIndex()}>
-      {children.slice(0, 1)}
+      {typeof children === 'string' ? children.slice(0, 1) : null}
     </S.FirstOfNickname>
   );
 }
 
-export default NoProfileImage;
+export default NoProfileBoxImage;

@@ -35,6 +35,7 @@ function BaseStoryCard(props: T.BaseStoryCard) {
               imgSize="36px"
               nickname={member.name}
               badge={false}
+              memberId={member.memberId}
               fontSize="12px"
             />
           </div>

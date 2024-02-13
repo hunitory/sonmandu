@@ -8,7 +8,7 @@ const day = newDate.getDate();
 const formattedDate = `${year}년 ${month}월 ${day}일`;
   return (
     <ProductDateWrapper>
-      <span>{formattedDate} 제작</span>
+      <span>{formattedDate}</span>
     </ProductDateWrapper>
   );
 };

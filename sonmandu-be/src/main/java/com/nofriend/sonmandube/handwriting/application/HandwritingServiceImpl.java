@@ -76,6 +76,7 @@ public class HandwritingServiceImpl implements HandwritingService{
         Handwriting handwriting = Handwriting.builder()
                 .name(name)
                 .downloadUrl(fileDto.getUrl())
+                .isSelected(true)
                 .handwritingApplication(
                         HandwritingApplication.builder()
                                 .handwritingApplicationId(handwritingApplicationId) // 일단 1번으로

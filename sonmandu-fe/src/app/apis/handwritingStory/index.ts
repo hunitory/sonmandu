@@ -93,3 +93,7 @@ export async function handwritingStoryCommentDelete({
 export async function getHandwritingStory({ memberId }: { memberId: string }) {
   return instanceJsonContent.get(`/handwritings/story/owner/${memberId}`)
 }
+
+export async function handwritingStoryUnwrittenFont() {
+  return instanceJsonContent.get('/handwritings/unwritten-stories')
+}

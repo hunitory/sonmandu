@@ -1,13 +1,15 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Comp from 'components';
 import * as Styled from './style';
+import * as API from '@/apis';
 import { WHOLE_HASH_TAGES } from '@/constants';
 import { useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { uploadedFilesState, fontInfoState } from 'store/index';
 import { instanceMultipartContent } from 'apis/_instance';
+import { useMutation } from '@tanstack/react-query';
 
 interface CreateQueryStringArgs {
   name: 'tagIdList';
@@ -19,6 +21,14 @@ export default function FontInfo() {
   const [fontInfo, setfontNameState] = useRecoilState(fontInfoState);
   const uploadedFiles = useRecoilValue(uploadedFilesState);
 
+  useEffect(() => {
+    const token = !!localStorage.getItem('access_token');
+    if (!token) {
+      alert('로그인이 필요합니다.');
+      router.push('/');
+    }
+  });
+
   const NameInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setfontNameState((prevState) => ({
       ...prevState,
@@ -26,6 +36,7 @@ export default function FontInfo() {
     }));
   };
 
+  // 태그 선택
   const handleOptionsClick = ({ name, value }: CreateQueryStringArgs) => {
     setfontNameState((prevState) => {
       if (name === 'tagIdList') {
@@ -45,9 +56,12 @@ export default function FontInfo() {
     });
   };
 
+  // 이전 단계
   const onBack = () => {
     router.back();
   };
+
+  // 다음 단계( 신청 )
   const onNext = () => {
     const isFontNameValid = fontInfo.name.trim().length > 0;
     const isTagsSelected = fontInfo.tagIdList.length > 0;
@@ -88,10 +102,47 @@ export default function FontInfo() {
     }
   };
 
-  useEffect(() => {
-    console.log(fontInfo);
-    console.log(uploadedFiles);
+  const { mutate: DuplicationFontCheck } = useMutation({
+    mutationKey: ['Dulication-Font-Check'],
+    mutationFn: () => API.handwritingmaking.DulicationFontCheck({ name: fontInfo.name }),
+    onSuccess: (res) => {
+      if (res.data) {
+        alert('사용 가능한 손글씨 이름입니다.');
+      } else {
+        alert('이미 존재하는 손글씨 이름입니다.');
+        setfontNameState((prevState) => ({
+          ...prevState,
+          name: '',
+        }));
+      }
+    },
+    onError: (error) => {
+      console.log(error);
+    },
   });
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    // Enter 키가 눌렸을 때
+    if (event.key === 'Enter') {
+      event.preventDefault(); // 기본 이벤트 방지
+      DuplicationFontCheck(); // 중복 체크 로직 호출
+    }
+  };
+
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (fontInfo) {
+        e.returnValue = '입력한 정보가 저장되지 않습니다. 페이지를 떠나시겠습니까?';
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [fontInfo]);
+
   return (
     <Styled.Wrapper>
       <Styled.StepWrapper>
@@ -109,12 +160,19 @@ export default function FontInfo() {
             <Styled.ContentFontNametContent>
               입력하신 이름 앞에 <span>'손만두'</span>가 기본적으로 붙습니다. ex) 손만두 홍길동체
             </Styled.ContentFontNametContent>
-            <Styled.ContentFontNameInputWrapper>
-              <Styled.ContentFontNameInputPlaceholder $fontname={!fontInfo.name}>
-                <span>손글씨 이름</span>을 입력해주세요. 최대 20자
-              </Styled.ContentFontNameInputPlaceholder>
-              <Styled.ContentFontNameInput id="name" type="text" value={fontInfo.name} onChange={NameInput} />
-            </Styled.ContentFontNameInputWrapper>
+            <Styled.ContentFontNameInputWithButtonWrapper>
+              <Styled.ContentFontNameInputWrapper>
+                <Styled.ContentFontNameInputPlaceholder $fontname={!fontInfo.name}>
+                  <span>손글씨 이름</span>을 입력해주세요. 최대 20자
+                </Styled.ContentFontNameInputPlaceholder>
+                <div onKeyDown={handleKeyDown}>
+                  <Styled.ContentFontNameInput id="name" type="text" value={fontInfo.name} onChange={NameInput} />
+                </div>
+              </Styled.ContentFontNameInputWrapper>
+              <Styled.DuplicationCheckButton type="button" disabled={false} onClick={DuplicationFontCheck}>
+                <p>중복체크</p>
+              </Styled.DuplicationCheckButton>
+            </Styled.ContentFontNameInputWithButtonWrapper>
           </Styled.ContentFontNameWrapper>
           <Styled.ContentFontTagWrapper>
             <Styled.ContentFontTagTitle>손글씨 특징</Styled.ContentFontTagTitle>

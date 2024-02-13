@@ -9,8 +9,8 @@ import { useParams } from 'next/navigation';
 import { ProfileInfoModalProps } from 'types';
 import { useQuery } from '@tanstack/react-query';
 
-export default function ProfileInfoModal(props: ProfileInfoModalProps) {
-  const { clickModal } = props;
+export default function ProfileInfoModal({ clickModal }: ProfileInfoModalProps) {
+  // const { clickModal } = props.clickModal;
 
   // const [isModalOpen, setIsModalOpen] = useState(true); // 모달 상태
   const onClose = () => {
@@ -30,8 +30,8 @@ export default function ProfileInfoModal(props: ProfileInfoModalProps) {
   const queryKey = ['profile-info'];
   const { data: infoRes, isFetching: isInfoFetching } = useQuery({
     queryKey: queryKey,
-    queryFn: () => API.member.getMemberInfo()
-  })
+    queryFn: () => API.member.getMemberInfo(),
+  });
 
   useEffect(() => {
     console.log(infoRes);

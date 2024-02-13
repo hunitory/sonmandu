@@ -1,12 +1,12 @@
 'use client';
 
-import React, { ChangeEvent, FormEvent, useCallback, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, MouseEvent, useCallback, useRef, useState } from 'react';
 import * as S from './style';
 import { SearchOptions } from 'components';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 
 interface CreateQueryStringArgs {
-  name: 'sort' | 'name';
+  name: 'sort' | 'title';
   value: string;
 }
 
@@ -15,8 +15,8 @@ export default function TitleSection() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [options, setOptions] = useState('');
-  const [searchInputValue, setSearchInputValue] = useState('');
+  const [options, setOptions] = useState(searchParams.get('sort') || '');
+  const [searchInputValue, setSearchInputValue] = useState(searchParams.get('title') || '');
 
   const createQueryString = useCallback(
     ({ name, value }: CreateQueryStringArgs) => {
@@ -34,12 +34,12 @@ export default function TitleSection() {
 
   const handleOptionsClick = ({ name, value }: CreateQueryStringArgs) => {
     createQueryString({ name: name, value: value });
-    setOptions((prev) => (prev = value));
+    setOptions((prev) => value);
   };
 
-  const handleSearchValueSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSearchValueSubmit = (e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    createQueryString({ name: 'name', value: searchInputValue });
+    createQueryString({ name: 'title', value: searchInputValue });
   };
 
   return (
@@ -55,6 +55,7 @@ export default function TitleSection() {
           placeholder="폰트명이나 제목으로 검색해보세요!"
           value={searchInputValue}
           onChange={handleTitleOnChange}
+          onClick={handleSearchValueSubmit}
           flexible={{ able: false, width: '100%' }}
         />
         <S.HashTagsWrapper>

@@ -6,12 +6,12 @@ interface fontListInGalleryArgs {
   takeCount: number;
   tagId?: string | null;
   sort?: 'desc' | 'popular' | 'hit' | 'likes' | string | null;
-  name?: string | null;
+  title?: string | null;
 }
 
-export async function handwritingStoryList({ startIdx, takeCount, sort, name }: fontListInGalleryArgs) {
+export async function handwritingStoryList({ startIdx, takeCount, sort, title }: fontListInGalleryArgs) {
   return instanceJsonContent.get(
-    `/handwritings/story?start=${startIdx}&count=${takeCount}&name=${name}&title=${name}&sort=${sort}`,
+    `/handwritings/story?start=${startIdx}&count=${takeCount}&name=&title=${title}&sort=${sort}`,
   );
 }
 
@@ -61,7 +61,7 @@ export async function handwritingStoryComment({
   handwritingStoryId: number;
   content: string;
 }) {
-  return instanceJsonContent.post(`/handwritings/story/${handwritingStoryId}/comment`, {
+  return instanceJsonContent.post(`/handwritings/story/${handwritingStoryId}/comments`, {
     content: content,
   });
 }
@@ -91,5 +91,9 @@ export async function handwritingStoryCommentDelete({
 }
 
 export async function getHandwritingStory({ memberId }: { memberId: string }) {
-  return instanceJsonContent.get(`/handwritings/story/owner/${memberId}`)
+  return instanceJsonContent.get(`/handwritings/story/owner/${memberId}`);
+}
+
+export async function handwritingStoryUnwrittenFont() {
+  return instanceJsonContent.get('/handwritings/unwritten-stories')
 }

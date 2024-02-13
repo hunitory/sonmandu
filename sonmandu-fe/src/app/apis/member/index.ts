@@ -8,24 +8,8 @@ export async function getMemberInfo() {
   return instanceJsonContent.get(`/members/me`);
 }
 
-// export async function editMemberInfo({ labelName, info }: { labelName: string, info: string }) {
-//   return instanceJsonContent.patch(`/members/${labelName}`, { [labelName]: info })
-// }
-
-export async function editNickname({ nickname }: { nickname: string }) {
-  return instanceJsonContent.patch(`/members/nickname`, { nickname: nickname })
-}
-
-export async function editEmail({ email }: { email: string }) {
-  return instanceJsonContent.patch(`/members/email`, { email: email })
-}
-
-export async function editIntroduction({ introduction }: { introduction: string }) {
-  return instanceJsonContent.patch(`/members/introduction`, { introduction: introduction })
-}
-
-export async function editImage({ imageUrl }: { imageUrl: string }) {
-  return instanceJsonContent.patch(`/members/image`, { imageUrl: imageUrl})
+export async function editMemberInfo({ labelName, info }: { labelName: string; info: string }) {
+  return instanceJsonContent.patch(`/members/${labelName}`, { value: info });
 }
 
 interface SignUpArgs {

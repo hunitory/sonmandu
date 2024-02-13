@@ -13,10 +13,10 @@ export const MainWrapper = styled.main`
 
 export const SideBarWrapper = styled.section`
   width: 40%;
-  min-width: 308px;
+  min-width: 384px;
   max-width: 436px;
   height: calc(100vh - 56px);
-  border-left: 1px solid ${PALETTE.LIGHT_BLACK};
+  box-shadow: 4px 4px 6px ${PALETTE.LIGHT_BLACK};
   overflow-y: scroll;
 
   @media (max-width: 768px) {
@@ -32,24 +32,20 @@ export const SideBarWrapper = styled.section`
 export const FontListOpener = styled.div<{ $isOpen: boolean }>`
   width: 100%;
   height: ${({ $isOpen }) => ($isOpen ? 'calc(100vh - 56px - 28px)' : '28px')};
-  text-align: center;
+
   cursor: pointer;
   overflow: hidden;
   transition: height 0.3s ease-in;
 
-  p {
+  .toggle-opener {
     width: 100%;
     height: 28px;
     line-height: 24px;
-
-    /* color: ${PALETTE.MAIN_BLACK}; */
+    text-align: center;
     color: white;
-    /* background-color: ${PALETTE.SUB_WHITE}; */
     background-color: ${PALETTE.LIGHT_ORANGE};
     font-family: ${notoSansKr.semiBold.style.fontFamily};
     font-weight: ${notoSansKr.semiBold.style.fontWeight};
-    /* border-bottom: 1px solid ${PALETTE.MAIN_BLACK}; */
-    /* border-bottom: 1px solid ${PALETTE.MAIN_BLACK}; */
     border-bottom: 1px solid ${PALETTE.SUB_WHITE};
     border-bottom: 1px solid ${PALETTE.SUB_WHITE};
   }
@@ -58,16 +54,41 @@ export const FontListOpener = styled.div<{ $isOpen: boolean }>`
 export const FontsContainer = styled.div`
   width: 100%;
   height: calc(100% - 28px);
-  margin-top: 12px;
+  padding: 0px 12px 24px 12px;
   background-color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  overflow-y: auto;
+`;
 
-  div {
-    width: 80%;
-    height: 200px;
-    border: 1px solid blue;
+export const FontCardWrapper = styled.div`
+  width: 100%;
+  & > li {
+    aspect-ratio: 3 / 1;
+    article > p {
+      height: fit-content;
+    }
+  }
+`;
+
+export const HrTitle = styled.p`
+  width: 100%;
+  min-height: 1px;
+  background-color: ${PALETTE.LIGHT_BLACK};
+  position: relative;
+  margin: 24px 0px 12px 0px;
+
+  & > span {
+    display: inline-block;
+    width: 48px;
+    height: 18px;
+    text-align: center;
+    background-color: white;
+    position: absolute;
+    top: -9px;
+    left: 45%;
+    z-index: 1;
   }
 `;

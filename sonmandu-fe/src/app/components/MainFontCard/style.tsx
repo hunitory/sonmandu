@@ -6,7 +6,7 @@ import { BaseButtonProps } from 'types';
 
 export const FontCardWrapper = styled.li`
   min-width: 90%;
-  max-height: 250px;
+  max-height: 200px;
   aspect-ratio: 4 / 5.5;
   background-color: white;
   border-radius: 20px;

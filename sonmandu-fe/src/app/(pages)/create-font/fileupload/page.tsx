@@ -13,6 +13,14 @@ export default function FontFileUpload() {
   const [uploadedFiles, setUploadedFiles] = useRecoilState(uploadedFilesState);
   const [isDragging, setIsDragging] = useState(false);
 
+  useEffect(() => {
+    const token = !!localStorage.getItem('access_token');
+    if (!token) {
+      alert('로그인이 필요합니다.')
+      router.push('/')
+    }
+  });
+
   const OnFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const fileList = Array.from(event.target.files);
@@ -73,8 +81,19 @@ export default function FontFileUpload() {
   };
 
   useEffect(() => {
-    console.log(uploadedFiles);
-  });
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (uploadedFiles.length > 0) {
+        e.returnValue = '입력한 정보가 저장되지 않습니다. 페이지를 떠나시겠습니까?'; // 이 메시지는 보이지 않음
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [uploadedFiles]);
+
   return (
     <Styled.Wrapper>
       <Styled.StepWrapper>

@@ -1,5 +1,6 @@
 'use client';
 
+import { BaseButton } from 'components';
 import styled from 'styled-components';
 import { PALETTE, notoSansKr } from 'styles';
 
@@ -59,9 +60,24 @@ export const NicknameAndMessgeWrapper = styled.div`
   }
 `;
 
-export const MessageTypingArea = styled.textarea`
+export const FormFiled = styled.form`
+  display: flex;
+  justify-content: space-between;
   width: 100%;
-  height: 120px;
+  height: fit-content;
   border-top: 1px solid ${PALETTE.LIGHT_BLACK};
+`;
+
+export const MessageTypingArea = styled.textarea`
+  width: calc(100% - 48px);
+  height: 120px;
   padding: 24px;
+`;
+
+export const SubmitButton = styled(BaseButton)`
+  color: white;
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  font-weight: ${notoSansKr.bold.style.fontWeight};
+  background-color: ${PALETTE.MAIN_ORANGE};
+  border-radius: 8px;
 `;

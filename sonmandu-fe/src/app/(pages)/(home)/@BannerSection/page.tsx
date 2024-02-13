@@ -119,9 +119,7 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
           <Image src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />
         </Styled.ArrowLeftButton> */}
         <Slider {...settings} ref={slickRef}>
-          {response?.data.map((res: FontCard) => (
-            <Comp.MainFontCard key={res.handwritingId} {...res} />
-          ))}
+          {response?.data.map((res: FontCard) => <Comp.MainFontCard key={res.handwritingId} {...res} />)}
         </Slider>
         <Styled.ArrowRightButton type="button" disabled={false} onClick={goNext}>
           <Image src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />

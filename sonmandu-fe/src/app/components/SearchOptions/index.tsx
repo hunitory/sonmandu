@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useCallback, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, MouseEvent, useCallback, useRef, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FilterList, SearchInput } from './Subs';
 import * as S from './style';
@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 interface CreateQueryStringArgs {
   name: 'sort' | 'tagId' | 'name';
-  value: string;
+  value: string | string[];
 }
 
 function SearchOptions() {
@@ -23,18 +23,7 @@ function SearchOptions() {
   const createQueryString = useCallback(
     ({ name, value }: CreateQueryStringArgs) => {
       if (name === 'tagId') {
-        let newTags;
-        const currentTags =
-          searchParams
-            .get('tagId')
-            ?.split(',')
-            .filter((tag) => tag && tag !== ',') || [];
-
-        if (currentTags?.includes(value)) {
-          newTags = currentTags?.filter((tag) => tag !== value).join(',');
-        } else {
-          newTags = [...currentTags, value].join(',');
-        }
+        const newTags = (value as string[]).join(',');
         const params = new URLSearchParams(searchParams.toString());
         params.set('tagId', newTags);
 
@@ -42,7 +31,7 @@ function SearchOptions() {
       }
 
       const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+      params.set(name, value as string);
 
       return router.push(`${pathname}?${params.toString()}`);
     },
@@ -53,7 +42,7 @@ function SearchOptions() {
     setSearchInputValue(e.target.value);
   };
 
-  const handleSearchValueSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSearchValueSubmit = (e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     createQueryString({ name: 'name', value: searchInputValue });
   };
@@ -68,6 +57,7 @@ function SearchOptions() {
           flexible={{ able: true }}
           value={searchInputValue}
           onChange={handleTitleOnChange}
+          onClick={handleSearchValueSubmit}
         />
         <S.StyledButton type="button" disabled={false} bgColor="white">
           <Image src={'/image/filter-icon.svg'} alt="필터" width={20} height={20} />

@@ -6,46 +6,55 @@ import Image from 'next/image';
 import { IsLikeCount } from 'types';
 import { SideBarProps } from 'types/pages/FontStoryDetail';
 
-export default function SideBar({isLike, count, setCopyIsLikeAndCount, handwritingStoryId}: SideBarProps) {
-
+export default function SideBar({ isLike, count, setCopyIsLikeAndCount, handwritingStoryId }: SideBarProps) {
   // 사용자가 좋아요 눌렀을 때
   const { mutate, data: resLikeClick } = useMutation({
     mutationKey: ['font-story-detail-click-like', handwritingStoryId],
     mutationFn: () => API.handwritingStory.handwritingStoryLike({ id: handwritingStoryId }),
     onSuccess: () =>
-    setCopyIsLikeAndCount((prev) => {
+      setCopyIsLikeAndCount((prev) => {
         if (prev?.isLike) return { ...prev, isLike: !prev.isLike, count: (prev.count || 0) - 1 };
         return { ...prev, isLike: !prev?.isLike, count: (prev?.count || 0) + 1 };
       }),
   });
-
-  // useEffect(() => {
-  //   setCopyIsLikeAndCount((prev) => ({
-  //     ...prev,
-  //     isLike: isLike,
-  //     count: count,
-  //   }));
-  // }, [isLike, count]);
 
   const handleLikeClick = (e: React.MouseEvent) => {
     e.stopPropagation();
     mutate();
   };
 
+  // 링크 복사 버튼
+  const CopyUrlButton = () => {
+    navigator.clipboard
+      .writeText(window.location.href)
+      .then(() => {
+        console.log('url이 클립보드에 복사됨');
+      })
+      .catch((error) => {
+        console.log('에러발생');
+      });
+  };
+
   return (
     <S.SideBarWrapper>
-      {
-        isLike ?
+      {isLike ? (
         <S.LikeWrapper>
-          <Image src={'/image/orange-heart-fill.png'} alt="orange-heart" width={24} height={22} onClick={handleLikeClick} />
-        </S.LikeWrapper> :
+          <Image
+            src={'/image/orange-heart-fill.png'}
+            alt="orange-heart"
+            width={24}
+            height={22}
+            onClick={handleLikeClick}
+          />
+        </S.LikeWrapper>
+      ) : (
         <S.LikeWrapper>
           <Image src={'/image/gray-heart.svg'} alt="gray-heart" width={24} height={22} onClick={handleLikeClick} />
         </S.LikeWrapper>
-      }
+      )}
       <span>{count}</span>
       <S.LinkWrapper>
-        <Image src={'/image/Link.png'} alt="link" width={24} height={24} />
+        <Image src={'/image/Link.png'} alt="link" width={24} height={24} onClick={CopyUrlButton} />
       </S.LinkWrapper>
     </S.SideBarWrapper>
   );

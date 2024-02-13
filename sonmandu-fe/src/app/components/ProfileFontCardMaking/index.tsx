@@ -5,14 +5,11 @@ import { BaseButton, BaseHashTags } from 'components';
 import { ProfileFontCardProps, BaseButtonProps } from 'types';
 import { useRouter } from 'next/navigation';
 
-function ProfileFontCardMaking({
-  profileFontCardProps
-}: {
-  profileFontCardProps: ProfileFontCardProps;
-}) {
+function ProfileFontCardMaking({ profileFontCardProps }: { profileFontCardProps: ProfileFontCardProps }) {
   const router = useRouter();
 
-  const { downloadCount, downloadUrl, handwritingId, hitCount, isLike, likeCount, name, createTime, state, tag } = profileFontCardProps;
+  const { downloadCount, downloadUrl, handwritingId, hitCount, isLike, likeCount, name, createDate, state, tag } =
+    profileFontCardProps;
 
   const BaseButtonProps: BaseButtonProps = {
     children: '다운로드 받기',

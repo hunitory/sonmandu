@@ -90,22 +90,29 @@ export const ContentFontNametContent = styled.div`
   }
 `;
 
-export const ContentFontNameInputWrapper = styled.div`
+export const ContentFontNameInputWithButtonWrapper = styled.div`
   padding: 20px 10px;
   border-bottom: 1px solid ${PALETTE.LIGHT_BLACK};
   position: relative;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ContentFontNameInputWrapper = styled.div`
+  width: 400px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
 `;
 
 export const ContentFontNameInput = styled(BaseLabelWithInput.Input)`
-  font-size: 14px;
-  font-family: ${notoSansKr.bold.style.fontFamily};
-  font-weight: ${notoSansKr.bold.style.fontWeight};
   width: 100%;
+  display: center;
+  justify-content: center;
+  align-items: center;
 `;
 
-export const ContentFontNameInputPlaceholder = styled.div.attrs(() => ({
-  // 여기에서 필요한 속성만을 선택하여 DOM 요소에 전달합니다.
-}))<PlaceholderGuideProps>`
+export const ContentFontNameInputPlaceholder = styled.div.attrs(() => ({}))<PlaceholderGuideProps>`
   position: absolute;
   color: ${PALETTE.LIGHT_BLACK};
   font-size: 14px;
@@ -118,6 +125,19 @@ export const ContentFontNameInputPlaceholder = styled.div.attrs(() => ({
     font-size: 14px;
     font-family: ${notoSansKr.bold.style.fontFamily};
     font-weight: ${notoSansKr.bold.style.fontWeight};
+  }
+`;
+
+export const DuplicationCheckButton = styled(BaseButton)`
+  padding: 0px 13px;
+  height: 25px;
+  color: ${PALETTE.SUB_WHITE};
+  background-color: ${PALETTE.MAIN_ORANGE};
+  > p {
+    font-size: 13px;
+    font-family: ${notoSansKr.semiBold.style.fontFamily};
+    font-weight: ${notoSansKr.semiBold.style.fontWeight};
+    letter-spacing: 1px;
   }
 `;
 
@@ -142,8 +162,6 @@ export const ContentFontTagtContent = styled.div`
   font-family: ${notoSansKr.regular.style.fontFamily};
   font-weight: ${notoSansKr.regular.style.fontWeight};
 `;
-
-export const ContentFontTagListWrapper = styled.div``;
 
 export const ContentFontTags = styled.div`
   display: flex;

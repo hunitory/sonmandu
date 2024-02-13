@@ -7,6 +7,7 @@ import com.nofriend.sonmandube.handwriting.domain.HandwritingApplication;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -24,6 +25,7 @@ public class MyHandwritingResponse {
     private int downloadCount;
     private boolean isLike;
     private List<Integer> tag;
+    private LocalDateTime createDate;
 
     @JsonProperty("isLike")
     public boolean getIsLike() {
@@ -40,6 +42,7 @@ public class MyHandwritingResponse {
                 .hitCount(handwriting.getHitCount())
                 .likeCount(handwriting.getLikeCount())
                 .downloadCount(handwriting.getDownloadCount())
+                .createDate(handwriting.getCreateDate())
                 .tag(
                         handwriting.getHandwritingApplication()
                                 .getHandwritingTagList()

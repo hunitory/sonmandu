@@ -71,7 +71,6 @@ import { storyInfoState } from 'store/atoms';
 // };
 
 export default function FontStoryDetailPage() {
-
   // 정보 요청
   const params = useParams();
   const queryKey = ['font-story-detail', params['font-story-id']];
@@ -79,39 +78,39 @@ export default function FontStoryDetailPage() {
     queryKey: queryKey,
     queryFn: () => API.handwritingStory.handwritingStoryDetail({ fontStoryId: params['font-story-id'] as string }),
   });
-  
+
   const { data: resFromS3, isFetching: isFileFetching } = useQuery({
-      queryKey: ['get-font-file', response],
-      queryFn: () => API.handwritingStory.getFontFileFromS3({ url: response?.data.downloadurl }),
-    });
-    
+    queryKey: ['get-font-file', response],
+    queryFn: () => API.handwritingStory.getFontFileFromS3({ url: response?.data.downloadurl }),
+  });
+
   const { data: resLoadFont, isFetching: isLoadFetching } = useQuery({
-      queryKey: ['load-font-file', resFromS3],
-      queryFn: () => API.handwritingStory.loadFontInService({ getFontResponse: resFromS3, name: response?.data.name }),
-    });
-    
-    const isAllResourcesLoad = () => {
-        return !isFontStoryDetailFetching && !isFileFetching && !isLoadFetching;
-      }
-      
-      // const { CommentList, content, createDate, handwritingStoryId, hitCount, isLike, likeCount, member, name, title } = res?.data || {};
-      
-      const ProfileBoxProps: ProfileBoxProps = {
-        imageUrl: response?.data.member.imageUrl,
-        nickname: response?.data.member.name,
-        badge: response?.data.member.badge,
-        imgSize: '50px',
-        fontSize: '1vw',
-      };
-    
-      const VerticalProfileBoxProps: ProfileBoxProps = {
-        imageUrl: response?.data.member.imageUrl,
-        nickname: response?.data.member.name,
-        badge: response?.data.member.badge,
-        imgSize: '96px',
-        fontSize: '1vw',
-        className: 'vertical',
-      };
+    queryKey: ['load-font-file', resFromS3],
+    queryFn: () => API.handwritingStory.loadFontInService({ getFontResponse: resFromS3, name: response?.data.name }),
+  });
+
+  const isAllResourcesLoad = () => {
+    return !isFontStoryDetailFetching && !isFileFetching && !isLoadFetching;
+  };
+
+  // const { CommentList, content, createDate, handwritingStoryId, hitCount, isLike, likeCount, member, name, title } = res?.data || {};
+
+  const ProfileBoxProps: ProfileBoxProps = {
+    imageUrl: response?.data.member.imageUrl,
+    nickname: response?.data.member.nickname,
+    badge: response?.data.member.badge,
+    imgSize: '50px',
+    fontSize: '1vw',
+  };
+
+  const VerticalProfileBoxProps: ProfileBoxProps = {
+    imageUrl: response?.data.member.imageUrl,
+    nickname: response?.data.member.nickname,
+    badge: response?.data.member.badge,
+    imgSize: '96px',
+    fontSize: '1vw',
+    className: 'vertical',
+  };
 
   const [editableInfo, setEditableInfo] = useRecoilState(storyInfoState);
 
@@ -221,13 +220,17 @@ export default function FontStoryDetailPage() {
 
   return (
     <>
-      { !isAllResourcesLoad ? (
+      {!isAllResourcesLoad ? (
         <div>Loading...</div>
       ) : (
         <>
-        <S.SideBarWrapper>
-          <Comp.SideBar {...copyIsLikeAndCount} setCopyIsLikeAndCount={setCopyIsLikeAndCount} handwritingStoryId={response?.data.handwritingStoryId} />
-        </S.SideBarWrapper>
+          <S.SideBarWrapper>
+            <Comp.SideBar
+              {...copyIsLikeAndCount}
+              setCopyIsLikeAndCount={setCopyIsLikeAndCount}
+              handwritingStoryId={response?.data.handwritingStoryId}
+            />
+          </S.SideBarWrapper>
           <S.DetailWrapper>
             <S.UpperWrapper>
               <S.UpperHeadWrapper>
@@ -266,7 +269,7 @@ export default function FontStoryDetailPage() {
                 <S.FontStoryDateWrapper>{response?.data.createDate}</S.FontStoryDateWrapper>
               </S.FontDateWrapper>
               <S.TagsWrapper>
-                { response?.data.tag && <Comp.BaseHashTags hashTagIdList={response?.data.tag} direction="row" />}
+                {response?.data.tag && <Comp.BaseHashTags hashTagIdList={response?.data.tag} direction="row" />}
               </S.TagsWrapper>
             </S.UpperWrapper>
             <S.FontStoryText name={response?.data.name}>{response?.data.content}</S.FontStoryText>
@@ -291,9 +294,7 @@ export default function FontStoryDetailPage() {
             </S.ProfileWrapper>
             <S.LowerWrapper>
               <S.LowerHeadWrapper>
-                <S.CommentReportSpan>
-                  {response?.data.commentList.length}개의 댓글이 달렸습니다
-                </S.CommentReportSpan>
+                <S.CommentReportSpan>{response?.data.commentList.length}개의 댓글이 달렸습니다</S.CommentReportSpan>
                 <S.CommentHeadLine />
                 <S.CommentInputAreaWrapper>
                   <S.CommentInputPlaceholder $isempty={!comment}>
@@ -318,30 +319,31 @@ export default function FontStoryDetailPage() {
                 </S.CommentInputAreaWrapper>
               </S.LowerHeadWrapper>
               <S.CommentsListWrapper>
-                {response?.data.commentList && response?.data.commentList.map((StoryComment: any, index: number) => {
-                  return (
-                    <React.Fragment key={StoryComment.HandwritingStoryComment.HandwritingStoryCommentId}>
-                      <Comp.FontStoryComment
-                        profileBoxProps={{
-                          imageUrl: StoryComment.Member.imageUrl,
-                          nickname: StoryComment.Member.nickname,
-                          badge: StoryComment.Member.badge,
-                          imgSize: 'max(40px, 2.2vw)',
-                          fontSize: 'max(14px, 0.8vw)',
-                        }}
-                        commentProps={{
-                          handwritingStoryId: response?.data.handwritingStoryId,
-                          handwritingStoryCommentId: StoryComment.HandwritingStoryComment.HandwritingStoryCommentId,
-                          content: StoryComment.HandwritingStoryComment.content,
-                          createDate: StoryComment.HandwritingStoryComment.createDate,
-                        }}
-                        // 현재 유저id === 댓글의 memberId
-                        isMycomment={true}
-                      />
-                      {index !== response?.data.commentList.length - 1 && <S.CommentHeadLine />}
-                    </React.Fragment>
-                  );
-                })}
+                {response?.data.commentList &&
+                  response?.data.commentList.map((StoryComment: any, index: number) => {
+                    return (
+                      <React.Fragment key={StoryComment.HandwritingStoryComment?.HandwritingStoryCommentId}>
+                        <Comp.FontStoryComment
+                          profileBoxProps={{
+                            imageUrl: StoryComment.Member?.imageUrl,
+                            nickname: StoryComment.Member?.nickname,
+                            badge: StoryComment.Member?.badge,
+                            imgSize: 'max(40px, 2.2vw)',
+                            fontSize: 'max(14px, 0.8vw)',
+                          }}
+                          commentProps={{
+                            handwritingStoryId: response?.data.handwritingStoryId,
+                            handwritingStoryCommentId: StoryComment.HandwritingStoryComment?.HandwritingStoryCommentId,
+                            content: StoryComment.HandwritingStoryComment?.content,
+                            createDate: StoryComment.HandwritingStoryComment?.createDate,
+                          }}
+                          // 현재 유저id === 댓글의 memberId
+                          isMycomment={true}
+                        />
+                        {index !== response?.data.commentList.length - 1 && <S.CommentHeadLine />}
+                      </React.Fragment>
+                    );
+                  })}
               </S.CommentsListWrapper>
             </S.LowerWrapper>
           </S.DetailWrapper>

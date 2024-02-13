@@ -64,12 +64,12 @@ export default function FontStoryWritePage() {
   // 만든 폰트 목록 조회 ( 이야기가 안쓰인 것만 뽑기 )
   const { data: fontRes, isFetching: isFontFetching } = useQuery({
     queryKey: ['my-font'],
-    queryFn: () => API.handwriting.getMyHandwriting(),
+    queryFn: () => API.handwritingStory.handwritingStoryUnwrittenFont(),
   });
 
   useEffect(() => {
     if (fontRes) {
-      setCompletedFonts(fontRes?.data.filter((font: MyFont) => font.state === 4));
+      setCompletedFonts(fontRes.data)
     }
   }, [fontRes]);
 
@@ -92,11 +92,10 @@ export default function FontStoryWritePage() {
     instanceMultipartContent
       .post(apiUrl, formData)
       .then((response) => {
-        console.log('POST 요청 성공', response);
+        alert('이야기가 작성되었습니다.')
         router.push('font-stories')
       })
       .catch((error) => {
-        console.log('POST 요청 실패:', error);
         alert('업로드에 실패했습니다.');
       });
   };

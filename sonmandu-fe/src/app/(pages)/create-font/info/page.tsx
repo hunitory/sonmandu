@@ -89,9 +89,19 @@ export default function FontInfo() {
   };
 
   useEffect(() => {
-    console.log(fontInfo);
-    console.log(uploadedFiles);
-  });
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (fontInfo) {
+        e.returnValue = '입력한 정보가 저장되지 않습니다. 페이지를 떠나시겠습니까?'; // 이 메시지는 보이지 않음
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [fontInfo]);
+  
   return (
     <Styled.Wrapper>
       <Styled.StepWrapper>

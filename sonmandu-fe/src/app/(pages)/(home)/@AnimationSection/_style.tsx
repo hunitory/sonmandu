@@ -14,10 +14,10 @@ const fadeInOut = keyframes`
 `;
 export const AnimationWrapper = styled.div`
   width: 100vw;
-  height: 500px;
+  height: 600px;
   display: flex;
   justify-content: space-around;
-  padding: 0px 100px;
+  padding: 100px 180px;
 `;
 
 export const LeftSideWrapper = styled.div`
@@ -25,7 +25,7 @@ export const LeftSideWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${fadeInOut} 6s infinite; // 5초 동안 반복 애니메이션 적용
+  animation: ${fadeInOut} 9s infinite; // 5초 동안 반복 애니메이션 적용
 `;
 
 export const RightSideWrapper = styled.div`
@@ -33,8 +33,8 @@ export const RightSideWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${fadeInOut} 6s infinite; // 5초 동안 반복 애니메이션 적용
-  animation-delay: 3s; // 오른쪽 요소가 2.5초 후에 시작
+  animation: ${fadeInOut} 9s infinite; // 5초 동안 반복 애니메이션 적용
+  animation-delay: 4.5s; // 오른쪽 요소가 2.5초 후에 시작
 `;
 
 export const ContentWrapper = styled.div`
@@ -44,7 +44,7 @@ export const ContentWrapper = styled.div`
 
 export const TextWrapper = styled.div`
   text-align: center;
-  font-size: 40px;
+  font-size: 30px;
   // 약간 여기 손글씨로 만든 폰트로 바꿔야 할듯.
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};

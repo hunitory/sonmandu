@@ -75,7 +75,7 @@ function ProfileInput({ isActive, activate, ...props }: ProfileInputProps) {
     mutationFn: () => API.member.editMemberInfo({ labelName: props.labelName, info: memberInfo }),
     onSuccess: () => setInfo(memberInfo),
   });
-  // setIsEdit(!isEdit)
+
   const handleEditButtonClick = () => {
     requestEditInfo();
     setIsEdit(!isEdit);

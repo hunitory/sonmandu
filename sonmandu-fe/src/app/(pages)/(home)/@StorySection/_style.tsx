@@ -10,14 +10,14 @@ export const StoryWrapper = styled.div`
   padding: 10px;
   display: flex;
   flex-direction: column;
-  padding: 0 10%;
+  padding: 0 6% 0 8%;
 `;
 
 export const TitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   height: 90px;
-  padding: 0 1%;
+  padding: 0px 5% 0px 3%;
 `;
 
 export const TitleTextWrapper = styled.div`
@@ -56,22 +56,27 @@ export const StoryCardsWrapper = styled.section`
   display: flex;
   justify-content: space-between;
   gap: 2%;
+`;
 
-  @media (max-width: 1500px) {
-    & > :nth-child(4) {
-      display: none;
+export const CarouselWrapper = styled.section`
+  width: 100%;
+  position: relative;
+  z-index: 5;
+  .slick-slider {
+    > div {
+      padding: 5px;
     }
   }
+`;
 
-  @media (max-width: 1128px) {
-    & > :nth-child(3) {
-      display: none;
-    }
-  }
-
-  @media (max-width: 768px) {
-    & > :nth-child(2) {
-      display: none;
-    }
+export const ArrowRightButton = styled(BaseButton)`
+  position: absolute;
+  padding: 5px;
+  right: 0%;
+  top: 45%;
+  box-shadow: 0px 0px 4px ${PALETTE.MAIN_BLACK};
+  &:hover {
+    transform: translate(-1px, -1px);
+    transition: transform 0.25s ease-in;
   }
 `;

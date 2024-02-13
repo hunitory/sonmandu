@@ -27,7 +27,7 @@ export default function StorySection({ searchParams }: StorySectionProps) {
       API.handwritingStory.handwritingStoryList({
         startIdx: currentItemCount,
         takeCount: 4,
-        name: searchParams?.name || '',
+        title: searchParams?.name || '',
         sort: 'popular',
       }),
   });
@@ -51,9 +51,7 @@ export default function StorySection({ searchParams }: StorySectionProps) {
         </Styled.MoreStoryWrapper>
       </Styled.TitleWrapper>
       <Styled.StoryCardsWrapper>
-        {response?.data.map((res: BaseStoryCard) => (
-          <Comp.MainStoryCard key={res.handwritingStoryId} {...res} />
-        ))}
+        {response?.data.map((res: BaseStoryCard) => <Comp.MainStoryCard key={res.handwritingStoryId} {...res} />)}
       </Styled.StoryCardsWrapper>
     </Styled.StoryWrapper>
   );

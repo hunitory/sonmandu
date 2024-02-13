@@ -51,6 +51,7 @@ public class Member implements UserDetails {
 
     @Setter
 <<<<<<< HEAD
+<<<<<<< HEAD
     @JsonIgnore
 =======
 >>>>>>> 6167459 (feat: add imageUrl in jwt token)
@@ -63,6 +64,12 @@ public class Member implements UserDetails {
     private String emailToken;
 
 >>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
+=======
+    @JsonIgnore
+    @Column(length = 512)
+    private String refreshToken;
+
+>>>>>>> 125ae4a (fix: jpa table)
     private boolean isBadge;
 
     @CreatedDate
@@ -111,8 +118,6 @@ public class Member implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-
-//        return this.enabled;
         return true;
     }
 }

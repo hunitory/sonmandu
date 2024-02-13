@@ -25,6 +25,7 @@ spring:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       ddl-auto: validate        # DB 초기화 전략 (none, create, create-drop, update, validate)
 =======
       ddl-auto: create        # DB 초기화 전략 (none, create, create-drop, update, validate)
@@ -44,6 +45,9 @@ spring:
 =======
       ddl-auto: validate        # DB 초기화 전략 (none, create, create-drop, update, validate)
 >>>>>>> 9ccf247 (feat: setup table)
+=======
+      ddl-auto: update        # DB 초기화 전략 (none, create, create-drop, update, validate)
+>>>>>>> 1e81031 (fix: jpa table)
     properties:
       hibernate:
         #        dialect: org.hibernate.dialect.H2Dialect

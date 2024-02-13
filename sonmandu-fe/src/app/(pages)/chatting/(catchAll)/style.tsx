@@ -13,10 +13,9 @@ export const MainWrapper = styled.main`
 
 export const SideBarWrapper = styled.section`
   width: 40%;
-  min-width: 308px;
+  min-width: 384px;
   max-width: 436px;
   height: calc(100vh - 56px);
-  /* border-left: 1px solid ${PALETTE.LIGHT_BLACK}; */
   box-shadow: 4px 4px 6px ${PALETTE.LIGHT_BLACK};
   overflow-y: scroll;
 

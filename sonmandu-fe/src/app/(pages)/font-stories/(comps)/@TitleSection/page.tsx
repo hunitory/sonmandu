@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, FormEvent, useCallback, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, MouseEvent, useCallback, useRef, useState } from 'react';
 import * as S from './style';
 import { SearchOptions } from 'components';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
@@ -37,7 +37,7 @@ export default function TitleSection() {
     setOptions((prev) => value);
   };
 
-  const handleSearchValueSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSearchValueSubmit = (e: FormEvent<HTMLFormElement> | MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     createQueryString({ name: 'title', value: searchInputValue });
   };
@@ -55,6 +55,7 @@ export default function TitleSection() {
           placeholder="폰트명이나 제목으로 검색해보세요!"
           value={searchInputValue}
           onChange={handleTitleOnChange}
+          onClick={handleSearchValueSubmit}
           flexible={{ able: false, width: '100%' }}
         />
         <S.HashTagsWrapper>

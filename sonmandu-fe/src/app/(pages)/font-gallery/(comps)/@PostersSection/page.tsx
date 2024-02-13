@@ -29,22 +29,23 @@ export default function PostersSection() {
   const isQueryChanged = useCallback(() => {
     for (const [key, value] of searchParams.entries()) {
       if (!['name', 'tagId', 'sort'].includes(key)) continue;
-      if (prevSearchParams[key] !== value) {
-        return true;
-      }
+      if (prevSearchParams[key] !== value) return true;
     }
-
     return false;
   }, [searchParams.get('tagId'), searchParams.get('name'), searchParams.get('sort')]);
 
-  const infiniteScrollQueryKey = [
+  const queryStringChangeQueryKey = [
     'font-gallery-search',
     searchParams.get('name'),
     searchParams.get('tagId'),
     searchParams.get('sort'),
   ];
-  const { isLoading: infiniteScrollLoading, refetch: requestGetListByScroll } = useQuery({
-    queryKey: infiniteScrollQueryKey,
+  const {
+    isLoading: queryStringChangeLoading,
+    isFetched: queryStringChangeResponseFetched,
+    refetch: requestGetListByOptions,
+  } = useQuery({
+    queryKey: queryStringChangeQueryKey,
     queryFn: async () => {
       if (isQueryChanged()) {
         setCurItemList([]);
@@ -56,7 +57,26 @@ export default function PostersSection() {
           sort: searchParams.get('sort') || '',
         }));
       }
+      const requestArgs = {
+        startIdx: 0,
+        takeCount: 5,
+        tagId: searchParams.get('tagId') || '',
+        name: searchParams.get('name') || '',
+        sort: searchParams.get('sort') || '',
+      };
+      return await API.handwriting.fontListInGallery(requestArgs).then((res) => {
+        setCurItemList((prev) => [...res.data]);
+        return res.data;
+      });
+    },
+    refetchInterval: false,
+    refetchOnMount: false,
+  });
 
+  const infiniteScrollQueryKey = ['font-gallery-search'];
+  const { isLoading: infiniteScrollLoading, refetch: requestGetListByScroll } = useQuery({
+    queryKey: infiniteScrollQueryKey,
+    queryFn: async () => {
       const requestArgs = {
         startIdx: curItemList.length,
         takeCount: 5,
@@ -64,7 +84,6 @@ export default function PostersSection() {
         name: searchParams.get('name') || '',
         sort: searchParams.get('sort') || '',
       };
-
       return await API.handwriting.fontListInGallery(requestArgs).then((res) => {
         setCurItemList((prev) => [...prev, ...res.data]);
         return res.data;
@@ -72,8 +91,8 @@ export default function PostersSection() {
     },
     refetchInterval: false,
     refetchOnMount: true,
+    enabled: queryStringChangeResponseFetched,
   });
-
   const infiniteScrollRequest: IntersectionObserverCallback = ([{ isIntersecting }]) => {
     if (isLoadingMore.endOfList) return;
 
@@ -103,7 +122,7 @@ export default function PostersSection() {
         ))}
       {isLoadingMore.curRequestLoading &&
         Array.from({ length: 5 }).map((_, i) => <Comp.SkeletonCard key={`skeleton-${i}`} ratio="4 / 5.5" />)}
-      {!infiniteScrollLoading && <div ref={setTarget}></div>}
+      {!infiniteScrollLoading && !queryStringChangeLoading && <div ref={setTarget}></div>}
     </S.CardsGridWrapper>
   );
 }

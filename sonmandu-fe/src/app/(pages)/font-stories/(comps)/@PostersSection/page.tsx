@@ -27,18 +27,18 @@ export default function PosterSection() {
   const isQueryChanged = useCallback(() => {
     for (const [key, value] of searchParams.entries()) {
       if (!['title', 'sort'].includes(key)) continue;
-      if (prevSearchParams[key] !== value) {
-        console.log(`${value} vs ${prevSearchParams[key]} :`);
-        return true;
-      }
+      if (prevSearchParams[key] !== value) return true;
     }
-
     return false;
   }, [searchParams.get('title'), searchParams.get('sort')]);
 
-  const queryKey = ['font-stories-search', searchParams.get('title'), searchParams.get('sort')];
-  const { isLoading, refetch: requestGetList } = useQuery({
-    queryKey: queryKey,
+  const queryStringChangeQueryKey = ['font-stories-search', searchParams.get('title'), searchParams.get('sort')];
+  const {
+    isLoading: queryStringChangeLoading,
+    isFetched: queryStringChangeResponseFetched,
+    refetch: requestQueryChange,
+  } = useQuery({
+    queryKey: queryStringChangeQueryKey,
     queryFn: async () => {
       if (isQueryChanged()) {
         setCurItemList([]);
@@ -49,7 +49,25 @@ export default function PosterSection() {
           sort: searchParams.get('sort') || '',
         }));
       }
+      const requestArgs = {
+        startIdx: 0,
+        takeCount: 5,
+        title: searchParams.get('title') || '',
+        sort: searchParams.get('sort') || '',
+      };
+      return await API.handwritingStory.handwritingStoryList(requestArgs).then((res) => {
+        setCurItemList((prev) => [...res.data]);
+        return res.data;
+      });
+    },
+    refetchInterval: false,
+    refetchOnMount: true,
+  });
 
+  const infiniteScrollQueryKey = ['font-stories-search'];
+  const { isLoading: infiniteScrollLoading, refetch: requesetInfiniteScroll } = useQuery({
+    queryKey: infiniteScrollQueryKey,
+    queryFn: async () => {
       const requestArgs = {
         startIdx: curItemList.length,
         takeCount: 5,
@@ -64,6 +82,7 @@ export default function PosterSection() {
     },
     refetchInterval: false,
     refetchOnMount: true,
+    enabled: queryStringChangeResponseFetched,
   });
 
   const infiniteScrollRequest: IntersectionObserverCallback = ([{ isIntersecting }]) => {
@@ -71,7 +90,7 @@ export default function PosterSection() {
 
     if (isIntersecting) {
       setIsLoadingMore((prev) => ({ ...prev, curRequestLoading: true }));
-      requestGetList()
+      requesetInfiniteScroll()
         .then((res) => {
           if (res.data.length === 0) setIsLoadingMore((prev) => ({ ...prev, endOfList: true }));
           return res;
@@ -90,7 +109,7 @@ export default function PosterSection() {
         ))}
       {isLoadingMore.curRequestLoading &&
         Array.from({ length: 5 }).map((_, i) => <Comp.SkeletonCard key={`skeleton-${i}`} ratio="4 / 12" />)}
-      {!isLoading && <div ref={setTarget}></div>}
+      {!infiniteScrollLoading && !queryStringChangeLoading && <div ref={setTarget}></div>}
     </S.CardsGridWrapper>
   );
 }

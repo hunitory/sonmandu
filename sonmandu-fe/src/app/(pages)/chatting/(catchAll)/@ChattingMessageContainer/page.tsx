@@ -11,7 +11,20 @@ let stompClient: Client;
 let isConnected = false;
 const subscriptions: { [key: string]: StompSubscription } = {};
 
+interface ChattingMessage {
+  chatHandwritingResponse: {
+    handwritingId: number;
+    name: string;
+    downloadUrl: string;
+  };
+  chatId: number;
+  chatMemberResponse: { memberId: number; nickname: string };
+  createTime: string;
+  message: string;
+}
+
 export default function ChattingMessageContainer() {
+  const [] = useState();
   const [messageInputValue, setMessageInputValue] = useState('');
   const config = {
     brokerURL: 'wss://i10b111.p.ssafy.io/dev/api/chat-connection',
@@ -38,7 +51,7 @@ export default function ChattingMessageContainer() {
       isConnected = true;
 
       const subscribe = stompClient.subscribe('/topic/sonmandu', (message) => {
-        const body = JSON.parse(JSON.stringify(message.body));
+        const body = JSON.parse(message.body);
         console.log(`Received: `, body);
       });
       subscriptions['/topic/sonmandu'] = subscribe;
@@ -47,10 +60,10 @@ export default function ChattingMessageContainer() {
 
   useEffect(() => {
     connect();
-    stompClient.connectHeaders['Authorization'] = `Bearer ${localStorage.getItem('refresh_token')}`;
-    // return () => {
-    //   if (subscriptions['/topic/sonmandu']) subscriptions['/topic/sonmandu'].unsubscribe();
-    // };
+    stompClient.connectHeaders['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    return () => {
+      if (subscriptions['/topic/sonmandu']) subscriptions['/topic/sonmandu'].unsubscribe();
+    };
   }, []);
 
   const handleSubmit = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -81,17 +94,17 @@ export default function ChattingMessageContainer() {
           </S.AllMessageContainer>
         </S.ScrollAbleContainer>
       </S.HiddenWrapper>
-      <form onSubmit={sendMessage}>
+      <S.FormFiled onSubmit={sendMessage}>
         <S.MessageTypingArea
           placeholder="메세지 작성"
           value={messageInputValue}
           onChange={handleOnChange}
           onKeyDown={handleSubmit}
         />
-        <BaseButton disabled={false} type="submit">
+        <S.SubmitButton disabled={false} type="submit">
           전송
-        </BaseButton>
-      </form>
+        </S.SubmitButton>
+      </S.FormFiled>
     </S.Container>
   );
 }

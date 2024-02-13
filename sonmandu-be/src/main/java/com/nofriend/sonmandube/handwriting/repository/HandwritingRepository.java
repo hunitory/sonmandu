@@ -42,4 +42,6 @@ public interface HandwritingRepository extends JpaRepository<Handwriting, Long>,
     Optional<Handwriting> findByHandwritingApplicationHandwritingApplicationIdAndIsSelected(Long handwritingApplicationId, boolean i);
 
     List<Handwriting> findAllByHandwritingApplicationMemberMemberIdAndIsSelected(Long memberId, boolean b);
+
+    List<Handwriting> findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(Long targetId, boolean b, int i);
 }

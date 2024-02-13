@@ -220,7 +220,7 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     public List<MyHandwritingResponse> getMyHandwritingList(Long memberId) {
-        List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberId(memberId);
+        List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberIdOrderByStateAsc(memberId);
         // 손글씨 별 좋아요 확인
         List<MyHandwritingResponse> myHandwritingResponses = new ArrayList<>();
         for (int i=0; i<handwritingApplicationList.size(); i++) {
@@ -243,7 +243,7 @@ public class HandwritingServiceImpl implements HandwritingService{
     @Override
     public List<OthersHandwritingResponse> getOthersHandwritingList(Long memberId, Long targetId) {
         // 타겟 회원의 손글씨 조회
-        List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelected(targetId, true);
+        List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(targetId, true, 4);
 
         // 손글씨 별 좋아요 확인
         if(memberId == null) { // 비회원

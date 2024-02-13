@@ -300,7 +300,7 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     public List<UnwrittenStoriesResponse> getUnwrittenStories(Long memberId) {
-        return handwritingRepository.findAllByHandwritingApplicationMemberMemberId(memberId)
+        return handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelected(memberId, true)
                 .stream()
                 .filter(handwriting -> !handwritingStoryRepository.existsById(handwriting.getHandwritingId()))
                 .map(handwriting -> {

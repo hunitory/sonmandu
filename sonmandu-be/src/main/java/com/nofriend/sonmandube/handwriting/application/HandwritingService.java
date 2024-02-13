@@ -36,4 +36,6 @@ public interface HandwritingService {
     List<SimpleHandwritingResponse> getPopularHandwritingList(Long memberId);
 
     List<UnwrittenStoriesResponse> getUnwrittenStories(Long memberId);
+
+    Boolean checkUniqueName(String value);
 }

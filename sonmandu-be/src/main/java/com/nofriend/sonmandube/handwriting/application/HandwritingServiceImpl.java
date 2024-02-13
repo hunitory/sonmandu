@@ -311,4 +311,8 @@ public class HandwritingServiceImpl implements HandwritingService{
                 }).toList();
     }
 
+    @Override
+    public Boolean checkUniqueName(String value) {
+        return !handwritingApplicationRepository.existsByName(value);
+    }
 }

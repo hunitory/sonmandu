@@ -127,4 +127,8 @@ public class HandwritingController {
         return ResponseEntity.ok(handwritingService.getUnwrittenStories(memberId));
     }
 
+    @GetMapping("/unique/name")
+    public ResponseEntity<Boolean> checkUniqueName(@RequestParam String value){
+        return ResponseEntity.ok(handwritingService.checkUniqueName(value));
+    }
 }

@@ -9,4 +9,6 @@ public interface HandwritingApplicationRepository extends JpaRepository<Handwrit
     List<HandwritingApplication> findAllByMemberMemberId(Long memberId);
 
     List<HandwritingApplication> findAllByMemberMemberIdOrderByStateAsc(Long memberId);
+
+    Boolean existsByName(String value);
 }

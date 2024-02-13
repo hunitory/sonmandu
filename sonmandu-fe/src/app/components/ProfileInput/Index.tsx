@@ -44,6 +44,11 @@ function EditContents({
 function ProfileInput({ isActive, activate, ...props }: ProfileInputProps) {
   const [isEdit, setIsEdit] = useState(false);
 
+  const [info, setInfo] = useState<string>(props.infoContent);
+  useEffect(() => {
+    setInfo(props.infoContent);
+  }, [props.infoContent]);
+
   const ref = useRef<HTMLInputElement>(null);
   const [memberInfo, setMemberInfo] = useState<string>(props.infoContent);
   const handleMemberInfoOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -67,13 +72,14 @@ function ProfileInput({ isActive, activate, ...props }: ProfileInputProps) {
 
   const { mutate: requestEditInfo } = useMutation({
     mutationKey: ['request-edit-info', props.labelName],
-    mutationFn: () => API.member.editNickname({ nickname: memberInfo }),
-    onError: () => console.log(props.labelName)
-  })
+    mutationFn: () => API.member.editMemberInfo({ labelName: props.labelName, info: memberInfo }),
+    onSuccess: () => setInfo(memberInfo),
+  });
   // setIsEdit(!isEdit)
   const handleEditButtonClick = () => {
     requestEditInfo();
-  }
+    setIsEdit(!isEdit);
+  };
 
   return (
     <Comp.BaseLabelWithInput.Label id={`member-info-${props.labelName}`} className={`member-info-${props.labelName}`}>
@@ -90,13 +96,7 @@ function ProfileInput({ isActive, activate, ...props }: ProfileInputProps) {
                 onChange={handleMemberInfoOnChange}
               />
               <EditContents {...props} />
-              <S.StyledButton
-                type={'button'}
-                onClick={
-                  handleEditButtonClick
-                }
-                disabled={false}
-              >
+              <S.StyledButton type={'button'} onClick={handleEditButtonClick} disabled={!memberInfo ? true : false}>
                 <span>저장하기</span>
               </S.StyledButton>
             </S.EditInputWrapper>
@@ -113,12 +113,12 @@ function ProfileInput({ isActive, activate, ...props }: ProfileInputProps) {
           </S.InfoInputWrapper>
         ) : (
           <S.InfoInputWrapper>
-            <S.InfoSpan>{props.infoContent}</S.InfoSpan>
+            <S.InfoSpan>{info}</S.InfoSpan>
             <S.EditLink>
               <span
                 onClick={() => {
                   if (isActive[props.labelName as keyof typeof isActive]) {
-                    setMemberInfo(props.infoContent)
+                    setMemberInfo(props.infoContent);
                     setIsEdit(!isEdit);
                     activate(nonActive);
                     activate((prev) => ({

@@ -61,7 +61,7 @@ export async function handwritingStoryComment({
   handwritingStoryId: number;
   content: string;
 }) {
-  return instanceJsonContent.post(`/handwritings/story/${handwritingStoryId}/comment`, {
+  return instanceJsonContent.post(`/handwritings/story/${handwritingStoryId}/comments`, {
     content: content,
   });
 }
@@ -91,7 +91,7 @@ export async function handwritingStoryCommentDelete({
 }
 
 export async function getHandwritingStory({ memberId }: { memberId: string }) {
-  return instanceJsonContent.get(`/handwritings/story/owner/${memberId}`)
+  return instanceJsonContent.get(`/handwritings/story/owner/${memberId}`);
 }
 
 export async function handwritingStoryUnwrittenFont() {

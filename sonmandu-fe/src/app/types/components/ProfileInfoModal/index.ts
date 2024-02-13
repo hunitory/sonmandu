@@ -1,3 +1,7 @@
+import { RefetchOptions } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
+import { QueryObserverResult } from 'react-query';
+
 export interface ProfileInfoModalProps {
   clickModal: () => void;
 }

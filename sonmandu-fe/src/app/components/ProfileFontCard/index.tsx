@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import * as S from './style';
 import ProductDate from './Subs/ProductDate';
 import Image from 'next/image';
@@ -6,14 +6,11 @@ import { BaseButton, BaseHashTags } from 'components';
 import { BaseButtonProps, ProfileFontCardProps } from 'types';
 import { useRouter } from 'next/navigation';
 
-function ProfileFontCard({
-  profileFontCardProps
-}: {
-  profileFontCardProps: ProfileFontCardProps;
-}) {
+function ProfileFontCard({ profileFontCardProps }: { profileFontCardProps: ProfileFontCardProps }) {
   const router = useRouter();
 
-  const { downloadCount, downloadUrl, handwritingId, hitCount, isLike, likeCount, name, createTime, tag } = profileFontCardProps;
+  const { downloadCount, downloadUrl, handwritingId, hitCount, isLike, likeCount, name, createDate, tag } =
+    profileFontCardProps;
 
   const BaseButtonProps: BaseButtonProps = {
     children: '다운로드 받기',
@@ -22,12 +19,14 @@ function ProfileFontCard({
     disabled: false,
   };
 
-  const index = Math.floor(Math.random() * 10)
+  const index = useMemo(() => {
+    return Math.floor(Math.random() * 10);
+  }, []);
 
   return (
     <S.ProfileFontCardWrapper>
       <S.UpperWrapper>
-        <ProductDate date={createTime} />
+        <ProductDate date={createDate} />
         <Image src={`/image/complete-${index}.png`} alt="#" width={148} height={137} />
       </S.UpperWrapper>
       <S.LowerWrapper>

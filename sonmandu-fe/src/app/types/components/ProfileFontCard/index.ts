@@ -6,7 +6,7 @@ export interface ProfileFontCardProps {
   isLike: boolean;
   likeCount: number;
   name: string;
-  createTime: string;
+  createDate: string;
   state?: number;
   tag: number[];
 }

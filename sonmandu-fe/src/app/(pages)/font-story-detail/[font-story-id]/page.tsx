@@ -322,20 +322,20 @@ export default function FontStoryDetailPage() {
                 {response?.data.commentList &&
                   response?.data.commentList.map((StoryComment: any, index: number) => {
                     return (
-                      <React.Fragment key={StoryComment.HandwritingStoryComment?.HandwritingStoryCommentId}>
+                      <React.Fragment key={StoryComment.HandwritingStoryComment.HandwritingStoryCommentId}>
                         <Comp.FontStoryComment
                           profileBoxProps={{
-                            imageUrl: StoryComment.Member?.imageUrl,
-                            nickname: StoryComment.Member?.nickname,
-                            badge: StoryComment.Member?.badge,
+                            imageUrl: StoryComment.Member.imageUrl,
+                            nickname: StoryComment.Member.nickname,
+                            badge: StoryComment.Member.badge,
                             imgSize: 'max(40px, 2.2vw)',
                             fontSize: 'max(14px, 0.8vw)',
                           }}
                           commentProps={{
                             handwritingStoryId: response?.data.handwritingStoryId,
-                            handwritingStoryCommentId: StoryComment.HandwritingStoryComment?.HandwritingStoryCommentId,
-                            content: StoryComment.HandwritingStoryComment?.content,
-                            createDate: StoryComment.HandwritingStoryComment?.createDate,
+                            handwritingStoryCommentId: StoryComment.HandwritingStoryComment.HandwritingStoryCommentId,
+                            content: StoryComment.HandwritingStoryComment.content,
+                            createDate: StoryComment.HandwritingStoryComment.createDate,
                           }}
                           // 현재 유저id === 댓글의 memberId
                           isMycomment={true}

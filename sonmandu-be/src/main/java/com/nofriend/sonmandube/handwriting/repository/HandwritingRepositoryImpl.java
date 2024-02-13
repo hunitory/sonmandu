@@ -90,9 +90,13 @@ public class HandwritingRepositoryImpl implements HandwritingRepositoryCustom {
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         orderSpecifiers.add(new OrderSpecifier(Order.DESC, QHandwriting.handwriting.handwritingId));
 =======
 >>>>>>> 26a1567 (fix: fix sort)
+=======
+        orderSpecifiers.add(new OrderSpecifier(Order.ASC, QHandwriting.handwriting.handwritingId));
+>>>>>>> 046f0ff (feat: change name to nickname)
         return orderSpecifiers.toArray(new OrderSpecifier[orderSpecifiers.size()]);
     }
 }

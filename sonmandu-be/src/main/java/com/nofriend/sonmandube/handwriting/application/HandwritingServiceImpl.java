@@ -128,6 +128,7 @@ public class HandwritingServiceImpl implements HandwritingService{
         List<Handwriting> handwritingList = handwritingRepository.findByDynamicConditions(start, count, condition);
         if(memberId == null) {
 <<<<<<< HEAD
+<<<<<<< HEAD
             for (Handwriting handwriting: handwritingList){
                 System.out.println(handwriting.toString());
             }
@@ -136,6 +137,11 @@ public class HandwritingServiceImpl implements HandwritingService{
 //                System.out.println(handwriting.toString());
 //            }
 >>>>>>> 26a1567 (fix: fix sort)
+=======
+            for (Handwriting handwriting: handwritingList){
+                System.out.println(handwriting.toString());
+            }
+>>>>>>> 046f0ff (feat: change name to nickname)
             return handwritingList.stream().map(handwriting -> SimpleHandwritingResponse.from(handwriting, false)).toList();
         }
 

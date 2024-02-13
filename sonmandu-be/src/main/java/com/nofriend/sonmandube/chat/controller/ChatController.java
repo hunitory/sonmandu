@@ -179,6 +179,7 @@ public class ChatController {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         System.out.println(newChat.toString());
         chatRepository.save(newChat);
 <<<<<<< HEAD
@@ -189,6 +190,11 @@ public class ChatController {
         chatRepository.save(newChat);
 >>>>>>> 927096d (feat: change dateTime)
 =======
+=======
+        System.out.println(newChat.toString());
+        chatRepository.save(newChat);
+        System.out.println(newChat.toString());
+>>>>>>> 41dfe4d (test: unique name handwriting)
 
 <<<<<<< HEAD
 >>>>>>> 25c114c (test: chatting principal)

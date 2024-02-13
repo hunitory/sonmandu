@@ -65,7 +65,7 @@ public class ChatController {
     @GetMapping("/chat")
     @ResponseBody
     public List<ChatProjection> getChat(){
-        return chatRepository.findTop20ByOrderByChatIdDesc();
+        return chatRepository.findTop10ByOrderByChatIdDesc();
     }
 
 }

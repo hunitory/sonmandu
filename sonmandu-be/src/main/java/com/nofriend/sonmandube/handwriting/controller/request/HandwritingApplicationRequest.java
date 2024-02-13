@@ -21,6 +21,7 @@ public class HandwritingApplicationRequest {
                 .name(name)
                 .imageUrl(imageUrl)
                 .member(member)
+                .state(2)
                 .build();
     }
 }

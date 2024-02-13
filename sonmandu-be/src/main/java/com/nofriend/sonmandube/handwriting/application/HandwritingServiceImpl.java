@@ -78,7 +78,7 @@ public class HandwritingServiceImpl implements HandwritingService{
                 .downloadUrl(fileDto.getUrl())
                 .handwritingApplication(
                         HandwritingApplication.builder()
-                                .handwritingApplicationId(1L) // 일단 1번으로
+                                .handwritingApplicationId(4L) // 일단 1번으로
                                 .build()
                 )
                 .build();

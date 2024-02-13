@@ -1,26 +1,19 @@
 'use client';
 
-import React, { MouseEvent, useState } from 'react';
+import React, { useState } from 'react';
 import * as S from './style';
+import * as T from '@/types';
 import * as API from '@/apis';
+import * as Comp from '@/components';
 import { useQuery } from '@tanstack/react-query';
 
 export default function ChattingSideBar() {
-  const [fontListViews, setFontListViews] = useState({ ranking: false, owner: false });
+  const [fontListViews, setFontListViews] = useState({ ranking: true, owner: true });
   const { data: rankingFontResponse, isFetching } = useQuery({
     queryKey: ['ranking-font'],
     queryFn: () => API.handwriting.rankingFont(),
-    retry: 1,
+    refetchInterval: false,
   });
-
-  const handleListIsOpen = (e: MouseEvent<HTMLDivElement>) => {
-    setFontListViews((prev) => {
-      if (e.currentTarget.id === 'ranking') {
-        return { ...prev, ranking: !prev.ranking };
-      }
-      return { ...prev, owner: !prev.owner };
-    });
-  };
 
   return (
     <S.SideBarWrapper>
@@ -29,12 +22,24 @@ export default function ChattingSideBar() {
         $isOpen={fontListViews.ranking}
         onClick={() => setFontListViews((prev) => ({ ...prev, ranking: !prev.ranking }))}
       >
-        <p>인기 손글씨들</p>
+        <p className="toggle-opener">인기 손글씨들</p>
         <S.FontsContainer>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
+          <S.HrTitle>
+            <span>이번 달</span>
+          </S.HrTitle>
+          {rankingFontResponse?.data.thisMonthHandwriting.map((res: T.FontCard, i: number) => (
+            <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
+              <Comp.BaseFontCard {...res} letter={{ isShow: false, idx: 0 }} />
+            </S.FontCardWrapper>
+          ))}
+          <S.HrTitle>
+            <span>이번 주</span>
+          </S.HrTitle>
+          {rankingFontResponse?.data.thisWeekHandwriting.map((res: T.FontCard, i: number) => (
+            <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
+              <Comp.BaseFontCard {...res} letter={{ isShow: false, idx: 0 }} />
+            </S.FontCardWrapper>
+          ))}
         </S.FontsContainer>
       </S.FontListOpener>
       <S.FontListOpener
@@ -42,11 +47,13 @@ export default function ChattingSideBar() {
         $isOpen={fontListViews.owner}
         onClick={() => setFontListViews((prev) => ({ ...prev, owner: !prev.owner }))}
       >
-        <p>내 손글씨들</p>
+        <p className="toggle-opener">내 손글씨들</p>
         <S.FontsContainer>
-          <div></div>
-          <div></div>
-          <div></div>
+          {rankingFontResponse?.data.thisWeekHandwriting.map((res: T.FontCard, i: number) => (
+            <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
+              <Comp.BaseFontCard {...res} letter={{ isShow: false, idx: 0 }} />
+            </S.FontCardWrapper>
+          ))}
         </S.FontsContainer>
       </S.FontListOpener>
     </S.SideBarWrapper>

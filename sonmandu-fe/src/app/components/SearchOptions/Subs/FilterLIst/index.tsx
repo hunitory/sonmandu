@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import * as S from './style';
-import { BaseHashTags } from 'components';
 import { WHOLE_HASH_TAGES } from '@/constants';
+import { useSearchParams } from 'next/navigation';
+import { useDebouncing } from 'customhook';
 
 interface CreateQueryStringArgs {
   name: 'sort' | 'tagId' | 'name';
-  value: string;
-}
-
-interface Options {
-  sort: string;
-  tagId: string[];
+  value: string | string[];
 }
 
 interface FilterListProps {
@@ -19,19 +17,28 @@ interface FilterListProps {
 }
 
 export default function FilterList({ className, createQueryString }: FilterListProps) {
-  const [options, setOptions] = useState<Options>({ sort: '', tagId: [] });
+  let timer: NodeJS.Timeout;
+  const searchParams = useSearchParams();
+  const [options, setOptions] = useState<string[]>(
+    !!searchParams.get('tagId') ? (searchParams.get('tagId')?.split(',') as string[]) : [],
+  );
 
   const handleOptionsClick = ({ name, value }: CreateQueryStringArgs) => {
-    createQueryString({ name: name, value: value });
-    setOptions((prev) => {
-      if (name === 'tagId') {
-        return prev.tagId.includes(value)
-          ? { ...prev, tagId: prev.tagId.filter((tag) => tag !== value) }
-          : { ...prev, tagId: [...prev.tagId, value] };
+    if (name === 'sort') createQueryString({ name: name, value: value });
+    else if (name === 'tagId') {
+      if (options.includes(value as string)) {
+        setOptions((prev) => prev.filter((tag) => tag !== value));
+      } else {
+        setOptions((prev) => [...prev, value as string]);
       }
-      return { ...prev, sort: value };
-    });
+    }
   };
+
+  useDebouncing({
+    value: options,
+    callback: () => createQueryString({ name: 'tagId', value: options }),
+    delay: 1000,
+  });
 
   return (
     <S.FilterListsWrapper className={className}>
@@ -41,7 +48,7 @@ export default function FilterList({ className, createQueryString }: FilterListP
           type="button"
           disabled={false}
           key={option.value}
-          selected={options.sort === option.value}
+          selected={searchParams.get('sort') === option.value}
           onClick={() => handleOptionsClick({ name: 'sort', value: option.value })}
         >
           {option.text}
@@ -53,7 +60,7 @@ export default function FilterList({ className, createQueryString }: FilterListP
           type="button"
           disabled={false}
           key={hashTag.id}
-          selected={options.tagId.includes(String(hashTag.id))}
+          selected={options.includes(String(hashTag.id)) || false}
           onClick={() => handleOptionsClick({ name: 'tagId', value: String(hashTag.id) })}
         >
           {hashTag.text}

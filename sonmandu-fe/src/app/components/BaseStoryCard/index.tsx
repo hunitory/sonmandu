@@ -1,25 +1,11 @@
 import React, { useState } from 'react';
 import * as S from './style';
 import * as API from '@/apis';
+import * as T from '@/types';
 import Image from 'next/image';
 import { useMutation } from '@tanstack/react-query';
 
-interface BaseStoryCardProps {
-  handwritingStoryId: number;
-  title: string;
-  name: string;
-  thumbnail: string;
-  hitCount: number;
-  likeCount: number;
-  member: {
-    memberId: number;
-    name: string;
-    imageUrl: string | null;
-  };
-  isLike: boolean;
-}
-
-function BaseStoryCard(props: BaseStoryCardProps) {
+function BaseStoryCard(props: T.BaseStoryCard) {
   const { handwritingStoryId, title, name, thumbnail, hitCount, likeCount, member, isLike } = props;
   const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
   const { mutate: requestLikeClick, data: resLikeClick } = useMutation({

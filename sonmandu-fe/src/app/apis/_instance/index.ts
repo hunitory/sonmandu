@@ -35,7 +35,6 @@ const customInstance = (contentType: string) => {
             },
           );
           localStorage.setItem('access_token', newAccessToken.token);
-
           originRequest.headers['Authorization'] = `Bearer ${newAccessToken.token}`;
           originRequest.headers['Content-Type'] = contentType;
 

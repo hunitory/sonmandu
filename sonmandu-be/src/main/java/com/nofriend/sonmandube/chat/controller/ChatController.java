@@ -103,6 +103,7 @@ public class ChatController {
                 member.getNickname(),
                 member.isBadge(),
                 member.getImageUrl(),
+<<<<<<< HEAD
 =======
     private final JwtProvider jwtProvider;
 
@@ -160,6 +161,8 @@ public class ChatController {
                 member.getNickname(),
                 member.isBadge(),
 >>>>>>> 5ea57fa (feat: add chat member)
+=======
+>>>>>>> dd08f31 (feat: add member image url in chat)
                 chatRequest.getHandwritingId(),
 <<<<<<< HEAD
 "1","!'",

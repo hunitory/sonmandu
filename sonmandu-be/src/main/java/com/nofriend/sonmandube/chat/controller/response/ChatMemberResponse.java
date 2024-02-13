@@ -12,9 +12,12 @@ public class ChatMemberResponse {
 <<<<<<< HEAD
     private boolean badge;
     private String imageUrl;
+<<<<<<< HEAD
 =======
 >>>>>>> 9809c16 (feat: chatting)
 =======
     private boolean badge;
 >>>>>>> 5ea57fa (feat: add chat member)
+=======
+>>>>>>> dd08f31 (feat: add member image url in chat)
 }

@@ -42,6 +42,7 @@ public class ChatRequest {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Chat toEntity(Long memberId,String memberNickname,boolean memberBadge, String imageUrl, Long handwritingId,  String handwritingName, String handwritingDownloadUrl, String message) {
 =======
     public Chat toEntity(Long memberId,String memberNickname, Long handwritingId, String handwritingName, String handwritingDownloadUrl, String message) {
@@ -49,6 +50,9 @@ public class ChatRequest {
 =======
     public Chat toEntity(Long memberId,String memberNickname,boolean memberBadge, Long handwritingId,  String handwritingName, String handwritingDownloadUrl, String message) {
 >>>>>>> 5ea57fa (feat: add chat member)
+=======
+    public Chat toEntity(Long memberId,String memberNickname,boolean memberBadge, String imageUrl, Long handwritingId,  String handwritingName, String handwritingDownloadUrl, String message) {
+>>>>>>> dd08f31 (feat: add member image url in chat)
         return Chat.builder()
                 .member(
                         Member.builder()
@@ -58,11 +62,14 @@ public class ChatRequest {
 <<<<<<< HEAD
                                 .isBadge(memberBadge)
                                 .imageUrl(imageUrl)
+<<<<<<< HEAD
 =======
 >>>>>>> 723abc5 (feat: add spring security chatting)
 =======
                                 .isBadge(memberBadge)
 >>>>>>> 5ea57fa (feat: add chat member)
+=======
+>>>>>>> dd08f31 (feat: add member image url in chat)
                                 .build()
                 )
                 .handwriting(

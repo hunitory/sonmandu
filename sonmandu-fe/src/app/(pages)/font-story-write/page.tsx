@@ -9,34 +9,18 @@ import { useQuery } from '@tanstack/react-query';
 import { instanceMultipartContent } from 'apis/_instance';
 
 interface MyFont {
-  handwritingId: number,
-  name: string,
-  state: number,
-  downloadUrl: string,
-  hitCount: number,
-  likeCount: number,
-  downloadCount: number,
-  tag: number[],
-  isLike: boolean
+  handwritingId: number;
+  name: string;
+  state: number;
+  downloadUrl: string;
+  hitCount: number;
+  likeCount: number;
+  downloadCount: number;
+  tag: number[];
+  isLike: boolean;
 }
 
 export default function FontStoryWritePage() {
-  // 현재 유저가 제작은 했지만 이야기는 쓰지 않은 손글씨 정보를 받아야함
-  const { memberId, unusedHandwritings } = {
-    memberId: 1,
-    unusedHandwritings: [
-      {
-        handwritingId: 3,
-        name: '손만두체',
-      },
-      {
-        handwritingId: 2,
-        name: '손만두체2',
-      },
-    ],
-  };
-
-
   const ref = useRef<HTMLInputElement>(null);
   const [title, setTitle] = useState<string>('');
   const handleTitleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,22 +35,9 @@ export default function FontStoryWritePage() {
 
   const [handwriting, setHandwriting] = useState<number | null>(null);
 
-  const [completedFonts, setCompletedFonts] = useState<number[]>([])
-  
+  const [completedFonts, setCompletedFonts] = useState<MyFont[]>([]);
+
   const [selectedFile, setSelectedFile] = useState<File>();
-
-  //썸네일 부분
-  const [currentStep, setCurrentStep] = useState(1);
-
-  const OnHandleNext = () => {
-    setCurrentStep(currentStep + 1);
-  };
-
-  const OnhandleBack = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
 
   //태그 캐로셀 부분
 
@@ -88,28 +59,26 @@ export default function FontStoryWritePage() {
     setSelectedFile(file);
   };
 
-    // 만든 폰트 목록 조회 ( 이야기가 안쓰인 것만 뽑기 )
-    const { data: fontRes, isFetching: isFontFetching } = useQuery({
-      queryKey: ['my-font'],
-      queryFn: () => API.handwriting.getMyHandwriting()
-    });
-    
-    useEffect(() => {
-      if (fontRes) {
-        setCompletedFonts(fontRes?.data.filter((font : MyFont) => font.state === 4))
-      }
-    }, [fontRes]);
-    
+  // 만든 폰트 목록 조회 ( 이야기가 안쓰인 것만 뽑기 )
+  const { data: fontRes, isFetching: isFontFetching } = useQuery({
+    queryKey: ['my-font'],
+    queryFn: () => API.handwriting.getMyHandwriting(),
+  });
+
+  useEffect(() => {
+    if (fontRes) {
+      setCompletedFonts(fontRes?.data.filter((font: MyFont) => font.state === 4));
+    }
+  }, [fontRes]);
+
   const PostStory = () => {
     const data = {
-      /* 나중에 자기 폰트 id 받을 수 있게 연결하면 됨(post db 저장까지 완료)*/
-      handwritingId: completedFonts[currentIndex],
+      handwritingId: handwriting,
       title: title,
       content: content,
     };
 
     const apiUrl = '/handwritings/story';
-
     const formData = new FormData();
     const jsonApplicationData = JSON.stringify(data);
     const StoryData = new Blob([jsonApplicationData], { type: 'application/json' });
@@ -156,45 +125,26 @@ export default function FontStoryWritePage() {
                       <Image src={'/image/nexticon.png'} alt="back" width={14} height={14} />
                     </div>
                   </S.CarouselBackButtonWrapper>
-                  {/* {unusedHandwritings.map((unusedHandwriting, index) => {
+                  {completedFonts.map((font: MyFont, index: number) => {
                     return (
                       <S.TagButton
-                        key={unusedHandwriting.handwritingId}
+                        key={font.handwritingId}
                         type="button"
                         onClick={() => {
-                          if (handwriting === unusedHandwriting.handwritingId) {
+                          if (handwriting === font.handwritingId) {
+                            console.log(font.handwritingId)
                             setHandwriting(null);
                           } else {
-                            setHandwriting(unusedHandwriting.handwritingId);
+                            setHandwriting(font.handwritingId);
+                            console.log(font.handwritingId)
                           }
                         }}
                         disabled={false}
-                        className={[handwriting === unusedHandwriting.handwritingId].toString()}
+                        className={[handwriting === font.handwritingId].toString()}
                         currentIndex={currentIndex}
                         index={index}
                       >
-                        {unusedHandwriting.name}
-                      </S.TagButton>
-                    );
-                  })} */}
-                  {completedFonts.map((handwritingId, name, state) => {
-                    return (
-                      <S.TagButton
-                        key={handwritingId}
-                        type="button"
-                        onClick={() => {
-                          if (handwriting === handwritingId) {
-                            setHandwriting(null);
-                          } else {
-                            setHandwriting(handwritingId);
-                          }
-                        }}
-                        disabled={false}
-                        className={[handwriting === handwritingId].toString()}
-                        currentIndex={currentIndex}
-                        index={handwritingId}
-                      >
-                        {name}
+                        {font.name}
                       </S.TagButton>
                     );
                   })}

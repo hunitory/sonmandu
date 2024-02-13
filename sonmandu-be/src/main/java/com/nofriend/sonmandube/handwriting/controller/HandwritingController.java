@@ -48,6 +48,7 @@ public class HandwritingController {
     // TODO : 테스트용 폰트 저장 API
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/save")
+<<<<<<< HEAD
     public ResponseEntity<Void> saveFont(//@RequestPart(name = "name") String name,
                                          @RequestPart(name = "handwritingApplicationId") String handwritingApplicationId,
                                          @RequestPart(name = "font") MultipartFile font) {
@@ -56,6 +57,13 @@ public class HandwritingController {
 <<<<<<< HEAD
 <<<<<<< HEAD
         handwritingService.saveFont(Long.parseLong(handwritingApplicationId), font);
+=======
+    public ResponseEntity<Void> saveFont(@RequestPart(name = "name") String name,
+                                         @RequestPart(name = "handwritingApplicationId") String handwritingApplicationId,
+                                         @RequestPart(name = "font") MultipartFile font) {
+        log.info("/handwritings/save");
+        handwritingService.saveFont(name, Long.parseLong(handwritingApplicationId), font);
+>>>>>>> 057e098 (fix: change state)
         return ResponseEntity.noContent().build();
 =======
         handwritingService.saveFont(name, font);

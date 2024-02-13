@@ -72,7 +72,11 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     @Transactional
+<<<<<<< HEAD
     public void saveFont(Long handwritingApplicationId, MultipartFile font) {
+=======
+    public void saveFont(String name, Long handwritingApplicationId, MultipartFile font) {
+>>>>>>> 057e098 (fix: change state)
         // 폰트 파일 저장
 
 <<<<<<< HEAD
@@ -96,6 +100,7 @@ public class HandwritingServiceImpl implements HandwritingService{
                 .handwritingApplication(
                         HandwritingApplication.builder()
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 .handwritingApplicationId(handwritingApplicationId)
 =======
                 .handwritingApplication(
@@ -109,6 +114,10 @@ public class HandwritingServiceImpl implements HandwritingService{
 =======
                                 .handwritingApplicationId(4L) // 일단 1번으로
 >>>>>>> 1509951 (feat: setup table)
+=======
+                                .handwritingApplicationId(handwritingApplicationId) // 일단 1번으로
+                                .state(4)
+>>>>>>> 057e098 (fix: change state)
                                 .build()
                 )
                 .build();

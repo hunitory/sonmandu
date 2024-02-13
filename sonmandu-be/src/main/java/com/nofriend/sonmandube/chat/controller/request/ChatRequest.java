@@ -41,20 +41,28 @@ public class ChatRequest {
     private String message;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Chat toEntity(Long memberId,String memberNickname,boolean memberBadge, String imageUrl, Long handwritingId,  String handwritingName, String handwritingDownloadUrl, String message) {
 =======
     public Chat toEntity(Long memberId,String memberNickname, Long handwritingId, String handwritingName, String handwritingDownloadUrl, String message) {
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+    public Chat toEntity(Long memberId,String memberNickname,boolean memberBadge, Long handwritingId,  String handwritingName, String handwritingDownloadUrl, String message) {
+>>>>>>> 5ea57fa (feat: add chat member)
         return Chat.builder()
                 .member(
                         Member.builder()
                                 .memberId(memberId)
                                 .nickname(memberNickname)
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 .isBadge(memberBadge)
                                 .imageUrl(imageUrl)
 =======
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+                                .isBadge(memberBadge)
+>>>>>>> 5ea57fa (feat: add chat member)
                                 .build()
                 )
                 .handwriting(

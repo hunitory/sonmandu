@@ -9,8 +9,12 @@ public class ChatMemberResponse {
     private Long memberId;
     private String nickname;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private boolean badge;
     private String imageUrl;
 =======
 >>>>>>> 9809c16 (feat: chatting)
+=======
+    private boolean badge;
+>>>>>>> 5ea57fa (feat: add chat member)
 }

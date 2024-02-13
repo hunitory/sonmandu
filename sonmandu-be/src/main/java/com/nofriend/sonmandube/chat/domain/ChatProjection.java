@@ -12,12 +12,17 @@ public interface ChatProjection {
         Long getMemberId();
         String getNickname();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         boolean isBadge();
 
         String getImageUrl();
 =======
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+
+        boolean isBadge();
+>>>>>>> 5ea57fa (feat: add chat member)
     }
 
 

@@ -10,6 +10,7 @@ import com.nofriend.sonmandube.chat.domain.Chat;
 import com.nofriend.sonmandube.chat.domain.ChatProjection;
 import com.nofriend.sonmandube.chat.repository.ChatRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.nofriend.sonmandube.exception.IdNotFoundException;
 <<<<<<< HEAD
 =======
@@ -21,9 +22,13 @@ import com.nofriend.sonmandube.chat.repository.ChatRepository;
 >>>>>>> e3c4175 (test: chatting principal)
 =======
 >>>>>>> 9809c16 (feat: chatting)
+=======
+import com.nofriend.sonmandube.exception.IdNotFoundException;
+>>>>>>> 5ea57fa (feat: add chat member)
 import com.nofriend.sonmandube.handwriting.domain.HandwritingNameDownloadUrlProjection;
 import com.nofriend.sonmandube.handwriting.repository.HandwritingRepository;
 import com.nofriend.sonmandube.jwt.JwtProvider;
+import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.member.repository.MemberRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -58,6 +63,7 @@ import java.security.Principal;
 import java.util.List;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.util.Optional;
 =======
 import java.util.List;
@@ -67,6 +73,9 @@ import java.util.Objects;
 >>>>>>> e68a7a3 (fix: chatting principal)
 =======
 >>>>>>> 03bb9db (test: chatting principal)
+=======
+import java.util.Optional;
+>>>>>>> 5ea57fa (feat: add chat member)
 
 @Controller
 @RequiredArgsConstructor
@@ -85,6 +94,7 @@ public class ChatController {
 
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IdNotFoundException("해당하는 회원이 없습니다."));
+<<<<<<< HEAD
 
         HandwritingNameDownloadUrlProjection handwritingNameDownloadUrlProjection = handwritingRepository.findNameDownloadUrlByHandwritingId(chatRequest.getHandwritingId());
 
@@ -136,13 +146,20 @@ public class ChatController {
 
 >>>>>>> 9809c16 (feat: chatting)
         String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
+=======
+>>>>>>> 5ea57fa (feat: add chat member)
 
         HandwritingNameDownloadUrlProjection handwritingNameDownloadUrlProjection = handwritingRepository.findNameDownloadUrlByHandwritingId(chatRequest.getHandwritingId());
 
         Chat newChat = chatRequest.toEntity(
                 memberId,
+<<<<<<< HEAD
                 memberNickname,
 >>>>>>> 723abc5 (feat: add spring security chatting)
+=======
+                member.getNickname(),
+                member.isBadge(),
+>>>>>>> 5ea57fa (feat: add chat member)
                 chatRequest.getHandwritingId(),
 <<<<<<< HEAD
 "1","!'",

@@ -130,10 +130,14 @@ public class Chat implements ChatProjection{
                                 .memberId(this.member.getMemberId())
                                 .nickname(this.member.getNickname())
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 .badge(this.member.isBadge())
                                 .imageUrl(this.member.getImageUrl())
 =======
 >>>>>>> 9809c16 (feat: chatting)
+=======
+                                .badge(this.member.isBadge())
+>>>>>>> 5ea57fa (feat: add chat member)
                                 .build()
                 )
                 .chatHandwritingResponse(

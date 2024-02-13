@@ -93,6 +93,11 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
       setIsLoggedIn(true);
     }
   }, []);
+
+  useEffect(()=>{
+    console.log(response?.data)
+  })
+
   return (
     <Styled.MainWrapper>
       <Styled.MainBanner>

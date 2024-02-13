@@ -69,7 +69,6 @@ export default function StorySection({ searchParams }: StorySectionProps) {
 
   useEffect(() => {
     setCurrentItemCount((prev) => prev + response?.data.length);
-    console.log(response?.data);
   }, [response]);
 
   return (

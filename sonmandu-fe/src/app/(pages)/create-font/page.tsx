@@ -9,8 +9,8 @@ import { useEffect, useState } from 'react';
 export default function CreateFontPage() {
   const router = useRouter();
 
-  const token = !!localStorage.getItem('access_token');
   useEffect(() => {
+    const token = !!localStorage.getItem('access_token');
     if (!token) {
       alert('로그인이 필요합니다.')
       router.push('/')

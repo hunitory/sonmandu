@@ -13,8 +13,8 @@ export default function FontFileUpload() {
   const [uploadedFiles, setUploadedFiles] = useRecoilState(uploadedFilesState);
   const [isDragging, setIsDragging] = useState(false);
 
-  const token = !!localStorage.getItem('access_token');
   useEffect(() => {
+    const token = !!localStorage.getItem('access_token');
     if (!token) {
       alert('로그인이 필요합니다.')
       router.push('/')

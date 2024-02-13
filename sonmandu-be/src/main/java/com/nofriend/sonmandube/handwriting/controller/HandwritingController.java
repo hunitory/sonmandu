@@ -129,7 +129,6 @@ public class HandwritingController {
 
     @GetMapping("/unique/name")
     public ResponseEntity<Boolean> checkUniqueName(@RequestParam String value){
-        log.info(value);
         return ResponseEntity.ok(handwritingService.checkUniqueName(value));
     }
 }

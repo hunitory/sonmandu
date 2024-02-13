@@ -24,11 +24,11 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        log.info("------------------------------");
-        log.info("Request start");
+//        log.info("------------------------------");
+//        log.info("Request start");
         String accessToken = resolveToken(request);
 
-        log.info(String.valueOf(accessToken == "null" ? "null" : jwtProvider.validateToken(accessToken)));
+//        log.info(String.valueOf(accessToken == "null" ? "null" : jwtProvider.validateToken(accessToken)));
 
         if(accessToken.equals("null")){
             filterChain.doFilter(request, response);

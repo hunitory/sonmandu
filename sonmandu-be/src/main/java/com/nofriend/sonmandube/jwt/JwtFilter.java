@@ -49,16 +49,23 @@ public class JwtFilter extends OncePerRequestFilter {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 51b8027 (refactor: delete log)
 //        log.info("------------------------------");
 //        log.info("Request start");
         String accessToken = resolveToken(request);
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //        log.info(String.valueOf(accessToken == "null" ? "null" : jwtProvider.validateToken(accessToken)));
 =======
         log.info(String.valueOf(accessToken == "null" ? "null" : jwtProvider.validateToken(accessToken)));
 >>>>>>> 7587597 (fix: spring security websocket)
+=======
+//        log.info(String.valueOf(accessToken == "null" ? "null" : jwtProvider.validateToken(accessToken)));
+>>>>>>> 51b8027 (refactor: delete log)
 
         if(accessToken.equals("null")){
             filterChain.doFilter(request, response);

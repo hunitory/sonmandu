@@ -66,6 +66,7 @@ public class StompHandler implements ChannelInterceptor {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 //        log.info("================================");
 //        log.info("start StompHandler");
 
@@ -150,10 +151,14 @@ public class StompHandler implements ChannelInterceptor {
 =======
         log.info("================================");
         log.info("start StompHandler");
+=======
+//        log.info("================================");
+//        log.info("start StompHandler");
+>>>>>>> 51b8027 (refactor: delete log)
 
         StompHeaderAccessor accessor = MessageHeaderAccessor.getAccessor(message, StompHeaderAccessor.class);
 
-        log.info(String.valueOf(accessor.getCommand()));
+//        log.info(String.valueOf(accessor.getCommand()));
 
         String rawToken = Objects.requireNonNull(accessor).getFirstNativeHeader("Authorization");
 
@@ -168,11 +173,11 @@ public class StompHandler implements ChannelInterceptor {
             accessor.setUser(authentication);
             return message;
         }else if(accessor.getUser() != null){
-            log.info(String.valueOf(accessor.getUser()));
-            log.info("success StompHandler");
+//            log.info(String.valueOf(accessor.getUser()));
+//            log.info("success StompHandler");
             return message;
         }else{
-            log.info("failure stomp");
+//            log.info("failure stomp");
             throw new MessageDeliveryException("토큰을 확인하십시오.");
         }
 >>>>>>> 5f2246a (feat: update jwt information)

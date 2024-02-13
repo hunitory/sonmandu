@@ -57,3 +57,11 @@ export async function fontDownload({ fontId }: { fontId: string }) {
 export async function rankingFont() {
   return instanceJsonContent.get(`/handwritings/ranking`);
 }
+
+export async function getMyHandwriting() {
+  return instanceJsonContent.get('/handwritings/owner');
+}
+
+export async function getProfileHandwriting({ memberId }: { memberId: string }) {
+  return instanceJsonContent.get(`/handwritings/owner/${memberId}`)
+}

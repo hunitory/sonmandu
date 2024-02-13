@@ -1,155 +1,205 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
-import { ProfileBoxProps, Handwriting } from 'types';
+import { ProfileBoxProps, ProfileFontCardProps, ProfileStoryCardProps } from 'types';
 import { useParams, useRouter } from 'next/navigation';
 import * as API from '@/apis';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
 
-const { member, handwritings, handwritingStories } = {
-  member: {
-    memberId: 1,
-    nickname: '김싸피와열두글자아이디이',
-    imageUrl: '/image/sample.jpg',
-    badge: true,
-    introduction:
-      '안녕하세요. 캘리그라피스트를 꿈꾸는 사람입니다.\n글씨를 잘 쓰는 편입니다. 제 폰트가 마음에 드신다면 마음껏 써주시길 바랍니다.\n언제나 좋은 하루 되세요.',
-    trophy: [
-      {
-        weight: 1,
-        createDate: '2024.10',
-      },
-      {
-        weight: 3,
-        createDate: '2024.8',
-      },
-    ],
-  },
-  handwritings: [
-    {
-      handwritingId: 1,
-      name: '손만두체',
-      state: 3, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
-      likeCount: 15,
-      downloadCount: 44,
-      downloadUrl: 'http://son.com',
-      tags: [1, 2, 6],
-      createDate: '23.09.12',
-    },
-    {
-      handwritingId: 2,
-      name: '손만두체2',
-      state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
-      likeCount: 11,
-      downloadCount: 434,
-      downloadUrl: 'http://son1.com',
-      tags: [1, 2, 10],
-      createDate: '23.07.16',
-    },
-    {
-      handwritingId: 2,
-      name: '손만두체2',
-      state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
-      likeCount: 11,
-      downloadCount: 434,
-      downloadUrl: 'http://son1.com',
-      tags: [1, 2, 10],
-      createDate: '23.07.16',
-    },
-    {
-      handwritingId: 2,
-      name: '손만두체2',
-      state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
-      likeCount: 11,
-      downloadCount: 434,
-      downloadUrl: 'http://son1.com',
-      tags: [1, 2, 10],
-      createDate: '23.07.16',
-    },
-    {
-      handwritingId: 2,
-      name: '손만두체2',
-      state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
-      likeCount: 11,
-      downloadCount: 434,
-      downloadUrl: 'http://son1.com',
-      tags: [1, 2, 10],
-      createDate: '23.07.16',
-    },
-  ],
-  handwritingStories: [
-    {
-      handwritingStoryId: 12,
-      title: '추억이 담긴 이야기',
-      content: '이런저런 얘기',
-      thumbnail: 'http:dqw.com',
-      isLike: true,
-      likeCount: 11,
-    },
-    {
-      handwritingStoryId: 10,
-      title: '추억이 담긴 이야기22',
-      content: '이런저런 얘기22',
-      thumbnail: 'http:dqw22.com',
-      isLike: false,
-      likeCount: 13,
-    },
-  ],
-};
+// const { member, handwritings, handwritingStories } = {
+//   member: {
+//     memberId: 1,
+//     nickname: '김싸피와열두글자아이디이',
+//     imageUrl: '/image/sample.jpg',
+//     badge: true,
+//     introduction:
+//       '안녕하세요. 캘리그라피스트를 꿈꾸는 사람입니다.\n글씨를 잘 쓰는 편입니다. 제 폰트가 마음에 드신다면 마음껏 써주시길 바랍니다.\n언제나 좋은 하루 되세요.',
+//     trophy: [
+//       {
+//         weight: 1,
+//         createDate: '2024.10',
+//       },
+//       {
+//         weight: 3,
+//         createDate: '2024.8',
+//       },
+//     ],
+//   },
+//   handwritings: [
+//     {
+//       handwritingId: 1,
+//       name: '손만두체',
+//       state: 3, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+//       likeCount: 15,
+//       downloadCount: 44,
+//       downloadUrl: 'http://son.com',
+//       tags: [1, 2, 6],
+//       createDate: '23.09.12',
+//     },
+//     {
+//       handwritingId: 2,
+//       name: '손만두체2',
+//       state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+//       likeCount: 11,
+//       downloadCount: 434,
+//       downloadUrl: 'http://son1.com',
+//       tags: [1, 2, 10],
+//       createDate: '23.07.16',
+//     },
+//     {
+//       handwritingId: 2,
+//       name: '손만두체2',
+//       state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+//       likeCount: 11,
+//       downloadCount: 434,
+//       downloadUrl: 'http://son1.com',
+//       tags: [1, 2, 10],
+//       createDate: '23.07.16',
+//     },
+//     {
+//       handwritingId: 2,
+//       name: '손만두체2',
+//       state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+//       likeCount: 11,
+//       downloadCount: 434,
+//       downloadUrl: 'http://son1.com',
+//       tags: [1, 2, 10],
+//       createDate: '23.07.16',
+//     },
+//     {
+//       handwritingId: 2,
+//       name: '손만두체2',
+//       state: 4, // 1~5까지 가능, 4가 완료 5는 첫 번째 다운로드 후
+//       likeCount: 11,
+//       downloadCount: 434,
+//       downloadUrl: 'http://son1.com',
+//       tags: [1, 2, 10],
+//       createDate: '23.07.16',
+//     },
+//   ],
+//   handwritingStories: [
+//     {
+//       handwritingStoryId: 12,
+//       title: '추억이 담긴 이야기',
+//       content: '이런저런 얘기',
+//       thumbnail: 'http:dqw.com',
+//       isLike: true,
+//       likeCount: 11,
+//     },
+//     {
+//       handwritingStoryId: 10,
+//       title: '추억이 담긴 이야기22',
+//       content: '이런저런 얘기22',
+//       thumbnail: 'http:dqw22.com',
+//       isLike: false,
+//       likeCount: 13,
+//     },
+//   ],
+// };
 
 export default function ProfilePage() {
-  // 정보 요청
+
+  const isMypage: boolean = true; // isMypage 판별하는 식 추가해야함!!
+
+  // 회원 정보 요청
   const params = useParams();
   const queryKey = ['profile', params['member-id']];
-  const { data: response, isFetching: isProfileFetching } = useQuery({
+  const { data: memberRes, isFetching: isProfileFetching } = useQuery({
     queryKey: queryKey,
     queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string }),
   });
 
   useEffect(() => {
-    console.log(response);
-  }, [response]);
+    console.log(memberRes);
+  }, [memberRes]);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const info = await API.member.getProfileMember(3);
-  //       console.log(info);
-  //     } catch (error) {
-  //       console.log('Error fetching member info:', error);
-  //     }
-  //   })();
-  //   // fetchMemberInfo();
-  // }, []);
+
+  // 만든 폰트 목록 조회
+  const { data: fontRes, isFetching: isFontFetching } = useQuery({
+    queryKey: isMypage ? ['my-font'] : ['profile-font', params['member-id']],
+    queryFn: () => isMypage ? API.handwriting.getMyHandwriting() : API.handwriting.getProfileHandwriting({ memberId: params['member-id'] as string }),
+  });
+  
+  useEffect(() => {
+    console.log(fontRes);
+  }, [fontRes]);
+
+
+  // 폰트이야기 조회
+  const { data: storyRes, isFetching: isStoryFontFetching } = useQuery({
+    queryKey: ['font-story', params['member-id']],
+    queryFn: () => API.handwritingStory.getHandwritingStory({ memberId: params['member-id'] as string }),
+  });
+
+  useEffect(() => {
+    console.log(storyRes);
+  }, [storyRes]);
+
+
+
+
 
   const ProfileBoxProps: ProfileBoxProps = {
-    imageUrl: member.imageUrl,
-    nickname: member.nickname,
-    badge: member.badge,
+    imageUrl: memberRes?.data.imageUrl,
+    nickname: memberRes?.data.nickname,
+    badge: memberRes?.data.badge,
     imgSize: '10vw',
     fontSize: '1.4vw',
     className: 'vertical',
   };
 
-  const router = useRouter();
-
-  const isMypage: boolean = true; // isMypage 판별하는 식 추가해야함!!
+  const router = useRouter();  
 
   const [showModal, setShowModal] = useState(false);
   const clickModal = () => {
     setShowModal(!showModal);
   };
 
-  const filteredHandwriting = handwritings.filter((handwriting) => handwriting && handwriting.state > 3);
-  const numberOfHandwriting = filteredHandwriting.length;
-  const handwritinggroup = isMypage ? handwritings : filteredHandwriting;
+  // const filteredHandwriting = handwritings.filter((handwriting) => handwriting && handwriting.state > 3);
+  // const numberOfHandwriting = filteredHandwriting.length;
+  // const handwritinggroup = isMypage ? handwritings : filteredHandwriting;
 
   // 수정하기 버튼입력
   const [isEdit, setIsEdit] = useState(false);
   const handleEdit = (isEdit: boolean) => {
     setIsEdit(!isEdit);
+  };
+
+  // 수정하기 입력값 받는 부분
+  const ref = useRef<HTMLTextAreaElement>(null);
+  const [intro, setIntro] = useState<string>('');
+  const handleCommentOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setIntro(e.target.value);
+  };
+
+  // 수정하기 입력창 여닫기
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const handleExpansion = () => {
+    setIsExpanded(true);
+  };
+
+  const handleCollapse = () => {
+    setIsExpanded(false);
+  };
+
+  // 수정하기 api
+  const { mutate: requestEditIntroduction } = useMutation({
+    mutationKey: ['request-Edit-introduction'],
+    mutationFn: () => API.member.editIntroduction({ introduction : intro }),
+    onSuccess: () => console.log(intro),
+    onError: () => console.log('error'),
+  })
+
+  // 왼쪽 목차 입력시 화면 이동
+  const scrollToElement = (item: string) => {
+    const rightElement = document.getElementById(item);
+    if(rightElement){
+      rightElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   return (
@@ -175,9 +225,9 @@ export default function ProfilePage() {
               </S.ProfileBoxDiv>
               <S.ProfileIndexWrapper>
                 <S.ProfileIndexDiv>
-                  <span>소개</span>
-                  <span>제작한 글씨</span>
-                  <span>작성한 이야기</span>
+                  <span onClick={() =>scrollToElement('소개')}>소개</span>
+                  <span onClick={() =>scrollToElement('제작한 글씨')}>제작한 글씨</span>
+                  <span onClick={() =>scrollToElement('작성한 이야기')}>작성한 이야기</span>
                   {isMypage && <S.ProfileInfoLink onClick={clickModal}>내 정보</S.ProfileInfoLink>}
                 </S.ProfileIndexDiv>
               </S.ProfileIndexWrapper>
@@ -187,66 +237,92 @@ export default function ProfilePage() {
           <S.ProfileRightWrapper>
             <S.ProfileIntroDiv>
               <S.ProfileIntroDivUp>
-                <S.ProfileIntroSpan>소개</S.ProfileIntroSpan>
-                <S.ProfileIntroContents>{member.introduction}</S.ProfileIntroContents>
+                <S.ProfileIntroSpan id='소개'>소개</S.ProfileIntroSpan>
+                {
+                  isEdit ?
+                  <S.CommentInputAreaWrapper>
+                    <S.CommentInputPlaceholder $isempty={!intro}>
+                      <span>작가님을 소개해주세요</span>
+                    </S.CommentInputPlaceholder>
+                  <S.CommentInputArea
+                    ref={ref}
+                    id="comment"
+                    value={intro}
+                    $isExpanded={isExpanded}
+                    onFocus={handleExpansion}
+                    onChange={handleCommentOnChange}
+                    autoFocus
+                  />
+                  <S.CommentButtonDiv $isExpanded={isExpanded}>
+                  <S.CommentWriteButton type={'button'} onClick={() => {requestEditIntroduction(); setIsEdit(!isEdit)}} disabled={false}>
+                        <span>수정완료</span>
+                      </S.CommentWriteButton>
+                    <S.CommentWriteBackButton type="button" onFocus={() => {handleCollapse(); setIsEdit(!isEdit)}} disabled={false}>
+                      <span>취소</span>
+                    </S.CommentWriteBackButton>
+                  </S.CommentButtonDiv>
+                </S.CommentInputAreaWrapper>
+                : <S.ProfileIntroContents>{memberRes?.data.introduction}</S.ProfileIntroContents>
+                }
                 <S.BaseButtonWrapper>
-                  {isEdit ? (
-                    <S.EditButton type={'button'} onClick={() => setIsEdit(!isEdit)} disabled={false}>
-                      <span>수정완료</span>
-                    </S.EditButton>
-                  ) : (
-                    <S.EditButton type={'button'} onClick={() => setIsEdit(!isEdit)} disabled={false}>
-                      <span>수정하기</span>
-                    </S.EditButton>
-                  )}
+                  { isMypage && !isEdit && 
+                    (
+                      <S.EditButton type={'button'} onClick={() => setIsEdit(!isEdit)} disabled={false}>
+                        <span>수정하기</span>
+                      </S.EditButton>
+                    )
+                  }
                 </S.BaseButtonWrapper>
               </S.ProfileIntroDivUp>
               <S.ProfileIntroDivDown>
-                <Comp.ProfileTrophy Trophies={member.trophy} />
+                <Comp.ProfileTrophy Trophies={memberRes?.data.trophies} />
               </S.ProfileIntroDivDown>
               <S.Line />
             </S.ProfileIntroDiv>
 
             <S.ProfileHandwritingsWrapper>
               <S.ProfileHandwritingsSpanDiv>
-                <S.ProfileHandwritingsSpan1>제작한 글씨</S.ProfileHandwritingsSpan1>
-                {isMypage ? (
-                  <S.ProfileHandwritingsSpan2>{handwritings.length}</S.ProfileHandwritingsSpan2>
-                ) : (
-                  <S.ProfileHandwritingsSpan2>{numberOfHandwriting}</S.ProfileHandwritingsSpan2>
-                )}
+                <S.ProfileHandwritingsSpan1 id='제작한 글씨'>제작한 글씨</S.ProfileHandwritingsSpan1>
+                <S.ProfileHandwritingsSpan2>{fontRes?.data.length}</S.ProfileHandwritingsSpan2>
               </S.ProfileHandwritingsSpanDiv>
               <S.ProfileHandwritingsDiv>
-                {handwritinggroup.map((handwriting: Handwriting, index: number) => {
-                  // const idx = Math.floor(Math.random() * 10);
-                  if (handwriting.state > 3) {
+                { isMypage ?
+                fontRes?.data.map((props: ProfileFontCardProps) => {
+                  if (props.state && props.state > 3) {
                     return (
                       <Comp.ProfileFontCard
-                        key={index}
-                        index={handwriting.handwritingId}
-                        // index={Math.floor(Math.random() * 10)}
-                        isMypage={isMypage}
-                        handwriting={handwriting}
+                        key={props.handwritingId}
+                        profileFontCardProps={props}
                       />
                     );
                   } else {
-                    return <Comp.ProfileFontCardMaking key={index} isMypage={isMypage} handwriting={handwriting} />;
+                    return <Comp.ProfileFontCardMaking key={props.handwritingId} profileFontCardProps={props} />;
                   }
-                })}
+                })
+                 :
+                fontRes?.data.map((profileFontCardProps: ProfileFontCardProps) => {
+                  return (
+                    <Comp.ProfileFontCard
+                      key={profileFontCardProps.handwritingId}
+                      profileFontCardProps={profileFontCardProps}
+                    />
+                  )
+                })
+              }
               </S.ProfileHandwritingsDiv>
               <S.Line />
             </S.ProfileHandwritingsWrapper>
 
             <S.ProfileHandwritingsWrapper>
               <S.ProfileHandwritingsSpanDiv>
-                <S.ProfileHandwritingsSpan1>작성한 이야기</S.ProfileHandwritingsSpan1>
-                <S.ProfileHandwritingsSpan2>{handwritingStories.length}</S.ProfileHandwritingsSpan2>
+                <S.ProfileHandwritingsSpan1 id='작성한 이야기'>작성한 이야기</S.ProfileHandwritingsSpan1>
+                <S.ProfileHandwritingsSpan2>{storyRes?.data.length}</S.ProfileHandwritingsSpan2>
               </S.ProfileHandwritingsSpanDiv>
               <S.ProfileHandwritingStoriesDiv>
-                {handwritingStories.map((handwritingStory) => {
+                {storyRes?.data.map((storyProps: ProfileStoryCardProps) => {
                   return (
-                    <S.BaseStoryCardWrapper key={handwritingStory.handwritingStoryId}>
-                      {/* <Comp.BaseStoryCard key={handwritingStory.handwritingStoryId} />; */}
+                    <S.BaseStoryCardWrapper key={storyProps.handwritingStoryId}>
+                      {/* <Comp.BaseStoryCard key={storyProps.handwritingStoryId} />; */}
                     </S.BaseStoryCardWrapper>
                   );
                 })}

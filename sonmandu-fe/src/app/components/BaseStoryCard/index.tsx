@@ -5,7 +5,7 @@ import * as T from '@/types';
 import Image from 'next/image';
 import { useMutation } from '@tanstack/react-query';
 
-function BaseStoryCard(props: T.BaseStoryCardProps) {
+function BaseStoryCard(props: T.BaseStoryCard) {
   const { handwritingStoryId, title, name, thumbnail, hitCount, likeCount, member, isLike } = props;
   const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
   const { mutate: requestLikeClick, data: resLikeClick } = useMutation({

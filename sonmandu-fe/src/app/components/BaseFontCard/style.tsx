@@ -17,7 +17,9 @@ export const FontCardWrapper = styled.li`
   &:hover {
     transform: translate(-4px, -4px);
     box-shadow: 0px 2px 2px 2px ${PALETTE.SUB_WHITE};
-    transition: box-shadow 0.25s ease-in, transform 0.25s ease-in;
+    transition:
+      box-shadow 0.25s ease-in,
+      transform 0.25s ease-in;
   }
 `;
 

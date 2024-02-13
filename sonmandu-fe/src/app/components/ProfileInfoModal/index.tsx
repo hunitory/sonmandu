@@ -1,10 +1,13 @@
 'use client';
 
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import * as Comp from '@/components';
 import * as S from './style';
+import * as API from '@/apis';
+import { useParams } from 'next/navigation';
 import { ProfileInfoModalProps } from 'types';
+import { useQuery } from '@tanstack/react-query';
 
 export default function ProfileInfoModal(props: ProfileInfoModalProps) {
   const { clickModal } = props;
@@ -23,6 +26,17 @@ export default function ProfileInfoModal(props: ProfileInfoModalProps) {
     email: 'lsdkfj@gmail.com',
   };
 
+  const params = useParams();
+  const queryKey = ['profile-info'];
+  const { data: infoRes, isFetching: isInfoFetching } = useQuery({
+    queryKey: queryKey,
+    queryFn: () => API.member.getMemberInfo()
+  })
+
+  useEffect(() => {
+    console.log(infoRes);
+  }, [infoRes]);
+
   const [isActive, setIsActive] = useState({
     nickname: true,
     id: true,
@@ -33,22 +47,22 @@ export default function ProfileInfoModal(props: ProfileInfoModalProps) {
 
   const contents = {
     nickname: {
-      infoContent: member.nickname,
+      infoContent: infoRes?.data.nickname,
       infoHead: '닉네임',
       labelName: 'nickname',
     },
     id: {
-      infoContent: member.id,
+      infoContent: infoRes?.data.id,
       infoHead: '아이디',
       labelName: 'id',
     },
     name: {
-      infoContent: member.name,
+      infoContent: infoRes?.data.name,
       infoHead: '이름',
       labelName: 'name',
     },
     email: {
-      infoContent: member.email,
+      infoContent: infoRes?.data.email,
       infoHead: '이메일',
       labelName: 'email',
     },

@@ -1,7 +1,6 @@
 import * as Styled from './style';
 import * as Comp from 'components';
 
-
 export default function DownLoadTemplateButton() {
   const handleDownload = () => {
     const url = '/sonmandu.pdf'; // public 폴더 내의 파일 경로

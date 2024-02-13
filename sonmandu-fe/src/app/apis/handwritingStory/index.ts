@@ -42,7 +42,7 @@ export async function loadFontInService({
   return await customFont.load();
 }
 
-export async function handwritingStoryLike({ id }: { id: number }) {
+export async function handwritingStoryLike({ id }: { id: number | undefined }) {
   return instanceJsonContent.post(`/handwritings/story/${id}/likes`);
 }
 
@@ -61,8 +61,22 @@ export async function handwritingStoryComment({
   handwritingStoryId: number;
   content: string;
 }) {
-  return instanceJsonContent.post(`/handsritings/story/${handwritingStoryId}/comment`, {
+  return instanceJsonContent.post(`/handwritings/story/${handwritingStoryId}/comment`, {
     content: content,
+  });
+}
+
+export async function handwritingStoryCommentEdit({
+  handwritingStoryId,
+  handwritingStoryCommentId,
+  commentContent,
+}: {
+  handwritingStoryId: number;
+  handwritingStoryCommentId: number;
+  commentContent: string;
+}) {
+  return instanceJsonContent.patch(`/handwritings/story/${handwritingStoryId}/comments/${handwritingStoryCommentId}`, {
+    content: commentContent,
   });
 }
 
@@ -74,4 +88,8 @@ export async function handwritingStoryCommentDelete({
   handwritingStoryCommentId: number;
 }) {
   return instanceJsonContent.delete(`/handwritings/story/${handwritingStoryId}/comments/${handwritingStoryCommentId}`);
+}
+
+export async function getHandwritingStory({ memberId }: { memberId: string }) {
+  return instanceJsonContent.get(`/handwritings/story/owner/${memberId}`)
 }

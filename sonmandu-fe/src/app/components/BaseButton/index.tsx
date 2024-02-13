@@ -14,8 +14,7 @@ import { BaseButtonProps } from 'types';
  * @param  children들 사이에 공간이 필요한 경우
  */
 export default function BaseButton(props: BaseButtonProps) {
-  const { children, type, onClick, onFocus, onBlur, className, disabled } =
-    props;
+  const { children, type, onClick, onFocus, onBlur, className, disabled } = props;
 
   return (
     <S.ButtonWrapper

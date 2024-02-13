@@ -1,10 +1,12 @@
-export interface Handwriting {
-  handwritingId: number;
-  name: string;
-  state: number;
-  likeCount: number;
+export interface ProfileFontCardProps {
   downloadCount: number;
   downloadUrl: string;
-  createDate: string;
-  tags: number[];
+  handwritingId: number;
+  hitCount: number;
+  isLike: boolean;
+  likeCount: number;
+  name: string;
+  createTime: string;
+  state?: number;
+  tag: number[];
 }

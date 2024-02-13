@@ -3,10 +3,10 @@ import * as S from './style';
 import Image from 'next/image';
 import { Trophy } from 'types';
 
-function ProfileTrophy({ Trophies }: { Trophies: Trophy[] }) {
+function ProfileTrophy({ Trophies }: { Trophies: Trophy[] | undefined }) {
   return (
     <S.ProfileTrophyWrapper>
-      {Trophies.map((trophy: Trophy, index: number) => {
+      {Trophies?.map((trophy: Trophy, index: number) => {
         return <Image key={index} src={`/image/medal-${trophy.weight}.png`} alt="#" width={70} height={70} />;
       })}
     </S.ProfileTrophyWrapper>

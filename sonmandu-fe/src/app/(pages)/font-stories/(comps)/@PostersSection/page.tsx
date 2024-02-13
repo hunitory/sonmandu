@@ -17,7 +17,7 @@ interface SearchParams {
 
 export default function PosterSection() {
   const searchParams = useSearchParams();
-  const [curItemList, setCurItemList] = useState<T.BaseStoryCardProps[]>([]);
+  const [curItemList, setCurItemList] = useState<T.BaseStoryCard[]>([]);
   const [isLoadingMore, setIsLoadingMore] = useState({ curRequestLoading: false, endOfList: false });
   const [prevSearchParams, setPrevSearchParams] = useState<SearchParams>({
     title: searchParams.get('title') || '',
@@ -85,7 +85,7 @@ export default function PosterSection() {
   return (
     <S.CardsGridWrapper>
       {curItemList.length > 0 &&
-        curItemList.map((res: T.BaseStoryCardProps, i: number) => (
+        curItemList.map((res: T.BaseStoryCard, i: number) => (
           <Comp.BaseStoryCard key={`${res.handwritingStoryId}-${i}`} {...res} />
         ))}
       {isLoadingMore.curRequestLoading &&

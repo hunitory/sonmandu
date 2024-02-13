@@ -7,7 +7,7 @@ import { WHOLE_HASH_TAGES } from '@/constants';
 import { useRouter } from 'next/navigation';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { uploadedFilesState, fontInfoState } from 'store/index';
-import { instanceMultipartContent, instanceJsonContent } from 'apis/_instance';
+import { instanceMultipartContent } from 'apis/_instance';
 
 interface CreateQueryStringArgs {
   name: 'tagIdList';
@@ -53,8 +53,8 @@ export default function FontInfo() {
     const isTagsSelected = fontInfo.tagIdList.length > 0;
     const info = {
       name: fontInfo.name,
-      tagIdList: fontInfo.tagIdList
-    }
+      tagIdList: fontInfo.tagIdList,
+    };
 
     if (isFontNameValid && isTagsSelected && uploadedFiles.length > 0) {
       const apiUrl = '/handwritings';
@@ -66,7 +66,6 @@ export default function FontInfo() {
       uploadedFiles.forEach((file) => {
         formData.append('image', file);
       });
-
 
       instanceMultipartContent
         .post(apiUrl, formData)

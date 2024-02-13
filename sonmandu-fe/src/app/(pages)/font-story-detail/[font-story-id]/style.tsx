@@ -20,7 +20,7 @@ export const FontStoryDetailWrapper = styled.div`
   position: relative;
   justify-content: center;
   padding: 6vh;
-  gap: 100px;
+  gap: 60px;
 `;
 
 export const DetailPageWrapper = styled.div`
@@ -60,6 +60,7 @@ export const UpperHeadWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 `;
 
 export const ProfileBoxDiv = styled.div`
@@ -82,10 +83,17 @@ export const DetailInfoWrapper = styled.div`
   }
 `;
 
+export const HeartWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+`;
+
 export const TitleSpan = styled.span<{ name: string }>`
   font-size: 1.6vw;
   font-weight: ${notoSansKr.bold.style.fontWeight};
-  font-family: ${(props) => (props.name ? props.name: notoSansKr.extraBold.style.fontFamily)};
+  font-family: ${(props) => (props.name ? props.name : notoSansKr.extraBold.style.fontFamily)};
 `;
 
 export const FontDateWrapper = styled.div`
@@ -104,10 +112,9 @@ export const FontLinkWrapper = styled.div<{ name: string }>`
   display: flex;
   align-items: center;
   gap: 0.5vw;
-  
+
   span {
     font-family: ${(props) => (props.name ? props.name : notoSansKr.extraBold.style.fontFamily)};
-    
   }
 `;
 
@@ -121,26 +128,26 @@ export const FontStoryTextWrapper = styled.div`
 
 export const SideBarWrapper = styled.div`
   position: relative;
-  width: fit-content;
-  height: 100%;
-  display: flex;
+  padding-top: 35vh;
+  
 `;
 
 export const TagsWrapper = styled.div`
   width: fit-content;
 `;
 
-export const FontStoryText = styled.div<{name: string}>`
+export const FontStoryText = styled.div<{ name: string }>`
   width: 95%;
   height: fit-content;
   font-size: max(14px, 1vw);
   line-height: 1.5;
   white-space: pre-line;
   font-family: ${(props) => (props.name ? props.name : notoSansKr.extraBold.style.fontFamily)};
+  position: relative;
 `;
 
 export const EditDeleteWrapper = styled.div`
-width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: end;
@@ -149,10 +156,12 @@ width: 100%;
 
 export const EditLink = styled.span`
   text-decoration: underline;
+  cursor: pointer;
 `;
 
 export const DeleteLink = styled.span`
   text-decoration: underline;
+  cursor: pointer;
 `;
 
 export const ProfileWrapper = styled.div`

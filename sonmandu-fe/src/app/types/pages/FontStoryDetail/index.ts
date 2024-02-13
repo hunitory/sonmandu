@@ -22,7 +22,8 @@ export interface IsLikeCount {
 }
 
 export interface SideBarProps {
-  handleLikeClick: () => void;
-  isLike: boolean;
-  likeCount: number;
+  isLike?: boolean | undefined;
+  count?: number | undefined;
+  setCopyIsLikeAndCount: React.Dispatch<React.SetStateAction<IsLikeCount | undefined>>;
+  handwritingStoryId?: number | undefined;
 }

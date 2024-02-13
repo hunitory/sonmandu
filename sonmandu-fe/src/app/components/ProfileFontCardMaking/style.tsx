@@ -1,14 +1,15 @@
+import { BaseButton, BaseHashTags } from 'components';
 import styled from 'styled-components';
 import { notoSansKr } from 'styles';
 
 export const ProfileFontCardWrapper = styled.div`
-  width: 300px;
-  height: 432px;
+  width: 280px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 45px 16px;
+  padding: 45px 6px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;

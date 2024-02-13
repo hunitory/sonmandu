@@ -35,7 +35,9 @@ export const UserInteractionWrapper = styled.form`
 
   & {
     border-radius: 50px;
-    transition: width 0.5s ease, padding 0.5s ease;
+    transition:
+      width 0.5s ease,
+      padding 0.5s ease;
   }
 
   & {

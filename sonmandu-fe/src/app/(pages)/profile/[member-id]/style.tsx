@@ -4,6 +4,15 @@ import styled from 'styled-components';
 import { PALETTE, notoSansKr } from 'styles';
 import { BaseButton } from 'components';
 
+interface PlaceholderTextProps {
+  $failLogin?: boolean;
+  $isempty?: boolean;
+}
+
+interface CommentInputDivProps {
+  $isExpanded: boolean;
+}
+
 export const ProfilePageWapper = styled.div`
   width: 100vw;
   height: fit-content;
@@ -18,7 +27,7 @@ export const WholeWrapper = styled.div`
 export const ProfileWrapper = styled.div`
   width: 68vw;
   height: fit-content;
-  gap: 15%;
+  gap: 10%;
   display: grid;
   grid-template-columns: clamp(100px, 20vw, 380px) 1fr;
   @media only screen and (max-width: 1150px) {
@@ -98,9 +107,10 @@ export const ProfileIndexDiv = styled.div`
   align-items: flex-end;
   padding-right: 30px;
   span {
-    font-size: clamp(18.5px, 1.5vw, 21px);
+    font-size: clamp(18px, 1.2vw, 21px);
     font-weight: ${notoSansKr.bold.style.fontWeight};
     font-family: ${notoSansKr.bold.style.fontFamily};
+    cursor: pointer;
   }
 `;
 
@@ -169,10 +179,93 @@ export const ProfileIntroSpan = styled.span`
   color: ${PALETTE.MAIN_BLACK};
   font-weight: ${notoSansKr.black.style.fontWeight};
   font-family: ${notoSansKr.black.style.fontFamily};
-  font-size: clamp(28px, 1.5vw, 33px);
+  font-size: clamp(24px, 1.5vw, 33px);
   @media screen and (max-width: 1150px) {
-    font-size: clamp(28px, 3vw, 33px);
+    font-size: clamp(24px, 3vw, 33px);
   }
+`;
+
+export const CommentInputAreaWrapper = styled.div`
+  width: 100%;
+  height: fit-content;
+  position: relative;
+  /* div {
+    display: none;
+  }
+
+  &:focus-within {
+    div { 
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 15px;
+    }
+    textarea {
+      border: 2px solid ${PALETTE.MAIN_ORANGE};
+      height: 16vh;
+    }
+  } */
+`;
+
+export const CommentInputPlaceholder = styled.span<PlaceholderTextProps>`
+  position: absolute;
+  color: ${PALETTE.LIGHT_BLACK};
+  font-size: 14px;
+  font-family: ${notoSansKr.regular.style.fontFamily};
+  font-weight: ${notoSansKr.regular.style.fontWeight};
+  padding: 2vh 2vw;
+  pointer-events: none;
+  display: ${(props) => (props.$isempty ? 'block' : 'none')};
+`;
+
+export const CommentInputArea = styled.textarea<CommentInputDivProps>`
+  width: 100%;
+  font-size: max(14px, 0.8vw);
+  padding: 2vh 2vw;
+  border-radius: 20px;
+  transition: height 0.3s ease;
+
+  border: ${({ $isExpanded }) =>
+    $isExpanded ? `2px solid ${PALETTE.MAIN_ORANGE}` : `1px solid ${PALETTE.LIGHT_BLACK}`};
+  height: ${({ $isExpanded }) => ($isExpanded ? '16vh' : '12vh')};
+`;
+
+export const CommentButtonDiv = styled.div<CommentInputDivProps>`
+  display: ${({ $isExpanded }) => ($isExpanded ? 'flex' : 'none')};
+  flex-direction: row-reverse;
+  gap: 15px;
+`;
+
+export const CommentWriteBackButton = styled(BaseButton)`
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  padding: clamp(4px, 0.3vw, 10px) clamp(30px, 2vw, 37px);
+  border: 2px solid ${PALETTE.MAIN_ORANGE};
+  border-radius: 20px;
+  color: ${PALETTE.MAIN_ORANGE};
+  font-size: clamp(14px, 1vw, 18px);
+  font-weight: ${notoSansKr.black.style.fontWeight};
+  font-family: ${notoSansKr.black.style.fontFamily};
+`;
+
+export const CommentWriteButton = styled(BaseButton)`
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  padding: clamp(4px, 0.3vw, 10px) clamp(9px, 0.8vw, 20px);
+  border: 2px solid ${PALETTE.MAIN_ORANGE};
+  border-radius: 20px;
+  color: white;
+  background-color: ${PALETTE.MAIN_ORANGE};
+  font-size: clamp(14px, 1vw, 18px);
+  font-weight: ${notoSansKr.black.style.fontWeight};
+  font-family: ${notoSansKr.black.style.fontFamily};
 `;
 
 export const ProfileIntroContents = styled.div`
@@ -236,9 +329,9 @@ export const ProfileHandwritingsSpan1 = styled.span`
   font-weight: ${notoSansKr.black.style.fontWeight};
   font-family: ${notoSansKr.black.style.fontFamily};
   color: ${PALETTE.MAIN_BLACK};
-  font-size: clamp(28px, 1.5vw, 33px);
+  font-size: clamp(24px, 1.5vw, 33px);
   @media screen and (max-width: 1150px) {
-    font-size: clamp(28px, 3vw, 33px);
+    font-size: clamp(24px, 3vw, 33px);
   }
 `;
 
@@ -246,16 +339,19 @@ export const ProfileHandwritingsSpan2 = styled.span`
   font-weight: ${notoSansKr.black.style.fontWeight};
   font-family: ${notoSansKr.black.style.fontFamily};
   color: ${PALETTE.MAIN_ORANGE};
-  font-size: clamp(28px, 1.5vw, 33px);
+  font-size: clamp(24px, 1.5vw, 33px);
   @media screen and (max-width: 1150px) {
-    font-size: clamp(28px, 3vw, 33px);
+    font-size: clamp(24px, 3vw, 33px);
   }
 `;
 
 export const ProfileHandwritingsDiv = styled.div`
   padding: 0 1vw;
+  @media screen and (max-width: 1700px) {
+    padding: 0;
+  }
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   row-gap: 2vw;
   margin: 26px 0 56px 0;
   place-items: center;

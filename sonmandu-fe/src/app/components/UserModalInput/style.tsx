@@ -39,7 +39,9 @@ export const PlaceholderLabel = styled(BaseLabelWithInput.Label)`
   position: absolute;
   top: 14px;
   left: 12px;
-  transition: top 0.3s ease, left 0.3s ease;
+  transition:
+    top 0.3s ease,
+    left 0.3s ease;
   color: ${PALETTE.LIGHT_BLACK};
   cursor: inherit;
   font-size: 12px;

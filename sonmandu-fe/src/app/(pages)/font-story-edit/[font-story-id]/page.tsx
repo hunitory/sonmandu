@@ -12,13 +12,12 @@ import { useRecoilValue } from 'recoil';
 import { storyInfoState } from 'store/atoms';
 
 export default function FontStoryEditPage() {
-
   // 정보 요청
   const params = useParams();
   const queryKey = ['font-story-detail', params['font-story-id']];
   const { data: res, isFetching: isFontStoryDetailFetching } = useQuery({
     queryKey: queryKey,
-    queryFn: () => API.handwritingStory.handwritingStoryDetail({ fontStoryId: params['font-story-id'] as string})
+    queryFn: () => API.handwritingStory.handwritingStoryDetail({ fontStoryId: params['font-story-id'] as string }),
   });
 
   // 현재 유저가 제작은 했지만 이야기는 쓰지 않은 손글씨 정보를 받아야함
@@ -36,13 +35,11 @@ export default function FontStoryEditPage() {
     ],
   };
 
-  
   // 기존데이터 불러오기
   const storyInfo = useRecoilValue(storyInfoState);
-  console.log('hi')
-  console.log(storyInfo)
+  console.log('hi');
+  console.log(storyInfo);
 
-  
   const router = useRouter();
 
   const ref = useRef<HTMLInputElement>(null);
@@ -74,7 +71,6 @@ export default function FontStoryEditPage() {
     }
   };
 
-  
   // useEffect(() => {
   //   setTitle(storyInfo.title)
   //   setContent(storyInfo.content)

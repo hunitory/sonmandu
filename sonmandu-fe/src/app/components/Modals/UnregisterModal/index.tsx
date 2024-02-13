@@ -7,9 +7,7 @@ import Link from 'next/link';
 
 function UnRegisterModal() {
   const LogoURL = '/image/logo.png';
-  const closeModal = () => {
-    
-  }
+  const closeModal = () => {};
   const UnRegister = () => {
     /* 로그인 로직*/
   };
@@ -27,7 +25,7 @@ function UnRegisterModal() {
         </Styled.UnRegisterWrapper>
         <Styled.UnRegisterContentWrapper>
           <Styled.UnRegisterContent>
-            탈퇴 시 제작하신 글꼴은 지속적으로 남아있지만,<p>작성하신 글꼴 이야기는 삭제됩니다.</p> 
+            탈퇴 시 제작하신 글꼴은 지속적으로 남아있지만,<p>작성하신 글꼴 이야기는 삭제됩니다.</p>
           </Styled.UnRegisterContent>
         </Styled.UnRegisterContentWrapper>
         <Styled.ButtonWrapper>

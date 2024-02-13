@@ -26,6 +26,8 @@ import FontStoryComment from './FontStoryComment';
 import UserModalInput from './UserModalInput';
 import DownLoadTemplateButton from './Applications/FontStart/DownLoadTemplateButton';
 import NextButton from './Applications/FontStart/NextButton';
+import MainFontCard from './MainFontCard'
+import MainStoryCard from './MainStoryCard';
 import SideBar from './SideBar';
 import SkeletonCard from './SkeletonCard';
 
@@ -56,6 +58,8 @@ export {
   UserModalInput,
   DownLoadTemplateButton,
   NextButton,
+  MainFontCard,
+  MainStoryCard,
   SideBar,
   SkeletonCard,
 };

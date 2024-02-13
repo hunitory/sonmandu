@@ -3,19 +3,18 @@ import { PALETTE } from 'styles';
 
 export const SideBarWrapper = styled.div`
   position: sticky;
-  top: 250px;
-  left: 7rem;
-  width: 76px;
-  height: 168px;
-  border: 1px solid ${PALETTE.MAIN_BLACK};
+  top: 140px;
+  width: 64px;
+  height: 150px;
+  border: 1px solid ${PALETTE.LIGHT_BLACK};
   border-radius: 40px;
-  padding: 10px 12px;
+  padding: 4px 4px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  justify-content: space-around;
   span {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   @media screen and (max-width: 1150px) {
@@ -24,20 +23,21 @@ export const SideBarWrapper = styled.div`
 `;
 
 export const LikeWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  border: 1px solid ${PALETTE.MAIN_BLACK};
+  width: 48px;
+  height: 48px;
+  border: 1px solid ${PALETTE.LIGHT_BLACK};
   border-radius: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 6px 8px;
+  cursor: pointer;
+  
 `;
 
 export const LinkWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  border: 1px solid ${PALETTE.MAIN_BLACK};
+  width: 48px;
+  height: 48px;
+  border: 1px solid ${PALETTE.LIGHT_BLACK};
   border-radius: 2rem;
   display: flex;
   justify-content: center;

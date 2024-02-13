@@ -4,6 +4,8 @@ import React, { ChangeEvent, useRef, useState, useEffect } from 'react';
 import { ProfileInputProps, isActive } from 'types';
 import * as Comp from '@/components';
 import * as S from './style';
+import * as API from '@/apis';
+import { useMutation } from '@tanstack/react-query';
 
 function EditContents({
   infoHead,
@@ -63,6 +65,16 @@ function ProfileInput({ isActive, activate, ...props }: ProfileInputProps) {
     email: false,
   };
 
+  const { mutate: requestEditInfo } = useMutation({
+    mutationKey: ['request-edit-info', props.labelName],
+    mutationFn: () => API.member.editNickname({ nickname: memberInfo }),
+    onError: () => console.log(props.labelName)
+  })
+  // setIsEdit(!isEdit)
+  const handleEditButtonClick = () => {
+    requestEditInfo();
+  }
+
   return (
     <Comp.BaseLabelWithInput.Label id={`member-info-${props.labelName}`} className={`member-info-${props.labelName}`}>
       <S.InfoWrapper>
@@ -81,8 +93,7 @@ function ProfileInput({ isActive, activate, ...props }: ProfileInputProps) {
               <S.StyledButton
                 type={'button'}
                 onClick={
-                  () => setIsEdit(!isEdit)
-                  // 저장하는 api 추가
+                  handleEditButtonClick
                 }
                 disabled={false}
               >
@@ -107,6 +118,7 @@ function ProfileInput({ isActive, activate, ...props }: ProfileInputProps) {
               <span
                 onClick={() => {
                   if (isActive[props.labelName as keyof typeof isActive]) {
+                    setMemberInfo(props.infoContent)
                     setIsEdit(!isEdit);
                     activate(nonActive);
                     activate((prev) => ({

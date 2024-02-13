@@ -67,7 +67,6 @@ export const StepLine = styled.div<FontStepProps>`
   height: 10px;
   background-color: ${(props) => (props.$isactive === 'true' ? PALETTE.MAIN_ORANGE : PALETTE.LIGHT_ORANGE)};
   z-index: 1;
-  
 
   @media (min-width: 1500px) {
     width: 290px;
@@ -80,5 +79,4 @@ export const StepCircle = styled.div<FontStepProps>`
   background-color: ${(props) => (props.$isactive === 'true' ? PALETTE.MAIN_ORANGE : PALETTE.LIGHT_ORANGE)};
   border-radius: 50px;
   z-index: 2;
-  
 `;

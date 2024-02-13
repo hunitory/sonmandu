@@ -15,14 +15,6 @@ export const HamburgerWrapper = styled(BaseButton)`
     width: 16px;
     height: 16px;
   }
-
-  .user-img-wrapper {
-    width: 28px;
-    height: 28px;
-    padding: 6px;
-    background-color: ${PALETTE.SUB_WHITE};
-    border-radius: 50%;
-  }
 `;
 
 export const DropBoxWrapper = styled.ul`

@@ -50,11 +50,9 @@ public class Member implements UserDetails {
     private String introduction;
 
     @Setter
+    @JsonIgnore
     @Column(length = 512)
     private String refreshToken;
-
-    @JsonIgnore
-    private String emailToken;
 
     private boolean isBadge;
 
@@ -94,8 +92,6 @@ public class Member implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-
-//        return this.enabled;
         return true;
     }
 }

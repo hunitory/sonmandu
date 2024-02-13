@@ -19,6 +19,11 @@ export const SideBarWrapper = styled.section`
   box-shadow: 4px 4px 6px ${PALETTE.LIGHT_BLACK};
   overflow-y: scroll;
 
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-track {
+    display: none;
+  }
+
   @media (max-width: 768px) {
     position: absolute;
     top: 0;
@@ -42,12 +47,12 @@ export const FontListOpener = styled.div<{ $isOpen: boolean }>`
     height: 28px;
     line-height: 24px;
     text-align: center;
-    color: white;
-    background-color: ${PALETTE.LIGHT_ORANGE};
-    font-family: ${notoSansKr.semiBold.style.fontFamily};
-    font-weight: ${notoSansKr.semiBold.style.fontWeight};
-    border-bottom: 1px solid ${PALETTE.SUB_WHITE};
-    border-bottom: 1px solid ${PALETTE.SUB_WHITE};
+    color: ${PALETTE.MAIN_BLACK};
+    background-color: ${PALETTE.SUB_WHITE};
+    font-family: ${notoSansKr.bold.style.fontFamily};
+    font-weight: ${notoSansKr.bold.style.fontWeight};
+    border-bottom: 1px solid ${PALETTE.LIGHT_BLACK};
+    border-bottom: 1px solid ${PALETTE.LIGHT_BLACK};
   }
 `;
 
@@ -86,6 +91,8 @@ export const HrTitle = styled.p`
     height: 18px;
     text-align: center;
     background-color: white;
+    font-family: ${notoSansKr.semiBold.style.fontFamily};
+    font-weight: ${notoSansKr.semiBold.style.fontWeight};
     position: absolute;
     top: -9px;
     left: 45%;

@@ -20,12 +20,13 @@ interface MyFont {
 }
 
 export default function ChattingSideBar() {
-  const [fontListViews, setFontListViews] = useState({ ranking: true, owner: true });
+  const [fontListViews, setFontListViews] = useState({ ranking: false, owner: false });
   const { data: rankingFontResponse, isFetching: isFetchingRanking } = useQuery({
     queryKey: ['ranking-font'],
     queryFn: () => API.handwriting.rankingFont(),
     refetchInterval: false,
     retry: 1,
+    enabled: fontListViews.ranking,
   });
 
   const { data: myFontResponse, isFetching: isFetchingMy } = useQuery({
@@ -33,6 +34,7 @@ export default function ChattingSideBar() {
     queryFn: () => API.handwriting.getMyHandwriting(),
     refetchInterval: false,
     retry: 1,
+    enabled: fontListViews.owner,
   });
 
   const filteringCompletedHandwriting = () => {

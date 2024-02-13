@@ -16,7 +16,7 @@ export async function fontListInGallery({ startIdx, takeCount, tagId, sort, name
 
 export async function getFontFileFromS3({ url }: { url: string }) {
   const resourceExtension = url.slice(url.length - 3, url.length);
-  return await axios.get(url, {
+  return axios.get(url, {
     responseType: 'arraybuffer',
     headers: {
       'Content-Type': `font/${resourceExtension}`,
@@ -39,7 +39,7 @@ export async function loadFontInService({
 
   document.fonts.add(customFont);
 
-  return await customFont.load();
+  return customFont.load();
 }
 
 export async function fontDetail({ fontId }: { fontId: string }): Promise<AxiosResponse> {
@@ -63,5 +63,5 @@ export async function getMyHandwriting() {
 }
 
 export async function getProfileHandwriting({ memberId }: { memberId: string }) {
-  return instanceJsonContent.get(`/handwritings/owner/${memberId}`)
+  return instanceJsonContent.get(`/handwritings/owner/${memberId}`);
 }

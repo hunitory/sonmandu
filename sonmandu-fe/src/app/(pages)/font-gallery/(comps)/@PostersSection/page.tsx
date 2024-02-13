@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import * as API from '@/apis';
 import * as S from './style';
 import * as T from '@/types';
@@ -64,7 +64,20 @@ export default function PostersSection() {
         name: searchParams.get('name') || '',
         sort: searchParams.get('sort') || '',
       };
-      return await API.handwriting.fontListInGallery(requestArgs).then((res) => {
+      return await API.handwriting.fontListInGallery(requestArgs).then(async (res) => {
+        // ----------------병렬 처리: Todo, 함수화 하고 밑에 무한 스크롤 요청에도 반영하기 ---------------------
+        const downloadUrls = res.data.map((res: T.FontCard) =>
+          API.handwriting.getFontFileFromS3({ url: res.downloadUrl }),
+        );
+        const responseFromS3 = await Promise.all(downloadUrls);
+
+        await Promise.all(
+          responseFromS3.map((file, i) =>
+            API.handwriting.loadFontInService({ getFontResponse: file, name: res.data[i].name }),
+          ),
+        );
+        // ----------------병렬 처리---------------------
+
         setCurItemList((prev) => [...res.data]);
         return res.data;
       });

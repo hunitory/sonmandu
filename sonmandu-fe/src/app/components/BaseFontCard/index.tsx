@@ -7,17 +7,29 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 
 function BaseFontCard(props: FontCard) {
-  const { handwritingId, name, downloadUrl, hitCount, likeCount, downloadCount, tag, isLike, letter, onClick } = props;
+  const {
+    handwritingId,
+    name,
+    downloadUrl,
+    hitCount,
+    likeCount,
+    downloadCount,
+    tag,
+    isLike,
+    letter,
+    onClick,
+    loading,
+  } = props;
   const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
-  const { data: responseFromS3, isFetching: isFileFetching } = useQuery({
-    queryKey: ['get-font-file', name],
-    queryFn: () => API.handwriting.getFontFileFromS3({ url: downloadUrl }),
-  });
+  // const { data: responseFromS3, isFetching: isFileFetching } = useQuery({
+  //   queryKey: ['get-font-file', name],
+  //   queryFn: () => API.handwriting.getFontFileFromS3({ url: downloadUrl }),
+  // });
 
-  const { data: loadResponse, isFetching: isLoadFetching } = useQuery({
-    queryKey: ['load-font-file', responseFromS3],
-    queryFn: () => API.handwriting.loadFontInService({ getFontResponse: responseFromS3, name: name }),
-  });
+  // const { data: loadResponse, isFetching: isLoadFetching } = useQuery({
+  //   queryKey: ['load-font-file', responseFromS3],
+  //   queryFn: () => API.handwriting.loadFontInService({ getFontResponse: responseFromS3, name: name }),
+  // });
 
   const { mutate, data: resLikeClick } = useMutation({
     mutationKey: ['font-gallery-click-like', handwritingId],
@@ -36,7 +48,7 @@ function BaseFontCard(props: FontCard) {
 
   return (
     <>
-      {isFileFetching && isLoadFetching ? (
+      {loading ? (
         <SkeletonCard ratio="4 / 5.5" />
       ) : (
         <S.FontCardWrapper onClick={onClick}>

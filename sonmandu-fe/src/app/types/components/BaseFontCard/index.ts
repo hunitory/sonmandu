@@ -9,4 +9,5 @@ export interface FontCard {
   isLike: boolean;
   letter: { isShow: boolean; idx: number };
   onClick?: (...args: any) => void;
+  loading?: boolean;
 }

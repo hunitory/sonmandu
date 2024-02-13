@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import * as S from './style';
 
 function ChattingLayout({
@@ -10,8 +10,10 @@ function ChattingLayout({
 }) {
   return (
     <S.MainWrapper>
-      {ChattingMessageContainer}
-      {children}
+      <Suspense>
+        {ChattingMessageContainer}
+        {children}
+      </Suspense>
     </S.MainWrapper>
   );
 }

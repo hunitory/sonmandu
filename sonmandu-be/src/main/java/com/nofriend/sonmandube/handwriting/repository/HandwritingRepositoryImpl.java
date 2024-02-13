@@ -79,6 +79,7 @@ public class HandwritingRepositoryImpl implements HandwritingRepositoryCustom {
 //                return new OrderSpecifier<>(Order.DESC, QHandwriting.handwriting.createDate);
         }
 
+        orderSpecifiers.add(new OrderSpecifier(Order.ASC, QHandwriting.handwriting.handwritingId));
         return orderSpecifiers.toArray(new OrderSpecifier[orderSpecifiers.size()]);
     }
 }

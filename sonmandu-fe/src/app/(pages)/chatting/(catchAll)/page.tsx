@@ -7,13 +7,37 @@ import * as API from '@/apis';
 import * as Comp from '@/components';
 import { useQuery } from '@tanstack/react-query';
 
+interface MyFont {
+  handwritingId: number;
+  name: string;
+  state: number;
+  downloadUrl: string;
+  hitCount: number;
+  likeCount: number;
+  downloadCount: number;
+  tag: number[];
+  isLike: boolean;
+}
+
 export default function ChattingSideBar() {
   const [fontListViews, setFontListViews] = useState({ ranking: true, owner: true });
-  const { data: rankingFontResponse, isFetching } = useQuery({
+  const { data: rankingFontResponse, isFetching: isFetchingRanking } = useQuery({
     queryKey: ['ranking-font'],
     queryFn: () => API.handwriting.rankingFont(),
     refetchInterval: false,
+    retry: 1,
   });
+
+  const { data: myFontResponse, isFetching: isFetchingMy } = useQuery({
+    queryKey: ['my-font'],
+    queryFn: () => API.handwriting.getMyHandwriting(),
+    refetchInterval: false,
+    retry: 1,
+  });
+
+  const filteringCompletedHandwriting = () => {
+    return myFontResponse?.data.filter((el: MyFont, i: number) => el.state === 4 || el.state === 5);
+  };
 
   return (
     <S.SideBarWrapper>
@@ -49,7 +73,7 @@ export default function ChattingSideBar() {
       >
         <p className="toggle-opener">내 손글씨들</p>
         <S.FontsContainer>
-          {rankingFontResponse?.data.thisWeekHandwriting.map((res: T.FontCard, i: number) => (
+          {filteringCompletedHandwriting()?.map((res: T.FontCard, i: number) => (
             <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
               <Comp.BaseFontCard {...res} letter={{ isShow: false, idx: 0 }} />
             </S.FontCardWrapper>

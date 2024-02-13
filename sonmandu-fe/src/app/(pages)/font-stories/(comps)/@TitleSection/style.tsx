@@ -39,7 +39,7 @@ export const PageTitleWrapper = styled.section`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 810px) {
     align-items: center;
     flex-direction: column;
     gap: 24px;
@@ -52,7 +52,7 @@ export const PageTitleWrapper = styled.section`
 
 export const FormWrapper = styled.form`
   width: 376px;
-  min-width: 340px;
+  min-width: 376px;
   height: 100%;
   label {
     margin-bottom: 24px;

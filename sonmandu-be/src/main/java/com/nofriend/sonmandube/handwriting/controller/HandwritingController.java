@@ -156,10 +156,16 @@ public class HandwritingController {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 341ad76 (feat: add check unique handwriting name)
     @GetMapping("/unique/name")
     public ResponseEntity<Boolean> checkUniqueName(@RequestParam String value){
         return ResponseEntity.ok(handwritingService.checkUniqueName(value));
     }
+<<<<<<< HEAD
 =======
 >>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
+=======
+>>>>>>> 341ad76 (feat: add check unique handwriting name)
 }

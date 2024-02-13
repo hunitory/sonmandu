@@ -37,8 +37,13 @@ public interface HandwritingService {
 
     List<UnwrittenStoriesResponse> getUnwrittenStories(Long memberId);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     Boolean checkUniqueName(String value);
 =======
 >>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
+=======
+
+    Boolean checkUniqueName(String value);
+>>>>>>> 341ad76 (feat: add check unique handwriting name)
 }

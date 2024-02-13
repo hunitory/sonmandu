@@ -12,7 +12,7 @@ public class MemberIntroductionResponse {
 
     private Long memberId;
 
-    private String name;
+    private String nickname;
 
     private String imageUrl;
 
@@ -21,7 +21,7 @@ public class MemberIntroductionResponse {
     public static MemberIntroductionResponse from(Member member) {
         return new MemberIntroductionResponse(
                 member.getMemberId(),
-                member.getName(),
+                member.getNickname(),
                 member.getImageUrl(),
                 member.getIntroduction()
         );

@@ -85,28 +85,6 @@ export default function ProfilePage() {
     console.log(storyRes);
   }, [storyRes]);
 
-  // const [profileBoxProps, setProfileBoxProps] = useState<ProfileBoxProps>({
-  //   memberId: parseInt(params['member-id'] as string),
-  //   imageUrl: '',
-  //   nickname: '',
-  //   badge: false,
-  //   imgSize: '150px',
-  //   fontSize: '1.4vw',
-  //   className: 'vertical',
-  // });
-
-  // useEffect(() => {
-  //   if (memberRes && memberRes.data) {
-  //     setProfileBoxProps({
-  //       ...profileBoxProps,
-  //       memberId: memberRes.data.memberId,
-  //       imageUrl: memberRes.data.imageUrl,
-  //       nickname: memberRes.data.nickname,
-  //       badge: memberRes.data.badge,
-  //     });
-  //   }
-  // }, [memberRes]);
-
   const ProfileBoxProps: ProfileBoxProps = {
     memberId: parseInt(params['member-id'] as string),
     imageUrl: memberRes?.data.imageUrl,

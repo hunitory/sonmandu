@@ -42,9 +42,10 @@ public class HandwritingController {
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/save")
     public ResponseEntity<Void> saveFont(@RequestPart(name = "name") String name,
+                                         @RequestPart(name = "handwritingApplicationId") String handwritingApplicationId,
                                          @RequestPart(name = "font") MultipartFile font) {
         log.info("/handwritings/save");
-        handwritingService.saveFont(name, font);
+        handwritingService.saveFont(name, Long.parseLong(handwritingApplicationId), font);
         return ResponseEntity.noContent().build();
     }
 

@@ -65,7 +65,7 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     @Transactional
-    public void saveFont(String name, MultipartFile font) {
+    public void saveFont(String name, Long handwritingApplicationId, MultipartFile font) {
         // 폰트 파일 저장
 
         FileDto fileDto = s3UploadService.saveFile(font, FileUtil.createFontName(name, font));
@@ -78,7 +78,8 @@ public class HandwritingServiceImpl implements HandwritingService{
                 .downloadUrl(fileDto.getUrl())
                 .handwritingApplication(
                         HandwritingApplication.builder()
-                                .handwritingApplicationId(4L) // 일단 1번으로
+                                .handwritingApplicationId(handwritingApplicationId) // 일단 1번으로
+                                .state(4)
                                 .build()
                 )
                 .build();

@@ -94,6 +94,9 @@ public class HandwritingServiceImpl implements HandwritingService{
     public List<SimpleHandwritingResponse> searchHandwriting(Long memberId, int start, int count, SearchConditionRequest condition) {
         List<Handwriting> handwritingList = handwritingRepository.findByDynamicConditions(start, count, condition);
         if(memberId == null) {
+//            for (Handwriting handwriting: handwritingList){
+//                System.out.println(handwriting.toString());
+//            }
             return handwritingList.stream().map(handwriting -> SimpleHandwritingResponse.from(handwriting, false)).toList();
         }
 

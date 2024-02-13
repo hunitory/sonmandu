@@ -38,12 +38,17 @@ public class HandwritingRepositoryImpl implements HandwritingRepositoryCustom {
                     .from(handwritingTag)
                     .where(handwritingTag.handwritingTagId.tagId.in(tagIds))
 <<<<<<< HEAD
+<<<<<<< HEAD
 //                    .groupBy(handwritingTag.handwritingTagId.handwritingApplicationId)
 //                    .having(handwritingTag.handwritingTagId.handwritingApplicationId.count().goe((long) tagIds.size()))
 =======
                     .groupBy(handwritingTag.handwritingTagId.handwritingApplicationId)
                     .having(handwritingTag.handwritingTagId.handwritingApplicationId.count().goe((long) tagIds.size()))
 >>>>>>> 4e5601b (fix: 손글씨 전시관 검색 파라미터 tagId 변경)
+=======
+//                    .groupBy(handwritingTag.handwritingTagId.handwritingApplicationId)
+//                    .having(handwritingTag.handwritingTagId.handwritingApplicationId.count().goe((long) tagIds.size()))
+>>>>>>> 26a1567 (fix: fix sort)
                     .fetch();
 
             // handwritingApplicationId를 사용하여 Handwriting 조회.
@@ -84,7 +89,10 @@ public class HandwritingRepositoryImpl implements HandwritingRepositoryCustom {
 //                return new OrderSpecifier<>(Order.DESC, QHandwriting.handwriting.createDate);
         }
 
+<<<<<<< HEAD
         orderSpecifiers.add(new OrderSpecifier(Order.DESC, QHandwriting.handwriting.handwritingId));
+=======
+>>>>>>> 26a1567 (fix: fix sort)
         return orderSpecifiers.toArray(new OrderSpecifier[orderSpecifiers.size()]);
     }
 }

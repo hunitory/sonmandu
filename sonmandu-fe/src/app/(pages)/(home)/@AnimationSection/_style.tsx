@@ -3,7 +3,6 @@
 import styled, { keyframes } from 'styled-components';
 import { PALETTE, notoSansKr } from 'styles';
 
-// 애니메이션 키 프레임 정의
 const fadeInOut = keyframes`
   0%, 100% {
     opacity: 1;
@@ -25,7 +24,7 @@ export const LeftSideWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${fadeInOut} 9s infinite; // 5초 동안 반복 애니메이션 적용
+  animation: ${fadeInOut} 9s infinite; 
 `;
 
 export const RightSideWrapper = styled.div`
@@ -33,8 +32,8 @@ export const RightSideWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${fadeInOut} 9s infinite; // 5초 동안 반복 애니메이션 적용
-  animation-delay: 4.5s; // 오른쪽 요소가 2.5초 후에 시작
+  animation: ${fadeInOut} 9s infinite; 
+  animation-delay: 4.5s; 
 `;
 
 export const ContentWrapper = styled.div`

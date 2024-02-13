@@ -2,19 +2,21 @@ import * as S from './style';
 import * as Comp from '@/components';
 import * as API from '@/apis';
 import { ProfileBoxProps, CommentProps } from 'types';
-import { useMutation } from '@tanstack/react-query';
+import { QueryObserverResult, useMutation } from '@tanstack/react-query';
 import { ChangeEvent, useRef, useState } from 'react';
+import { AxiosResponse } from 'axios';
 
 export default function FontStoryComment({
   profileBoxProps,
   commentProps,
   isMycomment,
+  getCommentList,
 }: {
   profileBoxProps: ProfileBoxProps;
   commentProps: CommentProps;
   isMycomment: boolean;
+  getCommentList: () => Promise<QueryObserverResult<AxiosResponse<any, any>, Error>>;
 }) {
-  
   // 입력값 받는 부분
   const ref = useRef<HTMLTextAreaElement>(null);
   const [comment, setComment] = useState<string>(commentProps.content);
@@ -42,8 +44,15 @@ export default function FontStoryComment({
         handwritingStoryCommentId: commentProps.handwritingStoryCommentId,
         commentContent: comment,
       }),
-    onSuccess: () => {setComment(comment)},
+    onSuccess: async () => {
+      await getCommentList();
+    },
   });
+
+  const handleCommentEditButtonClick = async () => {
+    await requestEdit();
+    handleCollapse();
+  };
 
   // 댓글삭제
   const { mutate: requestCommentDelete } = useMutation({
@@ -53,7 +62,9 @@ export default function FontStoryComment({
         handwritingStoryId: commentProps.handwritingStoryId,
         handwritingStoryCommentId: commentProps.handwritingStoryCommentId,
       }),
-    onSuccess: () => {},
+    onSuccess: async () => {
+      await getCommentList();
+    },
   });
 
   const handleCommentDeleteClick = () => {
@@ -68,26 +79,27 @@ export default function FontStoryComment({
         </S.ProfileBoxDiv>
         <S.CommentDate>{commentProps.createDate}</S.CommentDate>
       </S.CommentHeadWrapper>
-      { isExpanded ? (
-        isMycomment &&
-        <S.CommentInputAreaWrapper>
-          <S.CommentInputArea
-            ref={ref}
-            id="comment"
-            value={comment}
-            $isExpanded={isExpanded}
-            onFocus={handleExpansion}
-            onChange={handleCommentOnChange}
-          />
-          <S.CommentButtonDiv $isExpanded={isExpanded}>
-            <S.CommentEditButton type="button" disabled={false} onClick={requestEdit}>
-              <span>댓글 수정</span>
-            </S.CommentEditButton>
-            <S.CommentEditBackButton type="button" onFocus={handleCollapse} disabled={false}>
-              <span>접기</span>
-            </S.CommentEditBackButton>
-          </S.CommentButtonDiv>
-        </S.CommentInputAreaWrapper>
+      {isExpanded ? (
+        isMycomment && (
+          <S.CommentInputAreaWrapper>
+            <S.CommentInputArea
+              ref={ref}
+              id="comment"
+              value={comment}
+              $isExpanded={isExpanded}
+              onFocus={handleExpansion}
+              onChange={handleCommentOnChange}
+            />
+            <S.CommentButtonDiv $isExpanded={isExpanded}>
+              <S.CommentEditButton type="button" disabled={false} onClick={handleCommentEditButtonClick}>
+                <span>댓글 수정</span>
+              </S.CommentEditButton>
+              <S.CommentEditBackButton type="button" onFocus={handleCollapse} disabled={false}>
+                <span>접기</span>
+              </S.CommentEditBackButton>
+            </S.CommentButtonDiv>
+          </S.CommentInputAreaWrapper>
+        )
       ) : (
         <S.CommentContentWrapper>
           {comment}

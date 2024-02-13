@@ -7,5 +7,7 @@ export const storyInfoState = atom({
     content: '',
     handwritingStoryId: 0,
     handwritingId: 0,
+    handwritingName: '',
+    thumbnail: '',
   },
 });

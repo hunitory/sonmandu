@@ -4,14 +4,14 @@ import { PALETTE } from 'styles';
 
 interface NoProfileImageProps {
   memberId: number;
-  width: number;
-  height: number;
+  width: string;
+  height: string;
   children: string;
 }
 
 function NoProfileImage({ memberId, width, height, children }: NoProfileImageProps) {
   const randomIdxUsingMemberId = useMemo(() => {
-    return memberId % 4;
+    return memberId % 5;
   }, []);
 
   const createRandomStyleByIndex = () => {

@@ -26,10 +26,11 @@ import FontStoryComment from './FontStoryComment';
 import UserModalInput from './UserModalInput';
 import DownLoadTemplateButton from './Applications/FontStart/DownLoadTemplateButton';
 import NextButton from './Applications/FontStart/NextButton';
-import MainFontCard from './MainFontCard'
+import MainFontCard from './MainFontCard';
 import MainStoryCard from './MainStoryCard';
 import SideBar from './SideBar';
 import SkeletonCard from './SkeletonCard';
+import NoProfileImage from './NoProfileImage';
 
 export {
   BaseHeader,
@@ -62,4 +63,5 @@ export {
   MainStoryCard,
   SideBar,
   SkeletonCard,
+  NoProfileImage,
 };

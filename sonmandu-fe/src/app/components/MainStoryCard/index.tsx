@@ -45,6 +45,7 @@ function MainStoryCard(props: MainStoryCardProps) {
         <S.InteractionWrapper>
           <div className="profile-box-wrapper">
             <S.StyledProfileBox
+              memberId={member.memberId}
               imageUrl={member.imageUrl || '/image/logo.png'}
               imgSize="36px"
               nickname={member.name}

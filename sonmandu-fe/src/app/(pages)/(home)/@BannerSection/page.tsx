@@ -94,10 +94,6 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
     }
   }, []);
 
-  useEffect(()=>{
-    console.log(response?.data)
-  })
-
   return (
     <Styled.MainWrapper>
       <Styled.MainBanner>

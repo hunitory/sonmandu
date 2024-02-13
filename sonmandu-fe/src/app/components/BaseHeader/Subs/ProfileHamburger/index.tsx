@@ -80,12 +80,6 @@ export default function ProfileHamburger() {
     return <Image src={'/image/unknown-user.svg'} alt="로그인 안한 유저" width={18} height={18} priority />;
   };
 
-  useEffect(() => {
-    if (localStorage.getItem('access_token') !== null) {
-      console.log(`jwtDecode() :`, jwtDecode(localStorage.getItem('access_token') || ''));
-    }
-  }, []);
-
   return (
     <S.HamburgerWrapper
       onClick={handleDropBoxView}

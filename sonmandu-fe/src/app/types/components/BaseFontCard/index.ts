@@ -8,4 +8,5 @@ export interface FontCard {
   tag: number[];
   isLike: boolean;
   letter: { isShow: boolean; idx: number };
+  onClick?: (...args: any) => void;
 }

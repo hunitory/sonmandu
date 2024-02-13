@@ -27,6 +27,7 @@ import UserModalInput from './UserModalInput';
 import DownLoadTemplateButton from './Applications/FontStart/DownLoadTemplateButton';
 import NextButton from './Applications/FontStart/NextButton';
 import SideBar from './SideBar';
+import SkeletonCard from './SkeletonCard';
 
 export {
   BaseHeader,
@@ -56,4 +57,5 @@ export {
   DownLoadTemplateButton,
   NextButton,
   SideBar,
+  SkeletonCard,
 };

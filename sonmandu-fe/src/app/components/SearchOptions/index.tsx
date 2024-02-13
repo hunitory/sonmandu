@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 interface CreateQueryStringArgs {
   name: 'sort' | 'tagId' | 'name';
-  value: string;
+  value: string | string[];
 }
 
 function SearchOptions() {
@@ -23,18 +23,7 @@ function SearchOptions() {
   const createQueryString = useCallback(
     ({ name, value }: CreateQueryStringArgs) => {
       if (name === 'tagId') {
-        let newTags;
-        const currentTags =
-          searchParams
-            .get('tagId')
-            ?.split(',')
-            .filter((tag) => tag && tag !== ',') || [];
-
-        if (currentTags?.includes(value)) {
-          newTags = currentTags?.filter((tag) => tag !== value).join(',');
-        } else {
-          newTags = [...currentTags, value].join(',');
-        }
+        const newTags = (value as string[]).join(',');
         const params = new URLSearchParams(searchParams.toString());
         params.set('tagId', newTags);
 
@@ -42,7 +31,7 @@ function SearchOptions() {
       }
 
       const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
+      params.set(name, value as string);
 
       return router.push(`${pathname}?${params.toString()}`);
     },

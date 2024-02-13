@@ -6,12 +6,12 @@ interface fontListInGalleryArgs {
   takeCount: number;
   tagId?: string | null;
   sort?: 'desc' | 'popular' | 'hit' | 'likes' | string | null;
-  name?: string | null;
+  title?: string | null;
 }
 
-export async function handwritingStoryList({ startIdx, takeCount, sort, name }: fontListInGalleryArgs) {
+export async function handwritingStoryList({ startIdx, takeCount, sort, title }: fontListInGalleryArgs) {
   return instanceJsonContent.get(
-    `/handwritings/story?start=${startIdx}&count=${takeCount}&name=${name}&title=${name}&sort=${sort}`,
+    `/handwritings/story?start=${startIdx}&count=${takeCount}&name=&title=${title}&sort=${sort}`,
   );
 }
 
@@ -34,9 +34,9 @@ export async function loadFontInService({
 }) {
   const fontBuffer = getFontResponse?.data;
   const fontBase64 = Buffer.from(fontBuffer).toString('base64');
-  const customFont = new FontFace(name, `url(data:${getFontResponse?.headers['content-type']};base64,${fontBase64})`,{
+  const customFont = new FontFace(name, `url(data:${getFontResponse?.headers['content-type']};base64,${fontBase64})`, {
     display: 'fallback',
-  })
+  });
 
   document.fonts.add(customFont);
   return await customFont.load();
@@ -54,12 +54,24 @@ export async function handwritingStoryDelete({ handwritingStoryId }: { handwriti
   return instanceJsonContent.delete(`/handwritings/story/${handwritingStoryId}`);
 }
 
-export async function handwritingStoryComment({ handwritingStoryId, content }: { handwritingStoryId: number; content: string }) {
+export async function handwritingStoryComment({
+  handwritingStoryId,
+  content,
+}: {
+  handwritingStoryId: number;
+  content: string;
+}) {
   return instanceJsonContent.post(`/handsritings/story/${handwritingStoryId}/comment`, {
-    content: content
+    content: content,
   });
 }
 
-export async function handwritingStoryCommentDelete({ handwritingStoryId, handwritingStoryCommentId }: { handwritingStoryId: number; handwritingStoryCommentId: number}) {
-  return instanceJsonContent.delete(`/handwritings/story/${handwritingStoryId}/comments/${handwritingStoryCommentId}`)
+export async function handwritingStoryCommentDelete({
+  handwritingStoryId,
+  handwritingStoryCommentId,
+}: {
+  handwritingStoryId: number;
+  handwritingStoryCommentId: number;
+}) {
+  return instanceJsonContent.delete(`/handwritings/story/${handwritingStoryId}/comments/${handwritingStoryCommentId}`);
 }

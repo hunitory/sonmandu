@@ -54,7 +54,9 @@ public class ChatController {
                 chatRequest.getMessage()
         );
 
+        System.out.println(newChat.toString());
         chatRepository.save(newChat);
+        System.out.println(newChat.toString());
 
         return newChat.toChatResponse();
     }

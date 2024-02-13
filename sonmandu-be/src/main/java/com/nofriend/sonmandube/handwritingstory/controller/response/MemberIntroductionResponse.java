@@ -18,12 +18,15 @@ public class MemberIntroductionResponse {
 
     private String introduction;
 
+    private boolean badge;
+
     public static MemberIntroductionResponse from(Member member) {
         return new MemberIntroductionResponse(
                 member.getMemberId(),
                 member.getNickname(),
                 member.getImageUrl(),
-                member.getIntroduction()
+                member.getIntroduction(),
+                member.isBadge()
         );
     }
 }

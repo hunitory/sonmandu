@@ -5,9 +5,11 @@ import com.nofriend.sonmandube.chat.controller.response.ChatResponse;
 import com.nofriend.sonmandube.chat.domain.Chat;
 import com.nofriend.sonmandube.chat.domain.ChatProjection;
 import com.nofriend.sonmandube.chat.repository.ChatRepository;
+import com.nofriend.sonmandube.exception.IdNotFoundException;
 import com.nofriend.sonmandube.handwriting.domain.HandwritingNameDownloadUrlProjection;
 import com.nofriend.sonmandube.handwriting.repository.HandwritingRepository;
 import com.nofriend.sonmandube.jwt.JwtProvider;
+import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.member.repository.MemberRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -35,13 +38,15 @@ public class ChatController {
     public ChatResponse chatting(Principal principal, @Valid ChatRequest chatRequest) {
         Long memberId = Long.valueOf(principal.getName());
 
-        String memberNickname = memberRepository.findNicknameByMemberId(memberId).getNickname();
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IdNotFoundException("해당하는 회원이 없습니다."));
 
         HandwritingNameDownloadUrlProjection handwritingNameDownloadUrlProjection = handwritingRepository.findNameDownloadUrlByHandwritingId(chatRequest.getHandwritingId());
 
         Chat newChat = chatRequest.toEntity(
                 memberId,
-                memberNickname,
+                member.getNickname(),
+                member.isBadge(),
                 chatRequest.getHandwritingId(),
                 handwritingNameDownloadUrlProjection.getName(),
                 handwritingNameDownloadUrlProjection.getDownloadUrl(),

@@ -11,6 +11,8 @@ public interface ChatProjection {
     interface MemberProjection {
         Long getMemberId();
         String getNickname();
+
+        boolean isBadge();
     }
 
 

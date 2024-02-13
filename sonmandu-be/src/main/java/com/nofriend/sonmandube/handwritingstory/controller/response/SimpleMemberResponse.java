@@ -12,11 +12,13 @@ public class SimpleMemberResponse {
 
     private Long memberId;
 
-    private String name;
+    private String nickname;
 
     private String imageUrl;
 
+    private boolean badge;
+
     public static SimpleMemberResponse from(Member member) {
-        return new SimpleMemberResponse(member.getMemberId(), member.getName(), member.getImageUrl());
+        return new SimpleMemberResponse(member.getMemberId(), member.getNickname(), member.getImageUrl(), member.isBadge());
     }
 }

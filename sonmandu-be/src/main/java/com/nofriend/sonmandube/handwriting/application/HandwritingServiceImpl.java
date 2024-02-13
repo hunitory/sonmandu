@@ -96,6 +96,9 @@ public class HandwritingServiceImpl implements HandwritingService{
                 .name(fontname)
                 .downloadUrl(fileDto.getUrl())
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> cf7f0e3 (fix: handwriting isSelected)
                 .isSelected(true)
                 .handwritingApplication(
                         HandwritingApplication.builder()

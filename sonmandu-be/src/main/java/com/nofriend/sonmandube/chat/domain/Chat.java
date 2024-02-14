@@ -112,6 +112,9 @@ public class Chat implements ChatProjection{
     public void onPrePersist() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b6d63cf (fix: date format)
         this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a h:mm", Locale.KOREAN));
     }
 

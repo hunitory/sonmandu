@@ -5,12 +5,12 @@ export default function HomeLayout({
   children,
   BannerSection,
   StorySection,
-  AnimationSection,
+  // AnimationSection,
 }: {
   children: React.ReactNode;
   BannerSection: React.ReactNode;
   StorySection: React.ReactNode;
-  AnimationSection: React.ReactNode;
+  // AnimationSection: React.ReactNode;
 }) {
   return (
     <Styled.StyledMain>

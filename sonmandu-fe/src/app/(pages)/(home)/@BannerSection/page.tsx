@@ -93,6 +93,7 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
       setIsLoggedIn(true);
     }
   }, []);
+
   return (
     <Styled.MainWrapper>
       <Styled.MainBanner>

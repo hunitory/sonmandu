@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { BaseHashTags } from 'components';
 import { PALETTE, notoSansKr } from 'styles';
 
+export const StoryDetailLinkWrapper = styled.div``;
+
 export const PageTitleWrapper = styled.section`
   width: 100%;
   display: flex;

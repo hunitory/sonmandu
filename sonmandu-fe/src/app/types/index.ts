@@ -20,7 +20,7 @@ import { ProfilePasswordInputProps } from './components/ProfilePasswordInput';
 import { Trophy } from './components/ProfileTrophy';
 import { CommentProps } from './components/FontStoryComment';
 import { FontInfomationProps, FontDetailResponse } from './pages/FontDetail';
-import { FontStoryDetailResponse, IsLikeCount, SideBarProps } from './pages/FontStoryDetail';
+import { FontStoryDetailResponse, IsLikeCount, SideBarProps, StoryComment } from './pages/FontStoryDetail';
 import { ModalId, ModalInfo } from './store/modal';
 import { StoryData } from './components/FontStory';
 import { ProfileStoryCardProps } from './components/ProfileStoryCard';
@@ -60,5 +60,6 @@ export type {
   StoryData,
   SideBarProps,
   ProfileStoryCardProps,
-  BaseStoryCard
+  BaseStoryCard,
+  StoryComment,
 };

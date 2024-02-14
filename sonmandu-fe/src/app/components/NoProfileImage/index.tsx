@@ -4,8 +4,8 @@ import { PALETTE } from 'styles';
 
 interface NoProfileImageProps {
   memberId: number;
-  width: number;
-  height: number;
+  width: string;
+  height: string;
   children: string;
 }
 

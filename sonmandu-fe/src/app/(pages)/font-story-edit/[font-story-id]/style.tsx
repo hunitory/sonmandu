@@ -193,26 +193,11 @@ export const TagInputWrapper = styled.div`
 export const TagButton = styled(BaseButton)<TagButtonProps>`
   font-size: 14px;
   padding: clamp(4px, 0.3vw, 10px) clamp(9px, 0.8vw, 10px);
-  border: 1px solid ${PALETTE.LIGHT_BLACK};
   border-radius: 20px;
-  color: ${PALETTE.MAIN_BLACK};
 
-  display: ${(props) =>
-    props.currentIndex !== undefined ? (props.currentIndex === props.index ? 'block' : 'none') : 'block'};
-
-  &:not(.true):hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 0px 2px 2px 2px ${PALETTE.SUB_WHITE};
-    transition:
-      box-shadow 0.25s ease-in,
-      transform 0.25s ease-in;
-  }
-
-  &.true {
-    color: ${PALETTE.MAIN_ORANGE};
-    font-family: ${notoSansKr.bold.style.fontFamily};
-    border: 3px solid ${PALETTE.MAIN_ORANGE};
-  }
+  color: ${PALETTE.MAIN_ORANGE};
+  font-family: ${notoSansKr.bold.style.fontFamily};
+  border: 3px solid ${PALETTE.MAIN_ORANGE};
 `;
 
 export const WriteContentWrapper = styled.div`

@@ -36,7 +36,7 @@ interface MyFont {
 
 export default function ChattingSideBar({ myFont, rankingFont, setSelectedFont }: ChattingSideBarProps) {
   const router = useRouter();
-  const [fontListViews, setFontListViews] = useState({ ranking: false, owner: false });
+  const [fontListViews, setFontListViews] = useState({ ranking: true, owner: false });
 
   const filteringCompletedHandwriting = useCallback(() => {
     return myFont.list.filter((el: MyFont, i: number) => el.state === 4 || el.state === 5);
@@ -56,7 +56,7 @@ export default function ChattingSideBar({ myFont, rankingFont, setSelectedFont }
       <S.FontListOpener
         id="ranking"
         $isOpen={fontListViews.ranking}
-        onClick={() => setFontListViews((prev) => ({ ...prev, owner: false, ranking: !prev.ranking }))}
+        onClick={() => setFontListViews((prev) => ({ ...prev, ranking: !prev.ranking }))}
       >
         <p className="toggle-opener">인기 손글씨들</p>
         <S.FontsContainer>
@@ -102,7 +102,7 @@ export default function ChattingSideBar({ myFont, rankingFont, setSelectedFont }
       <S.FontListOpener
         id="owner"
         $isOpen={fontListViews.owner}
-        onClick={() => setFontListViews((prev) => ({ ...prev, ranking: false, owner: !prev.owner }))}
+        onClick={() => setFontListViews((prev) => ({ ...prev, owner: !prev.owner }))}
       >
         <p className="toggle-opener">내 손글씨들</p>
         <S.FontsContainer>

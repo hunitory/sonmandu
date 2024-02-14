@@ -74,12 +74,12 @@ function FontInfomation({ data, isAllResourcesLoad }: FontInfomationProps) {
           </S.TitleSection>
           <S.CustomProfileBox>
             {!isAllResourcesLoad() || data.member.imageUrl === null ? (
-              <span>{data.member.name[0]}</span>
+              <span>{data.member.nickname.slice(0, 1)}</span>
             ) : (
               <img src={data.member.imageUrl} width={46} height={46} alt="프로필 사진" />
             )}
             <S.ProfileTextWrapper>
-              <p>{data.member.name}</p>
+              <p>{data.member.nickname}</p>
               <p>{data.member.introduction}</p>
             </S.ProfileTextWrapper>
           </S.CustomProfileBox>

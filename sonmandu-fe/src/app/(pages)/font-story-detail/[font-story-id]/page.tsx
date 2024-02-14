@@ -38,7 +38,6 @@ export default function FontStoryDetailPage() {
     queryKey: queryKey,
     queryFn: () => API.handwritingStory.handwritingStoryDetail({ fontStoryId: params['font-story-id'] as string }),
   });
-  console.log('댓글 리스트: ', response?.data.commentList[0]);
 
   const { data: resFromS3, isFetching: isFileFetching } = useQuery({
     queryKey: ['get-font-file', response],
@@ -118,7 +117,6 @@ export default function FontStoryDetailPage() {
       isLike: prev?.isLike,
       count: response?.data.likeCount,
     }));
-    console.log(response);
   }, [response]);
 
   const handleLikeClick = (e: React.MouseEvent) => {

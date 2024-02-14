@@ -18,10 +18,14 @@ function BaseStoryCard(props: T.BaseStoryCard) {
       }),
   });
 
+  const imageLoader = ({ src, width }: { src: string; width: number }) => {
+    return `${src}?w=${width}`;
+  };
+
   return (
     <S.StoryCardWrapper>
       <S.ImageArea>
-        <Image src={thumbnail} alt="썸네일" fill={true} sizes="100vw" quality={100} />
+        <Image loader={imageLoader} src={thumbnail} alt="썸네일" fill={true} sizes="100vw" />
       </S.ImageArea>
       <S.StoryCardContainer>
         <S.StoryTextContentWrapper>

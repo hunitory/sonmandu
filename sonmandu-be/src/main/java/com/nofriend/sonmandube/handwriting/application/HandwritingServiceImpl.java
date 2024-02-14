@@ -73,6 +73,7 @@ public class HandwritingServiceImpl implements HandwritingService{
     @Override
     @Transactional
 <<<<<<< HEAD
+<<<<<<< HEAD
     public void saveFont(Long handwritingApplicationId, MultipartFile font) {
 =======
     public void saveFont(String name, Long handwritingApplicationId, MultipartFile font) {
@@ -80,14 +81,22 @@ public class HandwritingServiceImpl implements HandwritingService{
         // 폰트 파일 저장
 
 <<<<<<< HEAD
+=======
+    public void saveFont(Long handwritingApplicationId, MultipartFile font) {
+        // 폰트 파일 저장
+
+>>>>>>> 4b3905b (refactor: change param save font)
         String fontname = handwritingApplicationRepository.findById(handwritingApplicationId)
                 .orElseThrow(() -> new IdNotFoundException("해당하는 신청서가 없습니다."))
                 .getName();
 
         FileDto fileDto = s3UploadService.saveFile(font, FileUtil.createFontName(fontname, font));
+<<<<<<< HEAD
 =======
         FileDto fileDto = s3UploadService.saveFile(font, FileUtil.createFontName(name, font));
 >>>>>>> ae05ff2 (feat: update logout security)
+=======
+>>>>>>> 4b3905b (refactor: change param save font)
         log.info(fileDto.toString());
         // TODO : 폰트 지원서 연결
 
@@ -102,6 +111,7 @@ public class HandwritingServiceImpl implements HandwritingService{
                 .isSelected(true)
                 .handwritingApplication(
                         HandwritingApplication.builder()
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                                 .handwritingApplicationId(handwritingApplicationId)
@@ -119,6 +129,9 @@ public class HandwritingServiceImpl implements HandwritingService{
 >>>>>>> 1509951 (feat: setup table)
 =======
                                 .handwritingApplicationId(handwritingApplicationId) // 일단 1번으로
+=======
+                                .handwritingApplicationId(handwritingApplicationId)
+>>>>>>> 4b3905b (refactor: change param save font)
                                 .state(4)
 >>>>>>> 057e098 (fix: change state)
                                 .build()

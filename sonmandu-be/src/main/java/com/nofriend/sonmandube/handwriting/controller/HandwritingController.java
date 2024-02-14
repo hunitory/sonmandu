@@ -49,6 +49,7 @@ public class HandwritingController {
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/save")
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ResponseEntity<Void> saveFont(//@RequestPart(name = "name") String name,
                                          @RequestPart(name = "handwritingApplicationId") String handwritingApplicationId,
                                          @RequestPart(name = "font") MultipartFile font) {
@@ -64,6 +65,13 @@ public class HandwritingController {
         log.info("/handwritings/save");
         handwritingService.saveFont(name, Long.parseLong(handwritingApplicationId), font);
 >>>>>>> 057e098 (fix: change state)
+=======
+    public ResponseEntity<Void> saveFont(//@RequestPart(name = "name") String name,
+                                         @RequestPart(name = "handwritingApplicationId") String handwritingApplicationId,
+                                         @RequestPart(name = "font") MultipartFile font) {
+        log.info("/handwritings/save");
+        handwritingService.saveFont(Long.parseLong(handwritingApplicationId), font);
+>>>>>>> 4b3905b (refactor: change param save font)
         return ResponseEntity.noContent().build();
 =======
         handwritingService.saveFont(name, font);

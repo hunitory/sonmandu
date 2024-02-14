@@ -38,6 +38,7 @@ function ChattingLayout() {
               setCurSelectedFont(() => ({ fontId: targetFont.handwritingId, fontName: targetFont.name }));
               return serverRes;
             }),
+          staleTime: Infinity,
           refetchInterval: false,
           retry: 1,
         },
@@ -53,6 +54,7 @@ function ChattingLayout() {
               }
               return serverRes;
             }),
+          staleTime: Infinity,
           refetchInterval: false,
           retry: 1,
         },

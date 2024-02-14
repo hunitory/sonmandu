@@ -4,7 +4,6 @@ import React, { Dispatch, MouseEvent, SetStateAction, useCallback, useState } fr
 import * as S from './style';
 import * as T from '@/types';
 import * as Comp from '@/components';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 interface ChattingSideBarProps {

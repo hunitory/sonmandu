@@ -1,13 +1,13 @@
 'use client';
 
-import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
 import * as S from './style';
 import * as T from '@/types';
 import * as API from '@/apis';
 import * as Comp from '@/components';
-import Image from 'next/image';
 import { Client, IFrame, StompSubscription } from '@stomp/stompjs';
 import { useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
 
 let stompClient: Client;
 let isConnected = false;
@@ -52,14 +52,11 @@ export default function ChattingMessageContainer({ requestFonts, curSelectedFont
     queryKey: queryKey,
     queryFn: () =>
       API.chat.getPreviousMessage().then((serverRes) => {
-        console.log(`serverRes :`, serverRes.data);
         setMessageManager((prev) => [...prev, ...serverRes.data]);
         return serverRes;
       }),
-    refetchIntervalInBackground: false,
-    refetchOnWindowFocus: false,
+    staleTime: Infinity,
     refetchInterval: false,
-    retryOnMount: false,
     retry: 1,
   });
 
@@ -76,7 +73,7 @@ export default function ChattingMessageContainer({ requestFonts, curSelectedFont
   const connect = useCallback(() => {
     const config = {
       brokerURL: 'wss://i10b111.p.ssafy.io/dev/api/chat-connection',
-      onConnect: (frame: IFrame) => console.log(`frame IN CONFIG :`, frame),
+      onConnect: (frame: IFrame) => {},
     };
     if (!stompClient) {
       stompClient = new Client(config);
@@ -104,7 +101,6 @@ export default function ChattingMessageContainer({ requestFonts, curSelectedFont
           },
           message: body.message,
         };
-        console.log(`newBody :`, newBody);
         setMessageManager((prev) => [newBody, ...prev]);
       });
       subscriptions['/topic/sonmandu'] = subscribe;
@@ -117,6 +113,8 @@ export default function ChattingMessageContainer({ requestFonts, curSelectedFont
 
     return () => {
       if (subscriptions['/topic/sonmandu']) subscriptions['/topic/sonmandu'].unsubscribe();
+      setMessageInputValue(() => '');
+      setMessageManager((prev) => []);
     };
   }, []);
 
@@ -132,7 +130,6 @@ export default function ChattingMessageContainer({ requestFonts, curSelectedFont
   };
 
   useEffect(() => {
-    console.log(`아이템 리스트 :`, messageManager);
     if (messageContainerRef?.current) {
       messageScrollWrapperRef.current?.scrollTo({ top: messageContainerRef?.current.clientHeight });
     }
@@ -171,7 +168,7 @@ export default function ChattingMessageContainer({ requestFonts, curSelectedFont
           $fontName={curSelectedFont.fontName}
         />
         <S.SubmitButton disabled={false} type="submit">
-          <Comp.CustomImage src={'/image/orange-arrow-right.svg'} width={48} height={28} alt="전송하기" />
+          <Image src={'/image/orange-arrow-right.svg'} width={48} height={28} alt="전송하기" />
         </S.SubmitButton>
       </S.FormFiled>
     </S.Container>

@@ -9,7 +9,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'sonmando.s3.ap-northeast-2.amazonaws.com',
         port: '',
-        pathname: '/*/*/*/*',
+        pathname: '/**',
       },
     ],
   },
@@ -24,6 +24,7 @@ export default nextConfig;
 //   pathname: '/**',
 // },
 
+// /*/*/*/*
 // https://
 // sonmando.s3.ap-northeast-2.amazonaws.com
 // /2024

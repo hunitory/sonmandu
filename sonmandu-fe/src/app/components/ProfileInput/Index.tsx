@@ -78,7 +78,8 @@ function ProfileInput({ isActive, activate, ...props }: ProfileInputProps) {
 
   const handleEditButtonClick = () => {
     requestEditInfo();
-    setIsEdit(!isEdit);
+    setIsEdit(false);
+    activate(allActive);
   };
 
   return (

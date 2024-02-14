@@ -73,7 +73,7 @@ export const ProfileBoxDiv = styled.div`
   width: fit-content;
   height: fit-content;
   display: flex;
-  padding: 12px 14px;
+  padding: 12px;
   font-weight: ${notoSansKr.black.style.fontWeight};
   font-family: ${notoSansKr.black.style.fontFamily};
   color: ${PALETTE.MAIN_BLACK};
@@ -116,9 +116,31 @@ export const ProfileIndexDiv = styled.div`
 
 export const ProfileBoxInfoDiv = styled.span`
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   gap: 1vw;
+`;
+
+export const ProfileImageEditButton = styled(BaseButton)`
+  position: absolute;
+  top: 142px;
+  padding: 3px 11px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+
+  span {
+    font-size: 12px;
+    font-weight: ${notoSansKr.regular.style.fontWeight};
+    font-family: ${notoSansKr.regular.style.fontFamily};
+    color: #999999;
+  }
 `;
 
 export const ProfileInfoLink = styled.span`

@@ -43,8 +43,8 @@ export const ProfileImageWrapper = styled.div<ProfileImageWrapperProps>`
     height: ${({ size }) => size};
     @media screen and (max-width: 1150px) {
       & .vertical {
-        width: calc(${({ size }) => size} * 1.5);
-        height: calc(${({ size }) => size} * 1.5);
+        width: calc(${({ size }) => `${size}px`} * 1.5);
+        height: calc(${({ size }) => `${size}px`} * 1.5);
       }
     }
     position: relative;

@@ -51,12 +51,6 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
   const slickRef = useRef<CustomSlider>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // const goPrevious = useCallback(() => {
-  //   if (slickRef.current) {
-  //     slickRef.current.slickPrev();
-  //   }
-  // }, []);
-
   const goNext = useCallback(() => {
     if (slickRef.current) {
       slickRef.current.slickNext();
@@ -64,7 +58,6 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
   }, []);
 
   const queryKey = ['popular-fonts-search'];
-  // const queryKey = ['font-gallery-search', searchParams];
   const { data: response, isFetching } = useQuery({
     queryKey: queryKey,
     queryFn: () => API.mainFontCard.PopolarfontList(),
@@ -116,9 +109,6 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
         </Styled.MainTextContainer>
       </Styled.MainBanner>
       <Styled.CarouselWrapper>
-        {/* <Styled.ArrowLeftButton type="button" disabled={false} onClick={goPrevious}>
-          <Comp.CustomImage src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />
-        </Styled.ArrowLeftButton> */}
         <Slider {...settings} ref={slickRef}>
           {response?.data.map((res: FontCard) => <Comp.MainFontCard key={res.handwritingId} {...res} />)}
         </Slider>

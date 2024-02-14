@@ -15,6 +15,7 @@ export const StoryDetailLinkWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: end;
+  align-items: center;
   text-decoration: underline;
   padding-right: 10px;
   span {

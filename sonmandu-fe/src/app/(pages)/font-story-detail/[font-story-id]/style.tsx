@@ -84,10 +84,15 @@ export const DetailInfoWrapper = styled.div`
 `;
 
 export const HeartWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
+  display: inline-block;
+    position: relative;
+    overflow: hidden;
+    width: 30px;
+    height: 28px;
+    Image {
+background-size: cover;
+    transition: background-color 0.3s ease;
+    }
 `;
 
 export const TitleSpan = styled.span<{ name: string }>`

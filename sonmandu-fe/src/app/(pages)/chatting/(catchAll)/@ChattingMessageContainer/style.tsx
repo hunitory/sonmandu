@@ -12,7 +12,7 @@ export const Container = styled.section`
 
 export const HiddenWrapper = styled.div`
   width: 100%;
-  height: calc(100vh - 57px - 120px);
+  height: calc(100vh - 57px - 148px);
   overflow: hidden;
 `;
 
@@ -26,7 +26,7 @@ export const ScrollAbleContainer = styled.div`
 
 export const AllMessageContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 18px;
   height: fit-content;
 `;
@@ -38,26 +38,33 @@ export const MessageElement = styled.div`
   height: fit-content;
   padding: 0px 12px;
   will-change: scroll-position;
+
   img,
   span {
     border: 1px solid ${PALETTE.SUB_WHITE};
     border-radius: 50%;
     margin-top: 8px;
   }
+  & > p {
+    font-size: 12px;
+    align-self: self-end;
+  }
 `;
 
 export const NicknameAndMessgeWrapper = styled.div<{ $fontName: string }>`
   & > p:nth-of-type(1) {
-    font-family: ${notoSansKr.bold.style.fontFamily};
-    font-weight: ${notoSansKr.bold.style.fontWeight};
+    font-family: ${notoSansKr.regular.style.fontFamily};
+    font-weight: ${notoSansKr.regular.style.fontWeight};
+    font-family: ${({ $fontName }) => $fontName};
     margin-bottom: 4px;
   }
 
   & > p:nth-of-type(2) {
     width: fit-content;
     height: fit-content;
-    padding: 10px 12px;
+    padding: 12px 16px;
     border-radius: 12px;
+    font-size: 18px;
     font-family: ${({ $fontName }) => $fontName};
     color: ${PALETTE.MAIN_BLACK};
     background-color: ${PALETTE.SUB_WHITE};
@@ -69,13 +76,19 @@ export const FormFiled = styled.form`
   justify-content: space-between;
   width: 100%;
   height: fit-content;
-  border-top: 1px solid ${PALETTE.LIGHT_BLACK};
 `;
 
-export const MessageTypingArea = styled.textarea`
+export const MessageTypingArea = styled.textarea<{ $fontName: string }>`
   width: calc(100% - 72px);
-  height: 120px;
+  height: 148px;
   padding: 24px;
+  font-family: ${({ $fontName }) => $fontName};
+  background-color: ${PALETTE.SUB_WHITE};
+
+  &,
+  &::placeholder {
+    font-size: 18px;
+  }
 `;
 
 export const SubmitButton = styled(BaseButton)`
@@ -84,6 +97,9 @@ export const SubmitButton = styled(BaseButton)`
   color: white;
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
-  background-color: ${PALETTE.MAIN_ORANGE};
-  border-radius: 8px;
+  background-color: ${PALETTE.WHITE_ORANGE};
+  border-radius: 4px;
+  img {
+    transform: rotate(-90deg);
+  }
 `;

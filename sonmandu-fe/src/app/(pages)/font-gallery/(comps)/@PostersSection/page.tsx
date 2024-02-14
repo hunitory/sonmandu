@@ -8,6 +8,7 @@ import * as Comp from '@/components';
 import { useQuery } from '@tanstack/react-query';
 import { useIntersectionObserver } from 'customhook';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { AxiosResponse } from 'axios';
 
 interface SearchParams {
   tagId: string;
@@ -25,6 +26,20 @@ export default function PostersSection() {
     name: searchParams.get('name') || '',
     sort: searchParams.get('sort') || '',
   });
+
+  const requestFonts = useCallback(async (serverRes: T.FontCard[]) => {
+    const downloadUrls = serverRes.map((res: T.FontCard) =>
+      API.handwriting.getFontFileFromS3({ url: res.downloadUrl }),
+    );
+    const responseFromS3 = await Promise.allSettled(downloadUrls);
+
+    await Promise.allSettled(
+      responseFromS3.map((res, i) => {
+        if (res.status === 'fulfilled')
+          return API.handwriting.loadFontInService({ getFontResponse: res.value, name: serverRes[i].name });
+      }),
+    );
+  }, []);
 
   const isQueryChanged = useCallback(() => {
     for (const [key, value] of searchParams.entries()) {
@@ -47,9 +62,9 @@ export default function PostersSection() {
   } = useQuery({
     queryKey: queryStringChangeQueryKey,
     queryFn: async () => {
+      setIsLoadingMore((prev) => ({ ...prev, curRequestLoading: true, endOfList: false }));
       if (isQueryChanged()) {
         setCurItemList([]);
-        setIsLoadingMore((prev) => ({ ...prev, endOfList: false }));
         setPrevSearchParams((prev) => ({
           ...prev,
           tagId: searchParams.get('tagId') || '',
@@ -64,23 +79,15 @@ export default function PostersSection() {
         name: searchParams.get('name') || '',
         sort: searchParams.get('sort') || '',
       };
-      return await API.handwriting.fontListInGallery(requestArgs).then(async (res) => {
-        // ----------------병렬 처리: Todo, 함수화 하고 밑에 무한 스크롤 요청에도 반영하기 ---------------------
-        const downloadUrls = res.data.map((res: T.FontCard) =>
-          API.handwriting.getFontFileFromS3({ url: res.downloadUrl }),
-        );
-        const responseFromS3 = await Promise.all(downloadUrls);
+      return await API.handwriting
+        .fontListInGallery(requestArgs)
+        .then(async (serverRes) => {
+          await requestFonts(serverRes.data);
 
-        await Promise.all(
-          responseFromS3.map((file, i) =>
-            API.handwriting.loadFontInService({ getFontResponse: file, name: res.data[i].name }),
-          ),
-        );
-        // ----------------병렬 처리---------------------
-
-        setCurItemList((prev) => [...res.data]);
-        return res.data;
-      });
+          setCurItemList((prev) => [...serverRes.data]);
+          return serverRes.data;
+        })
+        .finally(() => setIsLoadingMore((prev) => ({ ...prev, curRequestLoading: false })));
     },
     refetchInterval: false,
     refetchOnMount: false,
@@ -97,9 +104,11 @@ export default function PostersSection() {
         name: searchParams.get('name') || '',
         sort: searchParams.get('sort') || '',
       };
-      return await API.handwriting.fontListInGallery(requestArgs).then((res) => {
-        setCurItemList((prev) => [...prev, ...res.data]);
-        return res.data;
+      return await API.handwriting.fontListInGallery(requestArgs).then(async (serverRes) => {
+        await requestFonts(serverRes.data);
+
+        setCurItemList((prev) => [...prev, ...serverRes.data]);
+        return serverRes.data;
       });
     },
     refetchInterval: false,

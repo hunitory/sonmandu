@@ -1,36 +1,14 @@
 import React, { useState } from 'react';
 import * as S from './style';
 import * as API from '@/apis';
-import { BaseLetterField, SkeletonCard } from 'components';
+import { BaseLetterField } from 'components';
 import { FontCard } from 'types';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 
 function BaseFontCard(props: FontCard) {
-  const {
-    handwritingId,
-    name,
-    downloadUrl,
-    hitCount,
-    likeCount,
-    downloadCount,
-    tag,
-    isLike,
-    letter,
-    onClick,
-    loading,
-  } = props;
+  const { handwritingId, name, downloadUrl, hitCount, likeCount, downloadCount, tag, isLike, letter, onClick } = props;
   const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
-  // const { data: responseFromS3, isFetching: isFileFetching } = useQuery({
-  //   queryKey: ['get-font-file', name],
-  //   queryFn: () => API.handwriting.getFontFileFromS3({ url: downloadUrl }),
-  // });
-
-  // const { data: loadResponse, isFetching: isLoadFetching } = useQuery({
-  //   queryKey: ['load-font-file', responseFromS3],
-  //   queryFn: () => API.handwriting.loadFontInService({ getFontResponse: responseFromS3, name: name }),
-  // });
-
   const { mutate, data: resLikeClick } = useMutation({
     mutationKey: ['font-gallery-click-like', handwritingId],
     mutationFn: () => API.handwriting.fontLikesClick({ fontId: String(handwritingId) }),
@@ -47,36 +25,30 @@ function BaseFontCard(props: FontCard) {
   };
 
   return (
-    <>
-      {loading ? (
-        <SkeletonCard ratio="4 / 5.5" />
-      ) : (
-        <S.FontCardWrapper onClick={onClick}>
-          <S.FontCardContainer name={name}>
-            <S.FontName>{name}</S.FontName>
-            {letter.isShow && <BaseLetterField letterImgUrl={`/image/letter-${letter.idx % 4}.png`} />}
-            <S.EtcInfomationWrapper>
-              <S.IconTextsWrapper>
-                <S.IconWithNumberContainer disabled={false} type="button" onClick={handleLikeClick}>
-                  <Image
-                    src={`/image/${copyIsLikeAndCount.isLike ? 'fill' : 'empty'}-orange-heart.svg`}
-                    alt="빈 하트"
-                    width={24}
-                    height={20}
-                  />
-                  <span>{copyIsLikeAndCount.count}</span>
-                </S.IconWithNumberContainer>
-                <S.IconWithNumberContainer disabled={false} type="button">
-                  <Image src={'/image/download-with-circle.svg'} alt="다운로드 횟수" width={24} height={20} />
-                  <span>{downloadCount}</span>
-                </S.IconWithNumberContainer>
-              </S.IconTextsWrapper>
-              <S.StyledHashTags direction="row" hashTagIdList={tag} />
-            </S.EtcInfomationWrapper>
-          </S.FontCardContainer>
-        </S.FontCardWrapper>
-      )}
-    </>
+    <S.FontCardWrapper onClick={onClick}>
+      <S.FontCardContainer name={name}>
+        <S.FontName>{name}</S.FontName>
+        {letter.isShow && <BaseLetterField letterImgUrl={`/image/letter-${letter.idx % 4}.png`} />}
+        <S.EtcInfomationWrapper>
+          <S.IconTextsWrapper>
+            <S.IconWithNumberContainer disabled={false} type="button" onClick={handleLikeClick}>
+              <Image
+                src={`/image/${copyIsLikeAndCount.isLike ? 'fill' : 'empty'}-orange-heart.svg`}
+                alt="빈 하트"
+                width={24}
+                height={20}
+              />
+              <span>{copyIsLikeAndCount.count}</span>
+            </S.IconWithNumberContainer>
+            <S.IconWithNumberContainer disabled={false} type="button">
+              <Image src={'/image/download-with-circle.svg'} alt="다운로드 횟수" width={24} height={20} />
+              <span>{downloadCount}</span>
+            </S.IconWithNumberContainer>
+          </S.IconTextsWrapper>
+          <S.StyledHashTags direction="row" hashTagIdList={tag} />
+        </S.EtcInfomationWrapper>
+      </S.FontCardContainer>
+    </S.FontCardWrapper>
   );
 }
 

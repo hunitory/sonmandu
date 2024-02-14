@@ -1,7 +1,8 @@
 'use client';
 
-import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import * as S from './style';
+import * as T from '@/types';
 import * as API from '@/apis';
 import * as Comp from '@/components';
 import Image from 'next/image';
@@ -12,6 +13,11 @@ let stompClient: Client;
 let isConnected = false;
 const subscriptions: { [key: string]: StompSubscription } = {};
 
+interface ChattingSideBarProps {
+  requestFonts: (serverRes: T.FontCard[]) => Promise<void>;
+  curSelectedFont: { fontId: number; fontName: string };
+}
+
 interface ChattingMessage {
   chatId: number;
   createTime: string;
@@ -20,25 +26,35 @@ interface ChattingMessage {
     handwritingId: number;
     downloadUrl: string;
   };
-  member: { badge: boolean; nickname: string; memberId: number; imageUrl: string };
+  member: { badge: boolean; nickname: string; memberId: number; imageUrl: string | null };
   message: string;
 }
 
-export default function ChattingMessageContainer() {
+interface ReceivedMessage {
+  chatHandwritingResponse: {
+    handwritingId: number;
+    name: string;
+    downloadUrl: string;
+  };
+  chatId: number;
+  chatMemberResponse: { memberId: number; nickname: string; badge: boolean; imageUrl: string | null };
+  createTime: string;
+  message: string;
+}
+
+export default function ChattingMessageContainer({ requestFonts, curSelectedFont }: ChattingSideBarProps) {
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const messageScrollWrapperRef = useRef<HTMLDivElement>(null);
-  const [messageManager, setMessageManager] = useState<{ messages: ChattingMessage[]; containerHeight: number }>({
-    messages: [],
-    containerHeight: 0,
-  });
+  const [messageManager, setMessageManager] = useState<ChattingMessage[]>([]);
 
   const queryKey = ['get-previous-message'];
   const { data: previousMessages, isFetching } = useQuery({
     queryKey: queryKey,
     queryFn: () =>
-      API.chat.getPreviousMessage().then((res) => {
-        setMessageManager((prev) => ({ ...prev, messages: [...prev.messages, ...res.data] }));
-        return res;
+      API.chat.getPreviousMessage().then((serverRes) => {
+        console.log(`serverRes :`, serverRes.data);
+        setMessageManager((prev) => [...prev, ...serverRes.data]);
+        return serverRes;
       }),
     refetchIntervalInBackground: false,
     refetchOnWindowFocus: false,
@@ -48,22 +64,20 @@ export default function ChattingMessageContainer() {
   });
 
   const [messageInputValue, setMessageInputValue] = useState('');
-  const config = {
-    brokerURL: 'wss://i10b111.p.ssafy.io/dev/api/chat-connection',
-    onConnect: (frame: IFrame) => {
-      console.log(`frame IN CONFIG :`, frame);
-    },
-  };
-
   const sendMessage = () => {
     const body = {
       message: messageInputValue,
-      handwritingId: 3,
+      handwritingId: curSelectedFont.fontId,
     };
     stompClient.publish({ destination: '/app/sonmandu', body: JSON.stringify(body) });
+    setMessageInputValue('');
   };
 
   const connect = useCallback(() => {
+    const config = {
+      brokerURL: 'wss://i10b111.p.ssafy.io/dev/api/chat-connection',
+      onConnect: (frame: IFrame) => console.log(`frame IN CONFIG :`, frame),
+    };
     if (!stompClient) {
       stompClient = new Client(config);
       stompClient.activate();
@@ -71,10 +85,27 @@ export default function ChattingMessageContainer() {
 
     stompClient.onConnect = () => {
       isConnected = true;
-
       const subscribe = stompClient.subscribe('/topic/sonmandu', (message) => {
-        const body = JSON.parse(message.body);
-        console.log(`Received: `, body);
+        const body: ReceivedMessage = JSON.parse(message.body);
+
+        const newBody = {
+          chatId: body.chatId,
+          createTime: body.createTime,
+          handwriting: {
+            name: body.chatHandwritingResponse.name,
+            handwritingId: body.chatHandwritingResponse.handwritingId,
+            downloadUrl: body.chatHandwritingResponse.downloadUrl,
+          },
+          member: {
+            badge: body.chatMemberResponse.badge,
+            nickname: body.chatMemberResponse.nickname,
+            memberId: body.chatMemberResponse.memberId,
+            imageUrl: body.chatMemberResponse.imageUrl,
+          },
+          message: body.message,
+        };
+        console.log(`newBody :`, newBody);
+        setMessageManager((prev) => [newBody, ...prev]);
       });
       subscriptions['/topic/sonmandu'] = subscribe;
     };
@@ -101,24 +132,23 @@ export default function ChattingMessageContainer() {
   };
 
   useEffect(() => {
+    console.log(`아이템 리스트 :`, messageManager);
     if (messageContainerRef?.current) {
-      console.log(`높이 :`, messageContainerRef?.current.clientHeight);
       messageScrollWrapperRef.current?.scrollTo({ top: messageContainerRef?.current.clientHeight });
-      setMessageManager((prev) => ({ ...prev, containerHeight: messageContainerRef?.current?.clientHeight || 0 }));
     }
-  }, [messageManager.messages]);
+  }, [messageManager]);
 
   return (
     <S.Container>
       <S.HiddenWrapper>
         <S.ScrollAbleContainer ref={messageScrollWrapperRef}>
           <S.AllMessageContainer ref={messageContainerRef}>
-            {messageManager.messages.map((msg, i) => (
-              <S.MessageElement key={`chat-message-${msg.chatId}`}>
-                {msg.member.imageUrl && msg.member.imageUrl !== 'null' ? (
-                  <Image src={msg.member.imageUrl} width={28} height={28} alt="프사" />
+            {messageManager.map((msg, i) => (
+              <S.MessageElement key={`chat-message-${msg.chatId}-${i}`}>
+                {msg.member.imageUrl && msg.member.imageUrl !== null ? (
+                  <Image src={msg.member.imageUrl} width={42} height={42} alt="프사" />
                 ) : (
-                  <Comp.NoProfileImage width={28} height={28} memberId={msg.member.memberId}>
+                  <Comp.NoProfileImage width={'42px'} height={'42px'} memberId={msg.member.memberId}>
                     {msg.member.nickname}
                   </Comp.NoProfileImage>
                 )}
@@ -126,6 +156,7 @@ export default function ChattingMessageContainer() {
                   <p>{msg.member.nickname}</p>
                   <p>{msg.message}</p>
                 </S.NicknameAndMessgeWrapper>
+                <p>{msg.createTime}</p>
               </S.MessageElement>
             ))}
           </S.AllMessageContainer>
@@ -137,9 +168,10 @@ export default function ChattingMessageContainer() {
           value={messageInputValue}
           onChange={handleOnChange}
           onKeyDown={handleSubmit}
+          $fontName={curSelectedFont.fontName}
         />
         <S.SubmitButton disabled={false} type="submit">
-          전송
+          <Image src={'/image/orange-arrow-right.svg'} width={48} height={28} alt="전송하기" />
         </S.SubmitButton>
       </S.FormFiled>
     </S.Container>

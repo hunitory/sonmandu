@@ -76,7 +76,7 @@ export default function ProfileHamburger() {
         </Comp.NoProfileImage>
       );
     }
-    return <Image src={'/image/unknown-user.svg'} alt="로그인 안한 유저" width={18} height={18} priority />;
+    return <Comp.CustomImage src={'/image/unknown-user.svg'} alt="로그인 안한 유저" width={18} height={18} priority />;
   };
 
   return (
@@ -87,7 +87,7 @@ export default function ProfileHamburger() {
       disabled={false}
       type="button"
     >
-      <Image src={'/image/hamburger.svg'} alt="드롭박스 열기" width={16} height={16} priority />
+      <Comp.CustomImage src={'/image/hamburger.svg'} alt="드롭박스 열기" width={16} height={16} priority />
       {handleProfileImage()}
       {dropBoxView && (
         <S.DropBoxWrapper>

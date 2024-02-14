@@ -159,7 +159,7 @@ function SignUpModal() {
           <S.ModalContainer>
             <S.WelcomeWrapper>
               <span>환영합니다!</span>
-              <Image src={'/image/logo.png'} alt="로고" width={142} height={62} />
+              <Comp.CustomImage src={'/image/logo.png'} alt="로고" width={142} height={62} />
               <span>손글씨로 폰트를 만들어 드립니다!</span>
               <span>회원가입을 한 후 여러 사람들의 폰트와 이야기를 즐겨보세요!</span>
             </S.WelcomeWrapper>

@@ -9,7 +9,7 @@ export interface FontDetailResponse {
     imageUrl: null | string;
     introduction: null | string;
     memberId: number;
-    name: string;
+    nickname: string;
   };
   name: string;
   tagIdList: number[];

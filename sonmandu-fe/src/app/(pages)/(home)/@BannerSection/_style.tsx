@@ -1,7 +1,7 @@
 'use client';
 
-import { BaseButton } from 'components';
 import styled from 'styled-components';
+import { BaseButton } from 'components';
 import { PALETTE, notoSansKr } from 'styles';
 
 export const MainWrapper = styled.div`
@@ -142,21 +142,6 @@ export const CarouselWrapper = styled.section`
     }
   }
 `;
-
-
-// export const ArrowLeftButton = styled(BaseButton)`
-//   position: absolute;
-//   padding: 5px;
-//   left: 10%;
-//   top: 45%;
-//   box-shadow: 0px 0px 4px ${PALETTE.MAIN_BLACK};
-//   transform: scaleX(-1);
-//   z-index: 6;
-//   &:hover {
-//     transform: scaleX(-1) translate(-1px, -1px);
-//     transition: transform 0.25s ease-in;
-//   }
-// `;
 
 export const ArrowRightButton = styled(BaseButton)`
   position: absolute;

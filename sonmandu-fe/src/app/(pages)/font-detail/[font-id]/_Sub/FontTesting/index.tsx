@@ -51,7 +51,7 @@ function FontTesting({ fontName, isAllResourcesLoad }: FontTestingProps) {
               onClick={() => handleSelectedLetter(i)}
               selected={i === selectedLetter.idx}
             >
-              <Image src={`/image/letter-${i}.png`} alt={`편지지-${i}`} width={126} height={86} />
+              <Comp.CustomImage src={`/image/letter-${i}.png`} alt={`편지지-${i}`} width={126} height={86} />
             </S.LatterContainerButton>
           ))}
         </S.SideBoxContainer>

@@ -1,5 +1,6 @@
 import React from 'react';
 import * as S from './style';
+import * as Comp from '@/components';
 import Image from 'next/image';
 import { BaseButton, BaseHashTags } from 'components';
 import { ProfileFontCardProps, BaseButtonProps } from 'types';
@@ -21,7 +22,7 @@ function ProfileFontCardMaking({ profileFontCardProps }: { profileFontCardProps:
   return (
     <S.ProfileFontCardWrapper>
       <S.UpperWrapper>
-        <Image src={`/image/producing-${state?.toString()}.png`} alt="#" priority width={144} height={179} />
+        <Comp.CustomImage src={`/image/producing-${state?.toString()}.png`} alt="#" priority width={144} height={179} />
       </S.UpperWrapper>
       <S.LowerWrapper>
         <S.LowerSpan>{name}</S.LowerSpan>
@@ -33,7 +34,7 @@ function ProfileFontCardMaking({ profileFontCardProps }: { profileFontCardProps:
               width={30}
               height={28}
             />
-            <Image src="/image/download.png" alt="#" width={30} height={30} />
+            <Comp.CustomImage src="/image/download.png" alt="#" width={30} height={30} />
           </S.LowerContentsUp>
           <S.LowerContentsDown>
             <BaseHashTags hashTagIdList={tag} direction="row" />

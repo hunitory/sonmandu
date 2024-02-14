@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as Styled from './style';
 import * as Comp from 'components';
-import Image from 'next/image';
-import { useRecoilState } from 'recoil';
 import Link from 'next/link';
 
 function UnRegisterModal() {
@@ -19,7 +17,7 @@ function UnRegisterModal() {
           <Styled.UnRegisterTitle>정말 회원 탈퇴를 하시겠습니까?</Styled.UnRegisterTitle>
           <Styled.LogoWrapper>
             <Link href={'/'}>
-              <Image src={LogoURL} alt="손만두" width={123} height={52} priority></Image>
+              <Comp.CustomImage src={LogoURL} alt="손만두" width={123} height={52} priority></Comp.CustomImage>
             </Link>
           </Styled.LogoWrapper>
         </Styled.UnRegisterWrapper>

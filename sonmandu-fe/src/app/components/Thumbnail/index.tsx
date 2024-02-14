@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import Image from 'next/image';
+import * as Comp from '@/components';
 
 interface ThumbnailProps {
   onFileSelect: (files: File) => void;
@@ -94,7 +95,7 @@ export default function Thumbnail({ onFileSelect }: ThumbnailProps) {
             onDrop={onDrop}
             isDragging={isDragging}
           >
-            <Image src={uploadedImageUrl} alt="Uploaded Image" width={162} height={126} />
+            <Comp.CustomImage src={uploadedImageUrl} alt="Uploaded Image" width={162} height={126} />
           </S.ContentFileUploadLabel>
         </>
       )}
@@ -115,7 +116,7 @@ export default function Thumbnail({ onFileSelect }: ThumbnailProps) {
             onDrop={onDrop}
             isDragging={isDragging}
           >
-            <Image src={'/image/downloadIcon-orange.svg'} alt="파일업로드" width={50} height={50} />
+            <Comp.CustomImage src={'/image/downloadIcon-orange.svg'} alt="파일업로드" width={50} height={50} />
             <S.ContentFileUploadTextbold>
               썸네일 이미지를
               <br /> 업로드 해주세요

@@ -61,7 +61,7 @@ function LoginModal() {
           <S.ModalContainer>
             <S.WelcomeWrapper>
               <span className="welcome-title">환영합니다!</span>
-              <Image src={'/image/logo.png'} alt="로고" width={142} height={62} />
+              <Comp.CustomImage src={'/image/logo.png'} alt="로고" width={142} height={62} />
               <span>{checkYourValues && '아이디 또는 비밀번호를 다시 확인하세요!'}</span>
             </S.WelcomeWrapper>
             <S.FormWrapper onSubmit={requestLogin}>

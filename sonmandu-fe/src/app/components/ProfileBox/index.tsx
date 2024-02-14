@@ -1,5 +1,5 @@
 import * as S from './style';
-import * as Comp from '@/components'
+import * as Comp from '@/components';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ProfileBoxProps } from 'types';
@@ -22,16 +22,17 @@ export default function ProfileBox(props: ProfileBoxProps) {
     <S.ProfileBoxWrapper className={className}>
       <S.ProfileImageWrapper size={imgSize}>
         <div>
-          {
-            imageUrl ? <Image src={imageUrl} alt="#" fill priority sizes="10vw" style={{ objectFit: 'cover' }} /> :
-            <Comp.NoProfileImage width={imgSize} height={imgSize} memberId={memberId} children={nickname as string}/>
-          }
+          {imageUrl ? (
+            <Comp.CustomImage src={imageUrl} alt="#" fill priority sizes="10vw" style={{ objectFit: 'cover' }} />
+          ) : (
+            <Comp.NoProfileImage width={imgSize} height={imgSize} memberId={memberId} children={nickname as string} />
+          )}
         </div>
       </S.ProfileImageWrapper>
       <S.BadgeNameDiv fontSize={fontSize}>
         {badge && (
           <S.BadgeWrapper fontSize={fontSize}>
-            <Image src="/image/weekly-medal.svg" alt="#" fill />
+            <Comp.CustomImage src="/image/weekly-medal.svg" alt="#" fill />
           </S.BadgeWrapper>
         )}
         <span>{nickname}</span>

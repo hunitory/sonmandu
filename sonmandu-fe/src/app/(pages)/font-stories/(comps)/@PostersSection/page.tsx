@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as S from './style';
 import * as API from '@/apis';
 import * as T from '@/types';
@@ -100,6 +100,13 @@ export default function PosterSection() {
     return isIntersecting;
   };
   const { setTarget } = useIntersectionObserver({ onIntersect: infiniteScrollRequest });
+
+  useEffect(() => {
+    return () => {
+      setCurItemList((prev) => []);
+      setIsLoadingMore((prev) => ({ ...prev, curRequestLoading: false, endOfList: false }));
+    };
+  }, []);
 
   return (
     <S.CardsGridWrapper>

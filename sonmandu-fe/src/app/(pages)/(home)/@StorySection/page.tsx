@@ -3,19 +3,14 @@
 import * as API from '@/apis';
 import * as Styled from './_style';
 import * as Comp from '@/components';
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { BaseStoryCard } from 'types';
-import Image from 'next/image';
 import Slider from 'react-slick';
 import CustomSlider from 'react-slick';
 import Link from 'next/link';
 
-interface StorySectionProps {
-  searchParams: { tagId: string; name: string; sort: string };
-}
-
-export default function StorySection({ searchParams }: StorySectionProps) {
+export default function StorySection() {
   const settings = {
     infinite: true,
     speed: 500,
@@ -47,30 +42,24 @@ export default function StorySection({ searchParams }: StorySectionProps) {
     ],
   };
   const slickRef = useRef<CustomSlider>(null);
-  const [currentItemCount, setCurrentItemCount] = useState(0);
 
-  const queryKey = ['font-gallery-search', searchParams.name, searchParams.sort];
+  const queryKey = ['popular-font-stories'];
   const { data: response, isFetching } = useQuery({
     queryKey: queryKey,
     queryFn: () =>
       API.handwritingStory.handwritingStoryList({
-        startIdx: currentItemCount,
+        startIdx: 0,
         takeCount: 8,
-        title: searchParams?.name || '',
+        title: '',
         sort: 'popular',
       }),
   });
 
   const goNext = useCallback(() => {
-    if (slickRef.current) {
-      slickRef.current.slickNext();
+    if (slickRef?.current) {
+      slickRef?.current.slickNext();
     }
   }, []);
-
-  useEffect(() => {
-    setCurrentItemCount((prev) => prev + response?.data.length);
-    console.log(response?.data);
-  }, [response]);
 
   return (
     <Styled.StoryWrapper>
@@ -81,7 +70,7 @@ export default function StorySection({ searchParams }: StorySectionProps) {
         <Styled.MoreStoryWrapper>
           <Link href="/font-stories" passHref>
             <Styled.MoreStoryText>더보기</Styled.MoreStoryText>
-            <Image src="/image/orange-arrow-right.svg" alt="이야기 더보기" width={50} height={20} />
+            <Comp.CustomImage src="/image/orange-arrow-right.svg" alt="이야기 더보기" width={50} height={20} />
           </Link>
         </Styled.MoreStoryWrapper>
       </Styled.TitleWrapper>
@@ -90,7 +79,7 @@ export default function StorySection({ searchParams }: StorySectionProps) {
           {response?.data.map((res: BaseStoryCard) => <Comp.MainStoryCard key={res.handwritingStoryId} {...res} />)}
         </Slider>
         <Styled.ArrowRightButton type="button" disabled={false} onClick={goNext}>
-          <Image src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />
+          <Comp.CustomImage src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />
         </Styled.ArrowRightButton>
       </Styled.CarouselWrapper>
     </Styled.StoryWrapper>

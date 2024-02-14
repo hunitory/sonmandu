@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import * as S from './style';
 import ProductDate from './Subs/ProductDate';
 import Image from 'next/image';
+import * as Comp from '@/components';
 import { BaseButton, BaseHashTags } from 'components';
 import { BaseButtonProps, ProfileFontCardProps } from 'types';
 import { useRouter } from 'next/navigation';
@@ -27,7 +28,7 @@ function ProfileFontCard({ profileFontCardProps }: { profileFontCardProps: Profi
     <S.ProfileFontCardWrapper>
       <S.UpperWrapper>
         <ProductDate date={createDate} />
-        <Image src={`/image/complete-${index}.png`} alt="#" width={148} height={137} />
+        <Comp.CustomImage src={`/image/complete-${index}.png`} alt="#" width={148} height={137} />
       </S.UpperWrapper>
       <S.LowerWrapper>
         <S.LowerSpan>{name}</S.LowerSpan>
@@ -43,7 +44,7 @@ function ProfileFontCard({ profileFontCardProps }: { profileFontCardProps: Profi
               {likeCount}
             </S.LikeDiv>
             <S.DownloadDiv>
-              <Image src={'/image/download.png'} alt="#" width={28} height={28} />
+              <Comp.CustomImage src={'/image/download.png'} alt="#" width={28} height={28} />
               {downloadCount}
             </S.DownloadDiv>
             <S.DownloadButton {...BaseButtonProps} />

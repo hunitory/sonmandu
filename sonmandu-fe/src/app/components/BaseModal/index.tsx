@@ -4,6 +4,7 @@ import React from 'react';
 import * as Styled from './style';
 import { BaseModalProps } from 'types';
 import Image from 'next/image';
+import * as Comp from '@/components';
 
 /**
  * @param children: Modal 내부에 들어갈 요소
@@ -19,7 +20,7 @@ function BaseModal(props: BaseModalProps) {
       <Styled.BackLayOutModal onClick={onClose}></Styled.BackLayOutModal>
       <Styled.Modal size={size}>
         <Styled.CloseButton onClick={onClose} disabled={false} type="button">
-          <Image src={'/image/x-icon.svg'} width={10} height={10} alt="닫기" />
+          <Comp.CustomImage src={'/image/x-icon.svg'} width={10} height={10} alt="닫기" />
         </Styled.CloseButton>
         {children}
       </Styled.Modal>

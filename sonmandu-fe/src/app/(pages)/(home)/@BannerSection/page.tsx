@@ -51,12 +51,6 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
   const slickRef = useRef<CustomSlider>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // const goPrevious = useCallback(() => {
-  //   if (slickRef.current) {
-  //     slickRef.current.slickPrev();
-  //   }
-  // }, []);
-
   const goNext = useCallback(() => {
     if (slickRef.current) {
       slickRef.current.slickNext();
@@ -64,7 +58,6 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
   }, []);
 
   const queryKey = ['popular-fonts-search'];
-  // const queryKey = ['font-gallery-search', searchParams];
   const { data: response, isFetching } = useQuery({
     queryKey: queryKey,
     queryFn: () => API.mainFontCard.PopolarfontList(),
@@ -93,11 +86,12 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
       setIsLoggedIn(true);
     }
   }, []);
+
   return (
     <Styled.MainWrapper>
       <Styled.MainBanner>
         <Styled.ToneUpBanner />
-        <Image src={mainbanner} alt="배너" width={1000} height={800} />
+        <Comp.CustomImage src={mainbanner} alt="배너" width={1000} height={800} />
         <Styled.MainTextContainer>
           <Styled.MainTitle>당신이 담긴 손글씨, 폰트로 만들어 드립니다.</Styled.MainTitle>
           <Styled.MainContentWrapper>
@@ -115,14 +109,11 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
         </Styled.MainTextContainer>
       </Styled.MainBanner>
       <Styled.CarouselWrapper>
-        {/* <Styled.ArrowLeftButton type="button" disabled={false} onClick={goPrevious}>
-          <Image src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />
-        </Styled.ArrowLeftButton> */}
         <Slider {...settings} ref={slickRef}>
           {response?.data.map((res: FontCard) => <Comp.MainFontCard key={res.handwritingId} {...res} />)}
         </Slider>
         <Styled.ArrowRightButton type="button" disabled={false} onClick={goNext}>
-          <Image src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />
+          <Comp.CustomImage src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />
         </Styled.ArrowRightButton>
       </Styled.CarouselWrapper>
     </Styled.MainWrapper>

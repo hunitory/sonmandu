@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './style';
 import * as API from '@/apis';
+import * as Comp from '@/components';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { IsLikeCount } from 'types';
@@ -49,12 +50,18 @@ export default function SideBar({ isLike, count, setCopyIsLikeAndCount, handwrit
         </S.LikeWrapper>
       ) : (
         <S.LikeWrapper>
-          <Image src={'/image/gray-heart.svg'} alt="gray-heart" width={24} height={22} onClick={handleLikeClick} />
+          <Comp.CustomImage
+            src={'/image/gray-heart.svg'}
+            alt="gray-heart"
+            width={24}
+            height={22}
+            onClick={handleLikeClick}
+          />
         </S.LikeWrapper>
       )}
       <span>{count}</span>
       <S.LinkWrapper>
-        <Image src={'/image/Link.png'} alt="link" width={24} height={24} onClick={CopyUrlButton} />
+        <Comp.CustomImage src={'/image/Link.png'} alt="link" width={24} height={24} onClick={CopyUrlButton} />
       </S.LinkWrapper>
     </S.SideBarWrapper>
   );

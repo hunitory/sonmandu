@@ -31,6 +31,7 @@ import MainStoryCard from './MainStoryCard';
 import SideBar from './SideBar';
 import SkeletonCard from './SkeletonCard';
 import NoProfileImage from './NoProfileImage';
+import CustomImage from './CustomImage';
 
 export {
   BaseHeader,
@@ -64,4 +65,5 @@ export {
   SideBar,
   SkeletonCard,
   NoProfileImage,
+  CustomImage,
 };

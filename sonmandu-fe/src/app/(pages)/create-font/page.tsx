@@ -12,8 +12,8 @@ export default function CreateFontPage() {
   useEffect(() => {
     const token = !!localStorage.getItem('access_token');
     if (!token) {
-      alert('로그인이 필요합니다.')
-      router.push('/')
+      alert('로그인이 필요합니다.');
+      router.push('/');
     }
   });
   const TabletURL = '/image/tablet.png';
@@ -53,13 +53,13 @@ export default function CreateFontPage() {
 
               <Styled.MaterialWrapper>
                 <Styled.MaterialImgWrapper>
-                  <Image src={TabletURL} alt="태블릿" width={90} height={120} />
+                  <Comp.CustomImage src={TabletURL} alt="태블릿" width={90} height={120} />
                 </Styled.MaterialImgWrapper>
                 <Styled.MaterialImgWrapper>
-                  <Image src={PaperURL} alt="종이" width={90} height={130} />
+                  <Comp.CustomImage src={PaperURL} alt="종이" width={90} height={130} />
                 </Styled.MaterialImgWrapper>
                 <Styled.MaterialImgWrapper>
-                  <Image src={penURL} alt="펜" width={92} height={125} />
+                  <Comp.CustomImage src={penURL} alt="펜" width={92} height={125} />
                 </Styled.MaterialImgWrapper>
               </Styled.MaterialWrapper>
               <Comp.DownLoadTemplateButton></Comp.DownLoadTemplateButton>
@@ -70,19 +70,19 @@ export default function CreateFontPage() {
 
               <Styled.CautionWrapper>
                 <Styled.CautionContentWrapper>
-                  <Image src={Caution1} alt="얼룩이 있는 경우" width={95} height={155} />
+                  <Comp.CustomImage src={Caution1} alt="얼룩이 있는 경우" width={95} height={155} />
                   <Styled.CautionContentText>얼룩이 있는 경우</Styled.CautionContentText>
                 </Styled.CautionContentWrapper>
                 <Styled.CautionContentWrapper>
-                  <Image src={Caution2} alt="글 상자에 획이 닿는 경우" width={95} height={155} />
+                  <Comp.CustomImage src={Caution2} alt="글 상자에 획이 닿는 경우" width={95} height={155} />
                   <Styled.CautionContentText>글 상자에 획이 닿는 경우</Styled.CautionContentText>
                 </Styled.CautionContentWrapper>
                 <Styled.CautionContentWrapper>
-                  <Image src={Caution3} alt="획이 겹치거나 닿은 경우" width={95} height={155} />
+                  <Comp.CustomImage src={Caution3} alt="획이 겹치거나 닿은 경우" width={95} height={155} />
                   <Styled.CautionContentText>획이 겹치거나 닿은 경우</Styled.CautionContentText>
                 </Styled.CautionContentWrapper>
                 <Styled.CautionContentWrapper>
-                  <Image src={Caution4} alt="획이 끊어진 경우" width={95} height={155} />
+                  <Comp.CustomImage src={Caution4} alt="획이 끊어진 경우" width={95} height={155} />
                   <Styled.CautionContentText>획이 끊어진 경우</Styled.CautionContentText>
                 </Styled.CautionContentWrapper>
               </Styled.CautionWrapper>

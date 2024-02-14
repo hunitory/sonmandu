@@ -221,11 +221,11 @@ export default function FontStoryDetailPage() {
                     {copyIsLikeAndCount?.count}
                   </S.HeartWrapper>
                   <div>
-                    <Image src={'/image/view.svg'} alt="empty-heart" width={30} height={30} />
+                    <Comp.CustomImage src={'/image/view.svg'} alt="empty-heart" width={30} height={30} />
                     {response?.data.hitCount}
                   </div>
                   <div>
-                    <Image src={'/image/comment.svg'} alt="empty-heart" width={28} height={26} />
+                    <Comp.CustomImage src={'/image/comment.svg'} alt="empty-heart" width={28} height={26} />
                     {response?.data.commentList?.length}
                   </div>
                 </S.DetailInfoWrapper>
@@ -235,7 +235,12 @@ export default function FontStoryDetailPage() {
                 <Link href={`/font-detail/${response?.data.handwritingId}`}>
                   <S.FontLinkWrapper name={response?.data.name}>
                     <span>{response?.data.name}</span>
-                    <Image src={'/image/font-link-pointer.svg'} alt="font-link-pointer" width={14} height={20} />
+                    <Comp.CustomImage
+                      src={'/image/font-link-pointer.svg'}
+                      alt="font-link-pointer"
+                      width={14}
+                      height={20}
+                    />
                   </S.FontLinkWrapper>
                 </Link>
                 <S.FontStoryDateWrapper>{response?.data.createDate}</S.FontStoryDateWrapper>

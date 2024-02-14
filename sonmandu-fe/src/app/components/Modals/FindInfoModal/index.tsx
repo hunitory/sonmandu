@@ -73,7 +73,7 @@ export default function FindInfoModal() {
           <S.ModalContainer>
             <S.WelcomeWrapper>
               <span className="welcome-title">어떤 정보를 찾으시나요?</span>
-              <Image src={'/image/logo.png'} alt="로고" width={142} height={62} />
+              <Comp.CustomImage src={'/image/logo.png'} alt="로고" width={142} height={62} />
               <span className="welcome-title">{checkYourValues && `입력하신 정보를 다시 확인해주세요!`}</span>
             </S.WelcomeWrapper>
             <S.CarouselWrapper>
@@ -102,7 +102,7 @@ export default function FindInfoModal() {
                     disabled={false}
                     onClick={carouselRightButtonClick}
                   >
-                    <Image width={14} height={14} alt="우측으로" src={'/image/black-arrow-right.svg'} />
+                    <Comp.CustomImage width={14} height={14} alt="우측으로" src={'/image/black-arrow-right.svg'} />
                   </S.ArrowButton>
                 </S.CarouselFormElement>
                 <S.OptionsWrapper>
@@ -140,7 +140,7 @@ export default function FindInfoModal() {
                     disabled={false}
                     onClick={carouselLeftButtonClick}
                   >
-                    <Image width={14} height={14} alt="좌측으로" src={'/image/black-arrow-right.svg'} />
+                    <Comp.CustomImage width={14} height={14} alt="좌측으로" src={'/image/black-arrow-right.svg'} />
                   </S.ArrowButton>
                 </S.CarouselFormElement>
               </S.CarouselContainer>

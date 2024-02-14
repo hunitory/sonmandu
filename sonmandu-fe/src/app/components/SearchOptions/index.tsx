@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, MouseEvent, useCallback, useRef, useStat
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { FilterList, SearchInput } from './Subs';
 import * as S from './style';
+import * as Comp from '@/components';
 import Image from 'next/image';
 
 interface CreateQueryStringArgs {
@@ -60,7 +61,7 @@ function SearchOptions() {
           onClick={handleSearchValueSubmit}
         />
         <S.StyledButton type="button" disabled={false} bgColor="white">
-          <Image src={'/image/filter-icon.svg'} alt="필터" width={20} height={20} />
+          <Comp.CustomImage src={'/image/filter-icon.svg'} alt="필터" width={20} height={20} />
         </S.StyledButton>
       </S.SearchOptionsContainer>
       <FilterList createQueryString={createQueryString} className="filter-list" />

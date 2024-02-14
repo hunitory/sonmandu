@@ -1,12 +1,27 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { Dispatch, MouseEvent, SetStateAction, useCallback, useState } from 'react';
 import * as S from './style';
 import * as T from '@/types';
-import * as API from '@/apis';
 import * as Comp from '@/components';
-import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
+interface ChattingSideBarProps {
+  myFont: { list: MyFont[]; isLoading: boolean };
+  rankingFont: { list: { thisMonthHandwriting: T.FontCard[]; thisWeekHandwriting: T.FontCard[] }; isLoading: boolean };
+  setSelectedFont: Dispatch<SetStateAction<{ fontId: number; fontName: string }>>;
+}
+
+interface RankingFont {
+  downloadCount: number;
+  downloadUrl: string;
+  handwritingId: number;
+  hitCount: number;
+  isLike: boolean;
+  likeCount: number;
+  name: string;
+  tag: number[];
+}
 interface MyFont {
   handwritingId: number;
   name: string;
@@ -19,24 +34,21 @@ interface MyFont {
   isLike: boolean;
 }
 
-export default function ChattingSideBar() {
-  const [fontListViews, setFontListViews] = useState({ ranking: true, owner: true });
-  const { data: rankingFontResponse, isFetching: isFetchingRanking } = useQuery({
-    queryKey: ['ranking-font'],
-    queryFn: () => API.handwriting.rankingFont(),
-    refetchInterval: false,
-    retry: 1,
-  });
+export default function ChattingSideBar({ myFont, rankingFont, setSelectedFont }: ChattingSideBarProps) {
+  const router = useRouter();
+  const [fontListViews, setFontListViews] = useState({ ranking: true, owner: false });
 
-  const { data: myFontResponse, isFetching: isFetchingMy } = useQuery({
-    queryKey: ['my-font'],
-    queryFn: () => API.handwriting.getMyHandwriting(),
-    refetchInterval: false,
-    retry: 1,
-  });
+  const filteringCompletedHandwriting = useCallback(() => {
+    return myFont.list.filter((el: MyFont, i: number) => el.state === 4 || el.state === 5);
+  }, []);
 
-  const filteringCompletedHandwriting = () => {
-    return myFontResponse?.data.filter((el: MyFont, i: number) => el.state === 4 || el.state === 5);
+  const handleSelectedFont = ({ id, name }: { id: number; name: string }) => {
+    setSelectedFont((prev) => ({ fontId: id, fontName: name }));
+  };
+
+  const redirectToCreateFont = (e: MouseEvent<HTMLLIElement>) => {
+    e.stopPropagation();
+    router.push('/create-font');
   };
 
   return (
@@ -51,19 +63,40 @@ export default function ChattingSideBar() {
           <S.HrTitle>
             <span>이번 달</span>
           </S.HrTitle>
-          {rankingFontResponse?.data.thisMonthHandwriting.map((res: T.FontCard, i: number) => (
-            <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
-              <Comp.BaseFontCard {...res} letter={{ isShow: false, idx: 0 }} />
-            </S.FontCardWrapper>
-          ))}
+          {rankingFont.isLoading
+            ? Array.from({ length: 3 }).map((_, i) => (
+                <S.FontCardWrapper key={`skeleton-${i}`}>
+                  <Comp.SkeletonCard ratio="4 / 5.5" />
+                </S.FontCardWrapper>
+              ))
+            : rankingFont.list.thisMonthHandwriting.map((res: T.FontCard, i: number) => (
+                <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
+                  <Comp.BaseFontCard
+                    {...res}
+                    letter={{ isShow: false, idx: 0 }}
+                    onClick={() => handleSelectedFont({ id: res.handwritingId, name: res.name })}
+                  />
+                </S.FontCardWrapper>
+              ))}
           <S.HrTitle>
             <span>이번 주</span>
           </S.HrTitle>
-          {rankingFontResponse?.data.thisWeekHandwriting.map((res: T.FontCard, i: number) => (
-            <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
-              <Comp.BaseFontCard {...res} letter={{ isShow: false, idx: 0 }} />
-            </S.FontCardWrapper>
-          ))}
+          {rankingFont.isLoading
+            ? Array.from({ length: 3 }).map((_, i) => (
+                <S.FontCardWrapper key={`skeleton-${i}`}>
+                  <Comp.SkeletonCard ratio="4 / 5.5" />
+                </S.FontCardWrapper>
+              ))
+            : rankingFont.list.thisWeekHandwriting.map((res: T.FontCard, i: number) => (
+                <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
+                  <Comp.BaseFontCard
+                    {...res}
+                    letter={{ isShow: false, idx: 0 }}
+                    onClick={() => handleSelectedFont({ id: res.handwritingId, name: res.name })}
+                  />
+                </S.FontCardWrapper>
+              ))}
+          <S.HrTitle></S.HrTitle>
         </S.FontsContainer>
       </S.FontListOpener>
       <S.FontListOpener
@@ -73,11 +106,30 @@ export default function ChattingSideBar() {
       >
         <p className="toggle-opener">내 손글씨들</p>
         <S.FontsContainer>
-          {filteringCompletedHandwriting()?.map((res: T.FontCard, i: number) => (
-            <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
-              <Comp.BaseFontCard {...res} letter={{ isShow: false, idx: 0 }} />
+          {myFont.isLoading ? (
+            Array.from({ length: 3 }).map((_, i) => (
+              <S.FontCardWrapper key={`skeleton-${i}`}>
+                <Comp.SkeletonCard ratio="4 / 5.5" />
+              </S.FontCardWrapper>
+            ))
+          ) : filteringCompletedHandwriting().length > 0 ? (
+            filteringCompletedHandwriting().map((res: MyFont, i: number) => (
+              <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
+                <Comp.BaseFontCard
+                  {...res}
+                  letter={{ isShow: false, idx: 0 }}
+                  onClick={() => handleSelectedFont({ id: res.handwritingId, name: res.name })}
+                />
+              </S.FontCardWrapper>
+            ))
+          ) : (
+            <S.FontCardWrapper>
+              <S.RedirectCreateFont onClick={redirectToCreateFont}>
+                <span>내 손글씨를 만들어보세요!</span>
+                <Comp.CustomImage src="/image/orange-arrow-right.svg" width={16} height={16} alt="손글씨 만들러 가기" />
+              </S.RedirectCreateFont>
             </S.FontCardWrapper>
-          ))}
+          )}
         </S.FontsContainer>
       </S.FontListOpener>
     </S.SideBarWrapper>

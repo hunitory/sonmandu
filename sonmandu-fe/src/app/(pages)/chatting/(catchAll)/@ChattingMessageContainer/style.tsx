@@ -34,24 +34,30 @@ export const AllMessageContainer = styled.div`
 export const MessageElement = styled.div`
   display: flex;
   gap: 10px;
-  width: fit-content;
+  width: 90%;
+  /* max-width: 100%; */
   height: fit-content;
   padding: 0px 12px;
   will-change: scroll-position;
 
   img,
   span {
+    min-width: 42px;
+    min-height: 42px;
     border: 1px solid ${PALETTE.SUB_WHITE};
     border-radius: 50%;
     margin-top: 8px;
   }
   & > p {
+    width: 60px;
     font-size: 12px;
     align-self: self-end;
   }
 `;
 
 export const NicknameAndMessgeWrapper = styled.div<{ $fontName: string }>`
+  width: fit-content;
+  max-width: calc(100% - 42px - 60px - (2 * 10px));
   & > p:nth-of-type(1) {
     font-family: ${notoSansKr.regular.style.fontFamily};
     font-weight: ${notoSansKr.regular.style.fontWeight};

@@ -17,7 +17,7 @@ export const AnimationWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 100px;
+  gap: 120px;
   padding: 100px 180px;
 `;
 

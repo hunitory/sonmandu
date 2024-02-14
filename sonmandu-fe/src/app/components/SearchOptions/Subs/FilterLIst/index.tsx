@@ -37,7 +37,7 @@ export default function FilterList({ className, createQueryString }: FilterListP
   useDebouncing({
     value: options,
     callback: () => createQueryString({ name: 'tagId', value: options }),
-    delay: 1000,
+    delay: 200,
   });
 
   return (

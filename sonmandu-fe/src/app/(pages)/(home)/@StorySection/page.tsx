@@ -6,7 +6,6 @@ import * as Comp from '@/components';
 import { useCallback, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { BaseStoryCard } from 'types';
-import Image from 'next/image';
 import Slider from 'react-slick';
 import CustomSlider from 'react-slick';
 import Link from 'next/link';

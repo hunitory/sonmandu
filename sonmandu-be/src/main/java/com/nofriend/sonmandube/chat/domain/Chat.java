@@ -39,7 +39,7 @@ public class Chat{
 
     @PrePersist
     public void onPrePersist() {
-        this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a H:mm", Locale.KOREAN));
+        this.createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("a h:mm", Locale.KOREAN));
     }
 
     public ChatResponse toChatResponse(){

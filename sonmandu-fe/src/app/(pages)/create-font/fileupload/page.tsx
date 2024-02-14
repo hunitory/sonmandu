@@ -16,8 +16,8 @@ export default function FontFileUpload() {
   useEffect(() => {
     const token = !!localStorage.getItem('access_token');
     if (!token) {
-      alert('로그인이 필요합니다.')
-      router.push('/')
+      alert('로그인이 필요합니다.');
+      router.push('/');
     }
   });
 
@@ -119,7 +119,7 @@ export default function FontFileUpload() {
             onDrop={onDrop}
             isDragging={isDragging}
           >
-            <Image src={'/image/downloadIcon-orange.svg'} alt="파일업로드" width={50} height={50} />
+            <Comp.CustomImage src={'/image/downloadIcon-orange.svg'} alt="파일업로드" width={50} height={50} />
             <Styled.ContentFileUploadTextbold>자료 이미지를 업로드 해주세요.</Styled.ContentFileUploadTextbold>
             <Styled.ContentFileUploadText>
               배경이 없는 <span>원본 화질</span>로 업로드 해주세요.{' '}

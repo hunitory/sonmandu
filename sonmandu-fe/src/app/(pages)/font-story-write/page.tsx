@@ -123,7 +123,7 @@ export default function FontStoryWritePage() {
                 <S.TagWrapper>
                   <S.CarouselBackButtonWrapper>
                     <div onClick={handlePrev}>
-                      <Image src={'/image/nexticon.png'} alt="back" width={14} height={14} />
+                      <Comp.CustomImage src={'/image/nexticon.png'} alt="back" width={14} height={14} />
                     </div>
                   </S.CarouselBackButtonWrapper>
                   {completedFonts.map((font: MyFont, index: number) => {
@@ -151,7 +151,7 @@ export default function FontStoryWritePage() {
                   })}
                   <S.CarouselNextButtonWrapper>
                     <div onClick={handleNext}>
-                      <Image src={'/image/nexticon.png'} alt="back" width={14} height={14} />
+                      <Comp.CustomImage src={'/image/nexticon.png'} alt="back" width={14} height={14} />
                     </div>
                   </S.CarouselNextButtonWrapper>
                 </S.TagWrapper>

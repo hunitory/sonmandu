@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as S from './style';
+import * as Comp from '@/components';
 import * as API from '@/apis';
 import Image from 'next/image';
 import { useMutation } from '@tanstack/react-query';
@@ -35,7 +36,7 @@ function MainStoryCard(props: MainStoryCardProps) {
   return (
     <S.StoryCardWrapper>
       <S.ImageArea>
-        <Image src={thumbnail} alt="썸네일" fill={true} sizes="100vw" quality={100} />
+        <Comp.CustomImage src={thumbnail} alt="썸네일" fill={true} sizes="100vw" quality={100} />
       </S.ImageArea>
       <S.StoryCardContainer>
         <S.StoryTextContentWrapper>

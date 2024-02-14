@@ -127,7 +127,7 @@ export default function ChattingSideBar({ myFont, rankingFont, setSelectedFont }
             <S.FontCardWrapper>
               <S.RedirectCreateFont onClick={redirectToCreateFont}>
                 <span>내 손글씨를 만들어보세요!</span>
-                <Image src="/image/orange-arrow-right.svg" width={16} height={16} alt="손글씨 만들러 가기" />
+                <Comp.CustomImage src="/image/orange-arrow-right.svg" width={16} height={16} alt="손글씨 만들러 가기" />
               </S.RedirectCreateFont>
             </S.FontCardWrapper>
           )}

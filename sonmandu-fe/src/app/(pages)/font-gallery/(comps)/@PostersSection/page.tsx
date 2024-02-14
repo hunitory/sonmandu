@@ -8,7 +8,6 @@ import * as Comp from '@/components';
 import { useQuery } from '@tanstack/react-query';
 import { useIntersectionObserver } from 'customhook';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { AxiosResponse } from 'axios';
 
 interface SearchParams {
   tagId: string;

@@ -50,23 +50,28 @@ function FontInfomation({ data, isAllResourcesLoad }: FontInfomationProps) {
                   <span>{copyIsLikeAndCount.count}</span>
                 </S.OtherUserInteractionInfo>
                 <S.OtherUserInteractionInfo type="button">
-                  <Image src={'/image/view.svg'} alt="조회 횟수" width={30} height={28} />
+                  <Comp.CustomImage src={'/image/view.svg'} alt="조회 횟수" width={30} height={28} />
                   <span>{data.hitCount}</span>
                 </S.OtherUserInteractionInfo>
                 <S.OtherUserInteractionInfo type="button">
-                  <Image src={'/image/downloadIcon-black.svg'} alt="다운로드 횟수" width={24} height={24} />
+                  <Comp.CustomImage src={'/image/downloadIcon-black.svg'} alt="다운로드 횟수" width={24} height={24} />
                   <span>{copyDownloadCount}</span>
                 </S.OtherUserInteractionInfo>
               </S.OtherUserInteractionsWrapper>
             </S.FontInfoWrapper>
             <S.OrangeIconWithTextsWrapper>
               <S.OrangeIconWiText type="button" onClick={handleShareClick} className="orang-icon-text">
-                <Image src={'/image/shareIcon-orange.svg'} alt="공유하기" width={32} height={30} />
+                <Comp.CustomImage src={'/image/shareIcon-orange.svg'} alt="공유하기" width={32} height={30} />
                 <span>공유하기</span>
               </S.OrangeIconWiText>
               <form method="get" action={data.downloadUrl}>
                 <S.OrangeIconWiText type="submit" className="orang-icon-text" onClick={handleDownloadClick}>
-                  <Image src={'/image/downloadIcon-orange.svg'} alt="글꼴 다운 받기" width={32} height={30} />
+                  <Comp.CustomImage
+                    src={'/image/downloadIcon-orange.svg'}
+                    alt="글꼴 다운 받기"
+                    width={32}
+                    height={30}
+                  />
                   <span>글꼴 다운 받기</span>
                 </S.OrangeIconWiText>
               </form>

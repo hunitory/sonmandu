@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import * as S from './style';
 import * as API from '@/apis';
 import * as T from '@/types';
+import * as Comp from '@/components';
 import Image from 'next/image';
 import { useMutation } from '@tanstack/react-query';
 
@@ -18,14 +19,10 @@ function BaseStoryCard(props: T.BaseStoryCard) {
       }),
   });
 
-  const imageLoader = ({ src, width }: { src: string; width: number }) => {
-    return `${src}?w=${width}`;
-  };
-
   return (
     <S.StoryCardWrapper>
       <S.ImageArea>
-        <Image loader={imageLoader} src={thumbnail} alt="썸네일" fill={true} sizes="100vw" />
+        <Comp.CustomImage src={thumbnail} alt="썸네일" fill={true} sizes="100vw" />
       </S.ImageArea>
       <S.StoryCardContainer>
         <S.StoryTextContentWrapper>

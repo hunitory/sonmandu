@@ -146,15 +146,13 @@ export default function ProfilePage() {
   };
 
   // 프사 바꾸기
-  const EditProfileImage = () => {
-
-  }
+  const EditProfileImage = () => {};
 
   const storyCardMember = {
     memberId: parseInt(params['member-id'] as string),
     name: memberRes?.data.nickname,
     imageUrl: memberRes?.data.imageUrl,
-  }
+  };
 
   return (
     <>
@@ -170,12 +168,19 @@ export default function ProfilePage() {
               <S.ProfileBoxDiv>
                 <S.ProfileBoxInfoDiv>
                   <Comp.ProfileBox {...ProfileBoxProps} />
-                  {isMypage && <S.ProfileImageEditButton type='button' disabled={false}>
-                    <div>
-                      <Image src={'/image/profile-image-edit.svg'} alt={'image-edit'} width={15} height={15} />
-                      <span>수정</span>
-                    </div>
-                  </S.ProfileImageEditButton>}
+                  {isMypage && (
+                    <S.ProfileImageEditButton type="button" disabled={false}>
+                      <div>
+                        <Comp.CustomImage
+                          src={'/image/profile-image-edit.svg'}
+                          alt={'image-edit'}
+                          width={15}
+                          height={15}
+                        />
+                        <span>수정</span>
+                      </div>
+                    </S.ProfileImageEditButton>
+                  )}
                   {isMypage && (
                     <S.ProfileBoxInfoLink onClick={clickModal}>
                       <div>내 정보</div>

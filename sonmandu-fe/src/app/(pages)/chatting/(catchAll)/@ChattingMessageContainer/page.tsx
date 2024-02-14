@@ -146,7 +146,7 @@ export default function ChattingMessageContainer({ requestFonts, curSelectedFont
             {messageManager.map((msg, i) => (
               <S.MessageElement key={`chat-message-${msg.chatId}-${i}`}>
                 {msg.member.imageUrl && msg.member.imageUrl !== null ? (
-                  <Image src={msg.member.imageUrl} width={42} height={42} alt="프사" />
+                  <Comp.CustomImage src={msg.member.imageUrl} width={42} height={42} alt="프사" />
                 ) : (
                   <Comp.NoProfileImage width={'42px'} height={'42px'} memberId={msg.member.memberId}>
                     {msg.member.nickname}
@@ -171,7 +171,7 @@ export default function ChattingMessageContainer({ requestFonts, curSelectedFont
           $fontName={curSelectedFont.fontName}
         />
         <S.SubmitButton disabled={false} type="submit">
-          <Image src={'/image/orange-arrow-right.svg'} width={48} height={28} alt="전송하기" />
+          <Comp.CustomImage src={'/image/orange-arrow-right.svg'} width={48} height={28} alt="전송하기" />
         </S.SubmitButton>
       </S.FormFiled>
     </S.Container>

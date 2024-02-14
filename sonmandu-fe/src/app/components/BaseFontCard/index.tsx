@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as S from './style';
 import * as API from '@/apis';
-import { BaseLetterField } from 'components';
+import { BaseLetterField, CustomImage } from 'components';
 import { FontCard } from 'types';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -41,7 +41,7 @@ function BaseFontCard(props: FontCard) {
               <span>{copyIsLikeAndCount.count}</span>
             </S.IconWithNumberContainer>
             <S.IconWithNumberContainer disabled={false} type="button">
-              <Image src={'/image/download-with-circle.svg'} alt="다운로드 횟수" width={24} height={20} />
+              <CustomImage src={'/image/download-with-circle.svg'} alt="다운로드 횟수" width={24} height={20} />
               <span>{downloadCount}</span>
             </S.IconWithNumberContainer>
           </S.IconTextsWrapper>

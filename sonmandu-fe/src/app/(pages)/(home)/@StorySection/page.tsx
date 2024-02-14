@@ -81,7 +81,7 @@ export default function StorySection({ searchParams }: StorySectionProps) {
         <Styled.MoreStoryWrapper>
           <Link href="/font-stories" passHref>
             <Styled.MoreStoryText>더보기</Styled.MoreStoryText>
-            <Image src="/image/orange-arrow-right.svg" alt="이야기 더보기" width={50} height={20} />
+            <Comp.CustomImage src="/image/orange-arrow-right.svg" alt="이야기 더보기" width={50} height={20} />
           </Link>
         </Styled.MoreStoryWrapper>
       </Styled.TitleWrapper>
@@ -90,7 +90,7 @@ export default function StorySection({ searchParams }: StorySectionProps) {
           {response?.data.map((res: BaseStoryCard) => <Comp.MainStoryCard key={res.handwritingStoryId} {...res} />)}
         </Slider>
         <Styled.ArrowRightButton type="button" disabled={false} onClick={goNext}>
-          <Image src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />
+          <Comp.CustomImage src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />
         </Styled.ArrowRightButton>
       </Styled.CarouselWrapper>
     </Styled.StoryWrapper>

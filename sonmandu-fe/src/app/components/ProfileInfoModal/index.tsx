@@ -89,7 +89,7 @@ export default function ProfileInfoModal({ clickModal }: ProfileInfoModalProps) 
           </S.ProfileInfoInputWrapper>
           {isActive.nickname && isActive.id && isActive.password && isActive.name && isActive.email && (
             <S.ImageWrapper>
-              <Image src={'/image/logo.png'} width={195} height={101} alt="logo" />
+              <Comp.CustomImage src={'/image/logo.png'} width={195} height={101} alt="logo" />
             </S.ImageWrapper>
           )}
         </S.ProfileInfoWrapper>

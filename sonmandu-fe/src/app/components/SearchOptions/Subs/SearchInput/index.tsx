@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, MouseEvent, Ref, forwardRef } from 'react';
 import * as S from './style';
+import * as Comp from '@/components';
 import { BaseLabelWithInput } from 'components';
 import Image from 'next/image';
 import { PALETTE } from 'styles';
@@ -27,7 +28,7 @@ const SearchInput = forwardRef(
           placeholder={placeholder}
         />
         <S.StyledButton type="button" disabled={false} bgColor={PALETTE.MAIN_ORANGE} onClick={onClick}>
-          <Image src={'/image/search-icon.svg'} alt="검색" width={16} height={16} />
+          <Comp.CustomImage src={'/image/search-icon.svg'} alt="검색" width={16} height={16} />
         </S.StyledButton>
       </S.CustomLabel>
     );

@@ -15,7 +15,7 @@ export default function AnimationSection() {
       <Styled.RightSideWrapper>
         <Styled.ContentWrapper>
           <Styled.TextWrapper>폰트로 만들어 드립니다.</Styled.TextWrapper>
-          <Image src="/image/fontwriting.png" alt="폰트이미지" width={530} height={350} quality={100}/>
+          <Image src="/image/mirafont.png" alt="폰트이미지" width={480} height={350} quality={100}/>
         </Styled.ContentWrapper>
       </Styled.RightSideWrapper>
     </Styled.AnimationWrapper>

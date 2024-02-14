@@ -40,7 +40,7 @@ function ChattingLayout() {
               setCurSelectedFont(() => ({ fontId: targetFont.handwritingId, fontName: targetFont.name }));
               return serverRes;
             }),
-          staleTime: Infinity,
+          staleTime: 60 * 60,
           refetchInterval: false,
           retry: 1,
         },
@@ -56,7 +56,7 @@ function ChattingLayout() {
               }
               return serverRes;
             }),
-          staleTime: Infinity,
+          staleTime: 60 * 60,
           refetchInterval: false,
           retry: 1,
         },
@@ -70,11 +70,14 @@ function ChattingLayout() {
       alert('로그인 후 이용해주세요!');
       router.back();
     }
+    return () => {
+      setCurSelectedFont({ fontId: 0, fontName: '' });
+    };
   }, []);
 
   return (
     <S.MainWrapper>
-      <ChattingMessageContainer requestFonts={requestFonts} curSelectedFont={curSelectedFont} />
+      <ChattingMessageContainer curSelectedFont={curSelectedFont} />
       <ChattingSideBar
         setSelectedFont={setCurSelectedFont}
         myFont={{ list: myFontResponse?.data || [], isLoading: isLoadingMy }}

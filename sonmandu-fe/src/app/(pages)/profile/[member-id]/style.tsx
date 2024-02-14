@@ -3,6 +3,7 @@
 import styled from 'styled-components';
 import { PALETTE, notoSansKr } from 'styles';
 import { BaseButton } from 'components';
+import * as Comp from '@/components';
 
 interface PlaceholderTextProps {
   $failLogin?: boolean;
@@ -120,6 +121,13 @@ export const ProfileBoxInfoDiv = styled.span`
   flex-direction: column;
   align-items: center;
   gap: 1vw;
+`;
+
+export const ProfileImageUploadInput = styled(Comp.BaseLabelWithInput.Input)`
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+  display: none;
 `;
 
 export const ProfileImageEditButton = styled(BaseButton)`

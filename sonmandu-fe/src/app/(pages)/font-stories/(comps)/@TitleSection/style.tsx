@@ -4,7 +4,24 @@ import styled from 'styled-components';
 import { BaseHashTags } from 'components';
 import { PALETTE, notoSansKr } from 'styles';
 
-export const StoryDetailLinkWrapper = styled.div``;
+export const PageTitleLinkWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+export const StoryDetailLinkWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  text-decoration: underline;
+  padding-right: 10px;
+  span {
+    font-size: 16px;
+    cursor: pointer;
+  }
+`;
 
 export const PageTitleWrapper = styled.section`
   width: 100%;

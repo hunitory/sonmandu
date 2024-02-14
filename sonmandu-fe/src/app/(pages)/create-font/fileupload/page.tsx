@@ -88,7 +88,7 @@ export default function FontFileUpload() {
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
-
+    console.log(uploadedFiles);
     return () => {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };

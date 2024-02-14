@@ -54,9 +54,9 @@ export default function TitleSection() {
   }, []);
 
   return (
-    <>
+    <S.PageTitleLinkWrapper>
       <S.StoryDetailLinkWrapper>
-        <span onClick={isLogin ? () => router.push('/font-story-write') : () => alert('로그인 필요')}>
+        <span onClick={isLogin ? () => router.push('/font-story-write') : () => alert('로그인을 해주세요')}>
           이야기 작성하기
         </span>
       </S.StoryDetailLinkWrapper>
@@ -90,7 +90,7 @@ export default function TitleSection() {
           </S.HashTagsWrapper>
         </S.FormWrapper>
       </S.PageTitleWrapper>
-    </>
+    </S.PageTitleLinkWrapper>
   );
 }
 const SORT_OPTIONS = [

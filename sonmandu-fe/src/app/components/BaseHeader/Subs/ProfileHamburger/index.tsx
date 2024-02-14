@@ -64,12 +64,12 @@ export default function ProfileHamburger() {
     if (authorizationUser.isAuth) {
       return authorizationUser.tokenPayload.imageUrl && authorizationUser.tokenPayload.imageUrl !== 'null' ? (
         <S.ProfileHamburgerImageWrapper>
-          <Image
+          <Comp.CustomImage
             src={authorizationUser.tokenPayload.imageUrl}
             alt="로그인 하고 이미지 있는 유저"
-            fill
+            fill={true}
             sizes='21px'
-            priority
+            priority={true}
           />
         </S.ProfileHamburgerImageWrapper>
       ) : (

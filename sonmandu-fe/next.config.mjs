@@ -7,7 +7,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'sonmando.s3.ap-northeast-2.amazonaws.com',
+        hostname: '**',
         port: '',
         pathname: '/**',
       },
@@ -16,3 +16,10 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
+// {
+//   protocol: 'https',
+//   hostname: 'sonmando.s3.ap-northeast-2.amazonaws.com',
+//   port: '',
+//   pathname: '/**',
+// },

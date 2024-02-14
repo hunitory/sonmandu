@@ -63,13 +63,15 @@ export default function ProfileHamburger() {
   const handleProfileImage = () => {
     if (authorizationUser.isAuth) {
       return authorizationUser.tokenPayload.imageUrl && authorizationUser.tokenPayload.imageUrl !== 'null' ? (
-        <Image
-          src={authorizationUser.tokenPayload.imageUrl}
-          alt="로그인 하고 이미지 있는 유저"
-          width={18}
-          height={18}
-          priority
-        />
+        <S.ProfileHamburgerImageWrapper>
+          <Image
+            src={authorizationUser.tokenPayload.imageUrl}
+            alt="로그인 하고 이미지 있는 유저"
+            fill
+            sizes='21px'
+            priority
+          />
+        </S.ProfileHamburgerImageWrapper>
       ) : (
         <Comp.NoProfileImage width={'28px'} height={'28px'} memberId={authorizationUser.tokenPayload.memberId}>
           {authorizationUser.tokenPayload.nickName}

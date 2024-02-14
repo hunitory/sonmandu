@@ -1,7 +1,7 @@
 'use client';
 
 import styled, { keyframes } from 'styled-components';
-import { PALETTE, notoSansKr } from 'styles';
+import { notoSansKr } from 'styles';
 
 const fadeInOut = keyframes`
   0%, 100% {
@@ -24,7 +24,7 @@ export const LeftSideWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${fadeInOut} 9s infinite; 
+  animation: ${fadeInOut} 9s infinite;
 `;
 
 export const RightSideWrapper = styled.div`
@@ -32,8 +32,8 @@ export const RightSideWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${fadeInOut} 9s infinite; 
-  animation-delay: 4.5s; 
+  animation: ${fadeInOut} 9s infinite;
+  animation-delay: 4.5s;
 `;
 
 export const ContentWrapper = styled.div`

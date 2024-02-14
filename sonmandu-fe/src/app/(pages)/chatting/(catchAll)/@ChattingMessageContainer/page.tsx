@@ -148,7 +148,7 @@ export default function ChattingMessageContainer({ requestFonts, curSelectedFont
                 {msg.member.imageUrl && msg.member.imageUrl !== null ? (
                   <Image src={msg.member.imageUrl} width={42} height={42} alt="프사" />
                 ) : (
-                  <Comp.NoProfileImage width={42} height={42} memberId={msg.member.memberId}>
+                  <Comp.NoProfileImage width={'42px'} height={'42px'} memberId={msg.member.memberId}>
                     {msg.member.nickname}
                   </Comp.NoProfileImage>
                 )}

@@ -44,7 +44,7 @@ export default function StorySection() {
   };
   const slickRef = useRef<CustomSlider>(null);
 
-  const queryKey = ['font-gallery-search'];
+  const queryKey = ['popular-font-stories'];
   const { data: response, isFetching } = useQuery({
     queryKey: queryKey,
     queryFn: () =>
@@ -54,7 +54,6 @@ export default function StorySection() {
         title: '',
         sort: 'popular',
       }),
-    enabled: true,
   });
 
   const goNext = useCallback(() => {
@@ -78,7 +77,7 @@ export default function StorySection() {
       </Styled.TitleWrapper>
       <Styled.CarouselWrapper>
         <Slider {...settings} ref={slickRef}>
-          {response?.data?.map((res: BaseStoryCard) => <Comp.MainStoryCard key={res.handwritingStoryId} {...res} />)}
+          {response?.data.map((res: BaseStoryCard) => <Comp.MainStoryCard key={res.handwritingStoryId} {...res} />)}
         </Slider>
         <Styled.ArrowRightButton type="button" disabled={false} onClick={goNext}>
           <Image src="/image/black-right-next.svg" alt="화살표" width={25} height={25} />

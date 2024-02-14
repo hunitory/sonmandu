@@ -41,11 +41,11 @@ public class HandwritingController {
     // TODO : 테스트용 폰트 저장 API
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/save")
-    public ResponseEntity<Void> saveFont(@RequestPart(name = "name") String name,
+    public ResponseEntity<Void> saveFont(//@RequestPart(name = "name") String name,
                                          @RequestPart(name = "handwritingApplicationId") String handwritingApplicationId,
                                          @RequestPart(name = "font") MultipartFile font) {
         log.info("/handwritings/save");
-        handwritingService.saveFont(name, Long.parseLong(handwritingApplicationId), font);
+        handwritingService.saveFont(Long.parseLong(handwritingApplicationId), font);
         return ResponseEntity.noContent().build();
     }
 

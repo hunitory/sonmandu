@@ -54,6 +54,7 @@ export default function StorySection() {
         title: '',
         sort: 'popular',
       }),
+    enabled: true,
   });
 
   const goNext = useCallback(() => {
@@ -61,7 +62,6 @@ export default function StorySection() {
       slickRef?.current.slickNext();
     }
   }, []);
-
 
   return (
     <Styled.StoryWrapper>

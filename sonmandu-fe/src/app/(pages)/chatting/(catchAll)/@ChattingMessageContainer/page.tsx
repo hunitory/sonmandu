@@ -55,8 +55,9 @@ export default function ChattingMessageContainer({ requestFonts, curSelectedFont
         setMessageManager((prev) => [...prev, ...serverRes.data]);
         return serverRes;
       }),
-    staleTime: Infinity,
+    // staleTime: Infinity,
     refetchInterval: false,
+    refetchOnMount: true,
     retry: 1,
   });
 
@@ -73,12 +74,13 @@ export default function ChattingMessageContainer({ requestFonts, curSelectedFont
   const connect = useCallback(() => {
     const config = {
       brokerURL: 'wss://i10b111.p.ssafy.io/dev/api/chat-connection',
-      onConnect: (frame: IFrame) => {},
+      onConnect: (frame: IFrame) => console.log(`frame :`, frame),
     };
-    if (!stompClient) {
-      stompClient = new Client(config);
-      stompClient.activate();
-    }
+    // if (!stompClient) {
+    stompClient = new Client(config);
+    stompClient.activate();
+    console.log(`stompClient :`, stompClient);
+    // }
 
     stompClient.onConnect = () => {
       isConnected = true;

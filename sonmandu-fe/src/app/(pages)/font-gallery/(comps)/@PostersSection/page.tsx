@@ -19,7 +19,7 @@ export default function PostersSection() {
   const route = useRouter();
   const searchParams = useSearchParams();
   const [curItemList, setCurItemList] = useState<T.FontCard[]>([]);
-  const [isLoadingMore, setIsLoadingMore] = useState({ curRequestLoading: false, endOfList: false });
+  const [endOfList, setEndOfList] = useState(false);
   const [prevSearchParams, setPrevSearchParams] = useState<SearchParams>({
     tagId: searchParams.get('tagId') || '',
     name: searchParams.get('name') || '',
@@ -42,24 +42,11 @@ export default function PostersSection() {
 
   const isQueryChanged = useCallback(() => {
     for (const [key, value] of searchParams.entries()) {
-      console.log(`prev=[${prevSearchParams[key]}] vs cur=[${value}]:`);
-      if (!['name', 'tagId', 'sort'].includes(key)) {
-        console.log(`Not In Key :`, key);
-        continue;
-      }
-      if (prevSearchParams[key] !== value) {
-        // console.log(`@@DIF@@ prev=[${prevSearchParams[key]}] vs cur=[${value}]:`);
-        return true;
-      }
+      if (!['name', 'tagId', 'sort'].includes(key)) continue;
+      if (prevSearchParams[key] !== value) return true;
     }
     return false;
   }, [searchParams.get('tagId'), searchParams.get('name'), searchParams.get('sort')]);
-
-  useEffect(() => {
-    // console.log('name:', searchParams.get('name'));
-    console.log('tagId:', searchParams.get('tagId'));
-    // console.log('sort:', searchParams.get('sort'));
-  }, [searchParams]);
 
   const queryStringChangeQueryKey = [
     'font-gallery-search',
@@ -74,7 +61,7 @@ export default function PostersSection() {
   } = useQuery({
     queryKey: queryStringChangeQueryKey,
     queryFn: async () => {
-      setIsLoadingMore({ curRequestLoading: true, endOfList: false });
+      setEndOfList(false);
       if (isQueryChanged()) {
         setCurItemList([]);
         setPrevSearchParams((prev) => ({
@@ -91,15 +78,11 @@ export default function PostersSection() {
         name: searchParams.get('name') || '',
         sort: searchParams.get('sort') || '',
       };
-      return await API.handwriting
-        .fontListInGallery(requestArgs)
-        .then(async (serverRes) => {
-          await requestFonts(serverRes.data);
+      const serverRes = await API.handwriting.fontListInGallery(requestArgs);
+      await requestFonts(serverRes.data);
+      setCurItemList([...serverRes.data]);
 
-          setCurItemList([...serverRes.data]);
-          return serverRes.data;
-        })
-        .finally(() => setIsLoadingMore((prev) => ({ ...prev, curRequestLoading: false })));
+      return serverRes.data;
     },
     refetchInterval: false,
     refetchOnMount: false,
@@ -116,28 +99,24 @@ export default function PostersSection() {
         name: searchParams.get('name') || '',
         sort: searchParams.get('sort') || '',
       };
-      return await API.handwriting.fontListInGallery(requestArgs).then(async (serverRes) => {
-        await requestFonts(serverRes.data);
+      const serverRes = await API.handwriting.fontListInGallery(requestArgs);
+      setCurItemList((prev) => [...prev, ...serverRes.data]);
+      await requestFonts(serverRes.data);
 
-        setCurItemList((prev) => [...prev, ...serverRes.data]);
-        return serverRes.data;
-      });
+      return serverRes.data;
     },
     refetchInterval: false,
     refetchOnMount: true,
     enabled: queryStringChangeResponseFetched,
   });
-  const infiniteScrollRequest: IntersectionObserverCallback = ([{ isIntersecting }]) => {
-    if (isLoadingMore.endOfList) return;
+  const infiniteScrollRequest: IntersectionObserverCallback = async ([{ isIntersecting }]) => {
+    if (endOfList) return;
 
     if (isIntersecting) {
-      setIsLoadingMore({ curRequestLoading: true, endOfList: isLoadingMore.endOfList });
-      requestGetListByScroll()
-        .then((res) => {
-          if (res.data.length === 0) setIsLoadingMore((prev) => ({ ...prev, endOfList: true }));
-          return res;
-        })
-        .finally(() => setIsLoadingMore({ curRequestLoading: false, endOfList: isLoadingMore.endOfList }));
+      const res = await requestGetListByScroll();
+
+      if (res.data.length === 0) setEndOfList(false);
+      return res;
     }
     return isIntersecting;
   };
@@ -146,7 +125,7 @@ export default function PostersSection() {
   useEffect(() => {
     return () => {
       setCurItemList((prev) => []);
-      setIsLoadingMore((prev) => ({ ...prev, curRequestLoading: false, endOfList: false }));
+      setEndOfList(false);
     };
   }, []);
 
@@ -161,10 +140,7 @@ export default function PostersSection() {
             onClick={() => route.push(`/font-detail/${res.handwritingId}`)}
           />
         ))}
-      {isLoadingMore.curRequestLoading &&
-        (queryStringChangeLoading || infiniteScrollLoading) &&
-        Array.from({ length: 5 }).map((_, i) => <Comp.SkeletonCard key={`skeleton-${i}`} ratio="4 / 5.5" />)}
-      {!infiniteScrollLoading && !queryStringChangeLoading && <div ref={setTarget}></div>}
+      {!endOfList || (!infiniteScrollLoading && !queryStringChangeLoading && <div ref={setTarget}></div>)}
     </S.CardsGridWrapper>
   );
 }

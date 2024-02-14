@@ -7,8 +7,10 @@ import * as API from '@/apis';
 import ChattingMessageContainer from './@ChattingMessageContainer/page';
 import ChattingSideBar from './page';
 import { useQueries } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 function ChattingLayout() {
+  const router = useRouter();
   const requestFonts = useCallback(async (serverRes: T.FontCard[]) => {
     const downloadUrls = serverRes.map((res: T.FontCard) =>
       API.handwriting.getFontFileFromS3({ url: res.downloadUrl }),
@@ -62,8 +64,13 @@ function ChattingLayout() {
     });
 
   useEffect(() => {
-    console.log(`curSelectedFont :`, curSelectedFont);
-  }, [curSelectedFont]);
+    const accessToken = localStorage.getItem('access_token');
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (accessToken === null || refreshToken === null) {
+      alert('로그인 후 이용해주세요!');
+      router.back();
+    }
+  }, []);
 
   return (
     <S.MainWrapper>

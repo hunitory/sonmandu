@@ -13,6 +13,8 @@ public interface ChatProjection {
         String getNickname();
 
         boolean isBadge();
+
+        String getImageUrl();
     }
 
 

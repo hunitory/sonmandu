@@ -88,10 +88,10 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
     public void delete(Long memberId, Long handwritingStoryId) {
         HandwritingStory handwritingStory = handwritingStoryRepository.findByHandwritingStoryIdAndMemberMemberId(handwritingStoryId, memberId)
                 .orElseThrow(() -> new IdNotFoundException("일치하는 정보가 없습니다."));
-        // 썸네일 삭제
-        s3Service.deleteFile(handwritingStory.getThumbnail());
         // 데이터 삭제
         handwritingStoryRepository.delete(handwritingStory);
+        // 썸네일 삭제
+        s3Service.deleteFile(handwritingStory.getThumbnail());
     }
 
     @Transactional

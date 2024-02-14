@@ -39,6 +39,12 @@ public class HandwritingStory {
     @OneToMany(mappedBy = "handwritingStory", cascade = CascadeType.ALL)
     List<HandwritingStoryComment> commentList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "handwritingStory", cascade = CascadeType.ALL)
+    List<HandwritingStoryHit> handwritingStoryHits = new ArrayList<>();
+
+    @OneToMany(mappedBy = "handwritingStory", cascade = CascadeType.ALL)
+    List<HandwritingStoryLike> handwritingStoryLikes = new ArrayList<>();
+
     @Setter
     private String title;
 

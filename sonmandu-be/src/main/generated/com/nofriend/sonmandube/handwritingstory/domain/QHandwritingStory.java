@@ -30,7 +30,11 @@ public class QHandwritingStory extends EntityPathBase<HandwritingStory> {
 
     public final com.nofriend.sonmandube.handwriting.domain.QHandwriting handwriting;
 
+    public final ListPath<HandwritingStoryHit, QHandwritingStoryHit> handwritingStoryHits = this.<HandwritingStoryHit, QHandwritingStoryHit>createList("handwritingStoryHits", HandwritingStoryHit.class, QHandwritingStoryHit.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> handwritingStoryId = createNumber("handwritingStoryId", Long.class);
+
+    public final ListPath<HandwritingStoryLike, QHandwritingStoryLike> handwritingStoryLikes = this.<HandwritingStoryLike, QHandwritingStoryLike>createList("handwritingStoryLikes", HandwritingStoryLike.class, QHandwritingStoryLike.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> hitCount = createNumber("hitCount", Integer.class);
 

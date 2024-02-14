@@ -19,7 +19,7 @@ function BaseStoryCard(props: T.BaseStoryCard) {
   });
 
   const imageLoader = ({ src, width }: { src: string; width: number }) => {
-    return `https://example.com/${src}`;
+    return `${src}?w=${width}`;
   };
 
   return (

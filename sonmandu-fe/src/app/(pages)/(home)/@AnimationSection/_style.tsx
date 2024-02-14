@@ -8,19 +8,20 @@ const fadeInOut = keyframes`
     opacity: 1;
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.3;
   }
 `;
 export const AnimationWrapper = styled.div`
   width: 100vw;
   height: 600px;
   display: flex;
-  justify-content: space-around;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 100px;
   padding: 100px 180px;
 `;
 
 export const LeftSideWrapper = styled.div`
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,7 +29,6 @@ export const LeftSideWrapper = styled.div`
 `;
 
 export const RightSideWrapper = styled.div`
-  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,7 +44,6 @@ export const ContentWrapper = styled.div`
 export const TextWrapper = styled.div`
   text-align: center;
   font-size: 30px;
-  // 약간 여기 손글씨로 만든 폰트로 바꿔야 할듯.
   font-family: ${notoSansKr.bold.style.fontFamily};
   font-weight: ${notoSansKr.bold.style.fontWeight};
   margin-bottom: 50px;

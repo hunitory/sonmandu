@@ -12,6 +12,7 @@ import java.awt.*;
 
 @Getter
 @Setter
+@Builder
 public class LoginRequest {
     @Size(min = 8, max = 20)
     private String id;

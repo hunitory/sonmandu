@@ -19,9 +19,9 @@ public class QMember extends EntityPathBase<Member> {
 
     public static final QMember member = new QMember("member1");
 
-    public final StringPath email = createString("email");
+    public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 
-    public final StringPath emailToken = createString("emailToken");
+    public final StringPath email = createString("email");
 
     public final StringPath id = createString("id");
 
@@ -30,8 +30,6 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath introduction = createString("introduction");
 
     public final BooleanPath isBadge = createBoolean("isBadge");
-
-    public final BooleanPath isValidated = createBoolean("isValidated");
 
     public final NumberPath<Long> memberId = createNumber("memberId", Long.class);
 

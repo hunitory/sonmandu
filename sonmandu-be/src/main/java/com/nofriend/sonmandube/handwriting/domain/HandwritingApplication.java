@@ -2,20 +2,14 @@ package com.nofriend.sonmandube.handwriting.domain;
 
 import com.nofriend.sonmandube.member.domain.Member;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Getter
@@ -23,6 +17,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @Builder
 @EntityListeners(AuditingEntityListener.class)
+@ToString
 public class HandwritingApplication {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +48,10 @@ public class HandwritingApplication {
         if(handwritingTagList == null) handwritingTagList = new ArrayList<>();
         handwritingTagList.add(handwritingTag);
         handwritingTag.setHandwritingApplication(this);
+    }
+
+    public void saveFont(){
+        this.state = 4;
     }
 
 }

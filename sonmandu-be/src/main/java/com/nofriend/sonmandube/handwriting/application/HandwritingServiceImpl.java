@@ -1,19 +1,21 @@
 package com.nofriend.sonmandube.handwriting.application;
 
 import com.nofriend.sonmandube.exception.IdNotFoundException;
+import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionRequest;
 import com.nofriend.sonmandube.handwriting.controller.response.RankingResponse;
 import com.nofriend.sonmandube.handwriting.controller.request.HandwritingApplicationRequest;
-import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionRequest;
 import com.nofriend.sonmandube.handwriting.controller.response.*;
 import com.nofriend.sonmandube.handwriting.domain.*;
 import com.nofriend.sonmandube.handwriting.repository.*;
 import com.nofriend.sonmandube.handwritingstory.domain.HandwritingStory;
+import com.nofriend.sonmandube.handwritingstory.repository.HandwritingStoryRepository;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.s3.S3Service;
 import com.nofriend.sonmandube.util.FileDto;
 import com.nofriend.sonmandube.util.FileUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +26,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class HandwritingServiceImpl implements HandwritingService{
 
     private final HandwritingApplicationRepository handwritingApplicationRepository;
@@ -32,6 +35,7 @@ public class HandwritingServiceImpl implements HandwritingService{
     private final HandwritingLikeRepository handwritingLikeRepository;
     private final HandwritingDownloadRepository handwritingDownloadRepository;
     private final HandwritingHitRepository handwritingHitRepository;
+    private final HandwritingStoryRepository handwritingStoryRepository;
     private final S3Service s3UploadService;
 
     @Override
@@ -63,18 +67,33 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     @Transactional
-    public void saveFont(String name, MultipartFile font) {
-        // 폰트 파일 저장
-        FileDto fileDto = s3UploadService.saveFile(font, FileUtil.createFontName(name, font));
+    public void saveFont(Long handwritingApplicationId, MultipartFile font) {
+        String fontname = handwritingApplicationRepository.findById(handwritingApplicationId)
+                .orElseThrow(() -> new IdNotFoundException("해당하는 신청서가 없습니다."))
+                .getName();
+
+        FileDto fileDto = s3UploadService.saveFile(font, FileUtil.createFontName(fontname, font));
 
         // TODO : 폰트 지원서 연결
 
         // 폰트 데이터 저장
         Handwriting handwriting = Handwriting.builder()
-                .name(name)
+                .name(fontname)
                 .downloadUrl(fileDto.getUrl())
+                .isSelected(true)
+                .handwritingApplication(
+                        HandwritingApplication.builder()
+                                .handwritingApplicationId(handwritingApplicationId)
+                                .build()
+                )
                 .build();
         handwritingRepository.save(handwriting);
+
+        handwritingApplicationRepository.findById(handwritingApplicationId)
+                .orElseThrow(() -> new IdNotFoundException("해당하는 이야기가 없습니다."))
+                .saveFont();
+
+        log.info("success save handwriting");
     }
 
     /*
@@ -211,7 +230,6 @@ public class HandwritingServiceImpl implements HandwritingService{
         List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberId(memberId);
 
         // 손글씨 별 좋아요 확인
-        // TODO : memberId 없을 경우 예외처리 필요
         List<MyHandwritingResponse> myHandwritingResponses = new ArrayList<>();
         for (int i=0; i<handwritingApplicationList.size(); i++) {
             HandwritingApplication handwritingApplication = handwritingApplicationList.get(i);
@@ -232,7 +250,7 @@ public class HandwritingServiceImpl implements HandwritingService{
     @Override
     public List<OthersHandwritingResponse> getOthersHandwritingList(Long memberId, Long targetId) {
         // 타겟 회원의 손글씨 조회
-        List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberId(targetId);
+        List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(targetId, true, 4);
 
         // 손글씨 별 좋아요 확인
         if(memberId == null) { // 비회원
@@ -287,5 +305,21 @@ public class HandwritingServiceImpl implements HandwritingService{
         return simpleHandwritingResponseList;
     }
 
+    @Override
+    public List<UnwrittenStoriesResponse> getUnwrittenStories(Long memberId) {
+        return handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(memberId, true, 4)
+                .stream()
+                .filter(handwriting -> !handwritingStoryRepository.existsById(handwriting.getHandwritingId()))
+                .map(handwriting -> {
+                    return UnwrittenStoriesResponse.builder()
+                            .handwritingId(handwriting.getHandwritingId())
+                            .name(handwriting.getName())
+                            .build();
+                }).toList();
+    }
 
+    @Override
+    public Boolean checkUniqueName(String value) {
+        return !handwritingApplicationRepository.existsByName(value);
+    }
 }

@@ -7,6 +7,6 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor
 public class FileNotFoundException extends RuntimeException {
-    private final HttpStatus status = HttpStatus.NOT_FOUND;
+    private final HttpStatus status = HttpStatus.BAD_REQUEST;
     private final String errorMessage;
 }

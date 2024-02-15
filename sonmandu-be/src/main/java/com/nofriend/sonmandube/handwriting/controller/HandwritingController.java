@@ -6,6 +6,7 @@ import com.nofriend.sonmandube.handwriting.controller.request.HandwritingApplica
 import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionRequest;
 import com.nofriend.sonmandube.handwriting.controller.response.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,16 +14,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/handwritings")
+@Slf4j
 public class HandwritingController {
 
     private final HandwritingService handwritingService;
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @PostMapping
     public ResponseEntity<Void> applyHandwriting(
             @RequestPart(name = "image") MultipartFile image,
@@ -30,30 +34,38 @@ public class HandwritingController {
             Authentication authentication
             ) {
         Long memberId = Long.parseLong(authentication.getName());
+
         handwritingService.applyHandwriting(memberId, handwritingApplicationRequest, image);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     // TODO : 테스트용 폰트 저장 API
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/save")
-    public ResponseEntity<Void> saveFont(@RequestPart(name = "name") String name,
+    public ResponseEntity<Void> saveFont(//@RequestPart(name = "name") String name,
+                                         @RequestPart(name = "handwritingApplicationId") String handwritingApplicationId,
                                          @RequestPart(name = "font") MultipartFile font) {
-        handwritingService.saveFont(name, font);
-        return ResponseEntity.status(HttpStatus.OK).build();
+
+        handwritingService.saveFont(Long.parseLong(handwritingApplicationId), font);
+
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/gallery")
     public ResponseEntity<List<SimpleHandwritingResponse>> searchHandwriting(
             @RequestParam int start,
             @RequestParam int count,
-            @RequestParam(required = false) String sort,
-            @RequestParam(required = false) String name,
-            @RequestParam(name = "tagId", required = false) List<Integer> tagIdList,
+            @RequestParam(required = false, defaultValue = "") String sort,
+            @RequestParam(required = false, defaultValue = "") String name,
+            @RequestParam(name = "tagId", required = false, defaultValue = "") String tagId,
             Authentication authentication
             ) {
+        log.info("/handwritings/gallery");
         Long memberId = null;
         if(authentication != null) memberId = Long.parseLong(authentication.getName());
+        List<Integer> tagIdList = new ArrayList<>();
+        if(!tagId.isBlank() && !tagId.isEmpty()) tagIdList = Arrays.stream(tagId.split(",")).map(Integer::parseInt).toList();
+        System.out.println(tagIdList);
         SearchConditionRequest condition = new SearchConditionRequest(sort, name, tagIdList);
         List<SimpleHandwritingResponse> handwritingList = handwritingService.searchHandwriting(memberId, start, count, condition);
         return ResponseEntity.ok(handwritingList);
@@ -72,14 +84,14 @@ public class HandwritingController {
     public ResponseEntity<Void> changeLikeStatus(@PathVariable Long handwritingId, Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingService.changeLikeStatus(memberId, handwritingId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/gallery/{handwritingId}/download")
     public ResponseEntity<Void> updateDownloadCount(@PathVariable Long handwritingId, Authentication authentication) {
         handwritingService.updateDownloadCount(Long.parseLong(authentication.getName()), handwritingId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -112,4 +124,14 @@ public class HandwritingController {
         return ResponseEntity.ok(popularList);
     }
 
+    @GetMapping("/unwritten-stories")
+    public ResponseEntity<List<UnwrittenStoriesResponse>> getUnwrittenStories(Authentication authentication){
+        Long memberId = Long.valueOf(authentication.getName());
+        return ResponseEntity.ok(handwritingService.getUnwrittenStories(memberId));
+    }
+
+    @GetMapping("/unique/name")
+    public ResponseEntity<Boolean> checkUniqueName(@RequestParam String value){
+        return ResponseEntity.ok(handwritingService.checkUniqueName(value));
+    }
 }

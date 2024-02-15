@@ -10,6 +10,7 @@ import com.nofriend.sonmandube.handwritingstory.controller.response.HandwritingS
 import com.nofriend.sonmandube.handwritingstory.controller.response.OthersHandwritingStoryResponse;
 import com.nofriend.sonmandube.handwritingstory.controller.response.SimpleHandwritingStoryResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.sql.ast.tree.expression.Star;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/handwritings/story")
+@Slf4j
 public class HandwritingStoryController {
 
     private final HandwritingStoryService handwritingStoryService;
@@ -49,9 +51,10 @@ public class HandwritingStoryController {
     public ResponseEntity<Void> save(@RequestPart("data") HandwritingStoryRequest handwritingStoryRequest,
                                      @RequestPart("thumbnail") MultipartFile thumbnail,
                                      Authentication authentication) {
+        log.info("/handwriting/story");
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.save(memberId, handwritingStoryRequest, thumbnail);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{handwritingStoryId}")
@@ -71,7 +74,7 @@ public class HandwritingStoryController {
     public ResponseEntity<Void> delete(@PathVariable Long handwritingStoryId, Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.delete(memberId, handwritingStoryId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -82,7 +85,7 @@ public class HandwritingStoryController {
                                        Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.modify(memberId, handwritingStoryId, request, thumbnail);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -91,7 +94,7 @@ public class HandwritingStoryController {
                                                 Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.changeLikeStatus(memberId, handwritingStoryId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -101,7 +104,7 @@ public class HandwritingStoryController {
                                            Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.addComment(memberId, handwritingStoryId, handwritingStoryCommentRequest);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.ok().build();
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -112,7 +115,7 @@ public class HandwritingStoryController {
                                               Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.modifyComment(memberId, handwritingStoryCommentId, handwritingStoryCommentRequest);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -122,7 +125,7 @@ public class HandwritingStoryController {
                                               Authentication authentication) {
         Long memberId = Long.parseLong(authentication.getName());
         handwritingStoryService.deleteComment(memberId, handwritingStoryCommentId);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/owner/{targetId}")

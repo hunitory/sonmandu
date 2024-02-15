@@ -4,6 +4,7 @@ import com.nofriend.sonmandube.handwriting.domain.HandwritingApplication;
 import com.nofriend.sonmandube.member.domain.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class HandwritingApplicationRequest {
                 .name(name)
                 .imageUrl(imageUrl)
                 .member(member)
+                .state(2)
                 .build();
     }
 }

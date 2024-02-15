@@ -21,6 +21,8 @@ public class HandwritingStoryResponse {
 
     private Long handwritingStoryId;
 
+    private String downloadUrl;
+
     private String thumbnail;
 
     private String title;
@@ -52,6 +54,7 @@ public class HandwritingStoryResponse {
     public static HandwritingStoryResponse from(HandwritingStory handwritingStory, boolean isLike) {
         return HandwritingStoryResponse.builder()
                 .handwritingStoryId(handwritingStory.getHandwriting().getHandwritingId())
+                .downloadUrl(handwritingStory.getHandwriting().getDownloadUrl())
                 .thumbnail(handwritingStory.getThumbnail())
                 .name(handwritingStory.getHandwriting().getName())
                 .title(handwritingStory.getTitle())

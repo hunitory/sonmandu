@@ -12,18 +12,21 @@ public class MemberIntroductionResponse {
 
     private Long memberId;
 
-    private String name;
+    private String nickname;
 
     private String imageUrl;
 
     private String introduction;
 
+    private boolean badge;
+
     public static MemberIntroductionResponse from(Member member) {
         return new MemberIntroductionResponse(
                 member.getMemberId(),
-                member.getName(),
+                member.getNickname(),
                 member.getImageUrl(),
-                member.getIntroduction()
+                member.getIntroduction(),
+                member.isBadge()
         );
     }
 }

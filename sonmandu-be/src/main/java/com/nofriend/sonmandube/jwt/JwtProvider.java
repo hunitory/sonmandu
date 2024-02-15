@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,12 +26,13 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class JwtProvider {
     @Value("${jwt.secret}")
     private String secret;
     private Key key;
     private final String AUTHORITIES_KEY = "auth";
-    private final long accessTokenValidTime = (60 * 1000) * 60;
+    private final long accessTokenValidTime = (60 * 1000) * 60 * 3;
     private final long refreshTokenValidTime = (60 * 1000) * 60 * 24 * 7;
     private final MemberRepository memberRepository;
 
@@ -51,11 +53,15 @@ public class JwtProvider {
         Member member = memberRepository.findById((long) Integer.parseInt(authentication.getName()))
                 .orElseThrow(() -> new RuntimeException("not Found member"));
 
+        String imageUrl = member.getImageUrl() == null
+                ? "null"
+                : member.getImageUrl();
+
         return Jwts.builder()
-                .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .claim("memberId", member.getMemberId())
-                .claim("imageUrl", member.getImageUrl())
+                .claim("nickName", member.getNickname())
+                .claim("imageUrl", imageUrl)
                 .setExpiration(expiration)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
@@ -71,18 +77,21 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication(String token){
+        System.out.println("getAU");
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+        System.out.println("getAU");
 
         Collection<? extends GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
-        System.out.println(authorities.isEmpty());
-        User principal = new User(claims.getSubject(), "", authorities);
+
+        User principal = new User(String.valueOf(claims.get("memberId")), "", authorities);
+
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 

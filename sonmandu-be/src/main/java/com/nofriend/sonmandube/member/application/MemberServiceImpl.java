@@ -1,23 +1,30 @@
 package com.nofriend.sonmandube.member.application;
 
+import com.nofriend.sonmandube.exception.DenyRefreshTokenException;
+import com.nofriend.sonmandube.exception.ExpireRefreshTokenException;
+import com.nofriend.sonmandube.exception.IdNotFoundException;
+import com.nofriend.sonmandube.jwt.JwtCode;
 import com.nofriend.sonmandube.jwt.JwtProvider;
-import com.nofriend.sonmandube.member.controller.request.EmailValidationRequest;
+import com.nofriend.sonmandube.member.controller.request.EmailTokenRequest;
 import com.nofriend.sonmandube.member.controller.request.LoginRequest;
 import com.nofriend.sonmandube.member.controller.request.SignupRequest;
+import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
-import com.nofriend.sonmandube.member.controller.response.LoginResponse;
+import com.nofriend.sonmandube.member.domain.EmailToken;
 import com.nofriend.sonmandube.member.domain.Member;
+import com.nofriend.sonmandube.member.repository.EmailTokenRepository;
 import com.nofriend.sonmandube.member.repository.MemberRepository;
+import com.nofriend.sonmandube.member.repository.TrophyRepository;
 import com.nofriend.sonmandube.s3.S3Service;
 import com.nofriend.sonmandube.util.FileDto;
 import com.nofriend.sonmandube.util.FileUtil;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,7 +40,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Random;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -41,6 +47,8 @@ import java.util.UUID;
 public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final TrophyRepository trophyRepository;
+    private final EmailTokenRepository emailTokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -53,57 +61,77 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private String sonmanduEmail;
 
     @Override
+    public String updateToken(String refreshToken) {
+        JwtCode refreshTokenValidation = jwtProvider.validateToken(refreshToken);
+
+        if(refreshTokenValidation == JwtCode.ACCESS){
+            return jwtProvider.generateToken(jwtProvider.getAuthentication(refreshToken));
+        }else if(refreshTokenValidation == JwtCode.EXPIRED){
+            throw new ExpireRefreshTokenException("Expire refresh token");
+        }else{ // refreshTokenValidation == JwtCode.DENIED
+            throw new DenyRefreshTokenException("Deny refresh token");
+        }
+    }
+
+    @Override
     @Transactional
-    public void signup(SignupRequest signupRequest) throws MessagingException {
+    public void signup(SignupRequest signupRequest) {
         Member newMember = Member.builder()
                 .id(signupRequest.getId())
                 .password(passwordEncoder.encode(signupRequest.getPassword()))
                 .name(signupRequest.getName())
                 .nickname(signupRequest.getNickname())
                 .email(signupRequest.getEmail())
-                .isValidated(false)
-                .emailToken(UUID.randomUUID().toString())
                 .build();
 
         memberRepository.save(newMember);
-
-//        sendEmailToken(newMember);
     }
 
-    private void sendEmailToken(Member newMember) throws MessagingException {
+    public Long sendEmailToken(@Email String email) throws MessagingException {
+        EmailToken emailToken = EmailToken.builder()
+                .token(generateString())
+                .build();
+
         MimeMessage mimeMailMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMailMessage, false, "UTF-8");
         mimeMessageHelper.setFrom(sonmanduEmail);
-        mimeMessageHelper.setTo(newMember.getEmail());
+        mimeMessageHelper.setTo(email);
         mimeMessageHelper.setSubject("[손만두] 이메일 활성화");
         mimeMessageHelper.setText("<html><head></head>" +
+                "<body> <h1> 손만두 </h1>" +
+                "<h3> 인증번호 : " + emailToken.getToken() + "</h3> </body>" +
                 "<body> <h1> 손만두 </h1> <a href='" + serverUrl +"/members/email-validation" +
-                "?memberId=" + newMember.getMemberId() +
-                "&emailToken=" + newMember.getEmailToken() + "'> 계정 활성화 버튼 </a> </body>" +
+                "?emailToken=" + emailToken + "'> 계정 활성화 버튼 </a> </body>" +
+                "<body> <h1> 손만두 </h1>" +
+                "<h3> 인증번호 : " + emailToken.getToken() + "</h3> </body>" +
                 "</html>", true);
 
         javaMailSender.send(mimeMailMessage);
+
+        emailTokenRepository.save(emailToken);
+        log.info("emial token : " + emailToken.toString());
+        return emailToken.getEmailTokenId();
     }
 
     @Override
     @Transactional
     public LoginResponse login(LoginRequest loginRequest) {
         Member member = memberRepository.findById(loginRequest.getId())
-                .orElseThrow();
-
-        if(!member.isValidated()){
-            return null;
-        }
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(member.getMemberId(), loginRequest.getPassword());
+
         Authentication authentication =  authenticationManagerBuilder.getObject().authenticate(usernamePasswordAuthenticationToken);
+
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+
         String token = jwtProvider.generateToken(authentication);
         String refreshToken = jwtProvider.generateRefreshToken(authentication);
 
         member.setRefreshToken(refreshToken);
-
+        log.info(token);
+        log.info(refreshToken);
         return LoginResponse.builder()
                 .token(token)
                 .refreshToken(refreshToken)
@@ -114,23 +142,33 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Transactional
     public void logout(Long memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         member.setRefreshToken(null);
     }
 
     @Override
     public boolean checkValidPassword(Long memberId, String password) {
-        return memberRepository.findById(memberId)
-                .orElseThrow()
-                .getPassword()
-                .equals(password);
+        String memberPassword = memberRepository.findById(memberId)
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."))
+                .getPassword();
+
+        return passwordEncoder.matches(password, memberPassword);
     }
+
+    @Override
+    public Boolean checkValidEmailToken(EmailTokenRequest emailTokenResponse) {
+        return emailTokenRepository.findById(emailTokenResponse.getEmailTokenId())
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 이메일이 없습니다."))
+                .getToken()
+                .equals(emailTokenResponse.getToken());
+    }
+
 
     @Override
     public MeInformationResponse findMeInformation(Long memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         return MeInformationResponse.builder()
                 .nickname(member.getNickname())
@@ -143,20 +181,21 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Override
     public MemberInformationResponse findMemberInformationAll(Long memberId) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         return MemberInformationResponse.builder()
                 .imageUrl(member.getImageUrl())
                 .nickname(member.getNickname())
                 .introduction(member.getIntroduction())
                 .badge(member.isBadge())
+                .trophies(trophyRepository.findTop8IdByMemberMemberIdOrderByTrophyIdCreateDate(memberId))
                 .build();
     }
 
     @Override
     public void findMemberInformationId(String email, String name) throws MessagingException {
         Member member = memberRepository.findByEmailAndName(email, name)
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         sendEmail(email, member.getId());
     }
@@ -187,7 +226,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Override
     public void findMemberInformationPassword(String email, String name, String id) throws MessagingException {
         Member member = memberRepository.findByEmailAndNameAndId(email, name, id)
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         String newPassword = generateString();
 
@@ -222,34 +261,19 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     public Boolean checkUniqueId(String id) {
-        return memberRepository.existsById(id);
+        return !memberRepository.existsById(id);
     }
 
     @Override
     public Boolean checkUniqueNickname(String nickname) {
-        return memberRepository.existsByNickname(nickname);
+        return !memberRepository.existsByNickname(nickname);
     }
-
-    @Override
-    @Transactional
-    public HttpStatus updateIsValidated(EmailValidationRequest emailValidationRequest){
-        //TODO Exception
-        Member member = memberRepository.findById(emailValidationRequest.getMemberId()).orElseThrow();
-
-        if(!member.getEmailToken().equals(emailValidationRequest.getEmailToken())){
-            return HttpStatus.BAD_REQUEST;
-        }
-        member.succeedEmailToken();
-
-        return HttpStatus.MOVED_PERMANENTLY;
-    }
-
 
     @Override
     @Transactional
     public void updateMemberInformationCommon(Long memberId, String informationType, String value) {
         Member member = memberRepository.findById(memberId)
-                .orElseThrow();
+                .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         switch (informationType){
             case "email" -> member.setEmail(value);
@@ -268,7 +292,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepository.findById((long) Integer.parseInt(username))
                 .orElseThrow(() -> new UsernameNotFoundException(username + "Not Found Member by Id"));
-        member.setUserRole();
 
         return member;
     }

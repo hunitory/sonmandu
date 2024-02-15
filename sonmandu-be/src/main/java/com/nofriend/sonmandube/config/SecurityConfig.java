@@ -1,5 +1,6 @@
 package com.nofriend.sonmandube.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nofriend.sonmandube.jwt.JwtFilter;
 import com.nofriend.sonmandube.jwt.JwtProvider;
 import jakarta.servlet.http.HttpServletRequest;
@@ -29,9 +30,8 @@ import java.util.Collections;
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig  {
-
     private final JwtProvider jwtProvider;
-
+    private final ObjectMapper objectMapper;
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.cors((corsCustomizer) -> corsCustomizer.configurationSource(corsConfigurationSource()));
@@ -41,11 +41,11 @@ public class SecurityConfig  {
                     .anyRequest()
                     .permitAll())
                 .csrf(csrf -> csrf
-//                        .ignoringRequestMatchers(PathRequest.toH2Console())// dev
+                        .ignoringRequestMatchers(PathRequest.toH2Console())// dev
                         .ignoringRequestMatchers("*/**"))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
 
-        http.addFilterBefore(new JwtFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(new JwtFilter(jwtProvider, objectMapper), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

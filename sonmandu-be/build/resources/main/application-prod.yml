@@ -12,3 +12,7 @@ client:
 server:
   url: https://i10b111.p.ssafy.io/api
 
+logging:
+  level:
+    root: info
+

@@ -22,6 +22,7 @@ import com.nofriend.sonmandube.util.FileDto;
 import com.nofriend.sonmandube.util.FileUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -31,6 +32,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class HandwritingStoryServiceImpl implements HandwritingStoryService{
 
     private final HandwritingStoryRepository handwritingStoryRepository;
@@ -43,6 +45,10 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
 
     @Transactional
     public void save(Long memberId, HandwritingStoryRequest handwritingStoryRequest, MultipartFile thumbnail) {
+
+        log.info("memberId : " + memberId);
+        log.info("handwritingStoryRequest : " + handwritingStoryRequest.toString());
+
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IdNotFoundException("회원이 존재하지 않습니다."));
         Handwriting handwriting = handwritingRepository.findById(handwritingStoryRequest.getHandwritingId())
@@ -56,6 +62,7 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
             FileDto fileDto = s3Service.saveFile(thumbnail, FileUtil.createFileName(thumbnail));
             handwritingStory = handwritingStoryRequest.toEntity(member, handwriting, fileDto.getUrl());
         }
+
         handwritingStoryRepository.save(handwritingStory);
     }
 
@@ -80,10 +87,10 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
     public void delete(Long memberId, Long handwritingStoryId) {
         HandwritingStory handwritingStory = handwritingStoryRepository.findByHandwritingStoryIdAndMemberMemberId(handwritingStoryId, memberId)
                 .orElseThrow(() -> new IdNotFoundException("일치하는 정보가 없습니다."));
-        // 썸네일 삭제
-        s3Service.deleteFile(handwritingStory.getThumbnail());
         // 데이터 삭제
         handwritingStoryRepository.delete(handwritingStory);
+        // 썸네일 삭제
+        s3Service.deleteFile(handwritingStory.getThumbnail());
     }
 
     @Transactional
@@ -118,7 +125,7 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
             // 가중치, 횟수 감소
             updateCountWeight(HandwritingStoryCountType.LIKES_DOWN, handwritingStoryId);
         } else { // 좋아요가 눌러져있지 않음 -> 좋아요
-            HandwritingStory handwritingStory = handwritingStoryRepository.findByHandwritingStoryIdAndMemberMemberId(handwritingStoryId, memberId)
+            HandwritingStory handwritingStory = handwritingStoryRepository.findById(handwritingStoryId)
                     .orElseThrow(() -> new IdNotFoundException("일치하는 정보가 없습니다."));
             Member member = memberRepository.findById(memberId)
                     .orElseThrow(() -> new IdNotFoundException("회원이 존재하지 않습니다."));
@@ -144,7 +151,7 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
         HandwritingStoryCountId handwritingStoryHitId = new HandwritingStoryCountId(memberId, handwritingStoryId);
         Optional<HandwritingStoryHit> download = hitRepository.findById(handwritingStoryHitId);
         if(download.isEmpty()) {
-            HandwritingStory handwritingStory = handwritingStoryRepository.findByHandwritingStoryIdAndMemberMemberId(handwritingStoryId, memberId)
+            HandwritingStory handwritingStory = handwritingStoryRepository.findById(handwritingStoryId)
                     .orElseThrow(() -> new IdNotFoundException("일치하는 정보가 없습니다."));
             Member member = memberRepository.findById(memberId)
                     .orElseThrow(() -> new IdNotFoundException("회원이 존재하지 않습니다."));
@@ -204,7 +211,7 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
     public void addComment(Long memberId, Long handwritingStoryId, HandwritingStoryCommentRequest handwritingStoryCommentRequest) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IdNotFoundException("회원이 존재하지 않습니다."));
-        HandwritingStory handwritingStory = handwritingStoryRepository.findByHandwritingStoryIdAndMemberMemberId(handwritingStoryId, memberId)
+        HandwritingStory handwritingStory = handwritingStoryRepository.findById(handwritingStoryId)
                 .orElseThrow(() -> new IdNotFoundException("일치하는 정보가 없습니다."));
 
         HandwritingStoryComment comment = handwritingStoryCommentRequest.toEntity(member, handwritingStory);
@@ -213,7 +220,7 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
 
     @Override
     public void modifyComment(Long memberId, Long handwritingStoryCommentId, HandwritingStoryCommentRequest handwritingStoryCommentRequest) {
-        HandwritingStoryComment comment = commentRepository.findById(handwritingStoryCommentId)
+        HandwritingStoryComment comment = commentRepository.findByHandwritingStoryCommentIdAndMemberMemberId(handwritingStoryCommentId, memberId)
                 .orElseThrow(() -> new IdNotFoundException("댓글이 존재하지 않습니다."));
         comment.setContent(handwritingStoryCommentRequest.getContent());
         commentRepository.save(comment);

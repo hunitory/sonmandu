@@ -5,9 +5,11 @@ import com.nofriend.sonmandube.handwritingstory.domain.HandwritingStory;
 import com.nofriend.sonmandube.member.domain.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @NoArgsConstructor
 @Getter
+@ToString
 public class HandwritingStoryRequest {
 
     private Long handwritingId;

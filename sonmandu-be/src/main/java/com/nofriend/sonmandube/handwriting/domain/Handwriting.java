@@ -1,14 +1,11 @@
 package com.nofriend.sonmandube.handwriting.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -18,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 @Builder
 @EntityListeners(AuditingEntityListener.class)
+@ToString
 public class Handwriting {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +39,7 @@ public class Handwriting {
     private int thisMonth; // 이번달 인기 가중치
     private int thisWeek; // 이번주 인기 가중치
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "handwriting_application_id")
     private HandwritingApplication handwritingApplication;

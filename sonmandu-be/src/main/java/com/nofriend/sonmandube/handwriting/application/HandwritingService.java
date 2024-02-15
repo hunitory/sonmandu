@@ -13,7 +13,7 @@ public interface HandwritingService {
 
     void applyHandwriting(Long memberId, HandwritingApplicationRequest handwritingApplicationRequest, MultipartFile image);
 
-    void saveFont(String name, MultipartFile font);
+    void saveFont(Long handwritingApplicationId, MultipartFile font);
 
     List<SimpleHandwritingResponse> searchHandwriting(Long memberId, int start, int count, SearchConditionRequest condition);
 
@@ -34,4 +34,8 @@ public interface HandwritingService {
     RankingResponse getRankingList();
 
     List<SimpleHandwritingResponse> getPopularHandwritingList(Long memberId);
+
+    List<UnwrittenStoriesResponse> getUnwrittenStories(Long memberId);
+
+    Boolean checkUniqueName(String value);
 }

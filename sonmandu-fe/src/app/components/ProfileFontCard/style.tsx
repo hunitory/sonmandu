@@ -39,8 +39,9 @@ export const LowerWrapper = styled.div`
   gap: 5px;
 `;
 
-export const LowerSpan = styled.span`
+export const LowerSpan = styled.span<{name: string}>`
   font-size: 26px;
+  font-family: ${(props) => (props.name ? props.name : notoSansKr.medium.style.fontFamily)};
 `;
 
 export const LowerContentsWrapper = styled.div`

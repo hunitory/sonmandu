@@ -12,6 +12,10 @@ export async function editMemberInfo({ labelName, info }: { labelName: string; i
   return instanceJsonContent.patch(`/members/${labelName}`, { value: info });
 }
 
+export async function editProfileImage({imageFile}: {imageFile: File | null}) {
+  return instanceJsonContent.patch('/members/image', { image: imageFile});
+}
+
 interface SignUpArgs {
   id: string;
   password: string;

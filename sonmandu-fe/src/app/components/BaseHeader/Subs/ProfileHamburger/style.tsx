@@ -17,6 +17,14 @@ export const HamburgerWrapper = styled(BaseButton)`
   }
 `;
 
+export const ProfileHamburgerImageWrapper = styled.div`
+  width: 24px;
+  height: 24px;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+`;
+
 export const DropBoxWrapper = styled.ul`
   position: absolute;
   top: 60px;

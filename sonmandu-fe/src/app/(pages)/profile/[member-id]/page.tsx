@@ -10,6 +10,7 @@ import * as API from '@/apis';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import { instanceMultipartContent } from 'apis/_instance';
 import Image from 'next/image';
 
 interface UnAuthorizationUser {
@@ -146,7 +147,46 @@ export default function ProfilePage() {
   };
 
   // 프사 바꾸기
-  const EditProfileImage = () => {};
+
+  const imageInputRef = useRef<HTMLInputElement>(null);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
+  const [ uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
+
+  const onFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const file = event.target.files[0];
+
+      if ( file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/gir') {
+        setUploadedFile(file);
+      } else {
+        alert('그림파일(PNG, JPG, JPEG, GIF)만 가능합니다')
+      }
+    }
+  }
+
+  // 프사 바꾸는 api
+  const { mutate: requestEditProfileImage } = useMutation({
+    mutationKey: ['request-Edit-image'],
+    mutationFn: () => API.member.editProfileImage({ imageFile: uploadedFile }),
+    onSuccess: () => {memberRefetch(); console.log('success')},
+    onError: () => console.log(uploadedFile)
+  });
+
+  useEffect(() => {
+    if(uploadedFile) {
+      // const imageUrl = URL.createObjectURL(uploadedFile);
+      // setUploadedImageUrl(imageUrl);
+      //   URL.revokeObjectURL(imageUrl);
+      const formData = new FormData();
+      formData.append('image', uploadedFile)
+
+      instanceMultipartContent.patch('/members/image', formData)
+      .then((response) => {
+        console.log('성공: ', response.data);
+        memberRefetch();
+      })
+    }
+  }, [uploadedFile])
 
   const storyCardMember = {
     memberId: parseInt(params['member-id'] as string),
@@ -169,17 +209,28 @@ export default function ProfilePage() {
                 <S.ProfileBoxInfoDiv>
                   <Comp.ProfileBox {...ProfileBoxProps} />
                   {isMypage && (
-                    <S.ProfileImageEditButton type="button" disabled={false}>
-                      <div>
-                        <Comp.CustomImage
-                          src={'/image/profile-image-edit.svg'}
-                          alt={'image-edit'}
-                          width={15}
-                          height={15}
-                        />
-                        <span>수정</span>
-                      </div>
-                    </S.ProfileImageEditButton>
+                    <>
+                      <S.ProfileImageUploadInput 
+                        id='image-upload'
+                        type="file"
+                        ref={imageInputRef}
+                        value=""
+                        onChange={onFileUpload}
+                        accept=".png,.jpg,.jpeg,.gif"
+
+                      />
+                      <S.ProfileImageEditButton type="button" onClick={() => imageInputRef.current?.click()} disabled={false}>
+                        <div>
+                          <Comp.CustomImage
+                            src={'/image/profile-image-edit.svg'}
+                            alt={'image-edit'}
+                            width={15}
+                            height={15}
+                          />
+                          <span>수정</span>
+                        </div>
+                      </S.ProfileImageEditButton>
+                    </>
                   )}
                   {isMypage && (
                     <S.ProfileBoxInfoLink onClick={clickModal}>

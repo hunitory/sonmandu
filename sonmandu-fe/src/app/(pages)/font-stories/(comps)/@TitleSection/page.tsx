@@ -1,9 +1,10 @@
 'use client';
 
-import React, { ChangeEvent, FormEvent, MouseEvent, useCallback, useRef, useState } from 'react';
+import React, { ChangeEvent, FormEvent, MouseEvent, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import * as S from './style';
 import { SearchOptions } from 'components';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 interface CreateQueryStringArgs {
   name: 'sort' | 'title';
@@ -42,37 +43,54 @@ export default function TitleSection() {
     createQueryString({ name: 'title', value: searchInputValue });
   };
 
+  // 로그인 여부 판단
+  const [isLogin, setIsLogin] = useState(false);
+  useLayoutEffect(() => {
+    if (localStorage.getItem('access_token') !== null) {
+      setIsLogin(true);
+    } else if (localStorage.getItem('access_token') === null) {
+      setIsLogin(false);
+    }
+  }, []);
+
   return (
-    <S.PageTitleWrapper>
-      <div>
-        <h1>손글씨 이야기들</h1>
-        <p>손글씨에 대한 이야기들을 구경해보세요!</p>
-      </div>
-      <S.FormWrapper onSubmit={handleSearchValueSubmit}>
-        <SearchOptions.Input
-          ref={ref}
-          id="search-story"
-          placeholder="폰트명이나 제목으로 검색해보세요!"
-          value={searchInputValue}
-          onChange={handleTitleOnChange}
-          onClick={handleSearchValueSubmit}
-          flexible={{ able: false, width: '100%' }}
-        />
-        <S.HashTagsWrapper>
-          {SORT_OPTIONS.map((option) => (
-            <S.CustomHashTag
-              type="button"
-              disabled={false}
-              key={option.value}
-              selected={options === option.value}
-              onClick={() => handleOptionsClick({ name: 'sort', value: option.value })}
-            >
-              {option.text}
-            </S.CustomHashTag>
-          ))}
-        </S.HashTagsWrapper>
-      </S.FormWrapper>
-    </S.PageTitleWrapper>
+    <S.PageTitleLinkWrapper>
+      <S.StoryDetailLinkWrapper>
+        <span onClick={isLogin ? () => router.push('/font-story-write') : () => alert('로그인을 해주세요')}>
+          이야기 작성하기
+        </span>
+      </S.StoryDetailLinkWrapper>
+      <S.PageTitleWrapper>
+        <div>
+          <h1>손글씨 이야기들</h1>
+          <p>손글씨에 대한 이야기들을 구경해보세요!</p>
+        </div>
+        <S.FormWrapper onSubmit={handleSearchValueSubmit}>
+          <SearchOptions.Input
+            ref={ref}
+            id="search-story"
+            placeholder="폰트명이나 제목으로 검색해보세요!"
+            value={searchInputValue}
+            onChange={handleTitleOnChange}
+            onClick={handleSearchValueSubmit}
+            flexible={{ able: false, width: '100%' }}
+          />
+          <S.HashTagsWrapper>
+            {SORT_OPTIONS.map((option) => (
+              <S.CustomHashTag
+                type="button"
+                disabled={false}
+                key={option.value}
+                selected={options === option.value}
+                onClick={() => handleOptionsClick({ name: 'sort', value: option.value })}
+              >
+                {option.text}
+              </S.CustomHashTag>
+            ))}
+          </S.HashTagsWrapper>
+        </S.FormWrapper>
+      </S.PageTitleWrapper>
+    </S.PageTitleLinkWrapper>
   );
 }
 const SORT_OPTIONS = [

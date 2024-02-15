@@ -59,10 +59,6 @@ export default function ProfilePage() {
     queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string }),
   });
 
-  useEffect(() => {
-    console.log(memberRes);
-  }, [memberRes]);
-
   // 만든 폰트 목록 조회
   const { data: fontRes, isFetching: isFontFetching } = useQuery({
     queryKey: isMypage ? ['my-font'] : ['profile-font', params['member-id']],
@@ -150,49 +146,45 @@ export default function ProfilePage() {
 
   const imageInputRef = useRef<HTMLInputElement>(null);
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-  const [ uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string>('');
 
   const onFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files) {
       const file = event.target.files[0];
 
-      if ( file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/gir') {
+      if (file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/gir') {
         setUploadedFile(file);
       } else {
-        alert('그림파일(PNG, JPG, JPEG, GIF)만 가능합니다')
+        alert('그림파일(PNG, JPG, JPEG, GIF)만 가능합니다');
       }
     }
-  }
+  };
 
   // 프사 바꾸는 api
   const { mutate: requestEditProfileImage } = useMutation({
     mutationKey: ['request-Edit-image'],
     mutationFn: () => API.member.editProfileImage({ imageFile: uploadedFile }),
-    onSuccess: () => {memberRefetch(); console.log('success')},
-    onError: () => console.log(uploadedFile)
+    onSuccess: () => {
+      memberRefetch();
+      console.log('success');
+    },
+    onError: () => console.log(uploadedFile),
   });
 
   useEffect(() => {
-    if(uploadedFile) {
+    if (uploadedFile) {
       // const imageUrl = URL.createObjectURL(uploadedFile);
       // setUploadedImageUrl(imageUrl);
       //   URL.revokeObjectURL(imageUrl);
       const formData = new FormData();
-      formData.append('image', uploadedFile)
+      formData.append('image', uploadedFile);
 
-      instanceMultipartContent.patch('/members/image', formData)
-      .then((response) => {
+      instanceMultipartContent.patch('/members/image', formData).then((response) => {
         console.log('성공: ', response.data);
         memberRefetch();
-      })
+      });
     }
-  }, [uploadedFile])
-
-  const storyCardMember = {
-    memberId: parseInt(params['member-id'] as string),
-    name: memberRes?.data.nickname,
-    imageUrl: memberRes?.data.imageUrl,
-  };
+  }, [uploadedFile]);
 
   return (
     <>
@@ -210,16 +202,19 @@ export default function ProfilePage() {
                   <Comp.ProfileBox {...ProfileBoxProps} />
                   {isMypage && (
                     <>
-                      <S.ProfileImageUploadInput 
-                        id='image-upload'
+                      <S.ProfileImageUploadInput
+                        id="image-upload"
                         type="file"
                         ref={imageInputRef}
                         value=""
                         onChange={onFileUpload}
                         accept=".png,.jpg,.jpeg,.gif"
-
                       />
-                      <S.ProfileImageEditButton type="button" onClick={() => imageInputRef.current?.click()} disabled={false}>
+                      <S.ProfileImageEditButton
+                        type="button"
+                        onClick={() => imageInputRef.current?.click()}
+                        disabled={false}
+                      >
                         <div>
                           <Comp.CustomImage
                             src={'/image/profile-image-edit.svg'}
@@ -343,7 +338,7 @@ export default function ProfilePage() {
                 {storyRes?.data.map((storyProps: ProfileStoryCardProps) => {
                   return (
                     <S.BaseStoryCardWrapper key={storyProps.handwritingStoryId}>
-                      <Comp.BaseStoryCard {...storyProps} member={storyCardMember} />
+                      <Comp.BaseStoryCard {...storyProps} member={memberRes?.data} />
                     </S.BaseStoryCardWrapper>
                   );
                 })}

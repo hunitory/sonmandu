@@ -2,26 +2,14 @@ import React, { useState } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
 import * as API from '@/apis';
+import * as T from '@/types'
 import Image from 'next/image';
 import { useMutation } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
-interface MainStoryCardProps {
-  handwritingStoryId: number;
-  title: string;
-  name: string;
-  thumbnail: string;
-  hitCount: number;
-  likeCount: number;
-  member: {
-    memberId: number;
-    name: string;
-    imageUrl: string | null;
-  };
-  isLike: boolean;
-}
-
-function MainStoryCard(props: MainStoryCardProps) {
+function MainStoryCard(props: T.BaseStoryCard) {
   const { handwritingStoryId, title, name, thumbnail, hitCount, likeCount, member, isLike } = props;
+  const router = useRouter()
   const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
   const { mutate: requestLikeClick, data: resLikeClick } = useMutation({
     mutationKey: ['font-gallery-click-like', handwritingStoryId],
@@ -34,7 +22,7 @@ function MainStoryCard(props: MainStoryCardProps) {
   });
 
   return (
-    <S.StoryCardWrapper>
+    <S.StoryCardWrapper onClick={()=>{router.push(`/font-story-detail/${handwritingStoryId}`)}}>
       <S.ImageArea>
         <Comp.CustomImage src={thumbnail} alt="썸네일" fill={true} sizes="100vw" quality={100} />
       </S.ImageArea>
@@ -49,7 +37,7 @@ function MainStoryCard(props: MainStoryCardProps) {
               memberId={member.memberId}
               imageUrl={member.imageUrl || '/image/logo.png'}
               imgSize="36px"
-              nickname={member.name}
+              nickname={member.nickname}
               badge={false}
               fontSize="12px"
             />

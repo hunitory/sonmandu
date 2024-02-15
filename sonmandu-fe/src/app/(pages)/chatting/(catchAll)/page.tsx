@@ -1,48 +1,23 @@
 'use client';
 
-import React, { Dispatch, MouseEvent, SetStateAction, useCallback, useState } from 'react';
+import React, { MouseEvent, useCallback, useState } from 'react';
 import * as S from './style';
 import * as T from '@/types';
 import * as Comp from '@/components';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
-interface ChattingSideBarProps {
-  myFont: { list: MyFont[]; isLoading: boolean };
-  rankingFont: { list: { thisMonthHandwriting: T.FontCard[]; thisWeekHandwriting: T.FontCard[] }; isLoading: boolean };
-  setSelectedFont: Dispatch<SetStateAction<{ fontId: number; fontName: string }>>;
-}
-
-interface RankingFont {
-  downloadCount: number;
-  downloadUrl: string;
-  handwritingId: number;
-  hitCount: number;
-  isLike: boolean;
-  likeCount: number;
-  name: string;
-  tag: number[];
-}
-interface MyFont {
-  handwritingId: number;
-  name: string;
-  state: number;
-  downloadUrl: string;
-  hitCount: number;
-  likeCount: number;
-  downloadCount: number;
-  tag: number[];
-  isLike: boolean;
-}
-
-export default function ChattingSideBar({ myFont, rankingFont, setSelectedFont }: ChattingSideBarProps) {
+export default function ChattingSideBar({ myFont, rankingFont, setSelectedFont }: T.ChattingSideBarProps) {
   const router = useRouter();
+  const [mouseOvered, setMouseOvered] = useState({ ranking: false, my: false });
   const [fontListViews, setFontListViews] = useState({ ranking: true, owner: false });
 
   const filteringCompletedHandwriting = useCallback(() => {
-    return myFont.list.filter((el: MyFont, i: number) => el.state === 4 || el.state === 5);
+    return myFont.list.filter((el: T.MyFont, i: number) => el.state === 4 || el.state === 5);
   }, []);
 
-  const handleSelectedFont = ({ id, name }: { id: number; name: string }) => {
+  const handleSelectedFont = ({ e, id, name }: { e: MouseEvent<HTMLLIElement>; id: number; name: string }) => {
+    e.stopPropagation();
     setSelectedFont((prev) => ({ fontId: id, fontName: name }));
   };
 
@@ -58,41 +33,49 @@ export default function ChattingSideBar({ myFont, rankingFont, setSelectedFont }
         $isOpen={fontListViews.ranking}
         onClick={() => setFontListViews((prev) => ({ ...prev, ranking: !prev.ranking }))}
       >
-        <p className="toggle-opener">인기 손글씨들</p>
+        <S.ToggleOpenner
+          $isOpen={fontListViews.ranking}
+          onMouseLeave={() => setMouseOvered({ ranking: false, my: mouseOvered.my })}
+          onMouseOver={() => setMouseOvered({ ranking: true, my: mouseOvered.my })}
+        >
+          인기 손글씨들
+          <Image
+            src={mouseOvered.ranking ? '/image/white-right-next.svg' : '/image/black-right-next.svg'}
+            alt="오프너"
+            width={18}
+            height={18}
+          />
+        </S.ToggleOpenner>
         <S.FontsContainer>
-          <S.HrTitle>
-            <span>이번 달</span>
-          </S.HrTitle>
+          <S.HrTitle>이번 달</S.HrTitle>
           {rankingFont.isLoading
             ? Array.from({ length: 3 }).map((_, i) => (
                 <S.FontCardWrapper key={`skeleton-${i}`}>
                   <Comp.SkeletonCard ratio="4 / 5.5" />
                 </S.FontCardWrapper>
               ))
-            : rankingFont.list.thisMonthHandwriting.map((res: T.FontCard, i: number) => (
+            : rankingFont.list.thisMonthHandwriting.map((res: T.RankingFont, i: number) => (
                 <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
                   <Comp.BaseFontCard
                     {...res}
                     letter={{ isShow: false, idx: 0 }}
-                    onClick={() => handleSelectedFont({ id: res.handwritingId, name: res.name })}
+                    onClick={(e) => handleSelectedFont({ e: e, id: res.handwritingId, name: res.name })}
                   />
                 </S.FontCardWrapper>
               ))}
-          <S.HrTitle>
-            <span>이번 주</span>
-          </S.HrTitle>
+          <S.HrTitle>이번 주</S.HrTitle>
           {rankingFont.isLoading
             ? Array.from({ length: 3 }).map((_, i) => (
                 <S.FontCardWrapper key={`skeleton-${i}`}>
                   <Comp.SkeletonCard ratio="4 / 5.5" />
                 </S.FontCardWrapper>
               ))
-            : rankingFont.list.thisWeekHandwriting.map((res: T.FontCard, i: number) => (
+            : rankingFont.list.thisWeekHandwriting.map((res: T.RankingFont, i: number) => (
                 <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
                   <Comp.BaseFontCard
                     {...res}
                     letter={{ isShow: false, idx: 0 }}
-                    onClick={() => handleSelectedFont({ id: res.handwritingId, name: res.name })}
+                    onClick={(e) => handleSelectedFont({ e: e, id: res.handwritingId, name: res.name })}
                   />
                 </S.FontCardWrapper>
               ))}
@@ -104,7 +87,19 @@ export default function ChattingSideBar({ myFont, rankingFont, setSelectedFont }
         $isOpen={fontListViews.owner}
         onClick={() => setFontListViews((prev) => ({ ...prev, owner: !prev.owner }))}
       >
-        <p className="toggle-opener">내 손글씨들</p>
+        <S.ToggleOpenner
+          $isOpen={fontListViews.owner}
+          onMouseLeave={() => setMouseOvered({ my: false, ranking: mouseOvered.ranking })}
+          onMouseOver={() => setMouseOvered({ my: true, ranking: mouseOvered.ranking })}
+        >
+          내 손글씨들
+          <Image
+            src={mouseOvered.my ? '/image/white-right-next.svg' : '/image/black-right-next.svg'}
+            alt="오프너"
+            width={18}
+            height={18}
+          />
+        </S.ToggleOpenner>
         <S.FontsContainer>
           {myFont.isLoading ? (
             Array.from({ length: 3 }).map((_, i) => (
@@ -113,12 +108,12 @@ export default function ChattingSideBar({ myFont, rankingFont, setSelectedFont }
               </S.FontCardWrapper>
             ))
           ) : filteringCompletedHandwriting().length > 0 ? (
-            filteringCompletedHandwriting().map((res: MyFont, i: number) => (
+            filteringCompletedHandwriting().map((res: T.MyFont, i: number) => (
               <S.FontCardWrapper key={`${res.handwritingId}-${i}`}>
                 <Comp.BaseFontCard
                   {...res}
                   letter={{ isShow: false, idx: 0 }}
-                  onClick={() => handleSelectedFont({ id: res.handwritingId, name: res.name })}
+                  onClick={(e) => handleSelectedFont({ e: e, id: res.handwritingId, name: res.name })}
                 />
               </S.FontCardWrapper>
             ))

@@ -69,12 +69,16 @@ export const LikeDiv = styled(BaseButton)`
 `;
 
 export const DownloadDiv = styled.div`
-  font-size: 14px;
   width: fit-content;
   height: 100%;
   display: flex;
   align-items: center;
   gap: 7px;
+  span {
+    font-size: 14px;
+    display: inline-block;
+    height: fit-content;
+  }
 `;
 
 export const DownloadButton = styled(BaseButton)`

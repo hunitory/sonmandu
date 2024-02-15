@@ -7,7 +7,7 @@ export const MainWrapper = styled.main`
   display: flex;
   justify-content: center;
   width: 100%;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 72px);
   position: relative;
 `;
 
@@ -15,7 +15,7 @@ export const SideBarWrapper = styled.section`
   width: 40%;
   min-width: 384px;
   max-width: 436px;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 72px);
   box-shadow: 4px 4px 6px ${PALETTE.LIGHT_BLACK};
   overflow-y: scroll;
 
@@ -30,35 +30,53 @@ export const SideBarWrapper = styled.section`
     left: 0;
     width: 100%;
     max-width: none;
-    height: 38px;
+    height: fit-content;
   }
 `;
 
 export const FontListOpener = styled.div<{ $isOpen: boolean }>`
   width: 100%;
-  height: ${({ $isOpen }) => ($isOpen ? 'calc(100vh - 56px - 36px)' : '36px')};
+  height: ${({ $isOpen }) => ($isOpen ? 'calc(100vh - 72px - 36px)' : '36px')};
   cursor: pointer;
   overflow: hidden;
   transition: height 0.3s ease-in;
+`;
 
-  .toggle-opener {
-    width: 100%;
-    height: 36px;
-    font-size: 16px;
-    line-height: 36px;
-    text-align: center;
-    color: ${PALETTE.MAIN_BLACK};
-    background-color: white;
-    font-family: ${notoSansKr.medium.style.fontFamily};
-    font-weight: ${notoSansKr.medium.style.fontWeight};
-    border-bottom: 1px solid ${PALETTE.MAIN_BLACK};
-    border-bottom: 1px solid ${PALETTE.MAIN_BLACK};
+export const ToggleOpenner = styled.p<{ $isOpen: boolean }>`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 36px;
+  font-size: 16px;
+  line-height: 36px;
+  padding: 0px 24px;
+  text-align: center;
+  color: ${PALETTE.MAIN_BLACK};
+  background-color: white;
+  font-family: ${notoSansKr.medium.style.fontFamily};
+  font-weight: ${notoSansKr.medium.style.fontWeight};
+  border-bottom: 1px solid ${PALETTE.LIGHT_BLACK};
+  border-radius: 0px;
+
+  transition: border-radius 0.3s ease;
+
+  img {
+    transform: rotate(${(props) => (props.$isOpen ? '90deg' : '-90deg')});
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    color: white;
+    background-color: ${PALETTE.LIGHT_ORANGE};
+    border-bottom: 1px solid ${PALETTE.MAIN_ORANGE};
+    border-radius: 12px;
   }
 `;
 
 export const FontsContainer = styled.div`
   width: 100%;
-  height: calc(100% - 36px);
+  height: calc(100% - 36px - 24px);
   padding: 0px 12px 24px 12px;
   background-color: white;
   display: flex;
@@ -80,9 +98,11 @@ export const FontCardWrapper = styled.div`
 
 export const HrTitle = styled.p`
   width: 100%;
-  min-height: 1px;
+  padding: 12px 0px;
+  min-height: fit-content;
   position: relative;
-  margin: 24px 0px 12px 0px;
+  /* margin: 24px 0px 12px 0px; */
+  text-align: center;
 
   & > span {
     display: inline-block;

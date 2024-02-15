@@ -12,8 +12,9 @@ function BaseHeader() {
       <S.UserInteractionWrapper>
         <S.LinkWrapper>
           <Link href={'/create-font'}>손글씨 만들기</Link>
-          <Link href={'/font-gallery'}>전시관</Link>
-          <Link href={'/font-stories'}>이야기</Link>
+          {/* <Link href={'/font-gallery'}>전시관</Link>
+          <Link href={'/font-stories'}>이야기</Link> */}
+          <Link href={'/chatting'}>손글씨 채팅</Link>
         </S.LinkWrapper>
         <Sub.ProfileHamburger />
       </S.UserInteractionWrapper>

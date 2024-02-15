@@ -6,13 +6,13 @@ import { PALETTE, notoSansKr } from 'styles';
 
 export const Container = styled.section`
   width: 100%;
-  height: calc(100vh - 57px);
+  height: 100%;
   overflow: hidden;
 `;
 
 export const HiddenWrapper = styled.div`
   width: 100%;
-  height: calc(100vh - 57px - 148px);
+  height: calc(100vh - 72px - 148px);
   overflow: hidden;
 `;
 
@@ -35,7 +35,6 @@ export const MessageElement = styled.div`
   display: flex;
   gap: 10px;
   width: 90%;
-  /* max-width: 100%; */
   height: fit-content;
   padding: 0px 12px;
   will-change: scroll-position;

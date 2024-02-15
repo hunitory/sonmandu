@@ -18,7 +18,7 @@ function ProfileFontCard({ profileFontCardProps }: { profileFontCardProps: Profi
   const BaseButtonProps: BaseButtonProps = {
     children: '다운로드 받기',
     type: 'button',
-    onClick: () => router.push(downloadUrl),
+    onClick: () => handleDownloadClick(),
     disabled: false,
   };
 
@@ -37,6 +37,7 @@ function ProfileFontCard({ profileFontCardProps }: { profileFontCardProps: Profi
     queryFn: () => API.handwritingStory.loadFontInService({ getFontResponse: resFromS3, name: name }),
   });
 
+  // 좋아요 버튼
   const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
   const { mutate, data: resLikeClick } = useMutation({
     mutationKey: ['profile-font-click-like', handwritingId],
@@ -52,6 +53,17 @@ function ProfileFontCard({ profileFontCardProps }: { profileFontCardProps: Profi
     e.stopPropagation();
     mutate();
   };
+
+  // 다운로드 버튼
+  const [copyDownloadCount, setCopDownloadCount] = useState(downloadCount);
+  const { mutate: handleDownloadClick, data: resDownloadClick } = useMutation({
+    mutationKey: ['profile-font-click-download', handwritingId],
+    mutationFn: () => API.handwriting.fontDownload({ fontId: String(handwritingId) }),
+    onSuccess: () => {
+      setCopDownloadCount((prev) => prev + 1); // 이거 수정 해야할듯??
+      router.push(downloadUrl);
+    },
+  });
 
   return (
     <S.ProfileFontCardWrapper>
@@ -74,7 +86,7 @@ function ProfileFontCard({ profileFontCardProps }: { profileFontCardProps: Profi
             </S.LikeDiv>
             <S.DownloadDiv>
               <Comp.CustomImage src={'/image/download.png'} alt="#" width={28} height={28} />
-              {downloadCount}
+              {copyDownloadCount}
             </S.DownloadDiv>
             <S.DownloadButton {...BaseButtonProps} />
           </S.LowerContentsUp>

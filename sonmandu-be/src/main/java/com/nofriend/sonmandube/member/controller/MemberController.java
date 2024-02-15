@@ -1,33 +1,16 @@
 package com.nofriend.sonmandube.member.controller;
 
 import com.nofriend.sonmandube.member.application.MemberService;
-import com.nofriend.sonmandube.member.controller.request.LoginRequest;
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import jakarta.servlet.http.HttpServletRequest;
->>>>>>> 71d2f9b (feat: renew refresh token)
-=======
->>>>>>> 2a88da7 (refactor: status code)
 import jakarta.validation.Valid;
 import com.nofriend.sonmandube.member.controller.request.*;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
 import jakarta.mail.MessagingException;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import jakarta.servlet.http.HttpServletResponse;
-=======
->>>>>>> 7b5a9b2 (feat: change dateTime)
-import jakarta.validation.constraints.Email;
->>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
-=======
->>>>>>> 2a88da7 (refactor: status code)
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
+import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,14 +30,6 @@ import java.util.Map;
 @Slf4j
 public class MemberController {
     private final MemberService memberService;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    @Value("${client.url}")
-    private String clientUrl;
->>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
-=======
->>>>>>> c31b9a8 (feat: change dateTime)
 
     //--- PostMapping
 
@@ -69,65 +44,26 @@ public class MemberController {
 
     //회원가입
     @PostMapping("/signup")
-<<<<<<< HEAD
-<<<<<<< HEAD
     public ResponseEntity<HttpStatus> signup(@RequestBody @Valid SignupRequest signupRequest) throws MessagingException {
-=======
-    public HttpStatus signup(@RequestBody @Valid SignupRequest signupRequest) throws MessagingException {
->>>>>>> c31b9a8 (feat: change dateTime)
-        log.info("/members/signup");
         memberService.signup(signupRequest);
-<<<<<<< HEAD
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     //이메일 토큰 보내기
     @PostMapping("/email-token")
     public ResponseEntity<Map<String, Long>> sendEmailToken(@RequestBody Map<String, String> request) throws MessagingException {
-        log.info("/members/email-token");
         String email = request.get("email");
-        log.info("email : " + email);
 
         Long emailTokenId = memberService.sendEmailToken(email);
         Map<String, Long> response = new HashMap<>();
         response.put("emailTokenId", emailTokenId);
-        return ResponseEntity.ok(response);
-=======
-        return HttpStatus.NO_CONTENT;
->>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
-=======
-    public ResponseEntity<HttpStatus> signup(@RequestBody @Valid SignupRequest signupRequest) throws MessagingException {
-        log.info("/members/signup");
-        memberService.signup(signupRequest);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
->>>>>>> 2a88da7 (refactor: status code)
-    }
 
-    //이메일 토큰 보내기
-    @PostMapping("/email-token")
-    public ResponseEntity<Map<String, Long>> sendEmailToken(@RequestBody Map<String, String> request) throws MessagingException {
-        log.info("/members/email-token");
-        String email = request.get("email");
-        log.info("email : " + email);
-
-        Long emailTokenId = memberService.sendEmailToken(email);
-        Map<String, Long> response = new HashMap<>();
-        response.put("emailTokenId", emailTokenId);
         return ResponseEntity.ok(response);
     }
 
     //로그인
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest loginRequest) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        log.info("/members/login");
-=======
-        log.info("/login");
->>>>>>> e41d808 (feat: change JwtFilter Exception Message)
-=======
-        log.info("/members/login");
->>>>>>> c31b9a8 (feat: change dateTime)
         LoginResponse loginResponse = memberService.login(loginRequest);
         if(loginResponse == null) {
             ResponseEntity.badRequest().build();
@@ -138,59 +74,19 @@ public class MemberController {
     //로그아웃
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/logout")
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 339b19b (fix: bugs)
     public ResponseEntity<HttpStatus> logout(Authentication authentication){
-        log.info("/members/logout");
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
-=======
-    public HttpStatus logout(HttpServletRequest request){
-        log.info("/members/logout");
-        Long memberId = Long.valueOf(String.valueOf(request.getAttribute("memberId")));
->>>>>>> c31b9a8 (feat: change dateTime)
-=======
-    public HttpStatus logout(HttpServletRequest request, Authentication authentication){
-=======
-    public HttpStatus logout(Authentication authentication){
->>>>>>> 71d2f9b (feat: renew refresh token)
-        log.info("/members/logout");
-        Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
->>>>>>> ae05ff2 (feat: update logout security)
+
         memberService.logout(memberId);
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-=======
-        return ResponseEntity.noContent().build();
->>>>>>> 339b19b (fix: bugs)
-=======
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
->>>>>>> 2a88da7 (refactor: status code)
     }
 
     //회원 정보 수정 시, 비밀번호 일치 확인
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/valid-password")
-<<<<<<< HEAD
-<<<<<<< HEAD
     public ResponseEntity<Boolean>  checkValidPassword(@RequestBody Map<String, String> request, Authentication authentication){
-        log.info("/members/valid-password");
         String password = request.get("password");
-
-=======
-    public ResponseEntity<Boolean>  checkValidPassword(@Size(min = 8, max = 20) String password, Authentication authentication){
-        log.info("/members/valid-password");
->>>>>>> c31b9a8 (feat: change dateTime)
-=======
-    public ResponseEntity<Boolean>  checkValidPassword(@RequestBody Map<String, String> request, Authentication authentication){
-        log.info("/members/valid-password");
-        String password = request.get("password");
-
->>>>>>> 71d2f9b (feat: renew refresh token)
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
         boolean checkValidPasswordResponse = memberService.checkValidPassword(memberId, password);
 
@@ -200,39 +96,13 @@ public class MemberController {
 
 //-- GetMapping
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c31b9a8 (feat: change dateTime)
     //회원가입 페이지 - 이메일 토큰 검증하기
     @GetMapping("/email-token")
     public ResponseEntity<Boolean> checkEmailToken(@Valid EmailTokenRequest emailTokenResponse){
-        log.info("/members/email-token");
-<<<<<<< HEAD
-=======
-    @GetMapping("/email-token")
-<<<<<<< HEAD
-    public ResponseEntity<Boolean> checkEmailToken(@RequestBody @Valid EmailTokenRequest emailTokenResponse){
->>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
-=======
-    public ResponseEntity<Boolean> checkEmailToken(@Valid EmailTokenRequest emailTokenResponse){
->>>>>>> 7b5a9b2 (feat: change dateTime)
-=======
->>>>>>> c31b9a8 (feat: change dateTime)
-        log.info(emailTokenResponse.toString());
         return ResponseEntity.ok(memberService.checkValidEmailToken(emailTokenResponse));
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    
     //회원 정보 수정 - 자기 프로필 조회
-=======
->>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
-=======
-    
-    //회원 정보 수정 - 자기 프로필 조회
->>>>>>> c31b9a8 (feat: change dateTime)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")
     public ResponseEntity<MeInformationResponse> findMeInformation(Authentication authentication){
@@ -253,31 +123,18 @@ public class MemberController {
      * 아닐 시 리턴되는 정보 없음
      */
     @GetMapping("")
-<<<<<<< HEAD
-<<<<<<< HEAD
     public ResponseEntity<Object> findMemberInformation(@RequestParam(required = false) Long memberId, @RequestParam(required = false) String email, @RequestParam(required = false) String name, @RequestParam(required = false) String id) throws MessagingException {
-=======
-    public ResponseEntity<MemberInformationResponse> findMemberInformation(@RequestParam(required = false) Long memberId, @RequestParam(required = false) String email, @RequestParam(required = false) String name, @RequestParam(required = false) String id) throws MessagingException {
->>>>>>> c31b9a8 (feat: change dateTime)
-=======
-    public ResponseEntity<Object> findMemberInformation(@RequestParam(required = false) Long memberId, @RequestParam(required = false) String email, @RequestParam(required = false) String name, @RequestParam(required = false) String id) throws MessagingException {
->>>>>>> 2a88da7 (refactor: status code)
-        log.info("/members");
         if(memberId != null && email == null && name == null && id == null){
             MemberInformationResponse memberInformationResponse = memberService.findMemberInformationAll(memberId);
-            log.info("find member info");
             return ResponseEntity.ok(memberInformationResponse);
         } else if (email == null || name == null){
-            log.info("find failure");
             return ResponseEntity.badRequest().build();
         }
 
         if(id == null){
-            log.info("find id");
             memberService.findMemberInformationId(email, name);
             return ResponseEntity.noContent().build();
         }{
-            log.info("find password");
             memberService.findMemberInformationPassword(email, name, id);
             return ResponseEntity.noContent().build();
         }
@@ -285,16 +142,7 @@ public class MemberController {
 
     // 회원 가입, 회원 수정 페이지 - 아이디나 비밀번호 중복확인
     @GetMapping("/unique")
-<<<<<<< HEAD
-<<<<<<< HEAD
     public ResponseEntity<Map<String, Boolean>> checkUnique(@RequestParam(required = false) String id, @RequestParam(required = false) String nickname){
-=======
-    public ResponseEntity<HashMap<String, Boolean>> checkUnique(@RequestParam(required = false) String id, @RequestParam(required = false) String nickname){
->>>>>>> c31b9a8 (feat: change dateTime)
-=======
-    public ResponseEntity<Map<String, Boolean>> checkUnique(@RequestParam(required = false) String id, @RequestParam(required = false) String nickname){
->>>>>>> 71d2f9b (feat: renew refresh token)
-        log.info("/members/unique");
         if((id == null) == (nickname == null)) {
             return ResponseEntity.badRequest().build();
         }
@@ -310,15 +158,7 @@ public class MemberController {
         }
 
         Boolean finalCheckUniqueResponse = checkUniqueResponse;
-<<<<<<< HEAD
-<<<<<<< HEAD
         return ResponseEntity.ok(new HashMap<>() {{
-=======
-        return ResponseEntity.ok(new HashMap<String, Boolean>() {{
->>>>>>> c31b9a8 (feat: change dateTime)
-=======
-        return ResponseEntity.ok(new HashMap<>() {{
->>>>>>> 71d2f9b (feat: renew refresh token)
             put("isPossible", finalCheckUniqueResponse);
         }});
     }
@@ -333,71 +173,23 @@ public class MemberController {
     // 회원 수정 페이지 - 프로필 사진 수정
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/image")
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     public ResponseEntity<Void> updateMemberInformationImage(MultipartFile image, Authentication authentication){
-=======
-    public HttpStatus updateMemberInformationImage(MultipartFile image, Authentication authentication){
->>>>>>> c31b9a8 (feat: change dateTime)
-=======
-    public ResponseEntity<HttpStatus> updateMemberInformationImage(MultipartFile image, Authentication authentication){
->>>>>>> 1e329f9 (text: add text code)
-=======
-    public ResponseEntity<Void> updateMemberInformationImage(MultipartFile image, Authentication authentication){
->>>>>>> 2a88da7 (refactor: status code)
-        log.info("/members/image");
-        log.info(image.getOriginalFilename());
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
         memberService.updateMemberInformationImage(memberId, image);
-<<<<<<< HEAD
-<<<<<<< HEAD
         return ResponseEntity.noContent().build();
-=======
-        return HttpStatus.NO_CONTENT;
->>>>>>> c31b9a8 (feat: change dateTime)
-=======
-        return ResponseEntity.noContent().build();
->>>>>>> 1e329f9 (text: add text code)
     }
 
 
     // 회원 수정  페이지 - 이메일, 비밀번호, 소개글, 닉네임, 프로필 이미지 수정
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/{informationType}")
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     public ResponseEntity<Void> updateMemberInformationCommon(@PathVariable @NotEmpty String informationType, @RequestBody Map<String, String> request, Authentication authentication){
-=======
-    public HttpStatus updateMemberInformationCommon(@PathVariable @NotEmpty String informationType, @RequestBody String value, Authentication authentication){
->>>>>>> c31b9a8 (feat: change dateTime)
-=======
-    public ResponseEntity<HttpStatus> updateMemberInformationCommon(@PathVariable @NotEmpty String informationType, @RequestBody Map<String, String> request, Authentication authentication){
->>>>>>> 1e329f9 (text: add text code)
-=======
-    public ResponseEntity<Void> updateMemberInformationCommon(@PathVariable @NotEmpty String informationType, @RequestBody Map<String, String> request, Authentication authentication){
->>>>>>> 2a88da7 (refactor: status code)
-        log.info("/members/{informationType}");
-        log.info(informationType);
         String value = request.get("value");
-        log.info(value);
         Long memberId = Long.valueOf(String.valueOf(authentication.getName()));
 
         memberService.updateMemberInformationCommon(memberId, informationType, value);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
         return ResponseEntity.noContent().build();
-=======
-        return HttpStatus.NO_CONTENT;
->>>>>>> c31b9a8 (feat: change dateTime)
-=======
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
->>>>>>> 1e329f9 (text: add text code)
-=======
-        return ResponseEntity.noContent().build();
->>>>>>> 2a88da7 (refactor: status code)
     }
 
     //---DeleteMapping
@@ -408,15 +200,7 @@ public class MemberController {
     public ResponseEntity<Void> deleteMember(Authentication authentication){
         Long memberId = Long.valueOf(authentication.getName());
         memberService.deleteMember(memberId);
-<<<<<<< HEAD
-<<<<<<< HEAD
         return ResponseEntity.noContent().build();
-=======
-        return HttpStatus.NO_CONTENT;
->>>>>>> c31b9a8 (feat: change dateTime)
-=======
-        return ResponseEntity.noContent().build();
->>>>>>> 2a88da7 (refactor: status code)
     }
 
 }

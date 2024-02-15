@@ -12,26 +12,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import lombok.Setter;
-=======
->>>>>>> 723abc5 (feat: add spring security chatting)
-=======
-import lombok.Setter;
->>>>>>> 738ebf3 (feat: change JwtFilter Exception Message)
 import lombok.ToString;
-import org.springframework.stereotype.Component;
-
 @Getter
-<<<<<<< HEAD
-<<<<<<< HEAD
 @Setter
-=======
->>>>>>> 723abc5 (feat: add spring security chatting)
-=======
-@Setter
->>>>>>> 738ebf3 (feat: change JwtFilter Exception Message)
 @ToString
 @RequiredArgsConstructor
 public class ChatRequest {
@@ -40,36 +24,16 @@ public class ChatRequest {
     @NotEmpty
     private String message;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     public Chat toEntity(Long memberId,String memberNickname,boolean memberBadge, String imageUrl, Long handwritingId,  String handwritingName, String handwritingDownloadUrl, String message) {
-=======
-    public Chat toEntity(Long memberId,String memberNickname, Long handwritingId, String handwritingName, String handwritingDownloadUrl, String message) {
->>>>>>> 723abc5 (feat: add spring security chatting)
-=======
-    public Chat toEntity(Long memberId,String memberNickname,boolean memberBadge, Long handwritingId,  String handwritingName, String handwritingDownloadUrl, String message) {
->>>>>>> 5ea57fa (feat: add chat member)
-=======
-    public Chat toEntity(Long memberId,String memberNickname,boolean memberBadge, String imageUrl, Long handwritingId,  String handwritingName, String handwritingDownloadUrl, String message) {
->>>>>>> dd08f31 (feat: add member image url in chat)
+
         return Chat.builder()
                 .member(
                         Member.builder()
                                 .memberId(memberId)
                                 .nickname(memberNickname)
-<<<<<<< HEAD
-<<<<<<< HEAD
                                 .isBadge(memberBadge)
                                 .imageUrl(imageUrl)
-<<<<<<< HEAD
-=======
->>>>>>> 723abc5 (feat: add spring security chatting)
-=======
                                 .isBadge(memberBadge)
->>>>>>> 5ea57fa (feat: add chat member)
-=======
->>>>>>> dd08f31 (feat: add member image url in chat)
                                 .build()
                 )
                 .handwriting(

@@ -1,19 +1,12 @@
 package com.nofriend.sonmandube.handwriting.application;
 
 import com.nofriend.sonmandube.exception.IdNotFoundException;
+import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionRequest;
 import com.nofriend.sonmandube.handwriting.controller.response.RankingResponse;
 import com.nofriend.sonmandube.handwriting.controller.request.HandwritingApplicationRequest;
-import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionRequest;
 import com.nofriend.sonmandube.handwriting.controller.response.*;
 import com.nofriend.sonmandube.handwriting.domain.*;
 import com.nofriend.sonmandube.handwriting.repository.*;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import com.nofriend.sonmandube.handwritingstory.domain.HandwritingStory;
->>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
-=======
->>>>>>> 1c41759 (fix: status 500)
 import com.nofriend.sonmandube.handwritingstory.repository.HandwritingStoryRepository;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.s3.S3Service;
@@ -72,88 +65,32 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     @Transactional
-<<<<<<< HEAD
-<<<<<<< HEAD
     public void saveFont(Long handwritingApplicationId, MultipartFile font) {
-=======
-    public void saveFont(String name, Long handwritingApplicationId, MultipartFile font) {
->>>>>>> 057e098 (fix: change state)
-        // 폰트 파일 저장
-
-<<<<<<< HEAD
-=======
-    public void saveFont(Long handwritingApplicationId, MultipartFile font) {
-        // 폰트 파일 저장
-
->>>>>>> 4b3905b (refactor: change param save font)
         String fontname = handwritingApplicationRepository.findById(handwritingApplicationId)
                 .orElseThrow(() -> new IdNotFoundException("해당하는 신청서가 없습니다."))
                 .getName();
 
         FileDto fileDto = s3UploadService.saveFile(font, FileUtil.createFontName(fontname, font));
-<<<<<<< HEAD
-=======
-        FileDto fileDto = s3UploadService.saveFile(font, FileUtil.createFontName(name, font));
->>>>>>> ae05ff2 (feat: update logout security)
-=======
->>>>>>> 4b3905b (refactor: change param save font)
-        log.info(fileDto.toString());
+
         // TODO : 폰트 지원서 연결
 
         // 폰트 데이터 저장
         Handwriting handwriting = Handwriting.builder()
                 .name(fontname)
                 .downloadUrl(fileDto.getUrl())
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> cf7f0e3 (fix: handwriting isSelected)
                 .isSelected(true)
                 .handwritingApplication(
                         HandwritingApplication.builder()
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                 .handwritingApplicationId(handwritingApplicationId)
-<<<<<<< HEAD
-=======
-                .handwritingApplication(
-                        HandwritingApplication.builder()
-<<<<<<< HEAD
-                                .handwritingApplicationId(1L)
->>>>>>> cfcf232 (feat: change dateTime)
-=======
-                                .handwritingApplicationId(1L) // 일단 1번으로
->>>>>>> ae05ff2 (feat: update logout security)
-=======
-                                .handwritingApplicationId(4L) // 일단 1번으로
->>>>>>> 1509951 (feat: setup table)
-=======
-                                .handwritingApplicationId(handwritingApplicationId) // 일단 1번으로
-=======
-                                .handwritingApplicationId(handwritingApplicationId)
->>>>>>> 4b3905b (refactor: change param save font)
-                                .state(4)
->>>>>>> 057e098 (fix: change state)
-=======
->>>>>>> 1bbced8 (fix: save font state)
                                 .build()
                 )
                 .build();
         handwritingRepository.save(handwriting);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 1bbced8 (fix: save font state)
+
         handwritingApplicationRepository.findById(handwritingApplicationId)
                 .orElseThrow(() -> new IdNotFoundException("해당하는 이야기가 없습니다."))
                 .saveFont();
 
-<<<<<<< HEAD
-=======
->>>>>>> ae05ff2 (feat: update logout security)
-=======
->>>>>>> 1bbced8 (fix: save font state)
         log.info("success save handwriting");
     }
 
@@ -165,21 +102,6 @@ public class HandwritingServiceImpl implements HandwritingService{
     public List<SimpleHandwritingResponse> searchHandwriting(Long memberId, int start, int count, SearchConditionRequest condition) {
         List<Handwriting> handwritingList = handwritingRepository.findByDynamicConditions(start, count, condition);
         if(memberId == null) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            for (Handwriting handwriting: handwritingList){
-                System.out.println(handwriting.toString());
-            }
-=======
-//            for (Handwriting handwriting: handwritingList){
-//                System.out.println(handwriting.toString());
-//            }
->>>>>>> 26a1567 (fix: fix sort)
-=======
-            for (Handwriting handwriting: handwritingList){
-                System.out.println(handwriting.toString());
-            }
->>>>>>> 046f0ff (feat: change name to nickname)
             return handwritingList.stream().map(handwriting -> SimpleHandwritingResponse.from(handwriting, false)).toList();
         }
 
@@ -303,40 +225,19 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     public List<MyHandwritingResponse> getMyHandwritingList(Long memberId) {
-<<<<<<< HEAD
-<<<<<<< HEAD
         List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberIdOrderByStateAsc(memberId);
-=======
-        List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberId(memberId);
->>>>>>> 1c41759 (fix: status 500)
-=======
-        List<HandwritingApplication> handwritingApplicationList = handwritingApplicationRepository.findAllByMemberMemberIdOrderByStateAsc(memberId);
->>>>>>> 19c7009 (feat: add state filter)
+
         // 손글씨 별 좋아요 확인
         List<MyHandwritingResponse> myHandwritingResponses = new ArrayList<>();
         for (int i=0; i<handwritingApplicationList.size(); i++) {
             HandwritingApplication handwritingApplication = handwritingApplicationList.get(i);
-<<<<<<< HEAD
-<<<<<<< HEAD
             Optional<Handwriting> handwriting = handwritingRepository.findByHandwritingApplicationHandwritingApplicationId(handwritingApplication.getHandwritingApplicationId());
-=======
-            Optional<Handwriting> handwriting = handwritingRepository.findByHandwritingApplicationHandwritingApplicationIdAndIsSelected(handwritingApplication.getHandwritingApplicationId(), true);
->>>>>>> 1c41759 (fix: status 500)
-=======
-            Optional<Handwriting> handwriting = handwritingRepository.findByHandwritingApplicationHandwritingApplicationId(handwritingApplication.getHandwritingApplicationId());
->>>>>>> 316711b (fix: get my profile)
             boolean isLike = false;
             if(handwriting.isPresent()) {
                 if(handwritingLikeRepository.existsById(new HandwritingCountId(memberId, handwriting.get().getHandwritingId()))){
                     isLike = true;
                 }
                 myHandwritingResponses.add(MyHandwritingResponse.from(handwriting.get(), isLike));
-<<<<<<< HEAD
-            }
-            else {
-                myHandwritingResponses.add(MyHandwritingResponse.from(handwritingApplication));
-=======
->>>>>>> 1c41759 (fix: status 500)
             }
             else {
                 myHandwritingResponses.add(MyHandwritingResponse.from(handwritingApplication));
@@ -348,15 +249,7 @@ public class HandwritingServiceImpl implements HandwritingService{
     @Override
     public List<OthersHandwritingResponse> getOthersHandwritingList(Long memberId, Long targetId) {
         // 타겟 회원의 손글씨 조회
-<<<<<<< HEAD
-<<<<<<< HEAD
         List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(targetId, true, 4);
-=======
-        List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelected(targetId, true);
->>>>>>> 1c41759 (fix: status 500)
-=======
-        List<Handwriting> handwritingList = handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(targetId, true, 4);
->>>>>>> 19c7009 (feat: add state filter)
 
         // 손글씨 별 좋아요 확인
         if(memberId == null) { // 비회원
@@ -413,15 +306,7 @@ public class HandwritingServiceImpl implements HandwritingService{
 
     @Override
     public List<UnwrittenStoriesResponse> getUnwrittenStories(Long memberId) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        return handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelected(memberId, true)
-=======
-        return handwritingRepository.findAllByHandwritingApplicationMemberMemberId(memberId)
->>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
-=======
-        return handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelected(memberId, true)
->>>>>>> 2f18c94 (feat: unwritten story)
+        return handwritingRepository.findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(memberId, true, 4)
                 .stream()
                 .filter(handwriting -> !handwritingStoryRepository.existsById(handwriting.getHandwritingId()))
                 .map(handwriting -> {

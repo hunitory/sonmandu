@@ -62,15 +62,7 @@ public class HandwritingStoryServiceImpl implements HandwritingStoryService{
             FileDto fileDto = s3Service.saveFile(thumbnail, FileUtil.createFileName(thumbnail));
             handwritingStory = handwritingStoryRequest.toEntity(member, handwriting, fileDto.getUrl());
         }
-        log.info("success save handwrtingStory");
-<<<<<<< HEAD
-<<<<<<< HEAD
-        log.info(handwritingStory.toString());
-=======
->>>>>>> 852b202 (feat: change dateTime)
-=======
-        log.info(handwritingStory.toString());
->>>>>>> 3f32e19 (feat: change dateTime)
+
         handwritingStoryRepository.save(handwritingStory);
     }
 

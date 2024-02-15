@@ -50,26 +50,9 @@ public class Member implements UserDetails {
     private String introduction;
 
     @Setter
-<<<<<<< HEAD
-<<<<<<< HEAD
-    @JsonIgnore
-=======
->>>>>>> 6167459 (feat: add imageUrl in jwt token)
     @Column(length = 512)
     private String refreshToken;
 
-<<<<<<< HEAD
-=======
-    @JsonIgnore
-    private String emailToken;
-
->>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
-=======
-    @JsonIgnore
-    @Column(length = 512)
-    private String refreshToken;
-
->>>>>>> 125ae4a (fix: jpa table)
     private boolean isBadge;
 
     @CreatedDate
@@ -78,16 +61,6 @@ public class Member implements UserDetails {
     @Transient
     private List<GrantedAuthority> authorities;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-    public void succeedEmailToken(){
-        this.enabled = true;
-    }
-
->>>>>>> e9e2247 (feat: change JwtFilter Exception Message)
-=======
->>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
     public void setUserRole(){
         this.authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }

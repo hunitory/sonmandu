@@ -32,23 +32,7 @@ public class JwtProvider {
     private String secret;
     private Key key;
     private final String AUTHORITIES_KEY = "auth";
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     private final long accessTokenValidTime = (60 * 1000) * 60 * 3;
-=======
-    private final long accessTokenValidTime = (60 * 1000);
->>>>>>> fa401ea (feat: change token time)
-=======
-    private final long accessTokenValidTime = (30 * 1000);
->>>>>>> c13f264 (feat: change token exception)
-=======
-    private final long accessTokenValidTime = (20 * 1000);
->>>>>>> 7792f5a (feat: change JwtFilter Exception Message)
-=======
-    private final long accessTokenValidTime = (60 * 1000) * 60 * 3;
->>>>>>> 26a1567 (fix: fix sort)
     private final long refreshTokenValidTime = (60 * 1000) * 60 * 24 * 7;
     private final MemberRepository memberRepository;
 
@@ -69,50 +53,16 @@ public class JwtProvider {
         Member member = memberRepository.findById((long) Integer.parseInt(authentication.getName()))
                 .orElseThrow(() -> new RuntimeException("not Found member"));
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> f4ceb1d (feat: update imageUrl null data)
-        String iamgeUrl = member.getImageUrl() == null ? "null" : member.getImageUrl();
+        String imageUrl = member.getImageUrl() == null
+                ? "null"
+                : member.getImageUrl();
 
         return Jwts.builder()
-//                .setSubject(authentication.getName())
                 .claim(AUTHORITIES_KEY, authorities)
                 .claim("memberId", member.getMemberId())
                 .claim("nickName", member.getNickname())
-                .claim("imageUrl", iamgeUrl)
+                .claim("imageUrl", imageUrl)
                 .setExpiration(expiration)
-=======
-=======
-        log.info(member.getImageUrl());
->>>>>>> 48c83fa (fix: login 500)
-        String imagePrefix = "https://sonmando.s3.ap-northeast-2.amazonaws.com";
-        log.info(member.getImageUrl().substring(imagePrefix.length()));
-
-=======
->>>>>>> 5f2246a (feat: update jwt information)
-        return Jwts.builder()
-//                .setSubject(authentication.getName())
-                .claim(AUTHORITIES_KEY, authorities)
-                .claim("memberId", member.getMemberId())
-                .claim("nickName", member.getNickname())
-<<<<<<< HEAD
-<<<<<<< HEAD
-                .claim("imageUrl", member.getImageUrl().substring(imagePrefix.length()))
->>>>>>> 3540f78 (feat: update jwt token informantion)
-=======
-//                .claim("imageUrl", member.getImageUrl().substring(imagePrefix.length()))
-=======
-                .claim("imageUrl", member.getImageUrl())
-<<<<<<< HEAD
->>>>>>> 6167459 (feat: add imageUrl in jwt token)
-//                .setExpiration(expiration)
->>>>>>> 48c83fa (fix: login 500)
-=======
-                .setExpiration(expiration)
->>>>>>> 5f2246a (feat: update jwt information)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
 
@@ -127,23 +77,7 @@ public class JwtProvider {
     }
 
     public Authentication getAuthentication(String token){
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 
-=======
-        System.out.println("getAU");
->>>>>>> e41d808 (feat: change JwtFilter Exception Message)
-=======
-        System.out.println("getAuthentication");
->>>>>>> 32d7084 (feat: change dateTime)
-=======
-//        System.out.println("getAuthentication");
->>>>>>> ae05ff2 (feat: update logout security)
-=======
-
->>>>>>> 5f2246a (feat: update jwt information)
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
                 .build()
@@ -154,36 +88,9 @@ public class JwtProvider {
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
-<<<<<<< HEAD
-<<<<<<< HEAD
 
         User principal = new User(String.valueOf(claims.get("memberId")), "", authorities);
 
-//        log.info("success get authentication");
-<<<<<<< HEAD
-=======
-//        System.out.println(authorities.isEmpty());
-<<<<<<< HEAD
-<<<<<<< HEAD
-        User principal = new User(claims.getSubject(), "", authorities);
-<<<<<<< HEAD
->>>>>>> 723abc5 (feat: add spring security chatting)
-=======
-=======
-        User principal = new User((String) claims.get("memberId"), "", authorities);
->>>>>>> 4fce728 (feat: delete jwt Subject)
-=======
-        User principal = new User(String.valueOf(claims.get("memberId")), "", authorities);
->>>>>>> 285c0fc (fix: Object to String)
-=======
-
-        User principal = new User(String.valueOf(claims.get("memberId")), "", authorities);
-        
->>>>>>> 5f2246a (feat: update jwt information)
-        log.info("success get authentication");
->>>>>>> ae05ff2 (feat: update logout security)
-=======
->>>>>>> 1509951 (feat: setup table)
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 

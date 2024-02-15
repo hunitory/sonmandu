@@ -7,13 +7,7 @@ import com.nofriend.sonmandube.handwriting.controller.request.SearchConditionReq
 import com.nofriend.sonmandube.handwriting.controller.response.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import org.springframework.http.HttpStatus;
->>>>>>> ae05ff2 (feat: update logout security)
-=======
->>>>>>> 1c41759 (fix: status 500)
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -48,48 +42,13 @@ public class HandwritingController {
     // TODO : 테스트용 폰트 저장 API
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/save")
-<<<<<<< HEAD
-<<<<<<< HEAD
     public ResponseEntity<Void> saveFont(//@RequestPart(name = "name") String name,
                                          @RequestPart(name = "handwritingApplicationId") String handwritingApplicationId,
                                          @RequestPart(name = "font") MultipartFile font) {
-        log.info("/handwritings/save");
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        handwritingService.saveFont(Long.parseLong(handwritingApplicationId), font);
-=======
-    public ResponseEntity<Void> saveFont(@RequestPart(name = "name") String name,
-                                         @RequestPart(name = "handwritingApplicationId") String handwritingApplicationId,
-                                         @RequestPart(name = "font") MultipartFile font) {
-        log.info("/handwritings/save");
-        handwritingService.saveFont(name, Long.parseLong(handwritingApplicationId), font);
->>>>>>> 057e098 (fix: change state)
-=======
-    public ResponseEntity<Void> saveFont(//@RequestPart(name = "name") String name,
-                                         @RequestPart(name = "handwritingApplicationId") String handwritingApplicationId,
-                                         @RequestPart(name = "font") MultipartFile font) {
-        log.info("/handwritings/save");
-        handwritingService.saveFont(Long.parseLong(handwritingApplicationId), font);
->>>>>>> 4b3905b (refactor: change param save font)
-        return ResponseEntity.noContent().build();
-=======
-        handwritingService.saveFont(name, font);
-<<<<<<< HEAD
-=======
-        for(int i = 0; i < 100; i++){
-            handwritingService.saveFont(name, font);
 
-        }
->>>>>>> 3540f78 (feat: update jwt token informantion)
-=======
-        handwritingService.saveFont(name, font);
->>>>>>> 47bb621 (hotfix: delete test code)
-        return ResponseEntity.status(HttpStatus.OK).build();
->>>>>>> ae05ff2 (feat: update logout security)
-=======
+        handwritingService.saveFont(Long.parseLong(handwritingApplicationId), font);
+
         return ResponseEntity.noContent().build();
->>>>>>> be46cd8 (feat: chatting)
     }
 
     @GetMapping("/gallery")
@@ -171,17 +130,8 @@ public class HandwritingController {
         return ResponseEntity.ok(handwritingService.getUnwrittenStories(memberId));
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 341ad76 (feat: add check unique handwriting name)
     @GetMapping("/unique/name")
     public ResponseEntity<Boolean> checkUniqueName(@RequestParam String value){
         return ResponseEntity.ok(handwritingService.checkUniqueName(value));
     }
-<<<<<<< HEAD
-=======
->>>>>>> 7ba0a74 (feat: member, handwriting, handwritingstory api)
-=======
->>>>>>> 341ad76 (feat: add check unique handwriting name)
 }

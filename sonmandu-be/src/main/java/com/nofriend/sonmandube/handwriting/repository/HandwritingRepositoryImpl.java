@@ -37,18 +37,6 @@ public class HandwritingRepositoryImpl implements HandwritingRepositoryCustom {
             List<Long> handwritingApplicationIds = jpaQueryFactory.select(handwritingTag.handwritingTagId.handwritingApplicationId)
                     .from(handwritingTag)
                     .where(handwritingTag.handwritingTagId.tagId.in(tagIds))
-<<<<<<< HEAD
-<<<<<<< HEAD
-//                    .groupBy(handwritingTag.handwritingTagId.handwritingApplicationId)
-//                    .having(handwritingTag.handwritingTagId.handwritingApplicationId.count().goe((long) tagIds.size()))
-=======
-                    .groupBy(handwritingTag.handwritingTagId.handwritingApplicationId)
-                    .having(handwritingTag.handwritingTagId.handwritingApplicationId.count().goe((long) tagIds.size()))
->>>>>>> 4e5601b (fix: 손글씨 전시관 검색 파라미터 tagId 변경)
-=======
-//                    .groupBy(handwritingTag.handwritingTagId.handwritingApplicationId)
-//                    .having(handwritingTag.handwritingTagId.handwritingApplicationId.count().goe((long) tagIds.size()))
->>>>>>> 26a1567 (fix: fix sort)
                     .fetch();
 
             // handwritingApplicationId를 사용하여 Handwriting 조회.
@@ -61,7 +49,7 @@ public class HandwritingRepositoryImpl implements HandwritingRepositoryCustom {
                 .limit(count)
                 .orderBy(sortCondition(condition.getSort()))
                 .fetch();
-        System.out.println(result.size());
+
         return result;
     }
 
@@ -74,33 +62,18 @@ public class HandwritingRepositoryImpl implements HandwritingRepositoryCustom {
         switch (sort) {
             case "download":
                 orderSpecifiers.add(new OrderSpecifier(Order.DESC, QHandwriting.handwriting.downloadCount));
-//                return new OrderSpecifier<>(Order.DESC, QHandwriting.handwriting.downloadCount);
             case "hit":
                 orderSpecifiers.add(new OrderSpecifier(Order.DESC, QHandwriting.handwriting.hitCount));
-//                return new OrderSpecifier<>(Order.DESC, QHandwriting.handwriting.hitCount);
             case "likes":
                 orderSpecifiers.add(new OrderSpecifier(Order.DESC, QHandwriting.handwriting.likeCount));
-//                return new OrderSpecifier<>(Order.DESC, QHandwriting.handwriting.likeCount);
             case "popular":
                 orderSpecifiers.add(new OrderSpecifier(Order.DESC, QHandwriting.handwriting.lastMonth));
-//                return new OrderSpecifier<>(Order.DESC, QHandwriting.handwriting.lastMonth);
             case "desc": default:
                 orderSpecifiers.add(new OrderSpecifier(Order.DESC, QHandwriting.handwriting.createDate));
-//                return new OrderSpecifier<>(Order.DESC, QHandwriting.handwriting.createDate);
         }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         orderSpecifiers.add(new OrderSpecifier(Order.DESC, QHandwriting.handwriting.handwritingId));
-=======
->>>>>>> 26a1567 (fix: fix sort)
-=======
-        orderSpecifiers.add(new OrderSpecifier(Order.ASC, QHandwriting.handwriting.handwritingId));
->>>>>>> 046f0ff (feat: change name to nickname)
-=======
-        orderSpecifiers.add(new OrderSpecifier(Order.DESC, QHandwriting.handwriting.handwritingId));
->>>>>>> 5ea57fa (feat: add chat member)
+
         return orderSpecifiers.toArray(new OrderSpecifier[orderSpecifiers.size()]);
     }
 }

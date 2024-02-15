@@ -10,14 +10,5 @@ import java.util.List;
 
 @Repository
 public interface TrophyRepository extends JpaRepository<Trophy, TrophyId> {
-
     List<TrophyIdMapping> findTop8IdByMemberMemberIdOrderByTrophyIdCreateDate(Long member_memberId);
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
-=======
-
->>>>>>> 582ef31 (feat: 배지, 트로피 수여 추가)
 }

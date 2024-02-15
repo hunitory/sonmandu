@@ -158,13 +158,11 @@ export default function FontInfo() {
               입력하신 이름 앞에 <span>'손만두'</span>가 기본적으로 붙습니다. ex) 손만두 홍길동체
             </Styled.ContentFontNametContent>
             <Styled.ContentFontNameInputWithButtonWrapper>
-              <Styled.ContentFontNameInputWrapper>
+              <Styled.ContentFontNameInputWrapper onKeyDown={handleKeyDown}>
                 <Styled.ContentFontNameInputPlaceholder $fontname={!fontInfo.name}>
                   <span>손글씨 이름</span>을 입력해주세요. 최대 20자
                 </Styled.ContentFontNameInputPlaceholder>
-                <div onKeyDown={handleKeyDown} style={{ width: '100%' }}>
-                  <Styled.ContentFontNameInput id="name" type="text" value={fontInfo.name} onChange={NameInput} />
-                </div>
+                <Styled.ContentFontNameInput id="name" type="text" value={fontInfo.name} onChange={NameInput} />
               </Styled.ContentFontNameInputWrapper>
               <Styled.DuplicationCheckButton type="button" disabled={false} onClick={DuplicationFontCheck}>
                 <p>중복체크</p>

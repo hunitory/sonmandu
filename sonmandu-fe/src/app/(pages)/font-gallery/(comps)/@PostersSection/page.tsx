@@ -79,8 +79,20 @@ export default function PostersSection() {
         sort: searchParams.get('sort') || '',
       };
       const serverRes = await API.handwriting.fontListInGallery(requestArgs);
-      await requestFonts(serverRes.data);
-      setCurItemList([...serverRes.data]);
+
+      const filteredList: T.FontCard[] = [];
+      setCurItemList((previous) => {
+        serverRes.data.forEach((res: T.FontCard, resIdx: number) => {
+          previous.forEach(
+            (prev, prevIdx) => res.handwritingId !== prev.handwritingId && filteredList.push(serverRes.data[resIdx]),
+          );
+        });
+        return filteredList;
+      });
+
+      await requestFonts(filteredList);
+
+      console.log(`쿼리 요청 :`, serverRes.data);
 
       return serverRes.data;
     },
@@ -122,13 +134,6 @@ export default function PostersSection() {
     return isIntersecting;
   };
   const { setTarget } = useIntersectionObserver({ onIntersect: infiniteScrollRequest });
-
-  useEffect(() => {
-    return () => {
-      // setCurItemList([]);
-      // setEndOfList(false);
-    };
-  }, []);
 
   return (
     <S.CardsGridWrapper>

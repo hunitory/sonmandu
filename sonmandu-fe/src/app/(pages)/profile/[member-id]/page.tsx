@@ -58,6 +58,7 @@ export default function ProfilePage() {
     queryKey: queryKey,
     queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string }),
   });
+  console.log(memberRes?.data)
 
   // 만든 폰트 목록 조회
   const {
@@ -229,10 +230,10 @@ export default function ProfilePage() {
             </S.ProfileLeftDiv>
           </S.ProfileLeftWrapper>
           {/* ----------------좌우 구분--------------- */}
-          <S.ProfileRightWrapper>
+          <S.ProfileRightWrapper id="소개">
             <S.ProfileIntroDiv>
               <S.ProfileIntroDivUp>
-                <S.ProfileIntroSpan id="소개">소개</S.ProfileIntroSpan>
+                <S.ProfileIntroSpan>소개</S.ProfileIntroSpan>
                 {isEdit ? (
                   <S.CommentInputAreaWrapper>
                     <S.CommentInputPlaceholder $isempty={!intro}>

@@ -21,37 +21,16 @@ interface TagButtonProps {
 }
 
 export const BackgroundWrapper = styled.div`
-  /* transform: rotate(90deg); */
   position: absolute;
   z-index: -9999;
-  width: calc(100vh - 56px);
-  height: 100vw;
-  /* background: linear-gradient(to right, ${PALETTE.MAIN_ORANGE}, ${PALETTE.WHITE_ORANGE}, #FF69B4); */
-  /* background: conic-gradient(
-		from 0deg,
-		${PALETTE.MAIN_ORANGE},
-		${PALETTE.WHITE_ORANGE},
-		#FF69B4,
-		${PALETTE.MAIN_ORANGE}
-	); */
-
-  /* background: conic-gradient(
-    from 0deg,
-    ${PALETTE.LIGHT_ORANGE},
-    #f5bcf3,
-    ${PALETTE.LIGHT_ORANGE},
-    #ffe2b9,
-    #ffb59d,
-    ${PALETTE.LIGHT_ORANGE}
-  ); */
   width: 100vw;
-  height: calc(100vh - 56px);
-  background: linear-gradient(#ff5f6d, #ffc371);
+  height: calc(100vh - 72px);
+  /* background: linear-gradient(#ff5f6d, #ffc371); */
 `;
 
 export const FontStoryWriteWrapper = styled.div`
   width: 100vw;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 72px);
   position: relative;
   display: flex;
   justify-content: center;
@@ -59,7 +38,6 @@ export const FontStoryWriteWrapper = styled.div`
 `;
 
 export const WriteWrapper = styled.div`
-  /* width: 38vw; */
   width: 730px;
   height: fit-content;
   display: flex;
@@ -67,6 +45,8 @@ export const WriteWrapper = styled.div`
   border-radius: 18px;
   padding: 7vh 0;
   background-color: white;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  
 
   @media screen and (max-width: 768px) {
     width: 90vw;

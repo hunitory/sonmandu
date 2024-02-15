@@ -1,8 +1,10 @@
+import { MouseEvent } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ProfileBoxProps } from 'types';
+import { useRouter } from 'next/navigation';
 
 /**
  *
@@ -17,9 +19,14 @@ import { ProfileBoxProps } from 'types';
  */
 
 export default function ProfileBox(props: ProfileBoxProps) {
+  const router = useRouter();
   const { imageUrl, nickname, badge, imgSize, fontSize, memberId, className } = props;
+  const handleProfileBoxClick = (e: MouseEvent<HTMLImageElement>) => {
+    e.stopPropagation();
+    router.push(`/profile/${memberId}`);
+  } 
   return (
-    <S.ProfileBoxWrapper className={className}>
+    <S.ProfileBoxWrapper className={className} onClick={handleProfileBoxClick}>
       <S.ProfileImageWrapper size={imgSize}>
         <div>
           {imageUrl ? (

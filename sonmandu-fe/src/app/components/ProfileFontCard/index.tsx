@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import * as S from './style';
 import ProductDate from './Subs/ProductDate';
 import Image from 'next/image';
@@ -7,7 +7,7 @@ import * as Comp from '@/components';
 import { BaseButton, BaseHashTags } from 'components';
 import { BaseButtonProps, ProfileFontCardProps } from 'types';
 import { useRouter } from 'next/navigation';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 
 function ProfileFontCard({ profileFontCardProps }: { profileFontCardProps: ProfileFontCardProps }) {
   const router = useRouter();
@@ -37,6 +37,22 @@ function ProfileFontCard({ profileFontCardProps }: { profileFontCardProps: Profi
     queryFn: () => API.handwritingStory.loadFontInService({ getFontResponse: resFromS3, name: name }),
   });
 
+  const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
+  const { mutate, data: resLikeClick } = useMutation({
+    mutationKey: ['profile-font-click-like', handwritingId],
+    mutationFn: () => API.handwriting.fontLikesClick({ fontId: String(handwritingId) }),
+    onSuccess: () =>
+      setCopyIsLikeAndCount((prev) => {
+        if (prev.isLike) return { ...prev, isLike: !prev.isLike, count: prev.count - 1 };
+        return { ...prev, isLike: !prev.isLike, count: prev.count + 1 };
+      }),
+  });
+
+  const handleLikeClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    mutate();
+  };
+
   return (
     <S.ProfileFontCardWrapper>
       <S.UpperWrapper>
@@ -47,14 +63,14 @@ function ProfileFontCard({ profileFontCardProps }: { profileFontCardProps: Profi
         <S.LowerSpan name={name}>{name}</S.LowerSpan>
         <S.LowerContentsWrapper>
           <S.LowerContentsUp>
-            <S.LikeDiv>
+            <S.LikeDiv disabled={false} type="button" onClick={handleLikeClick}>
               <Image
-                src={isLike ? '/image/orange-heart-fill.png' : '/image/orange-heart.svg'}
+                src={copyIsLikeAndCount.isLike ? '/image/orange-heart-fill.png' : '/image/orange-heart.svg'}
                 alt="#"
                 width={30}
                 height={30}
               />
-              {likeCount}
+              <span>{copyIsLikeAndCount.count}</span>
             </S.LikeDiv>
             <S.DownloadDiv>
               <Comp.CustomImage src={'/image/download.png'} alt="#" width={28} height={28} />

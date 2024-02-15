@@ -84,15 +84,9 @@ export const DetailInfoWrapper = styled.div`
 `;
 
 export const HeartWrapper = styled.div`
-  display: inline-block;
-    position: relative;
-    overflow: hidden;
-    width: 30px;
-    height: 28px;
-    Image {
-background-size: cover;
-    transition: background-color 0.3s ease;
-    }
+  display: flex;
+  gap: 5px;
+  cursor: pointer;
 `;
 
 export const TitleSpan = styled.span<{ name: string }>`
@@ -134,7 +128,6 @@ export const FontStoryTextWrapper = styled.div`
 export const SideBarWrapper = styled.div`
   position: relative;
   padding-top: 35vh;
-  
 `;
 
 export const TagsWrapper = styled.div`

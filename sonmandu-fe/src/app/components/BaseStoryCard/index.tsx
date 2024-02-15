@@ -34,7 +34,7 @@ function BaseStoryCard(props: T.BaseStoryCard) {
             <S.StyledProfileBox
               imageUrl={member.imageUrl || '/image/logo.png'}
               imgSize="36px"
-              nickname={member.name}
+              nickname={member.name || ''}
               badge={false}
               memberId={member.memberId}
               fontSize="12px"

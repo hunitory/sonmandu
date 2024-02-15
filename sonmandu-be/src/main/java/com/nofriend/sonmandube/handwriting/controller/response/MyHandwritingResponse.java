@@ -14,8 +14,6 @@ import java.util.List;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL) // Null 값인 필드 제외
 public class MyHandwritingResponse {
-
-    private Long handwritingApplicationId;
     private Long handwritingId;
     private String name;
     private int state;
@@ -55,7 +53,7 @@ public class MyHandwritingResponse {
 
     public static MyHandwritingResponse from(HandwritingApplication application) {
         return MyHandwritingResponse.builder()
-                .handwritingApplicationId(application.getHandwritingApplicationId())
+                .handwritingId(application.getHandwritingApplicationId())
                 .name(application.getName())
                 .state(application.getState())
                 .tag(

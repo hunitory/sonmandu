@@ -156,9 +156,6 @@ export default function ProfilePage() {
 
   useEffect(() => {
     if (uploadedFile) {
-      // const imageUrl = URL.createObjectURL(uploadedFile);
-      // setUploadedImageUrl(imageUrl);
-      //   URL.revokeObjectURL(imageUrl);
       const formData = new FormData();
       formData.append('image', uploadedFile);
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, MouseEvent } from 'react';
 import * as S from './style';
 import ProductDate from './Subs/ProductDate';
 import Image from 'next/image';
@@ -75,8 +75,13 @@ function ProfileFontCard({
     setCopyDownloadCount(downloadCount);
   }, [downloadCount]);
 
+  const handleProfileFontCardClick = (e: MouseEvent<HTMLImageElement>) => {
+    e.stopPropagation();
+    router.push(`/font-detail/${handwritingId}`);
+  } 
+
   return (
-    <S.ProfileFontCardWrapper>
+    <S.ProfileFontCardWrapper onClick={handleProfileFontCardClick}>
       <S.UpperWrapper>
         <ProductDate date={createDate} />
         <Comp.CustomImage src={`/image/complete-${index}.png`} alt="#" width={148} height={137} />

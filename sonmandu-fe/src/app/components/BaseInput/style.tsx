@@ -1,7 +1,5 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-export const Input = styled.input`
-  width: 100%;
-  height: 36px;
-  background-color: red;
-`
+export const DefaultStyleRemovedInput = styled.input`
+  border: 0;
+`;

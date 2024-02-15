@@ -12,7 +12,7 @@ import { BaseHasTagsProps } from './components/BaseHashTags';
 import { BaseLetterFieldProps } from './components/BaseLetterTextField';
 import { FontCard } from './components/BaseFontCard';
 import { ProfileBoxProps } from './components/ProfileBox';
-import { ProfileFontCardProps } from './components/ProfileFontCard';
+import { ProfileFontCardProps, RefetchProps } from './components/ProfileFontCard';
 import { ProfileInfoModalProps } from './components/ProfileInfoModal';
 import { isActive } from './components/ProfileInfoModal';
 import { ProfileInputProps } from './components/ProfileInput';
@@ -76,4 +76,5 @@ export type {
   RankingFont,
   ReceivedMessage,
   ChattingContainerProps,
+  RefetchProps,
 };

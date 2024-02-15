@@ -60,7 +60,11 @@ export default function ProfilePage() {
   });
 
   // 만든 폰트 목록 조회
-  const { data: fontRes, isFetching: isFontFetching } = useQuery({
+  const {
+    data: fontRes,
+    isFetching: isFontFetching,
+    refetch: fontRefetch,
+  } = useQuery({
     queryKey: isMypage ? ['my-font'] : ['profile-font', params['member-id']],
     queryFn: () =>
       isMypage
@@ -161,15 +165,15 @@ export default function ProfilePage() {
   };
 
   // 프사 바꾸는 api
-  const { mutate: requestEditProfileImage } = useMutation({
-    mutationKey: ['request-Edit-image'],
-    mutationFn: () => API.member.editProfileImage({ imageFile: uploadedFile }),
-    onSuccess: () => {
-      memberRefetch();
-      console.log('success');
-    },
-    onError: () => console.log(uploadedFile),
-  });
+  // const { mutate: requestEditProfileImage } = useMutation({
+  //   mutationKey: ['request-Edit-image'],
+  //   mutationFn: () => API.member.editProfileImage({ imageFile: uploadedFile }),
+  //   onSuccess: () => {
+  //     memberRefetch();
+  //     console.log('success');
+  //   },
+  //   onError: () => console.log(uploadedFile),
+  // });
 
   useEffect(() => {
     if (uploadedFile) {
@@ -185,6 +189,11 @@ export default function ProfilePage() {
       });
     }
   }, [uploadedFile]);
+
+  // 폰트카드에 넣을 리패치프롭스
+  const fontRefetchProps: T.RefetchProps = {
+    refetch: fontRefetch,
+  };
 
   return (
     <>
@@ -312,7 +321,13 @@ export default function ProfilePage() {
                 {isMypage
                   ? fontRes?.data.map((props: ProfileFontCardProps) => {
                       if (props.state && props.state > 3) {
-                        return <Comp.ProfileFontCard key={props.handwritingId} profileFontCardProps={props} />;
+                        return (
+                          <Comp.ProfileFontCard
+                            key={props.handwritingId}
+                            profileFontCardProps={props}
+                            refetchInfo={fontRefetchProps}
+                          />
+                        );
                       } else {
                         return <Comp.ProfileFontCardMaking key={props.handwritingId} profileFontCardProps={props} />;
                       }
@@ -322,6 +337,7 @@ export default function ProfilePage() {
                         <Comp.ProfileFontCard
                           key={profileFontCardProps.handwritingId}
                           profileFontCardProps={profileFontCardProps}
+                          refetchInfo={fontRefetchProps}
                         />
                       );
                     })}

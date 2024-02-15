@@ -1,3 +1,6 @@
+import { QueryObserverResult, RefetchOptions } from '@tanstack/react-query';
+import { AxiosResponse } from 'axios';
+
 export interface ProfileFontCardProps {
   downloadCount: number;
   downloadUrl: string;
@@ -9,4 +12,8 @@ export interface ProfileFontCardProps {
   createDate: string;
   state?: number;
   tag: number[];
+}
+
+export interface RefetchProps {
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<AxiosResponse<any, any>, Error>>;
 }

@@ -14,10 +14,11 @@ interface MainStoryCardProps {
   likeCount: number;
   member: {
     memberId: number;
-    name: string;
+    nickname: string;
     imageUrl: string | null;
   };
   isLike: boolean;
+  onClick?: (...args: any) => void;
 }
 
 function MainStoryCard(props: MainStoryCardProps) {
@@ -49,7 +50,7 @@ function MainStoryCard(props: MainStoryCardProps) {
               memberId={member.memberId}
               imageUrl={member.imageUrl || '/image/logo.png'}
               imgSize="36px"
-              nickname={member.name}
+              nickname={member.nickname}
               badge={false}
               fontSize="12px"
             />

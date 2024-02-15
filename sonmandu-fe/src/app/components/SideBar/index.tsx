@@ -40,23 +40,27 @@ export default function SideBar({ isLike, count, setCopyIsLikeAndCount, handwrit
     <S.SideBarWrapper>
       {isLike ? (
         <S.LikeWrapper>
-          <Image
-            src={'/image/orange-heart-fill.png'}
-            alt="orange-heart"
-            width={24}
-            height={22}
-            onClick={handleLikeClick}
-          />
+          <S.LikeDiv>
+            <Image
+              src={'/image/orange-heart-fill.png'}
+              alt="orange-heart"
+              width={24}
+              height={22}
+              onClick={handleLikeClick}
+            />
+          </S.LikeDiv>
         </S.LikeWrapper>
       ) : (
         <S.LikeWrapper>
-          <Comp.CustomImage
-            src={'/image/gray-heart.svg'}
-            alt="gray-heart"
-            width={24}
-            height={22}
-            onClick={handleLikeClick}
-          />
+          <S.LikeDiv>
+            <Comp.CustomImage
+              src={'/image/gray-heart.svg'}
+              alt="gray-heart"
+              width={24}
+              height={22}
+              onClick={handleLikeClick}
+            />
+          </S.LikeDiv>
         </S.LikeWrapper>
       )}
       <span>{count}</span>

@@ -170,10 +170,6 @@ export default function ProfilePage() {
     refetch: fontRefetch,
   };
 
-  const handleBaseStoryCardClick = () => {
-    
-  }
-
   return (
     <>
       {isMypage && showModal && (
@@ -224,7 +220,7 @@ export default function ProfilePage() {
               </S.ProfileBoxDiv>
               <S.ProfileIndexWrapper>
                 <S.ProfileIndexDiv>
-                  <span onClick={() => scrollToElement('소개')}>소개</span>
+                  <span  onClick={() => scrollToElement('소개')}>소개</span>
                   <span onClick={() => scrollToElement('제작한 글씨')}>제작한 글씨</span>
                   <span onClick={() => scrollToElement('작성한 이야기')}>작성한 이야기</span>
                   {isMypage && <S.ProfileInfoLink onClick={clickModal}>내 정보</S.ProfileInfoLink>}

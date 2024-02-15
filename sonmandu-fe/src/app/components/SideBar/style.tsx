@@ -30,6 +30,10 @@ export const LikeWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  `;
+
+export const LikeDiv = styled.div`
+  display: inline-block;
   cursor: pointer;
 `;
 

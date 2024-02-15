@@ -3,7 +3,7 @@
 import * as API from '@/apis';
 import * as Styled from './_style';
 import * as Comp from '@/components';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { BaseStoryCard } from 'types';
 import Slider from 'react-slick';
@@ -60,6 +60,10 @@ export default function StorySection() {
       slickRef?.current.slickNext();
     }
   }, []);
+
+  useEffect(()=>{
+    console.log(response?.data)
+  })
 
   return (
     <Styled.StoryWrapper>

@@ -1,6 +1,5 @@
 package com.nofriend.sonmandube.handwriting.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nofriend.sonmandube.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,11 +8,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 @Getter

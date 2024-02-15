@@ -1,14 +1,11 @@
 package com.nofriend.sonmandube.handwritingstory.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nofriend.sonmandube.handwriting.domain.Handwriting;
 import com.nofriend.sonmandube.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.xml.stream.events.Comment;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

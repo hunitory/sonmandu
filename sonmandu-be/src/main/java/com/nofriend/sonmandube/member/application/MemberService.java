@@ -38,9 +38,6 @@ public interface MemberService {
     Long sendEmailToken(String email) throws MessagingException;
 
     Boolean checkValidEmailToken(EmailTokenRequest emailTokenResponse);
-<<<<<<< HEAD
 
     String updateToken(String refreshToken);
-=======
->>>>>>> abcce53e (feat: member, handwriting, handwritingstory api)
 }

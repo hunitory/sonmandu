@@ -30,19 +30,9 @@ import java.util.Map;
 @Slf4j
 public class MemberController {
     private final MemberService memberService;
-<<<<<<< HEAD
-=======
-    @Value("${client.url}")
-    private String clientUrl;
-<<<<<<< HEAD
->>>>>>> e8fb302 (feat: findByMemeberInformation, show tropy info)
-=======
->>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
->>>>>>> c539d2cc (feat: findByMemeberInformation, show tropy info)
 
     //--- PostMapping
 
-<<<<<<< HEAD
     @PostMapping("/token")
     public ResponseEntity<Map<String, String>> updateToken(@RequestBody Map<String, String> request){
         String newToken = memberService.updateToken(request.get("refreshToken"));
@@ -69,20 +59,6 @@ public class MemberController {
         response.put("emailTokenId", emailTokenId);
 
         return ResponseEntity.ok(response);
-=======
-    //회원가입
-    @PostMapping("/signup")
-    public HttpStatus signup(@RequestBody @Valid SignupRequest signupRequest) throws MessagingException {
-        memberService.signup(signupRequest);
-        return HttpStatus.NO_CONTENT;
-    }
-
-    @PostMapping("/email-token")
-    public ResponseEntity<Long> sendEmailToken(@Email String email) throws MessagingException {
-        log.info("/members/email-token");
-        log.info("email : " + email);
-        return ResponseEntity.ok(memberService.sendEmailToken(email));
->>>>>>> abcce53e (feat: member, handwriting, handwritingstory api)
     }
 
     //로그인
@@ -121,7 +97,6 @@ public class MemberController {
 
 //-- GetMapping
 
-<<<<<<< HEAD
     //회원가입 페이지 - 이메일 토큰 검증하기
     @GetMapping("/email-token")
     public ResponseEntity<Boolean> checkEmailToken(@Valid EmailTokenRequest emailTokenResponse){
@@ -129,14 +104,6 @@ public class MemberController {
     }
 
     //회원 정보 수정 - 자기 프로필 조회
-=======
-    @GetMapping("/email-token")
-    public ResponseEntity<Boolean> checkEmailToken(@RequestBody @Valid EmailTokenRequest emailTokenResponse){
-        log.info(emailTokenResponse.toString());
-        return ResponseEntity.ok(memberService.checkValidEmailToken(emailTokenResponse));
-    }
-
->>>>>>> abcce53e (feat: member, handwriting, handwritingstory api)
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/me")
     public ResponseEntity<MeInformationResponse> findMeInformation(Authentication authentication){

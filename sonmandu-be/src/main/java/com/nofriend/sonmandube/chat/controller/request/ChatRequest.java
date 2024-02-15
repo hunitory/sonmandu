@@ -12,17 +12,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-<<<<<<< HEAD
 import lombok.Setter;
 import lombok.ToString;
 @Getter
 @Setter
-=======
-import lombok.ToString;
-import org.springframework.stereotype.Component;
-
-@Getter
->>>>>>> 23a865a4 (cfeat: add spring security chatting)
 @ToString
 @RequiredArgsConstructor
 public class ChatRequest {
@@ -31,23 +24,16 @@ public class ChatRequest {
     @NotEmpty
     private String message;
 
-<<<<<<< HEAD
     public Chat toEntity(Long memberId,String memberNickname,boolean memberBadge, String imageUrl, Long handwritingId,  String handwritingName, String handwritingDownloadUrl, String message) {
 
-=======
-    public Chat toEntity(Long memberId,String memberNickname, Long handwritingId, String handwritingName, String handwritingDownloadUrl, String message) {
->>>>>>> 23a865a4 (cfeat: add spring security chatting)
         return Chat.builder()
                 .member(
                         Member.builder()
                                 .memberId(memberId)
                                 .nickname(memberNickname)
-<<<<<<< HEAD
                                 .isBadge(memberBadge)
                                 .imageUrl(imageUrl)
                                 .isBadge(memberBadge)
-=======
->>>>>>> 23a865a4 (cfeat: add spring security chatting)
                                 .build()
                 )
                 .handwriting(

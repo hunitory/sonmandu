@@ -18,14 +18,12 @@ export const ProfileBoxWrapper = styled.div`
   justify-content: center;
   color: ${PALETTE.MAIN_BLACK};
   flex-direction: row;
+  cursor: pointer;
   &.vertical {
     flex-direction: column;
   }
 `;
 
-// export const ProfileImageWrapper = styled.div.withConfig({
-//   shouldForwardProp: (prop, defaultValidatorFn) => !['imgSize'].includes(prop),
-// })<ProfileImageWrapperProps>`
 export const ProfileImageWrapper = styled.div<ProfileImageWrapperProps>`
   width: fit-content;
   height: fit-content;

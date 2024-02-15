@@ -56,16 +56,12 @@ export default function TitleSection() {
 
   return (
     <S.PageTitleLinkWrapper>
-      <S.StoryDetailLinkWrapper
-        type="button"
-        disabled={false}
-        onClick={isLogin ? () => router.push('/font-story-write') : () => alert('로그인을 해주세요')}
-      >
-        이야기 작성하기
-        <svg width="13px" height="10px" viewBox="0 0 13 10">
-          <path d="M1,5 L11,5"></path>
-          <polyline points="8 1 12 5 8 9"></polyline>
-        </svg>
+      <S.StoryDetailLinkWrapper>
+        <S.LinkButtonWrapper>
+          <S.LinkButton onClick={isLogin ? () => router.push('/font-story-write') : () => alert('로그인을 해주세요')}>
+            <span>이야기 작성하기</span>
+          </S.LinkButton>
+        </S.LinkButtonWrapper>
       </S.StoryDetailLinkWrapper>
       <S.PageTitleWrapper>
         <div>

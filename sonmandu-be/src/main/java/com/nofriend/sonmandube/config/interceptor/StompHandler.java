@@ -2,22 +2,14 @@ package com.nofriend.sonmandube.config.interceptor;
 
 import com.nofriend.sonmandube.jwt.JwtCode;
 import com.nofriend.sonmandube.jwt.JwtProvider;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import com.nofriend.sonmandube.member.repository.MemberRepository;
 import io.jsonwebtoken.JwtException;
-=======
->>>>>>> 1c9b337f (feat: add WebSocket)
-=======
-import com.nofriend.sonmandube.member.repository.MemberRepository;
-import io.jsonwebtoken.JwtException;
->>>>>>> 1726fcf0 (feat: add spring security chatting)
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-<<<<<<< HEAD
 import org.springframework.messaging.MessageDeliveryException;
+import org.springframework.messaging.simp.stomp.StompCommand;
 import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.messaging.support.ChannelInterceptor;
 import org.springframework.messaging.support.MessageHeaderAccessor;
@@ -29,25 +21,12 @@ import java.util.Objects;
 
 import static org.springframework.messaging.simp.stomp.StompCommand.CONNECT;
 import org.springframework.security.access.AccessDeniedException;
-=======
-import org.springframework.messaging.simp.stomp.StompCommand;
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
-import org.springframework.messaging.support.ChannelInterceptor;
-<<<<<<< HEAD
-import org.springframework.security.access.AccessDeniedException;
-=======
-import org.springframework.security.core.Authentication;
->>>>>>> 1726fcf0 (feat: add spring security chatting)
-import org.springframework.stereotype.Component;
->>>>>>> 1c9b337f (feat: add WebSocket)
 
 @RequiredArgsConstructor
 @Component
 @Slf4j
 public class StompHandler implements ChannelInterceptor {
     private final JwtProvider jwtProvider;
-<<<<<<< HEAD
-<<<<<<< HEAD
     private final MemberRepository memberRepository;
 
     @Override
@@ -60,93 +39,15 @@ public class StompHandler implements ChannelInterceptor {
                 ? Objects.requireNonNull(rawToken).substring(7)
                 : "null";
 
-        if(accessor.getCommand() == CONNECT && !token.equals("null") && jwtProvider.validateToken(token) == JwtCode.ACCESS) {
+        if (accessor.getCommand() == CONNECT && !token.equals("null") && jwtProvider.validateToken(token) == JwtCode.ACCESS) {
             Authentication authentication = jwtProvider.getAuthentication(token);
             accessor.setUser(authentication);
             return message;
-        }else if(accessor.getUser() != null){
+        } else if (accessor.getUser() != null) {
             return message;
-        }else{
+        } else {
             throw new MessageDeliveryException("토큰을 확인하십시오.");
         }
 
-=======
-=======
-    private final MemberRepository memberRepository;
->>>>>>> 1726fcf0 (feat: add spring security chatting)
-
-    @Override
-    public Message<?> preSend(Message<?> message, MessageChannel channel) {
-//        log.info("---------------------------------");
-        log.info("start StopmHandler");
-        StompHeaderAccessor accessor = StompHeaderAccessor.wrap(message);
-<<<<<<< HEAD
-        log.info(accessor.toString());
-        log.info(channel.toString());
-        log.info(message.toString());
-        String token = accessor.getFirstNativeHeader("Authorization");
-        if (token != null){
-            token.substring(7);
-        }
-        log.info(token);
-//        if (token != null){
-//            token.substring(7);
-//        }
-        System.out.println(token);
-        if(accessor.getCommand() == StompCommand.CONNECT) {
-            log.info("YE--------------------------");
-            if (jwtProvider.validateToken(accessor.getFirstNativeHeader("Authorization")) == JwtCode.ACCESS) {
-                System.out.println(1);
-            }
-            if (jwtProvider.validateToken(accessor.getFirstNativeHeader("Authorization")) == JwtCode.EXPIRED) {
-                System.out.println(2);
-            }
-            if (jwtProvider.validateToken(accessor.getFirstNativeHeader("Authorization")) == JwtCode.DENIED) {
-                System.out.println(3);
-            }
-//                throw new AccessDeniedException("");
-=======
-        String rawToken = accessor.getFirstNativeHeader("Authorization");
-
-//        log.info("raw token: " + rawToken);
-//        log.info("command: " + String.valueOf(accessor.getCommand()));
-//        log.info(String.valueOf(accessor.getCommand() == StompCommand.CONNECT));
-//        log.info(String.valueOf(rawToken != null));
-        if(accessor.getCommand() == StompCommand.CONNECT && rawToken != null) {
-//            log.info("1");
-            String token = Objects.requireNonNull(rawToken).substring(7);
-<<<<<<< HEAD
-//            log.info("2");
-//            log.info(token);
-            Authentication authentication = jwtProvider.getAuthentication(token);
-//            log.info("3");
-            Long memberId = Long.valueOf(authentication.getName());
-//            log.info("4");
-            String dbRefreshToken = memberRepository.findById(memberId).orElseThrow()
-                    .getRefreshToken();
-//            log.info(String.valueOf(jwtProvider.validateToken(token) != JwtCode.ACCESS));
-//            log.info(String.valueOf(!token.equals(dbRefreshToken)));
-=======
-            log.info(token);
-            Authentication authentication = jwtProvider.getAuthentication(token);
-            log.info(authentication.toString());
-
-            Long memberId = Long.valueOf(authentication.getName());
-            log.info(String.valueOf(memberId));
-            String dbRefreshToken = memberRepository.findById(memberId).orElseThrow()
-                    .getRefreshToken();
-
-            log.info(dbRefreshToken);
-            log.info(String.valueOf(jwtProvider.validateToken(token) != JwtCode.ACCESS || !token.equals(dbRefreshToken)));
->>>>>>> 56e8dcff (feat: change JwtFilter Exception Message)
-            if (jwtProvider.validateToken(token) != JwtCode.ACCESS || !token.equals(dbRefreshToken)){
-                throw new JwtException("Not Valid Token");
-            }
->>>>>>> 1726fcf0 (feat: add spring security chatting)
-        }
-
-        log.info("success StompHandler");
-        return message;
->>>>>>> 1c9b337f (feat: add WebSocket)
     }
 }

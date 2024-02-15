@@ -24,21 +24,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-<<<<<<< HEAD
         String accessToken = resolveToken(request);
-=======
-        log.info("jwt filter start");
-        String accessToken = resolveToken(request, "Authorization");
-        String refreshToken = request.getHeader("x-refresh-token");
-        if(accessToken == null){
-            accessToken = "null";
-        }
-        if(refreshToken == null){
-            refreshToken = "null";
-        }
-        log.info("token: " + accessToken);
-        log.info("refresh token: " + refreshToken);
->>>>>>> 56e8dcff (feat: change JwtFilter Exception Message)
 
         if(accessToken.equals("null")){
             filterChain.doFilter(request, response);

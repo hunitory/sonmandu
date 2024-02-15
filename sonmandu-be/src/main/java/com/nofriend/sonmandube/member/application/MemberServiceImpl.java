@@ -6,19 +6,11 @@ import com.nofriend.sonmandube.exception.IdNotFoundException;
 import com.nofriend.sonmandube.jwt.JwtCode;
 import com.nofriend.sonmandube.jwt.JwtProvider;
 import com.nofriend.sonmandube.member.controller.request.EmailTokenRequest;
-<<<<<<< HEAD
-=======
-import com.nofriend.sonmandube.member.controller.request.EmailValidationRequest;
->>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
 import com.nofriend.sonmandube.member.controller.request.LoginRequest;
 import com.nofriend.sonmandube.member.controller.request.SignupRequest;
 import com.nofriend.sonmandube.member.controller.response.LoginResponse;
 import com.nofriend.sonmandube.member.controller.response.MeInformationResponse;
 import com.nofriend.sonmandube.member.controller.response.MemberInformationResponse;
-<<<<<<< HEAD
-=======
-import com.nofriend.sonmandube.member.controller.response.LoginResponse;
->>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
 import com.nofriend.sonmandube.member.domain.EmailToken;
 import com.nofriend.sonmandube.member.domain.Member;
 import com.nofriend.sonmandube.member.repository.EmailTokenRepository;
@@ -56,20 +48,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     private final MemberRepository memberRepository;
     private final TrophyRepository trophyRepository;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     private final EmailTokenRepository emailTokenRepository;
-=======
->>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)
-=======
-    private final EmailTokenRepository emailTokenRepository;
->>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
-=======
-    private final EmailTokenRepository emailTokenRepository;
-=======
->>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
->>>>>>> 8c1d3dea (feat: findByMemeberInformation, show tropy info)
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender javaMailSender;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -82,7 +61,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     private String sonmanduEmail;
 
     @Override
-<<<<<<< HEAD
     public String updateToken(String refreshToken) {
         JwtCode refreshTokenValidation = jwtProvider.validateToken(refreshToken);
 
@@ -97,8 +75,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     @Transactional
-=======
->>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
     public void signup(SignupRequest signupRequest) {
         Member newMember = Member.builder()
                 .id(signupRequest.getId())
@@ -109,22 +85,9 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .build();
 
         memberRepository.save(newMember);
-<<<<<<< HEAD
-=======
-
-        sendEmailToken(newMember);
-<<<<<<< HEAD
->>>>>>> f6ae44c4 (feat: findByMemeberInformation, show tropy info)
-=======
->>>>>>> 32bc78e (feat: findByMemeberInformation, show tropy info)
->>>>>>> 8c1d3dea (feat: findByMemeberInformation, show tropy info)
     }
 
-<<<<<<< HEAD
     public Long sendEmailToken(@Email String email) throws MessagingException {
-=======
-    public Long sendEmailToken(String email) throws MessagingException {
->>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
         EmailToken emailToken = EmailToken.builder()
                 .token(generateString())
                 .build();
@@ -137,13 +100,10 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         mimeMessageHelper.setText("<html><head></head>" +
                 "<body> <h1> 손만두 </h1>" +
                 "<h3> 인증번호 : " + emailToken.getToken() + "</h3> </body>" +
-<<<<<<< HEAD
                 "<body> <h1> 손만두 </h1> <a href='" + serverUrl +"/members/email-validation" +
                 "?emailToken=" + emailToken + "'> 계정 활성화 버튼 </a> </body>" +
                 "<body> <h1> 손만두 </h1>" +
                 "<h3> 인증번호 : " + emailToken.getToken() + "</h3> </body>" +
-=======
->>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
                 "</html>", true);
 
         javaMailSender.send(mimeMailMessage);
@@ -157,7 +117,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
     @Transactional
     public LoginResponse login(LoginRequest loginRequest) {
         Member member = memberRepository.findById(loginRequest.getId())
-<<<<<<< HEAD
                 .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
@@ -167,18 +126,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 
-=======
-                .orElseThrow();
-        log.info("login member info" + member.toString());
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                new UsernamePasswordAuthenticationToken(member.getMemberId(), loginRequest.getPassword());
-        log.info(usernamePasswordAuthenticationToken.toString());
-        Authentication authentication =  authenticationManagerBuilder.getObject().authenticate(usernamePasswordAuthenticationToken);
-        log.info("2");
-        log.info(authentication.toString());
-        SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-        log.info("3");
->>>>>>> 56e8dcff (feat: change JwtFilter Exception Message)
         String token = jwtProvider.generateToken(authentication);
         String refreshToken = jwtProvider.generateRefreshToken(authentication);
 
@@ -217,13 +164,6 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .equals(emailTokenResponse.getToken());
     }
 
-    @Override
-    public Boolean checkValidEmailToken(EmailTokenRequest emailTokenResponse) {
-        return emailTokenRepository.findById(emailTokenResponse.getEmailTokenId())
-                .orElseThrow()
-                .getToken()
-                .equals(emailTokenResponse.getToken());
-    }
 
     @Override
     public MeInformationResponse findMeInformation(Long memberId) {
@@ -350,21 +290,8 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        log.info("load user by username");
         Member member = memberRepository.findById((long) Integer.parseInt(username))
                 .orElseThrow(() -> new UsernameNotFoundException(username + "Not Found Member by Id"));
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        log.info(member.toString());
-        member.setUserRole();
-        log.info(member.toString());
->>>>>>> 56e8dcff (feat: change JwtFilter Exception Message)
-=======
-//        log.info(member.toString());
-        member.setUserRole();
-//        log.info(member.toString());
->>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
 
         return member;
     }

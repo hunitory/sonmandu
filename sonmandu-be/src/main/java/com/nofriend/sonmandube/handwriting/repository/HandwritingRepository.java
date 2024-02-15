@@ -39,11 +39,8 @@ public interface HandwritingRepository extends JpaRepository<Handwriting, Long>,
     void addThisWeekToThisMonth();
 
     HandwritingNameDownloadUrlProjection findNameDownloadUrlByHandwritingId(Long handwritingId);
-<<<<<<< HEAD
 
     List<Handwriting> findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(Long targetId, boolean b, int i);
 
     Optional<Handwriting> findByHandwritingApplicationHandwritingApplicationId(Long handwritingApplicationId);
-=======
->>>>>>> 1726fcf0 (feat: add spring security chatting)
 }

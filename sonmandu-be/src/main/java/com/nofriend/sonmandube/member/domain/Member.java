@@ -53,12 +53,6 @@ public class Member implements UserDetails {
     @Column(length = 512)
     private String refreshToken;
 
-<<<<<<< HEAD
-=======
-    @JsonIgnore
-    private String emailToken;
-
->>>>>>> 733bb6a6 (feat: member, handwriting, handwritingstory api)
     private boolean isBadge;
 
     @CreatedDate
@@ -97,11 +91,6 @@ public class Member implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-<<<<<<< HEAD
-=======
-
-//        return this.enabled;
->>>>>>> 56e8dcff (feat: change JwtFilter Exception Message)
         return true;
     }
 }

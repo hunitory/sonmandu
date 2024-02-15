@@ -54,4 +54,8 @@ public class HandwritingApplication {
         handwritingTag.setHandwritingApplication(this);
     }
 
+    public void saveFont(){
+        this.state = 4;
+    }
+
 }

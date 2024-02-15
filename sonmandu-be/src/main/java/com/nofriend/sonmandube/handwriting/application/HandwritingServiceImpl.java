@@ -84,11 +84,14 @@ public class HandwritingServiceImpl implements HandwritingService{
                 .handwritingApplication(
                         HandwritingApplication.builder()
                                 .handwritingApplicationId(handwritingApplicationId)
-                                .state(4)
                                 .build()
                 )
                 .build();
         handwritingRepository.save(handwriting);
+        handwritingApplicationRepository.findById(handwritingApplicationId)
+                .orElseThrow(() -> new IdNotFoundException("해당하는 이야기가 없습니다."))
+                .saveFont();
+
         log.info("success save handwriting");
     }
 

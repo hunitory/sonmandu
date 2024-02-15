@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, ChangeEvent, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef, ChangeEvent, useLayoutEffect, MouseEvent } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
 import * as T from '@/types';
@@ -170,6 +170,10 @@ export default function ProfilePage() {
     refetch: fontRefetch,
   };
 
+  const handleBaseStoryCardClick = () => {
+    
+  }
+
   return (
     <>
       {isMypage && showModal && (
@@ -329,7 +333,7 @@ export default function ProfilePage() {
                 {storyRes?.data.map((storyProps: ProfileStoryCardProps) => {
                   return (
                     <S.BaseStoryCardWrapper key={storyProps.handwritingStoryId}>
-                      <Comp.BaseStoryCard {...storyProps} member={memberRes?.data} />
+                      <Comp.BaseStoryCard {...storyProps} member={memberRes?.data} onClick={(e: MouseEvent<HTMLImageElement>)=>{e.stopPropagation; router.push(`/font-story-detail/${storyProps.handwritingStoryId}`)}} />
                     </S.BaseStoryCardWrapper>
                   );
                 })}

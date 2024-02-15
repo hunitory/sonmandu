@@ -11,7 +11,7 @@ export const LetterImageArea = styled.div`
   }
 `;
 
-export const TextField = styled.textarea`
+export const TextField = styled.textarea<{ $fontSize: number }>`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -22,6 +22,6 @@ export const TextField = styled.textarea`
 
   &,
   &::placeholder {
-    font-size: 12px;
+    font-size: ${({ $fontSize }) => $fontSize}px;
   }
 `;

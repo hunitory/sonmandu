@@ -12,16 +12,22 @@ export default function FontDetailPage() {
   const { data: res, isFetching: isFontDetailFetching } = useQuery({
     queryKey: queryKey,
     queryFn: () => API.handwriting.fontDetail({ fontId: params['font-id'] as string }),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: resFromS3, isFetching: isFileFetching } = useQuery({
     queryKey: ['get-font-file', res],
     queryFn: () => API.handwriting.getFontFileFromS3({ url: res?.data.downloadUrl }),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const { data: resLoadFont, isFetching: isLoadFetching } = useQuery({
     queryKey: ['load-font-file', resFromS3],
     queryFn: () => API.handwriting.loadFontInService({ getFontResponse: resFromS3, name: res?.data.name }),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   const isAllResourcesLoad = () => {

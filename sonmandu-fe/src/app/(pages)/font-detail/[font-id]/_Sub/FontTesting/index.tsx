@@ -13,8 +13,8 @@ interface FontTestingProps {
 function FontTesting({ fontName, isAllResourcesLoad }: FontTestingProps) {
   const letterImageRef = useRef(null);
   const [selectedLetter, setSelectedLetter] = useState({
-    letterSrc: '/image/letter-1.png',
-    idx: 1,
+    letterSrc: '/image/letter-0.png',
+    idx: 0,
   });
 
   const handleSelectedLetter = (latterNumber: number) => {
@@ -39,7 +39,7 @@ function FontTesting({ fontName, isAllResourcesLoad }: FontTestingProps) {
   return (
     <S.TestingWrapper>
       <S.TestingLetterArea $fontName={fontName} $show={isAllResourcesLoad()} ref={letterImageRef}>
-        {isAllResourcesLoad() && <Comp.BaseLetterField letterImgUrl={selectedLetter.letterSrc} />}
+        {isAllResourcesLoad() && <Comp.BaseLetterField fontSize={24} letterImgUrl={selectedLetter.letterSrc} />}
       </S.TestingLetterArea>
       <S.SideBoxWrapper>
         <p>편지지 배경</p>

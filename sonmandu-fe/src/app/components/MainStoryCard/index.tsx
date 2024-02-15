@@ -37,7 +37,7 @@ function MainStoryCard(props: T.BaseStoryCard) {
               memberId={member.memberId}
               imageUrl={member.imageUrl || '/image/logo.png'}
               imgSize="36px"
-              nickname={member.name}
+              nickname={member.nickname}
               badge={false}
               fontSize="12px"
             />

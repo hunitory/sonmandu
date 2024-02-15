@@ -124,7 +124,7 @@ export default function PostersSection() {
 
   useEffect(() => {
     return () => {
-      setCurItemList((prev) => []);
+      setCurItemList([]);
       setEndOfList(false);
     };
   }, []);

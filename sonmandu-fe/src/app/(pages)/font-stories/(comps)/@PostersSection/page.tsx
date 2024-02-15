@@ -7,7 +7,7 @@ import * as T from '@/types';
 import * as Comp from '@/components';
 import { useQuery } from '@tanstack/react-query';
 import { useIntersectionObserver } from 'customhook';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface SearchParams {
   title: string;
@@ -16,9 +16,10 @@ interface SearchParams {
 }
 
 export default function PosterSection() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const [curItemList, setCurItemList] = useState<T.BaseStoryCard[]>([]);
-  const [isLoadingMore, setIsLoadingMore] = useState({ curRequestLoading: false, endOfList: false });
+  const [endOfList, setEndOfList] = useState(false);
   const [prevSearchParams, setPrevSearchParams] = useState<SearchParams>({
     title: searchParams.get('title') || '',
     sort: searchParams.get('sort') || '',
@@ -40,9 +41,9 @@ export default function PosterSection() {
   } = useQuery({
     queryKey: queryStringChangeQueryKey,
     queryFn: async () => {
+      setEndOfList(false);
       if (isQueryChanged()) {
         setCurItemList([]);
-        setIsLoadingMore((prev) => ({ ...prev, endOfList: false }));
         setPrevSearchParams((prev) => ({
           ...prev,
           title: searchParams.get('title') || '',
@@ -55,13 +56,12 @@ export default function PosterSection() {
         title: searchParams.get('title') || '',
         sort: searchParams.get('sort') || '',
       };
-      return await API.handwritingStory.handwritingStoryList(requestArgs).then((res) => {
-        setCurItemList((prev) => [...res.data]);
-        return res.data;
-      });
+      const serverRes = await API.handwritingStory.handwritingStoryList(requestArgs);
+      setCurItemList([...serverRes.data]);
+      return serverRes;
     },
     refetchInterval: false,
-    refetchOnMount: true,
+    refetchOnMount: false,
   });
 
   const infiniteScrollQueryKey = ['font-stories-search'];
@@ -75,27 +75,24 @@ export default function PosterSection() {
         sort: searchParams.get('sort') || '',
       };
 
-      return await API.handwritingStory.handwritingStoryList(requestArgs).then((res) => {
-        setCurItemList((prev) => [...prev, ...res.data]);
-        return res.data;
-      });
+      const serverRes = await API.handwritingStory.handwritingStoryList(requestArgs);
+      setCurItemList((prev) => [...prev, ...serverRes.data]);
+
+      return serverRes.data;
     },
     refetchInterval: false,
     refetchOnMount: true,
     enabled: queryStringChangeResponseFetched,
   });
 
-  const infiniteScrollRequest: IntersectionObserverCallback = ([{ isIntersecting }]) => {
-    if (isLoadingMore.endOfList) return;
+  const infiniteScrollRequest: IntersectionObserverCallback = async ([{ isIntersecting }]) => {
+    if (endOfList) return;
 
     if (isIntersecting) {
-      setIsLoadingMore((prev) => ({ ...prev, curRequestLoading: true }));
-      requesetInfiniteScroll()
-        .then((res) => {
-          if (res.data.length === 0) setIsLoadingMore((prev) => ({ ...prev, endOfList: true }));
-          return res;
-        })
-        .finally(() => setIsLoadingMore((prev) => ({ ...prev, curRequestLoading: false })));
+      const res = await requesetInfiniteScroll();
+
+      if (res.data.length === 0) setEndOfList(true);
+      return res;
     }
     return isIntersecting;
   };
@@ -103,8 +100,8 @@ export default function PosterSection() {
 
   useEffect(() => {
     return () => {
-      setCurItemList((prev) => []);
-      setIsLoadingMore((prev) => ({ ...prev, curRequestLoading: false, endOfList: false }));
+      setCurItemList([]);
+      setEndOfList(false);
     };
   }, []);
 
@@ -112,11 +109,13 @@ export default function PosterSection() {
     <S.CardsGridWrapper>
       {curItemList.length > 0 &&
         curItemList.map((res: T.BaseStoryCard, i: number) => (
-          <Comp.BaseStoryCard key={`${res.handwritingStoryId}-${i}`} {...res} />
+          <Comp.BaseStoryCard
+            key={`${res.handwritingStoryId}-${i}`}
+            {...res}
+            onClick={() => router.push(`/font-story-detail/${res.handwritingStoryId}`)}
+          />
         ))}
-      {isLoadingMore.curRequestLoading &&
-        Array.from({ length: 5 }).map((_, i) => <Comp.SkeletonCard key={`skeleton-${i}`} ratio="4 / 12" />)}
-      {!infiniteScrollLoading && !queryStringChangeLoading && <div ref={setTarget}></div>}
+      {!endOfList && !infiniteScrollLoading && !queryStringChangeLoading && <div ref={setTarget}></div>}
     </S.CardsGridWrapper>
   );
 }

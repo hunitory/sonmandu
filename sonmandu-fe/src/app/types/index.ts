@@ -25,6 +25,14 @@ import { ModalId, ModalInfo } from './store/modal';
 import { StoryData } from './components/FontStory';
 import { ProfileStoryCardProps } from './components/ProfileStoryCard';
 import { BaseStoryCard } from './components/BaseStoryCard';
+import {
+  ChattingMessage,
+  ChattingSideBarProps,
+  MyFont,
+  RankingFont,
+  ReceivedMessage,
+  ChattingContainerProps,
+} from './pages/Chatting';
 
 export type {
   BaseButtonProps,
@@ -62,4 +70,10 @@ export type {
   ProfileStoryCardProps,
   BaseStoryCard,
   StoryComment,
+  ChattingMessage,
+  ChattingSideBarProps,
+  MyFont,
+  RankingFont,
+  ReceivedMessage,
+  ChattingContainerProps,
 };

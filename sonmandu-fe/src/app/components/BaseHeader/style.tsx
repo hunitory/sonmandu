@@ -20,7 +20,7 @@ export const HeaderWrapper = styled.header`
 `;
 
 export const UserInteractionWrapper = styled.nav`
-  width: clamp(304px, 20%, 346px);
+  width: 446px;
   height: 100%;
   background-color: white;
   display: flex;
@@ -34,6 +34,7 @@ export const UserInteractionWrapper = styled.nav`
 
 export const LinkWrapper = styled.div`
   width: calc(100% - 72px);
+  min-width: 374px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;

@@ -2,6 +2,7 @@
 
 import React, { ChangeEvent, FormEvent, MouseEvent, useCallback, useLayoutEffect, useRef, useState } from 'react';
 import * as S from './style';
+import * as Comp from '@/components';
 import { SearchOptions } from 'components';
 import { usePathname, useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -55,10 +56,12 @@ export default function TitleSection() {
 
   return (
     <S.PageTitleLinkWrapper>
-      <S.StoryDetailLinkWrapper>
-        <span onClick={isLogin ? () => router.push('/font-story-write') : () => alert('로그인을 해주세요')}>
-          이야기 작성하기
-        </span>
+      <S.StoryDetailLinkWrapper
+        type="button"
+        disabled={false}
+        onClick={isLogin ? () => router.push('/font-story-write') : () => alert('로그인을 해주세요')}
+      >
+        이야기 작성하기
         <svg width="13px" height="10px" viewBox="0 0 13 10">
           <path d="M1,5 L11,5"></path>
           <polyline points="8 1 12 5 8 9"></polyline>
@@ -88,7 +91,7 @@ export default function TitleSection() {
                 selected={options === option.value}
                 onClick={() => handleOptionsClick({ name: 'sort', value: option.value })}
               >
-                {option.text}
+                <p>{option.text}</p>
               </S.CustomHashTag>
             ))}
           </S.HashTagsWrapper>

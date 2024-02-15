@@ -92,8 +92,6 @@ export default function ProfileHamburger() {
       {handleProfileImage()}
       {dropBoxView && (
         <S.DropBoxWrapper>
-          <S.DropBoxList onClick={() => router.push(`/font-gallery`)}>전시관 가기</S.DropBoxList>
-          <S.DropBoxList onClick={() => router.push(`/font-stories`)}>이야기 구경</S.DropBoxList>
           {authorizationUser.isAuth ? (
             <>
               <S.DropBoxList onClick={() => router.push(`/profile/${authorizationUser.tokenPayload?.memberId}`)}>

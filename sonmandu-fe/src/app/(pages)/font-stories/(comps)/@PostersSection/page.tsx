@@ -57,11 +57,12 @@ export default function PosterSection() {
         sort: searchParams.get('sort') || '',
       };
       const serverRes = await API.handwritingStory.handwritingStoryList(requestArgs);
-      setCurItemList([...serverRes.data]);
+      setCurItemList(() => [...serverRes.data]);
       return serverRes;
     },
     refetchInterval: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
+    retry: 1,
   });
 
   const infiniteScrollQueryKey = ['font-stories-search'];
@@ -76,19 +77,27 @@ export default function PosterSection() {
       };
 
       const serverRes = await API.handwritingStory.handwritingStoryList(requestArgs);
-      setCurItemList((prev) => [...prev, ...serverRes.data]);
+      setCurItemList((previous) => {
+        const filteredListBasket = [...previous];
+        const prevStoryIds = previous.map((prev) => prev.handwritingStoryId);
+        serverRes.data.forEach(
+          (res: T.BaseStoryCard, i: number) =>
+            !prevStoryIds.includes(res.handwritingStoryId) && filteredListBasket.push(serverRes.data[i]),
+        );
+        return filteredListBasket;
+      });
 
       return serverRes.data;
     },
     refetchInterval: false,
     refetchOnMount: true,
-    enabled: queryStringChangeResponseFetched,
+    enabled: queryStringChangeResponseFetched && curItemList.length > 0,
   });
 
   const infiniteScrollRequest: IntersectionObserverCallback = async ([{ isIntersecting }]) => {
     if (endOfList) return;
 
-    if (isIntersecting) {
+    if (isIntersecting && curItemList.length > 0) {
       const res = await requesetInfiniteScroll();
 
       if (res.data.length === 0) setEndOfList(true);
@@ -100,10 +109,18 @@ export default function PosterSection() {
 
   useEffect(() => {
     return () => {
-      setCurItemList([]);
+      setCurItemList(() => []);
       setEndOfList(false);
     };
   }, []);
+
+  const createScrollTarget = useCallback(() => {
+    if (!endOfList) {
+      if (!infiniteScrollLoading && !queryStringChangeLoading) {
+        return <div ref={setTarget}></div>;
+      }
+    }
+  }, [endOfList, infiniteScrollLoading, queryStringChangeLoading]);
 
   return (
     <S.CardsGridWrapper>
@@ -115,7 +132,7 @@ export default function PosterSection() {
             onClick={() => router.push(`/font-story-detail/${res.handwritingStoryId}`)}
           />
         ))}
-      {!endOfList && !infiniteScrollLoading && !queryStringChangeLoading && <div ref={setTarget}></div>}
+      {createScrollTarget()}
     </S.CardsGridWrapper>
   );
 }

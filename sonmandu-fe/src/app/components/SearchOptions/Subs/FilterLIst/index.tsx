@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import * as S from './style';
 import { WHOLE_HASH_TAGES } from '@/constants';
 import { useSearchParams } from 'next/navigation';
-import { useDebouncing } from 'customhook';
 
 interface CreateQueryStringArgs {
   name: 'sort' | 'tagId' | 'name';
@@ -25,20 +24,8 @@ export default function FilterList({ className, createQueryString }: FilterListP
 
   const handleOptionsClick = ({ name, value }: CreateQueryStringArgs) => {
     if (name === 'sort') createQueryString({ name: name, value: value });
-    else if (name === 'tagId') {
-      if (options.includes(value as string)) {
-        setOptions((prev) => prev.filter((tag) => tag !== value));
-      } else {
-        setOptions((prev) => [...prev, value as string]);
-      }
-    }
+    else if (name === 'tagId') createQueryString({ name: 'tagId', value: value });
   };
-
-  useDebouncing({
-    value: options,
-    callback: () => createQueryString({ name: 'tagId', value: options }),
-    delay: 200,
-  });
 
   return (
     <S.FilterListsWrapper className={className}>
@@ -60,7 +47,7 @@ export default function FilterList({ className, createQueryString }: FilterListP
           type="button"
           disabled={false}
           key={hashTag.id}
-          selected={options.includes(String(hashTag.id)) || false}
+          selected={searchParams.get('tagId')?.split(',').includes(String(hashTag.id)) || false}
           onClick={() => handleOptionsClick({ name: 'tagId', value: String(hashTag.id) })}
         >
           {hashTag.text}

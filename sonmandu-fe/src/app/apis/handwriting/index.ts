@@ -38,8 +38,6 @@ export async function loadFontInService({
     display: 'fallback',
   });
 
-  console.log(`${name} | ${document.fonts.check(name)}`);
-
   document.fonts.add(customFont);
 
   return customFont.load();

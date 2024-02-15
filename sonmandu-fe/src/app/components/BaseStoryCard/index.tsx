@@ -28,7 +28,7 @@ function BaseStoryCard(props: T.BaseStoryCard) {
   return (
     <S.StoryCardWrapper onClick={onClick}>
       <S.ImageArea>
-        <Comp.CustomImage src={thumbnail} alt="썸네일" fill={true} sizes="100vw" />
+        <Comp.CustomImage src={thumbnail} alt="썸네일" fill={true} sizes="100" loading="lazy" />
       </S.ImageArea>
       <S.StoryCardContainer>
         <S.StoryTextContentWrapper>

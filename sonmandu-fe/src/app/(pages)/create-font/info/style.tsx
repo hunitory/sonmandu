@@ -91,30 +91,40 @@ export const ContentFontNametContent = styled.div`
 `;
 
 export const ContentFontNameInputWithButtonWrapper = styled.div`
+  width: 100%;
+  height: 66px;
   padding: 20px 10px;
   border-bottom: 1px solid ${PALETTE.LIGHT_BLACK};
   position: relative;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 `;
 
 export const ContentFontNameInputWrapper = styled.div`
-  width: 400px;
+  width: calc(100% - 90px);
+  height: 100%;
   display: flex;
   justify-content: start;
   align-items: center;
+
+  & > .key-down-handler {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const ContentFontNameInput = styled(BaseLabelWithInput.Input)`
+  display: inline-block;
   width: 100%;
-  display: center;
-  justify-content: center;
-  align-items: center;
+  height: 100%;
 `;
 
 export const ContentFontNameInputPlaceholder = styled.div.attrs(() => ({}))<PlaceholderGuideProps>`
   position: absolute;
+  top: 20px;
   color: ${PALETTE.LIGHT_BLACK};
+  height: 66px;
   font-size: 14px;
   font-family: ${notoSansKr.regular.style.fontFamily};
   font-weight: ${notoSansKr.regular.style.fontWeight};

@@ -39,7 +39,7 @@ export default function ProfileBox(props: ProfileBoxProps) {
       <S.BadgeNameDiv fontSize={fontSize}>
         {badge && (
           <S.BadgeWrapper fontSize={fontSize}>
-            <Comp.CustomImage src="/image/weekly-medal.png" alt="#" fill />
+            <Comp.CustomImage src="/image/weekly-medal.png" alt="#" fill className={'badge'} />
           </S.BadgeWrapper>
         )}
         <span>{nickname}</span>

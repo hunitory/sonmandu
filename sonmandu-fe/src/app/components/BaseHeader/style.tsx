@@ -34,7 +34,7 @@ export const UserInteractionWrapper = styled.nav`
 
 export const LinkWrapper = styled.div`
   width: calc(100% - 72px);
-  min-width: 374px;
+  min-width: 380px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;

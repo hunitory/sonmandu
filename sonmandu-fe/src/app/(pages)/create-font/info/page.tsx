@@ -21,6 +21,8 @@ export default function FontInfo() {
   const [fontInfo, setfontNameState] = useRecoilState(fontInfoState);
   const uploadedFiles = useRecoilValue(uploadedFilesState);
 
+  const [isFontNameDuplicated, setIsFontNameDuplicated] = useState<boolean>(false);
+
   useEffect(() => {
     const token = !!localStorage.getItem('access_token');
     if (!token) {
@@ -83,12 +85,10 @@ export default function FontInfo() {
 
       instanceMultipartContent
         .post(apiUrl, formData)
-        .then((response) => {
-          console.log('POST 요청 성공:', response.data);
+        .then(() => {
           router.push('/create-font/complete');
         })
-        .catch((error) => {
-          console.error('POST 요청 실패:', error);
+        .catch(() => {
           alert('업로드에 실패했습니다.');
         });
     } else {
@@ -108,24 +108,22 @@ export default function FontInfo() {
     onSuccess: (res) => {
       if (res.data) {
         alert('사용 가능한 손글씨 이름입니다.');
+        setIsFontNameDuplicated(false);
       } else {
         alert('이미 존재하는 손글씨 이름입니다.');
         setfontNameState((prevState) => ({
           ...prevState,
           name: '',
         }));
+        setIsFontNameDuplicated(true);
       }
-    },
-    onError: (error) => {
-      console.log(error);
     },
   });
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    // Enter 키가 눌렸을 때
     if (event.key === 'Enter') {
-      event.preventDefault(); // 기본 이벤트 방지
-      DuplicationFontCheck(); // 중복 체크 로직 호출
+      event.preventDefault();
+      DuplicationFontCheck();
     }
   };
 
@@ -142,7 +140,6 @@ export default function FontInfo() {
       window.removeEventListener('beforeunload', handleBeforeUnload);
     };
   }, [fontInfo]);
-
   return (
     <Styled.Wrapper>
       <Styled.StepWrapper>
@@ -165,7 +162,7 @@ export default function FontInfo() {
                 <Styled.ContentFontNameInputPlaceholder $fontname={!fontInfo.name}>
                   <span>손글씨 이름</span>을 입력해주세요. 최대 20자
                 </Styled.ContentFontNameInputPlaceholder>
-                <div onKeyDown={handleKeyDown}>
+                <div onKeyDown={handleKeyDown} style={{ width: '100%' }}>
                   <Styled.ContentFontNameInput id="name" type="text" value={fontInfo.name} onChange={NameInput} />
                 </div>
               </Styled.ContentFontNameInputWrapper>
@@ -196,7 +193,11 @@ export default function FontInfo() {
           <Styled.BackButton onClick={onBack} type="button" disabled={false}>
             <Styled.BackButtonText>이전 단계</Styled.BackButtonText>
           </Styled.BackButton>
-          <Styled.NextButton onClick={onNext} type="button" disabled={false}>
+          <Styled.NextButton
+            onClick={onNext}
+            type="button"
+            disabled={isFontNameDuplicated || fontInfo.tagIdList.length === 0}
+          >
             <Styled.NextButtonText>신청 하기</Styled.NextButtonText>
           </Styled.NextButton>
         </Styled.ButtonWrapper>

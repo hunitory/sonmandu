@@ -202,6 +202,15 @@ export const NextButton = styled(BaseButton)`
   display: flex;
   justify-content: center;
   align-items: center;
+  &:disabled {
+    background-color: ${PALETTE.LIGHT_BLACK};
+    color: ${PALETTE.MAIN_ORANGE};
+    border: 0;
+    cursor: not-allowed;
+    * {
+      color: ${PALETTE.SUB_WHITE};
+    }
+  }
 `;
 
 export const BackButtonText = styled.p`

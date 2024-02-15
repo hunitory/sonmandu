@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, KeyboardEvent, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, KeyboardEvent, MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import * as S from './style';
 import * as T from '@/types';
 import * as API from '@/apis';
@@ -121,11 +121,16 @@ export default function ChattingMessageContainer({ curSelectedFont }: T.Chatting
     }
   };
 
-  const handleSubmit = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleEnterSubmit = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.type === 'keydown' && e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
+  };
+
+  const handleClickSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    sendMessage();
   };
 
   const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -162,10 +167,10 @@ export default function ChattingMessageContainer({ curSelectedFont }: T.Chatting
           placeholder="메세지 작성"
           value={messageInputValue}
           onChange={handleOnChange}
-          onKeyDown={handleSubmit}
+          onKeyDown={handleEnterSubmit}
           $fontName={curSelectedFont.fontName}
         />
-        <S.SubmitButton disabled={false} type="submit">
+        <S.SubmitButton disabled={false} type="submit" onClick={handleClickSubmit}>
           <Image src={'/image/orange-arrow-right.svg'} width={48} height={28} alt="전송하기" />
         </S.SubmitButton>
       </S.FormFiled>

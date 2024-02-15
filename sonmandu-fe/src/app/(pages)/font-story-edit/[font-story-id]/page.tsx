@@ -34,8 +34,7 @@ export default function FontStoryEditPage() {
 
   // 기존데이터 불러오기
   const storyInfo = useRecoilValue(storyInfoState);
-  console.log('hi');
-  console.log(storyInfo);
+
 
   const router = useRouter();
 
@@ -81,12 +80,10 @@ export default function FontStoryEditPage() {
 
     instanceMultipartContent
       .put(apiUrl, formData)
-      .then((response) => {
-        console.log('POST 요청 성공', response);
+      .then(() => {
         router.push(`/font-story-detail/${storyInfo.handwritingStoryId}`);
       })
-      .catch((error) => {
-        console.log('POST 요청 실패:', error);
+      .catch(() => {
         alert('업로드에 실패했습니다.');
       });
   };

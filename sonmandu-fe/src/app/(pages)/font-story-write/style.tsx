@@ -235,6 +235,7 @@ export const ButtonWrapper = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  gap: 18px;
   flex-direction: row-reverse;
 `;
 
@@ -250,6 +251,25 @@ export const SubmitButton = styled(BaseButton)`
   border-radius: 18px;
   color: white;
   background-color: ${PALETTE.MAIN_ORANGE};
+  font-size: clamp(12px, 1vw, 16px);
+  span {
+    font-weight: ${notoSansKr.medium.style.fontWeight};
+    font-family: ${notoSansKr.medium.style.fontFamily};
+  }
+`;
+
+export const BackButton = styled(BaseButton)`
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  padding: clamp(4px, 0.3vw, 10px) clamp(9px, 0.8vw, 20px);
+  border: 2px solid ${PALETTE.ligh};
+  border-radius: 18px;
+  color: ${PALETTE.MAIN_ORANGE};
+  background-color: white;
   font-size: clamp(12px, 1vw, 16px);
   span {
     font-weight: ${notoSansKr.medium.style.fontWeight};

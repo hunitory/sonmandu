@@ -174,6 +174,9 @@ export default function FontStoryWritePage() {
             <S.SubmitButton type="button" onClick={PostStory} disabled={false}>
               <span>작성 완료</span>
             </S.SubmitButton>
+            <S.BackButton type="button" onClick={() => router.back()} disabled={false}>
+              <span>돌아가기</span>
+            </S.BackButton>
           </S.ButtonWrapper>
         </S.WriteDiv>
       </S.WriteWrapper>

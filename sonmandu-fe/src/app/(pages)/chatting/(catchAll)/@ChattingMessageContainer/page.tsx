@@ -88,6 +88,13 @@ export default function ChattingMessageContainer({ curSelectedFont }: T.Chatting
         });
         setSubscription(topicSubscription);
       },
+      onDisconnect: (frame) => {
+        console.log(`DISCONNECT :`, frame);
+      },
+      connectionTimeout: 60 * 60,
+      onStompError: (frame) => {
+        console.log(`STOMP ERROR :`, frame);
+      },
     });
 
     client.activate();

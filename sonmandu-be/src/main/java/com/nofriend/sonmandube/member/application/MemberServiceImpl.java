@@ -293,6 +293,8 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
         Member member = memberRepository.findById((long) Integer.parseInt(username))
                 .orElseThrow(() -> new UsernameNotFoundException(username + "Not Found Member by Id"));
 
+        member.setUserRole();
+
         return member;
     }
 }

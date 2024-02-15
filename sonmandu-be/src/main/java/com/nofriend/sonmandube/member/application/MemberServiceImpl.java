@@ -184,6 +184,7 @@ public class MemberServiceImpl implements MemberService, UserDetailsService {
                 .orElseThrow(() -> new IdNotFoundException("정보에 해당하는 회원이 없습니다."));
 
         return MemberInformationResponse.builder()
+                .memberId(member.getMemberId())
                 .imageUrl(member.getImageUrl())
                 .nickname(member.getNickname())
                 .introduction(member.getIntroduction())

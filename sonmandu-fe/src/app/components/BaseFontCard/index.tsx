@@ -28,7 +28,7 @@ function BaseFontCard(props: FontCard) {
     <S.FontCardWrapper onClick={onClick}>
       <S.FontCardContainer name={name}>
         <S.FontName>{name}</S.FontName>
-        {letter.isShow && <BaseLetterField letterImgUrl={`/image/letter-${letter.idx % 4}.png`} />}
+        {letter.isShow && <BaseLetterField fontSize={14} letterImgUrl={`/image/letter-${letter.idx % 4}.png`} />}
         <S.EtcInfomationWrapper>
           <S.IconTextsWrapper>
             <S.IconWithNumberContainer disabled={false} type="button" onClick={handleLikeClick}>

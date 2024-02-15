@@ -6,7 +6,7 @@ export const MainWrapper = styled.main`
   display: flex;
   justify-content: center;
   width: 100vw;
-  height: calc(100% - 56px);
+  height: calc(100% - 72px);
 `;
 
 export const MainContainer = styled.div`

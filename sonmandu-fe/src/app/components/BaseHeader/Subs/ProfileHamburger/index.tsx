@@ -1,10 +1,9 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import Link from 'next/link';
 import * as S from './style';
 import * as API from '@/apis';
 import * as Comp from '@/components';
 import { useGetDeviceSize } from 'customhook';
-import Image from 'next/image';
 import useModal from 'customhook/useModal';
 import { useMutation } from '@tanstack/react-query';
 import { jwtDecode } from 'jwt-decode';
@@ -68,7 +67,7 @@ export default function ProfileHamburger() {
             src={authorizationUser.tokenPayload.imageUrl}
             alt="로그인 하고 이미지 있는 유저"
             fill={true}
-            sizes='21px'
+            sizes="21px"
             priority={true}
           />
         </S.ProfileHamburgerImageWrapper>
@@ -93,9 +92,10 @@ export default function ProfileHamburger() {
       {handleProfileImage()}
       {dropBoxView && (
         <S.DropBoxWrapper>
+          <S.DropBoxList onClick={() => router.push(`/font-gallery`)}>전시관 가기</S.DropBoxList>
+          <S.DropBoxList onClick={() => router.push(`/font-stories`)}>이야기 구경</S.DropBoxList>
           {authorizationUser.isAuth ? (
             <>
-              <S.DropBoxList onClick={() => router.push('/chatting')}>손글씨 채팅</S.DropBoxList>
               <S.DropBoxList onClick={() => router.push(`/profile/${authorizationUser.tokenPayload?.memberId}`)}>
                 마이 프로필
               </S.DropBoxList>
@@ -112,11 +112,8 @@ export default function ProfileHamburger() {
               <Link href={'/create-font'}>
                 <S.DropBoxList>손글씨 만들기</S.DropBoxList>
               </Link>
-              <Link href={'/font-gallery'}>
-                <S.DropBoxList>손글씨 전시관</S.DropBoxList>
-              </Link>
-              <Link href={'/font-stories'}>
-                <S.DropBoxList>손글씨 이야기</S.DropBoxList>
+              <Link href={'/chatting'}>
+                <S.DropBoxList>손글씨 채팅</S.DropBoxList>
               </Link>
             </>
           )}

@@ -33,20 +33,28 @@ export default function FontStoryDetailPage() {
   const {
     data: response,
     isFetching: isFontStoryDetailFetching,
+    isFetched: completeLoadDetail,
     refetch: storyRefetch,
   } = useQuery({
     queryKey: queryKey,
     queryFn: () => API.handwritingStory.handwritingStoryDetail({ fontStoryId: params['font-story-id'] as string }),
   });
-
-  const { data: resFromS3, isFetching: isFileFetching } = useQuery({
-    queryKey: ['get-font-file', response],
+  // console.log(`response :`, response);
+  const {
+    data: resFromS3,
+    isFetching: isFileFetching,
+    isFetched: completeGetFont,
+  } = useQuery({
+    queryKey: ['get-font-file', completeLoadDetail],
     queryFn: () => API.handwritingStory.getFontFileFromS3({ url: response?.data.downloadurl }),
+    enabled: completeLoadDetail,
   });
 
   const { data: resLoadFont, isFetching: isLoadFetching } = useQuery({
-    queryKey: ['load-font-file', resFromS3],
-    queryFn: () => API.handwritingStory.loadFontInService({ getFontResponse: resFromS3, name: response?.data.name }),
+    queryKey: ['load-font-file', completeGetFont],
+    queryFn: () =>
+      API.handwritingStory.loadFontInService({ getFontResponse: resFromS3?.data, name: response?.data.name }),
+    enabled: completeGetFont,
   });
 
   const isAllResourcesLoad = () => {
@@ -232,7 +240,7 @@ export default function FontStoryDetailPage() {
               </S.UpperHeadWrapper>
               <S.TitleSpan name={response?.data.name}>{response?.data.title}</S.TitleSpan>
               <S.FontDateWrapper>
-                <Link href={`/font-detail/${response?.data.handwritingId}`}>
+                <Link href={`/font-detail/${response?.data.handwritingStoryId}`}>
                   <S.FontLinkWrapper name={response?.data.name}>
                     <span>{response?.data.name}</span>
                     <Comp.CustomImage

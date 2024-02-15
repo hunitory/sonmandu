@@ -4,13 +4,13 @@ import { PALETTE, notoSansKr } from 'styles';
 
 export const HeaderWrapper = styled.header`
   width: 100vw;
-  height: 56px;
+  height: 72px;
   padding: 0px 48px;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0px 0px 8px 0px ${PALETTE.MAIN_BLACK};
+  border-bottom: 1px solid ${PALETTE.LIGHT_BLACK};
   position: relative;
   z-index: 99;
 
@@ -20,7 +20,7 @@ export const HeaderWrapper = styled.header`
 `;
 
 export const UserInteractionWrapper = styled.nav`
-  width: clamp(304px, 30%, 386px);
+  width: clamp(304px, 20%, 346px);
   height: 100%;
   background-color: white;
   display: flex;
@@ -33,17 +33,18 @@ export const UserInteractionWrapper = styled.nav`
 `;
 
 export const LinkWrapper = styled.div`
-  width: 234px;
+  width: calc(100% - 72px);
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
 
   & > a {
     width: fit-content;
-    font-weight: ${notoSansKr.semiBold.style.fontWeight};
+    font-family: ${notoSansKr.medium.style.fontFamily};
+    font-weight: ${notoSansKr.medium.style.fontWeight};
     border-radius: 12px;
     padding: 12px;
-    font-size: 12px;
+    font-size: 14px;
 
     &:hover {
       background-color: ${PALETTE.SUB_WHITE};

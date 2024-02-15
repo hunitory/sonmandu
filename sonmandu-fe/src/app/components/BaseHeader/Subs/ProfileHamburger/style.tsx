@@ -35,6 +35,7 @@ export const DropBoxWrapper = styled.ul`
   background-color: white;
   border-radius: 12px;
   font-weight: ${notoSansKr.semiBold.style.fontWeight};
+  overflow: hidden;
 `;
 
 export const DropBoxList = styled.li`
@@ -43,6 +44,9 @@ export const DropBoxList = styled.li`
   padding: 12px;
   text-align: center;
   cursor: pointer;
+  &:hover {
+    background-color: ${PALETTE.SUB_WHITE};
+  }
 `;
 
 export const NullImgUser = styled.span`

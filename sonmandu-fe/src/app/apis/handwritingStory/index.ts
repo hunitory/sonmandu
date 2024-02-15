@@ -95,5 +95,5 @@ export async function getHandwritingStory({ memberId }: { memberId: string }) {
 }
 
 export async function handwritingStoryUnwrittenFont() {
-  return instanceJsonContent.get('/handwritings/unwritten-stories')
+  return instanceJsonContent.get('/handwritings/unwritten-stories');
 }

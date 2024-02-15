@@ -5,55 +5,50 @@ import * as S from './style';
 import * as T from '@/types';
 import * as API from '@/apis';
 import * as Comp from '@/components';
-import { Client, IFrame, IMessage, StompSubscription } from '@stomp/stompjs';
+import { Client, IMessage, StompSubscription } from '@stomp/stompjs';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 
-interface ChattingSideBarProps {
-  curSelectedFont: { fontId: number; fontName: string };
-}
-
-interface ChattingMessage {
-  chatId: number;
-  createTime: string;
-  handwriting: {
-    name: string;
-    handwritingId: number;
-    downloadUrl: string;
-  };
-  member: { badge: boolean; nickname: string; memberId: number; imageUrl: string | null };
-  message: string;
-}
-
-interface ReceivedMessage {
-  chatHandwritingResponse: {
-    handwritingId: number;
-    name: string;
-    downloadUrl: string;
-  };
-  chatId: number;
-  chatMemberResponse: { memberId: number; nickname: string; badge: boolean; imageUrl: string | null };
-  createTime: string;
-  message: string;
-}
-
-export default function ChattingMessageContainer({ curSelectedFont }: ChattingSideBarProps) {
+export default function ChattingMessageContainer({ curSelectedFont }: T.ChattingContainerProps) {
   const messageContainerRef = useRef<HTMLDivElement>(null);
   const messageScrollWrapperRef = useRef<HTMLDivElement>(null);
   const [stompClient, setStompClient] = useState<Client | null>(null);
   const [subscription, setSubscription] = useState<StompSubscription | null>(null);
-  const [messageManager, setMessageManager] = useState<ChattingMessage[]>([]);
+  const [messageManager, setMessageManager] = useState<T.ChattingMessage[]>([]);
   const [messageInputValue, setMessageInputValue] = useState('');
+
+  const requestFontsFileAndLoad = useCallback(async (serverRes: T.ChattingMessage[]) => {
+    const downloadUrls = serverRes.map((res: T.ChattingMessage) =>
+      API.handwriting.getFontFileFromS3({ url: res.handwriting.downloadUrl }),
+    );
+    const responseFromS3 = await Promise.allSettled(downloadUrls);
+
+    await Promise.allSettled(
+      responseFromS3.map((res, i) => {
+        if (res.status === 'fulfilled')
+          return API.handwriting.loadFontInService({ getFontResponse: res.value, name: serverRes[i].handwriting.name });
+      }),
+    );
+  }, []);
 
   const queryKey = ['get-previous-message'];
   const { data: previousMessages, isFetching: isLoadingPreviousMessages } = useQuery({
     queryKey: queryKey,
     queryFn: async () => {
       const serverRes = await API.chat.getPreviousMessage();
+      console.log(`serverRes :`, serverRes.data);
+
+      const filteredResponseBasket: T.ChattingMessage[] = [];
       setMessageManager((previous) => {
         if (previous.length === 0) return [...serverRes.data];
-        return [...serverRes.data.map((res: ChattingMessage) => previous.filter((prev) => prev.chatId !== res.chatId))];
+        serverRes.data.forEach((res: T.ChattingMessage, i: number) => {
+          previous.forEach((prev) => prev.chatId === res.chatId && filteredResponseBasket.push(serverRes.data[i]));
+        });
+        return filteredResponseBasket;
       });
+
+      await requestFontsFileAndLoad(filteredResponseBasket);
+
       return serverRes;
     },
     refetchInterval: false,
@@ -61,7 +56,7 @@ export default function ChattingMessageContainer({ curSelectedFont }: ChattingSi
     retry: 1,
   });
 
-  const recivedMessageConverter = (msg: ReceivedMessage) => {
+  const recivedMessageConverter = (msg: T.ReceivedMessage) => {
     const { chatHandwritingResponse: handwritingRes, chatMemberResponse: memberRes } = msg;
     return {
       chatId: msg.chatId,
@@ -88,7 +83,7 @@ export default function ChattingMessageContainer({ curSelectedFont }: ChattingSi
       reconnectDelay: 0,
       onConnect: (frame) => {
         const topicSubscription: StompSubscription = client.subscribe('/topic/sonmandu', (message: IMessage) => {
-          const msg: ReceivedMessage = JSON.parse(message.body);
+          const msg: T.ReceivedMessage = JSON.parse(message.body);
           setMessageManager((prev) => [recivedMessageConverter(msg), ...prev]);
         });
         setSubscription(topicSubscription);

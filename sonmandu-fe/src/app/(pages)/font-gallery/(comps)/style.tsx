@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 export const MainWrapper = styled.main`
   width: 100vw;
-  height: calc(100% - 56px);
+  height: calc(100% - 72px);
   display: flex;
   align-items: center;
   flex-direction: column;

@@ -40,13 +40,13 @@ export default function PostersSection() {
     );
   }, []);
 
-  const isQueryChanged = useCallback(() => {
+  const isQueryChanged = () => {
     for (const [key, value] of searchParams.entries()) {
       if (!['name', 'tagId', 'sort'].includes(key)) continue;
       if (prevSearchParams[key] !== value) return true;
     }
     return false;
-  }, [searchParams.get('tagId'), searchParams.get('name'), searchParams.get('sort')]);
+  };
 
   const queryStringChangeQueryKey = [
     'font-gallery-search',
@@ -79,17 +79,19 @@ export default function PostersSection() {
         sort: searchParams.get('sort') || '',
       };
       const serverRes = await API.handwriting.fontListInGallery(requestArgs);
+
+      setCurItemList((prev) => [...serverRes.data]);
       await requestFonts(serverRes.data);
-      setCurItemList([...serverRes.data]);
 
       return serverRes.data;
     },
     refetchInterval: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
+    retry: 1,
   });
 
   const infiniteScrollQueryKey = ['font-gallery-search'];
-  const { isLoading: infiniteScrollLoading, refetch: requestGetListByScroll } = useQuery({
+  const { isFetching: infiniteScrollLoading, refetch: requestGetListByScroll } = useQuery({
     queryKey: infiniteScrollQueryKey,
     queryFn: async () => {
       const requestArgs = {
@@ -115,7 +117,7 @@ export default function PostersSection() {
     if (isIntersecting) {
       const res = await requestGetListByScroll();
 
-      if (res.data.length === 0) setEndOfList(false);
+      if (res.data.length === 0) setEndOfList(true);
       return res;
     }
     return isIntersecting;
@@ -124,23 +126,42 @@ export default function PostersSection() {
 
   useEffect(() => {
     return () => {
-      setCurItemList([]);
+      setCurItemList(() => []);
       setEndOfList(false);
+      setPrevSearchParams({
+        tagId: searchParams.get('tagId') || '',
+        name: searchParams.get('name') || '',
+        sort: searchParams.get('sort') || '',
+      });
     };
   }, []);
+
+  useEffect(() => {
+    if (searchParams.get('tagId') === null && searchParams.get('name') === null && searchParams.get('sort') === null)
+      requestGetListByOptions();
+    setEndOfList(() => false);
+  }, [searchParams.get('tagId'), searchParams.get('name'), searchParams.get('sort')]);
+
+  const createScrollTarget = useCallback(() => {
+    if (!endOfList) {
+      if (!infiniteScrollLoading && !queryStringChangeLoading) {
+        return <div ref={setTarget}></div>;
+      }
+    }
+  }, [endOfList, infiniteScrollLoading, queryStringChangeLoading]);
 
   return (
     <S.CardsGridWrapper>
       {curItemList.length > 0 &&
         curItemList.map((res: T.FontCard, i: number) => (
-          <Comp.BaseFontCard
+          <S.CustomFontCard
             key={`${res.handwritingId}-${i}`}
             {...res}
             letter={{ isShow: true, idx: i }}
             onClick={() => route.push(`/font-detail/${res.handwritingId}`)}
           />
         ))}
-      {!endOfList || (!infiniteScrollLoading && !queryStringChangeLoading && <div ref={setTarget}></div>)}
+      {createScrollTarget()}
     </S.CardsGridWrapper>
   );
 }

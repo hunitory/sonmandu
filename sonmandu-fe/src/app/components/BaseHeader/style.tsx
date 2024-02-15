@@ -41,8 +41,7 @@ export const LinkWrapper = styled.div`
 
   & > a {
     width: fit-content;
-    font-family: ${notoSansKr.medium.style.fontFamily};
-    font-weight: ${notoSansKr.medium.style.fontWeight};
+
     border-radius: 12px;
     padding: 12px;
     font-size: 14px;

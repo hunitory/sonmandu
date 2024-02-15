@@ -31,6 +31,11 @@ export const LikeWrapper = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  `;
+
+export const LikeDiv = styled.div`
+  display: inline-block;
+  cursor: pointer;
 `;
 
 export const LinkWrapper = styled.div`

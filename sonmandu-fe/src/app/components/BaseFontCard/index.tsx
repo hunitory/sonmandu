@@ -7,7 +7,19 @@ import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 
 function BaseFontCard(props: FontCard) {
-  const { handwritingId, name, downloadUrl, hitCount, likeCount, downloadCount, tag, isLike, letter, onClick } = props;
+  const {
+    handwritingId,
+    name,
+    downloadUrl,
+    hitCount,
+    likeCount,
+    downloadCount,
+    tag,
+    isLike,
+    letter,
+    onClick,
+    className,
+  } = props;
   const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
   const { mutate, data: resLikeClick } = useMutation({
     mutationKey: ['font-gallery-click-like', handwritingId],
@@ -25,10 +37,10 @@ function BaseFontCard(props: FontCard) {
   };
 
   return (
-    <S.FontCardWrapper onClick={onClick}>
+    <S.FontCardWrapper onClick={onClick} className={className}>
       <S.FontCardContainer name={name}>
         <S.FontName>{name}</S.FontName>
-        {letter.isShow && <BaseLetterField fontSize={14} letterImgUrl={`/image/letter-${letter.idx % 4}.png`} />}
+        {letter.isShow && <BaseLetterField fontSize={14} letterImgUrl={`/image/letter-${letter.idx % 7}.png`} />}
         <S.EtcInfomationWrapper>
           <S.IconTextsWrapper>
             <S.IconWithNumberContainer disabled={false} type="button" onClick={handleLikeClick}>

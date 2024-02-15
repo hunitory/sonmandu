@@ -16,6 +16,7 @@ export default function ChattingMessageContainer({ curSelectedFont }: T.Chatting
   const [subscription, setSubscription] = useState<StompSubscription | null>(null);
   const [messageManager, setMessageManager] = useState<T.ChattingMessage[]>([]);
   const [messageInputValue, setMessageInputValue] = useState('');
+  const [isComposing, setIsComposing] = useState(false);
 
   const requestFontsFileAndLoad = useCallback(async (serverRes: T.ChattingMessage[]) => {
     const downloadUrls = serverRes.map((res: T.ChattingMessage) =>
@@ -36,16 +37,8 @@ export default function ChattingMessageContainer({ curSelectedFont }: T.Chatting
     queryKey: queryKey,
     queryFn: async () => {
       const serverRes = await API.chat.getPreviousMessage();
-      console.log(`serverRes :`, serverRes.data);
-
       const filteredResponseBasket: T.ChattingMessage[] = [];
-      setMessageManager((previous) => {
-        if (previous.length === 0) return [...serverRes.data];
-        serverRes.data.forEach((res: T.ChattingMessage, i: number) => {
-          previous.forEach((prev) => prev.chatId === res.chatId && filteredResponseBasket.push(serverRes.data[i]));
-        });
-        return filteredResponseBasket;
-      });
+      setMessageManager((previous) => [...serverRes.data]);
 
       await requestFontsFileAndLoad(filteredResponseBasket);
 
@@ -92,6 +85,7 @@ export default function ChattingMessageContainer({ curSelectedFont }: T.Chatting
 
     client.activate();
     setStompClient(client);
+
     return () => {
       if (client) {
         if (subscription) client.unsubscribe(subscription.id);
@@ -110,7 +104,24 @@ export default function ChattingMessageContainer({ curSelectedFont }: T.Chatting
     }
   }, [messageManager]);
 
-  const sendMessage = () => {
+  const handleEnterSubmit = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (isComposing) return;
+    if (e.type === 'keydown' && e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      if (stompClient) {
+        const body = {
+          message: messageInputValue,
+          handwritingId: curSelectedFont.fontId,
+        };
+        stompClient.publish({ destination: '/app/sonmandu', body: JSON.stringify(body) });
+        setMessageInputValue('');
+      }
+    }
+  };
+
+  const handleClickSubmit = (e: MouseEvent<HTMLButtonElement>) => {
+    if (isComposing) return;
+    e.preventDefault();
     if (stompClient) {
       const body = {
         message: messageInputValue,
@@ -119,18 +130,6 @@ export default function ChattingMessageContainer({ curSelectedFont }: T.Chatting
       stompClient.publish({ destination: '/app/sonmandu', body: JSON.stringify(body) });
       setMessageInputValue('');
     }
-  };
-
-  const handleEnterSubmit = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.type === 'keydown' && e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  };
-
-  const handleClickSubmit = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    sendMessage();
   };
 
   const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -168,6 +167,8 @@ export default function ChattingMessageContainer({ curSelectedFont }: T.Chatting
           value={messageInputValue}
           onChange={handleOnChange}
           onKeyDown={handleEnterSubmit}
+          onCompositionStart={() => setIsComposing(true)}
+          onCompositionEnd={() => setIsComposing(false)}
           $fontName={curSelectedFont.fontName}
         />
         <S.SubmitButton disabled={false} type="submit" onClick={handleClickSubmit}>

@@ -26,6 +26,7 @@ export const TestingLetterArea = styled.article<{ $fontName: string; $show: bool
 
   textarea {
     font-family: ${(props) => (props.$fontName ? props.$fontName : notoSansKr.regular.style.fontFamily)};
+    padding: 12px;
   }
 
   background-color: ${(props) => !props.$show && PALETTE.SUB_WHITE};

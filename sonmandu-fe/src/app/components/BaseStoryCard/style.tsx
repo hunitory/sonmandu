@@ -68,6 +68,9 @@ export const StyledProfileBox = styled(ProfileBox)`
   flex-direction: row;
   img {
     border: 1px solid ${PALETTE.LIGHT_BLACK};
+    &.badge {
+      border: 0;
+    }
   }
 `;
 

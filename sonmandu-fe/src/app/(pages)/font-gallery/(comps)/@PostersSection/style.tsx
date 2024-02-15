@@ -1,6 +1,7 @@
 'use client';
 
 import styled from 'styled-components';
+import * as Comp from '@/components';
 
 export const CardsGridWrapper = styled.section`
   width: 100%;
@@ -26,5 +27,11 @@ export const CardsGridWrapper = styled.section`
     grid-template-columns: repeat(1, 1fr);
     padding: 0px 2vw 48px 2vw;
     justify-items: center;
+  }
+`;
+
+export const CustomFontCard = styled(Comp.BaseFontCard)`
+  & > article > p {
+    font-size: 20px;
   }
 `;

@@ -39,31 +39,33 @@ export default function FontStoryEditPage() {
   const router = useRouter();
 
   const ref = useRef<HTMLInputElement>(null);
-  const [title, setTitle] = useState<string>(storyInfo.title);
+  const [title, setTitle] = useState<string>(storyInfo.title || '');
   const handleTitleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
   const refText = useRef<HTMLTextAreaElement>(null);
-  const [content, setContent] = useState<string>(storyInfo.content);
+  const [content, setContent] = useState<string>(storyInfo.content || '');
   const handleTextOnChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
   // const [handwriting, setHandwriting] = useState<number | null>(storyInfo.handwritingId);
 
-  const [selectedFile, setSelectedFile] = useState<File | undefined>(new File([new Blob()], storyInfo.thumbnail));
+  const [selectedFile, setSelectedFile] = useState<File>();
 
   //썸네일 부분
-  const [currentStep, setCurrentStep] = useState(1);
-
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
   };
 
+  useEffect(() => {
+    console.log(res?.data)
+  }, [res])
+  
   const PostStory = () => {
     const data = {
-      handwritingId: storyInfo.handwritingId,
+      // handwritingId: storyInfo.handwritingStoryId,
       title: title,
       content: content,
     };
@@ -79,8 +81,8 @@ export default function FontStoryEditPage() {
     }
 
     instanceMultipartContent
-      .put(apiUrl, formData)
-      .then(() => {
+      .patch(apiUrl, formData)
+      .then((response) => {
         router.push(`/font-story-detail/${storyInfo.handwritingStoryId}`);
       })
       .catch(() => {
@@ -135,6 +137,9 @@ export default function FontStoryEditPage() {
             <S.SubmitButton type="button" onClick={PostStory} disabled={false}>
               <span>작성 완료</span>
             </S.SubmitButton>
+            <S.BackButton type="button" onClick={() => router.back()} disabled={false}>
+              <span>돌아가기</span>
+            </S.BackButton>
           </S.ButtonWrapper>
         </S.WriteDiv>
       </S.WriteWrapper>

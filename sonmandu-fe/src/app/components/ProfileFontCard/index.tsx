@@ -1,15 +1,21 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState, MouseEvent } from 'react';
 import * as S from './style';
 import ProductDate from './Subs/ProductDate';
 import Image from 'next/image';
 import * as API from '@/apis';
 import * as Comp from '@/components';
 import { BaseButton, BaseHashTags } from 'components';
-import { BaseButtonProps, ProfileFontCardProps } from 'types';
+import { BaseButtonProps, ProfileFontCardProps, RefetchProps } from 'types';
 import { useRouter } from 'next/navigation';
 import { useQuery, useMutation } from '@tanstack/react-query';
 
-function ProfileFontCard({ profileFontCardProps }: { profileFontCardProps: ProfileFontCardProps }) {
+function ProfileFontCard({
+  profileFontCardProps,
+  refetchInfo,
+}: {
+  profileFontCardProps: ProfileFontCardProps;
+  refetchInfo: RefetchProps;
+}) {
   const router = useRouter();
 
   const { downloadCount, downloadUrl, handwritingId, hitCount, isLike, likeCount, name, createDate, tag } =
@@ -55,18 +61,27 @@ function ProfileFontCard({ profileFontCardProps }: { profileFontCardProps: Profi
   };
 
   // 다운로드 버튼
-  const [copyDownloadCount, setCopDownloadCount] = useState(downloadCount);
+  const [copyDownloadCount, setCopyDownloadCount] = useState(downloadCount);
   const { mutate: handleDownloadClick, data: resDownloadClick } = useMutation({
     mutationKey: ['profile-font-click-download', handwritingId],
     mutationFn: () => API.handwriting.fontDownload({ fontId: String(handwritingId) }),
     onSuccess: () => {
-      setCopDownloadCount((prev) => prev + 1); // 이거 수정 해야할듯??
       router.push(downloadUrl);
+      refetchInfo.refetch();
     },
   });
 
+  useEffect(() => {
+    setCopyDownloadCount(downloadCount);
+  }, [downloadCount]);
+
+  const handleProfileFontCardClick = (e: MouseEvent<HTMLImageElement>) => {
+    e.stopPropagation();
+    router.push(`/font-detail/${handwritingId}`);
+  } 
+
   return (
-    <S.ProfileFontCardWrapper>
+    <S.ProfileFontCardWrapper onClick={handleProfileFontCardClick}>
       <S.UpperWrapper>
         <ProductDate date={createDate} />
         <Comp.CustomImage src={`/image/complete-${index}.png`} alt="#" width={148} height={137} />

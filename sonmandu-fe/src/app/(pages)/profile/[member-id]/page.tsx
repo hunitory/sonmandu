@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, ChangeEvent, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef, ChangeEvent, useLayoutEffect, MouseEvent } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
 import * as T from '@/types';
@@ -58,16 +58,20 @@ export default function ProfilePage() {
     queryKey: queryKey,
     queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string }),
   });
+  console.log(memberRes?.data)
 
   // 만든 폰트 목록 조회
-  const { data: fontRes, isFetching: isFontFetching } = useQuery({
+  const {
+    data: fontRes,
+    isFetching: isFontFetching,
+    refetch: fontRefetch,
+  } = useQuery({
     queryKey: isMypage ? ['my-font'] : ['profile-font', params['member-id']],
     queryFn: () =>
       isMypage
         ? API.handwriting.getMyHandwriting()
         : API.handwriting.getProfileHandwriting({ memberId: params['member-id'] as string }),
   });
-
 
   // 폰트이야기 조회
   const { data: storyRes, isFetching: isStoryFontFetching } = useQuery({
@@ -91,7 +95,7 @@ export default function ProfilePage() {
   const clickModal = () => {
     setShowModal(!showModal);
   };
-  
+
   // 수정하기 버튼입력
   const [isEdit, setIsEdit] = useState(false);
   const handleEdit = (isEdit: boolean) => {
@@ -150,20 +154,9 @@ export default function ProfilePage() {
   };
 
   // 프사 바꾸는 api
-  const { mutate: requestEditProfileImage } = useMutation({
-    mutationKey: ['request-Edit-image'],
-    mutationFn: () => API.member.editProfileImage({ imageFile: uploadedFile }),
-    onSuccess: () => {
-      memberRefetch();
-    },
-    onError: () => {},
-  });
 
   useEffect(() => {
     if (uploadedFile) {
-      // const imageUrl = URL.createObjectURL(uploadedFile);
-      // setUploadedImageUrl(imageUrl);
-      //   URL.revokeObjectURL(imageUrl);
       const formData = new FormData();
       formData.append('image', uploadedFile);
 
@@ -172,6 +165,11 @@ export default function ProfilePage() {
       });
     }
   }, [uploadedFile]);
+
+  // 폰트카드에 넣을 리패치프롭스
+  const fontRefetchProps: T.RefetchProps = {
+    refetch: fontRefetch,
+  };
 
   return (
     <>
@@ -223,7 +221,7 @@ export default function ProfilePage() {
               </S.ProfileBoxDiv>
               <S.ProfileIndexWrapper>
                 <S.ProfileIndexDiv>
-                  <span onClick={() => scrollToElement('소개')}>소개</span>
+                  <span  onClick={() => scrollToElement('소개')}>소개</span>
                   <span onClick={() => scrollToElement('제작한 글씨')}>제작한 글씨</span>
                   <span onClick={() => scrollToElement('작성한 이야기')}>작성한 이야기</span>
                   {isMypage && <S.ProfileInfoLink onClick={clickModal}>내 정보</S.ProfileInfoLink>}
@@ -232,10 +230,10 @@ export default function ProfilePage() {
             </S.ProfileLeftDiv>
           </S.ProfileLeftWrapper>
           {/* ----------------좌우 구분--------------- */}
-          <S.ProfileRightWrapper>
+          <S.ProfileRightWrapper id="소개">
             <S.ProfileIntroDiv>
               <S.ProfileIntroDivUp>
-                <S.ProfileIntroSpan id="소개">소개</S.ProfileIntroSpan>
+                <S.ProfileIntroSpan>소개</S.ProfileIntroSpan>
                 {isEdit ? (
                   <S.CommentInputAreaWrapper>
                     <S.CommentInputPlaceholder $isempty={!intro}>
@@ -299,7 +297,13 @@ export default function ProfilePage() {
                 {isMypage
                   ? fontRes?.data.map((props: ProfileFontCardProps) => {
                       if (props.state && props.state > 3) {
-                        return <Comp.ProfileFontCard key={props.handwritingId} profileFontCardProps={props} />;
+                        return (
+                          <Comp.ProfileFontCard
+                            key={props.handwritingId}
+                            profileFontCardProps={props}
+                            refetchInfo={fontRefetchProps}
+                          />
+                        );
                       } else {
                         return <Comp.ProfileFontCardMaking key={props.handwritingId} profileFontCardProps={props} />;
                       }
@@ -309,6 +313,7 @@ export default function ProfilePage() {
                         <Comp.ProfileFontCard
                           key={profileFontCardProps.handwritingId}
                           profileFontCardProps={profileFontCardProps}
+                          refetchInfo={fontRefetchProps}
                         />
                       );
                     })}
@@ -325,7 +330,7 @@ export default function ProfilePage() {
                 {storyRes?.data.map((storyProps: ProfileStoryCardProps) => {
                   return (
                     <S.BaseStoryCardWrapper key={storyProps.handwritingStoryId}>
-                      <Comp.BaseStoryCard {...storyProps} member={memberRes?.data} />
+                      <Comp.BaseStoryCard {...storyProps} member={memberRes?.data} onClick={(e: MouseEvent<HTMLImageElement>)=>{e.stopPropagation; router.push(`/font-story-detail/${storyProps.handwritingStoryId}`)}} />
                     </S.BaseStoryCardWrapper>
                   );
                 })}

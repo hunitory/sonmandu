@@ -1,9 +1,23 @@
 'use client';
 import * as Styled from './style';
 import * as Comp from 'components';
+import { jwtDecode } from 'jwt-decode';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function FontComplete() {
+  const router = useRouter();
+  const [createrToken, setCreaterToken] = useState<{
+    memberId: number;
+    nickName: string;
+    imageUrl: string | null;
+  } | null>(null);
+
+  useEffect(() => {
+    setCreaterToken(jwtDecode(localStorage.getItem('access_token') as string));
+  }, []);
+
   return (
     <Styled.Wrapper>
       <Styled.StepWrapper>
@@ -28,10 +42,12 @@ export default function FontComplete() {
           </Styled.ContentTextWrapper>
         </Styled.ContentWrapper>
         <Styled.ButtonWrapper>
-          <Styled.MyPageButton type="button" disabled={false}>
-            <Link href={'/profile/1'}>
-              <Styled.MyPageButtonText>마이 페이지</Styled.MyPageButtonText>
-            </Link>
+          <Styled.MyPageButton
+            type="button"
+            disabled={false}
+            onClick={() => router.push(`/profile/${createrToken?.memberId}`)}
+          >
+            <Styled.MyPageButtonText>마이 페이지</Styled.MyPageButtonText>
           </Styled.MyPageButton>
           <Styled.MainPageButton type="button" disabled={false}>
             <Link href={'/'}>

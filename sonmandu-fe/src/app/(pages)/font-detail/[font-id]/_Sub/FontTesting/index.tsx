@@ -29,7 +29,7 @@ function FontTesting({ fontName, isAllResourcesLoad }: FontTestingProps) {
     if (letterImageRef.current) {
       try {
         const canvas = await html2canvas(letterImageRef.current);
-        canvas.toBlob((blob) => blob !== null && saveAs(blob, `손만두 ${'폰트이름'}`));
+        canvas.toBlob((blob) => blob !== null && saveAs(blob, `손만두-${fontName}`));
       } catch (err) {
         alert('이미지가 정상적으로 저장되지 않았습니다!');
       }

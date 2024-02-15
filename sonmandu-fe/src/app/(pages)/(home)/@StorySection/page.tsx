@@ -61,10 +61,6 @@ export default function StorySection() {
     }
   }, []);
 
-  useEffect(()=>{
-    console.log(response?.data)
-  })
-
   return (
     <Styled.StoryWrapper>
       <Styled.TitleWrapper>

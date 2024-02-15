@@ -133,11 +133,9 @@ export default function FontStoryWritePage() {
                         type="button"
                         onClick={() => {
                           if (handwriting === font.handwritingId) {
-                            console.log(font.handwritingId);
                             setHandwriting(null);
                           } else {
                             setHandwriting(font.handwritingId);
-                            console.log(font.handwritingId);
                           }
                         }}
                         disabled={false}

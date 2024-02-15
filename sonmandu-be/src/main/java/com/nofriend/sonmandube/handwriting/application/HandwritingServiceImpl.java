@@ -115,6 +115,7 @@ public class HandwritingServiceImpl implements HandwritingService{
 <<<<<<< HEAD
 <<<<<<< HEAD
                                 .handwritingApplicationId(handwritingApplicationId)
+<<<<<<< HEAD
 =======
                 .handwritingApplication(
                         HandwritingApplication.builder()
@@ -134,17 +135,25 @@ public class HandwritingServiceImpl implements HandwritingService{
 >>>>>>> 4b3905b (refactor: change param save font)
                                 .state(4)
 >>>>>>> 057e098 (fix: change state)
+=======
+>>>>>>> 1bbced8 (fix: save font state)
                                 .build()
                 )
                 .build();
         handwritingRepository.save(handwriting);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1bbced8 (fix: save font state)
         handwritingApplicationRepository.findById(handwritingApplicationId)
                 .orElseThrow(() -> new IdNotFoundException("해당하는 이야기가 없습니다."))
                 .saveFont();
 
+<<<<<<< HEAD
 =======
 >>>>>>> ae05ff2 (feat: update logout security)
+=======
+>>>>>>> 1bbced8 (fix: save font state)
         log.info("success save handwriting");
     }
 

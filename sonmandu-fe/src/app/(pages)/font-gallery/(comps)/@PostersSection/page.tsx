@@ -40,13 +40,13 @@ export default function PostersSection() {
     );
   }, []);
 
-  const isQueryChanged = useCallback(() => {
+  const isQueryChanged = () => {
     for (const [key, value] of searchParams.entries()) {
       if (!['name', 'tagId', 'sort'].includes(key)) continue;
       if (prevSearchParams[key] !== value) return true;
     }
     return false;
-  }, [searchParams.get('tagId'), searchParams.get('name'), searchParams.get('sort')]);
+  };
 
   const queryStringChangeQueryKey = [
     'font-gallery-search',
@@ -80,19 +80,8 @@ export default function PostersSection() {
       };
       const serverRes = await API.handwriting.fontListInGallery(requestArgs);
 
-      const filteredList: T.FontCard[] = [];
-      setCurItemList((previous) => {
-        serverRes.data.forEach((res: T.FontCard, resIdx: number) => {
-          previous.forEach(
-            (prev, prevIdx) => res.handwritingId !== prev.handwritingId && filteredList.push(serverRes.data[resIdx]),
-          );
-        });
-        return filteredList;
-      });
-
-      await requestFonts(filteredList);
-
-      console.log(`쿼리 요청 :`, serverRes.data);
+      setCurItemList((prev) => [...serverRes.data]);
+      await requestFonts(serverRes.data);
 
       return serverRes.data;
     },
@@ -102,7 +91,7 @@ export default function PostersSection() {
   });
 
   const infiniteScrollQueryKey = ['font-gallery-search'];
-  const { isLoading: infiniteScrollLoading, refetch: requestGetListByScroll } = useQuery({
+  const { isFetching: infiniteScrollLoading, refetch: requestGetListByScroll } = useQuery({
     queryKey: infiniteScrollQueryKey,
     queryFn: async () => {
       const requestArgs = {
@@ -128,25 +117,51 @@ export default function PostersSection() {
     if (isIntersecting) {
       const res = await requestGetListByScroll();
 
-      if (res.data.length === 0) setEndOfList(false);
+      if (res.data.length === 0) setEndOfList(true);
       return res;
     }
     return isIntersecting;
   };
   const { setTarget } = useIntersectionObserver({ onIntersect: infiniteScrollRequest });
 
+  useEffect(() => {
+    return () => {
+      setCurItemList(() => []);
+      setEndOfList(false);
+      setPrevSearchParams({
+        tagId: searchParams.get('tagId') || '',
+        name: searchParams.get('name') || '',
+        sort: searchParams.get('sort') || '',
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    if (searchParams.get('tagId') === null && searchParams.get('name') === null && searchParams.get('sort') === null)
+      requestGetListByOptions();
+    setEndOfList(() => false);
+  }, [searchParams.get('tagId'), searchParams.get('name'), searchParams.get('sort')]);
+
+  const createScrollTarget = useCallback(() => {
+    if (!endOfList) {
+      if (!infiniteScrollLoading && !queryStringChangeLoading) {
+        return <div ref={setTarget}></div>;
+      }
+    }
+  }, [endOfList, infiniteScrollLoading, queryStringChangeLoading]);
+
   return (
     <S.CardsGridWrapper>
       {curItemList.length > 0 &&
         curItemList.map((res: T.FontCard, i: number) => (
-          <Comp.BaseFontCard
+          <S.CustomFontCard
             key={`${res.handwritingId}-${i}`}
             {...res}
             letter={{ isShow: true, idx: i }}
             onClick={() => route.push(`/font-detail/${res.handwritingId}`)}
           />
         ))}
-      {!endOfList || (!infiniteScrollLoading && !queryStringChangeLoading && <div ref={setTarget}></div>)}
+      {createScrollTarget()}
     </S.CardsGridWrapper>
   );
 }

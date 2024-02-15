@@ -24,11 +24,18 @@ function SearchOptions() {
   const createQueryString = useCallback(
     ({ name, value }: CreateQueryStringArgs) => {
       if (name === 'tagId') {
-        const newTags = (value as string[]).join(',');
         const params = new URLSearchParams(searchParams.toString());
-        params.set('tagId', newTags);
+        const prevSearchParams = `${searchParams.get('tagId')}`.split(',');
+        const newTags: string[] = [];
+        if (prevSearchParams.includes(value as string)) {
+          prevSearchParams.forEach((el, i) => el && el !== ',' && el !== value && newTags.push(el));
 
-        return router.push(`${pathname}?${params.toString()}`);
+          newTags.length === 0 ? params.delete('tagId') : params.set('tagId', newTags.join(','));
+          return router.push(`${pathname}?${params.toString()}`);
+        } else {
+          params.set('tagId', `${value},${searchParams.get('tagId') || ''}`);
+          return router.push(`${pathname}?${params.toString()}`);
+        }
       }
 
       const params = new URLSearchParams(searchParams.toString());

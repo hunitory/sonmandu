@@ -12,11 +12,8 @@ import { FontCard } from 'types';
 import Slider from 'react-slick';
 import CustomSlider from 'react-slick';
 
-interface BannerSectionProps {
-  searchParams: { tagId: string; name: string; sort: string };
-}
 
-export default function BannerSection({ searchParams }: BannerSectionProps) {
+export default function BannerSection() {
   const settings = {
     infinite: true,
     speed: 500,
@@ -52,8 +49,8 @@ export default function BannerSection({ searchParams }: BannerSectionProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const goNext = useCallback(() => {
-    if (slickRef.current) {
-      slickRef.current.slickNext();
+    if (slickRef?.current) {
+      slickRef?.current.slickNext();
     }
   }, []);
 

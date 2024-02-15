@@ -83,12 +83,10 @@ export default function FontInfo() {
 
       instanceMultipartContent
         .post(apiUrl, formData)
-        .then((response) => {
-          console.log('POST 요청 성공:', response.data);
+        .then(() => {
           router.push('/create-font/complete');
         })
-        .catch((error) => {
-          console.error('POST 요청 실패:', error);
+        .catch(() => {
           alert('업로드에 실패했습니다.');
         });
     } else {
@@ -117,7 +115,6 @@ export default function FontInfo() {
       }
     },
     onError: (error) => {
-      console.log(error);
     },
   });
 

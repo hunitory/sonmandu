@@ -68,19 +68,12 @@ export default function ProfilePage() {
         : API.handwriting.getProfileHandwriting({ memberId: params['member-id'] as string }),
   });
 
-  useEffect(() => {
-    console.log(fontRes);
-  }, [fontRes]);
 
   // 폰트이야기 조회
   const { data: storyRes, isFetching: isStoryFontFetching } = useQuery({
     queryKey: ['font-story', params['member-id']],
     queryFn: () => API.handwritingStory.getHandwritingStory({ memberId: params['member-id'] as string }),
   });
-
-  useEffect(() => {
-    console.log(storyRes);
-  }, [storyRes]);
 
   const ProfileBoxProps: ProfileBoxProps = {
     memberId: parseInt(params['member-id'] as string),
@@ -98,11 +91,7 @@ export default function ProfilePage() {
   const clickModal = () => {
     setShowModal(!showModal);
   };
-
-  // const filteredHandwriting = handwritings.filter((handwriting) => handwriting && handwriting.state > 3);
-  // const numberOfHandwriting = filteredHandwriting.length;
-  // const handwritinggroup = isMypage ? handwritings : filteredHandwriting;
-
+  
   // 수정하기 버튼입력
   const [isEdit, setIsEdit] = useState(false);
   const handleEdit = (isEdit: boolean) => {
@@ -166,9 +155,8 @@ export default function ProfilePage() {
     mutationFn: () => API.member.editProfileImage({ imageFile: uploadedFile }),
     onSuccess: () => {
       memberRefetch();
-      console.log('success');
     },
-    onError: () => console.log(uploadedFile),
+    onError: () => {},
   });
 
   useEffect(() => {
@@ -180,7 +168,6 @@ export default function ProfilePage() {
       formData.append('image', uploadedFile);
 
       instanceMultipartContent.patch('/members/image', formData).then((response) => {
-        console.log('성공: ', response.data);
         memberRefetch();
       });
     }

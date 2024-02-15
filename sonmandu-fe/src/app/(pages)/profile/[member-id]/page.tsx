@@ -91,11 +91,7 @@ export default function ProfilePage() {
   const clickModal = () => {
     setShowModal(!showModal);
   };
-
-  // const filteredHandwriting = handwritings.filter((handwriting) => handwriting && handwriting.state > 3);
-  // const numberOfHandwriting = filteredHandwriting.length;
-  // const handwritinggroup = isMypage ? handwritings : filteredHandwriting;
-
+  
   // 수정하기 버튼입력
   const [isEdit, setIsEdit] = useState(false);
   const handleEdit = (isEdit: boolean) => {

@@ -1,10 +1,20 @@
-import React from 'react'
-import * as S from './_style'
+import React from 'react';
+import * as Styled from './_style';
 
 export default function HomeLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
-  return <S.StyledMain>{children}</S.StyledMain>
+  BannerSection,
+  StorySection,
+  AnimationSection,
+}: {
+  BannerSection: React.ReactNode;
+  StorySection: React.ReactNode;
+  AnimationSection: React.ReactNode;
+}) {
+  return (
+    <Styled.StyledMain>
+      {BannerSection}
+      {StorySection}
+      {AnimationSection}
+    </Styled.StyledMain>
+  );
 }

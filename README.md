@@ -35,7 +35,11 @@
 
 ---
 
-<img width=100 src='BE 기술스택 이미지'>
+<img width=100 src='./readme-image/spring.png'>
+<img width=100 src='./readme-image/spring security.png'>
+<img width=100 src='./readme-image/jpa.png'>
+<img width=100 src='./readme-image/mysql.png'>
+<img width=100 src='./readme-image/s3.png'>
 
 <br/>
 <br/>
@@ -53,7 +57,11 @@
 
 ---
 
-<img width=100 src='Infra 기술스택 이미지'>
+<img width=100 src='./readme-image/ec2.png'>
+<img width=100 src='./readme-image/nginx.png'>
+<img width=100 src='./readme-image/jenkins.png'>
+<img width=100 src='./readme-image/docker.png'>
+
 
 <br/>
 <br/>
@@ -66,7 +74,7 @@
 
 ---
 
-<img src="">
+<img src="./readme-image/b111-architecture.png">
 
 <br/>
 <br/>
@@ -75,7 +83,7 @@
 
 ---
 
-<img src="">
+<img src="./readme-image/erd.png">
 
 <br/>
 <br/>
@@ -84,4 +92,6 @@
 
 ---
 
-<img src="">
+<img src="./readme-image/sequence1.PNG">
+<img src="./readme-image/sequence2.PNG">
+<img src="./readme-image/sequence3.PNG">

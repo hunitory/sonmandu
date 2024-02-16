@@ -31,7 +31,6 @@ export async function loadFontInService({
   getFontResponse: AxiosResponse | undefined;
   name: string;
 }) {
-  // console.log(`${name} : ${getFontResponse?.data}`);
   const fontBuffer = getFontResponse?.data;
   const fontBase64 = Buffer.from(fontBuffer).toString('base64');
   const customFont = new FontFace(name, `url(data:${getFontResponse?.headers['content-type']};base64,${fontBase64})`, {

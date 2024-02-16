@@ -46,13 +46,9 @@ function ProfilePasswordInput({ isActive, activate }: ProfilePasswordInputProps)
 
   const { mutate: requestEditInfo } = useMutation({
     mutationKey: ['request-edit-info'],
-    mutationFn: () => API.member.editMemberInfo({ labelName: "password", info: newPassword1 }),
-    onSuccess: () => {
-      console.log('오니')
-    },
-    onError: () => {
-      console.log('안되니')
-    },
+    mutationFn: () => API.member.editMemberInfo({ labelName: 'password', info: newPassword1 }),
+    onSuccess: () => {},
+    onError: () => {},
   });
   // setIsEdit(!isEdit)
   const handleEditButtonClick = () => {

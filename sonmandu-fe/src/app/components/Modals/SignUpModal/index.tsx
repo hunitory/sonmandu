@@ -76,7 +76,6 @@ function SignUpModal() {
         email: valuesBasket.email,
       }),
     onSuccess: async (res) => {
-      console.log(`회원가입 요청 :`, res);
       if (res.status === 204) {
         signUpModal.closeModal();
         loginModal.openModal();

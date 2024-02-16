@@ -4,7 +4,6 @@ import React, { ChangeEvent, useState, useRef, useEffect } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
 import * as API from '@/apis';
-import Image from 'next/image';
 import { instanceMultipartContent } from 'apis/_instance';
 import { useParams, useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
@@ -35,7 +34,6 @@ export default function FontStoryEditPage() {
   // 기존데이터 불러오기
   const storyInfo = useRecoilValue(storyInfoState);
 
-
   const router = useRouter();
 
   const ref = useRef<HTMLInputElement>(null);
@@ -59,13 +57,8 @@ export default function FontStoryEditPage() {
     setSelectedFile(file);
   };
 
-  useEffect(() => {
-    console.log(res?.data)
-  }, [res])
-  
   const PostStory = () => {
     const data = {
-      // handwritingId: storyInfo.handwritingStoryId,
       title: title,
       content: content,
     };

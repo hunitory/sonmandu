@@ -6,12 +6,31 @@
 
 ---
 
-<img src='팀이미지'>
+<img src='./readme-image/my-teams.png'>
 
 <br/>
 <br/>
 
 ### 협업
+
+---
+
+- 매주 **스프린트**를 **Jira**를 활용해 관리하였고, **Gerrit**을 활용해 **코드 품질을 관리**하였다.
+
+<br/>
+<br/>
+
+### 브랜치 전략
+
+---
+
+- **main(master)**: 서비스을 직접 배포하는 역할을 하는 브랜치
+- **feature**: 각 기능 별 개발 브랜치
+- **develop**: feature에서 개발된 내용이 저장되는 브랜치
+- **release**: 배포를 하기 전 내용을 QA(품질 검사)하기 위한 브랜치
+- **hotfix**: main 브랜치로 배포를 하고 나서 버그가 생겼을 때 빨리 고치기 위한 브랜치
+
+<img src='./readme-image/git-branch-img.png'>
 
 ---
 
@@ -26,7 +45,12 @@
 
 ---
 
-<img width=100 src='FE 기술스택 이미지'>
+<img width=100 src='./readme-image/nextjs-logo.png'>
+<img width=100 src='./readme-image/react-logo.png'>
+<img width=100 src='./readme-image/typescript-logo.png'>
+<img width=100 src='./readme-image/recoil-logo.png'>
+<img width=100 src='./readme-image/react-query-logo.png'>
+<img width=100 src='./readme-image/styled-component-logo.png'>
 
 <br/>
 <br/>
@@ -48,7 +72,10 @@
 
 ---
 
-<img width=100 src='AI 기술스택 이미지'>
+<img width=100 src='./readme-image/python-logo.png'>
+<img width=100 src='./readme-image/tensorflow-logo.png'>
+<img width=100 src='./readme-image/linux-logo.png'>
+<img width=100 src='./readme-image/node-js-logo.png'>
 
 <br/>
 <br/>
@@ -61,7 +88,6 @@
 <img width=100 src='./readme-image/nginx.png'>
 <img width=100 src='./readme-image/jenkins.png'>
 <img width=100 src='./readme-image/docker.png'>
-
 
 <br/>
 <br/>

@@ -39,7 +39,6 @@ export default function FontStoryDetailPage() {
     queryKey: queryKey,
     queryFn: () => API.handwritingStory.handwritingStoryDetail({ fontStoryId: params['font-story-id'] as string }),
   });
-  // console.log(`response :`, response);
   const {
     data: resFromS3,
     isFetching: isFileFetching,
@@ -177,7 +176,7 @@ export default function FontStoryDetailPage() {
         content: comment,
       }),
     onSuccess: () => storyRefetch(),
-    onError: () => console.log(comment),
+    onError: () => {},
   });
 
   const handleCommentButtonClick = async () => {

@@ -41,7 +41,6 @@ const customInstance = (contentType: string) => {
           return await axios(originRequest);
         }
       }
-      console.log('response err', err);
       return Promise.reject(err);
     },
   );

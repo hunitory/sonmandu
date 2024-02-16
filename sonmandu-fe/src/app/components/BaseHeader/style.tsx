@@ -34,15 +34,14 @@ export const UserInteractionWrapper = styled.nav`
 
 export const LinkWrapper = styled.div`
   width: calc(100% - 72px);
-  min-width: 374px;
+  min-width: 380px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
 
   & > a {
     width: fit-content;
-    font-family: ${notoSansKr.medium.style.fontFamily};
-    font-weight: ${notoSansKr.medium.style.fontWeight};
+
     border-radius: 12px;
     padding: 12px;
     font-size: 14px;

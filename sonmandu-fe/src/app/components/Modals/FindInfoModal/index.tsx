@@ -21,7 +21,6 @@ export default function FindInfoModal() {
       return API.member.findUserPassword({ ...passwordValueBasket });
     },
     onSuccess: (res) => {
-      console.log(`FIND PASSWORD RESPONSE :`, res.data);
       alert('이메일로 임시 비밀번호가 전송되었습니다!');
       setPasswordValueBasket((prev) => ({ ...prev, id: '', name: '', email: '' }));
       findInfoModal.closeModal();
@@ -38,7 +37,6 @@ export default function FindInfoModal() {
       return API.member.findUserId({ ...idValueBasket });
     },
     onSuccess: (res) => {
-      console.log(`FIND ID RESPONSE :`, res.data);
       alert('이메일로 아이디가 전송되었습니다!');
       setIdValueBasket((prev) => ({ ...prev, id: '', password: '' }));
       findInfoModal.closeModal();

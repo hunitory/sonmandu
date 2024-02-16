@@ -11,17 +11,8 @@ import { useQuery } from '@tanstack/react-query';
 
 export default function ProfileInfoModal({ clickModal }: ProfileInfoModalProps) {
   const onClose = () => {
-    clickModal(); // 모달 닫기
+    clickModal(); 
   };
-
-  // 현재 로그인한 유저 정보 - 받아와야함
-  // const member = {
-  //   nickname: 'ssafy',
-  //   id: 'ssdaj555',
-  //   password: 'eowjs123',
-  //   name: '오이김',
-  //   email: 'lsdkfj@gmail.com',
-  // };
 
   const params = useParams();
   const queryKey = ['profile-info'];
@@ -29,10 +20,6 @@ export default function ProfileInfoModal({ clickModal }: ProfileInfoModalProps) 
     queryKey: queryKey,
     queryFn: () => API.member.getMemberInfo(),
   });
-
-  useEffect(() => {
-    console.log(infoRes);
-  }, [infoRes]);
 
   const [isActive, setIsActive] = useState({
     nickname: true,

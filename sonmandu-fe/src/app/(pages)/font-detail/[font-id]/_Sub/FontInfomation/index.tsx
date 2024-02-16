@@ -29,6 +29,7 @@ function FontInfomation({ data, isAllResourcesLoad }: FontInfomationProps) {
 
   const handleShareClick = () => {
     navigator.clipboard.writeText(window.location.href);
+    alert('클립보드에 저장되었습니다.')
   };
 
   return (

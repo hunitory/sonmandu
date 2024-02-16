@@ -24,7 +24,7 @@ export default function ProfileBox(props: ProfileBoxProps) {
   const handleProfileBoxClick = (e: MouseEvent<HTMLImageElement>) => {
     e.stopPropagation();
     router.push(`/profile/${memberId}`);
-  } 
+  };
   return (
     <S.ProfileBoxWrapper className={className} onClick={handleProfileBoxClick}>
       <S.ProfileImageWrapper size={imgSize}>

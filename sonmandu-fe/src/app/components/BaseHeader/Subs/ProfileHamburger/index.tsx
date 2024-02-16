@@ -38,7 +38,8 @@ export default function ProfileHamburger() {
       if (res.status === 204) {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
-        location.reload();
+        setAuthorizationUser({ isAuth: false, tokenPayload: null });
+        router.replace('/');
       }
     },
   });

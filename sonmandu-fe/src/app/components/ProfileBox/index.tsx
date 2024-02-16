@@ -19,25 +19,27 @@ import { ProfileBoxProps } from 'types';
 export default function ProfileBox(props: ProfileBoxProps) {
   const { imageUrl, nickname, badge, imgSize, fontSize, memberId, className } = props;
   return (
-    <S.ProfileBoxWrapper className={className}>
-      <S.ProfileImageWrapper size={imgSize}>
-        <div>
-          {imageUrl ? (
-            <Comp.CustomImage src={imageUrl} alt="#" fill priority sizes="10vw" style={{ objectFit: 'cover' }} />
-          ) : (
-            <Comp.NoProfileImage width={imgSize} height={imgSize} memberId={memberId} children={nickname as string} />
+    <Link href={`/profile/${memberId}`}>
+      <S.ProfileBoxWrapper className={className}>
+        <S.ProfileImageWrapper size={imgSize}>
+          <div>
+            {imageUrl ? (
+              <Comp.CustomImage src={imageUrl} alt="#" fill priority sizes="10vw" style={{ objectFit: 'cover' }} />
+            ) : (
+              <Comp.NoProfileImage width={imgSize} height={imgSize} memberId={memberId} children={nickname as string} />
+            )}
+          </div>
+        </S.ProfileImageWrapper>
+        <S.BadgeNameDiv fontSize={fontSize}>
+          {badge && (
+            <S.BadgeWrapper fontSize={fontSize}>
+              <Comp.CustomImage src="/image/weekly-medal.svg" alt="#" fill />
+            </S.BadgeWrapper>
           )}
-        </div>
-      </S.ProfileImageWrapper>
-      <S.BadgeNameDiv fontSize={fontSize}>
-        {badge && (
-          <S.BadgeWrapper fontSize={fontSize}>
-            <Comp.CustomImage src="/image/weekly-medal.svg" alt="#" fill />
-          </S.BadgeWrapper>
-        )}
-        <span>{nickname}</span>
-      </S.BadgeNameDiv>
-    </S.ProfileBoxWrapper>
+          <span>{nickname}</span>
+        </S.BadgeNameDiv>
+      </S.ProfileBoxWrapper>
+    </Link>
   );
 }
 

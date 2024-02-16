@@ -13,6 +13,16 @@ export const ProfileFontCardWrapper = styled.div`
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 30px;
+  cursor: pointer;
+
+  &:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    transition:
+      box-shadow 0.25s ease-in,
+      transform 0.25s ease-in;
+  }
 `;
 
 export const UpperWrapper = styled.div`

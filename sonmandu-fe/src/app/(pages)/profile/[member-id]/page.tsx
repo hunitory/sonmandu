@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef, ChangeEvent, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef, ChangeEvent, useLayoutEffect, MouseEvent } from 'react';
 import * as S from './style';
 import * as Comp from '@/components';
 import * as T from '@/types';
@@ -58,6 +58,7 @@ export default function ProfilePage() {
     queryKey: queryKey,
     queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string }),
   });
+  console.log(memberRes?.data)
 
   // 만든 폰트 목록 조회
   const {
@@ -220,7 +221,7 @@ export default function ProfilePage() {
               </S.ProfileBoxDiv>
               <S.ProfileIndexWrapper>
                 <S.ProfileIndexDiv>
-                  <span onClick={() => scrollToElement('소개')}>소개</span>
+                  <span  onClick={() => scrollToElement('소개')}>소개</span>
                   <span onClick={() => scrollToElement('제작한 글씨')}>제작한 글씨</span>
                   <span onClick={() => scrollToElement('작성한 이야기')}>작성한 이야기</span>
                   {isMypage && <S.ProfileInfoLink onClick={clickModal}>내 정보</S.ProfileInfoLink>}
@@ -229,10 +230,10 @@ export default function ProfilePage() {
             </S.ProfileLeftDiv>
           </S.ProfileLeftWrapper>
           {/* ----------------좌우 구분--------------- */}
-          <S.ProfileRightWrapper>
+          <S.ProfileRightWrapper id="소개">
             <S.ProfileIntroDiv>
               <S.ProfileIntroDivUp>
-                <S.ProfileIntroSpan id="소개">소개</S.ProfileIntroSpan>
+                <S.ProfileIntroSpan>소개</S.ProfileIntroSpan>
                 {isEdit ? (
                   <S.CommentInputAreaWrapper>
                     <S.CommentInputPlaceholder $isempty={!intro}>
@@ -329,7 +330,7 @@ export default function ProfilePage() {
                 {storyRes?.data.map((storyProps: ProfileStoryCardProps) => {
                   return (
                     <S.BaseStoryCardWrapper key={storyProps.handwritingStoryId}>
-                      <Comp.BaseStoryCard {...storyProps} member={memberRes?.data} />
+                      <Comp.BaseStoryCard {...storyProps} member={memberRes?.data} onClick={(e: MouseEvent<HTMLImageElement>)=>{e.stopPropagation; router.push(`/font-story-detail/${storyProps.handwritingStoryId}`)}} />
                     </S.BaseStoryCardWrapper>
                   );
                 })}

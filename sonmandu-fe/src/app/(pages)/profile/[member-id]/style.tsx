@@ -113,6 +113,10 @@ export const ProfileIndexDiv = styled.div`
     font-family: ${notoSansKr.bold.style.fontFamily};
     cursor: pointer;
   }
+
+  span & .active {
+    color: ${PALETTE.MAIN_ORANGE};
+  }
 `;
 
 export const ProfileBoxInfoDiv = styled.span`

@@ -11,16 +11,37 @@ export const PageTitleLinkWrapper = styled.div`
   gap: 20px;
 `;
 
-export const StoryDetailLinkWrapper = styled(BaseButton)`
+export const StoryDetailLinkWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: end;
   align-items: center;
-  text-decoration: underline;
-  padding-right: 10px;
+`;
+
+export const LinkButtonWrapper = styled.div`
+  display: inline-block;
+  cursor: pointer;
+  :hover {
+    background-color: ${PALETTE.MAIN_ORANGE};
+    color: white;
+  }
+`;
+
+export const LinkButton = styled.div`
+  width: fit-content;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(4px, 0.3vw, 10px) clamp(9px, 0.8vw, 20px);
+  border: 1px solid ${PALETTE.MAIN_ORANGE};
+  border-radius: 20px;
+  color: ${PALETTE.MAIN_ORANGE};
+  font-size: clamp(14px, 1vw, 18px);
+  font-weight: ${notoSansKr.bold.style.fontWeight};
+  font-family: ${notoSansKr.bold.style.fontFamily};
   span {
     font-size: 16px;
-    cursor: pointer;
   }
 `;
 

@@ -85,7 +85,8 @@ export default function PostersSection() {
       return serverRes.data;
     },
     refetchInterval: false,
-    refetchOnMount: false,
+    refetchOnMount: true,
+    retry: 1,
   });
 
   const infiniteScrollQueryKey = ['font-gallery-search'];
@@ -124,8 +125,8 @@ export default function PostersSection() {
 
   useEffect(() => {
     return () => {
-      setCurItemList([]);
-      setEndOfList(false);
+      // setCurItemList([]);
+      // setEndOfList(false);
     };
   }, []);
 

@@ -32,6 +32,6 @@ export const CardsGridWrapper = styled.section`
 
 export const CustomFontCard = styled(Comp.BaseFontCard)`
   & > article > p {
-    font-size: 20px;
+    font-size: 24px;
   }
 `;

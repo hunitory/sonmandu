@@ -37,6 +37,7 @@ export const FontCardContainer = styled.article<{ name: string }>`
 
 export const FontName = styled.p`
   height: 58px;
+  font-size: 20px;
   font-weight: ${notoSansKr.semiBold.style.fontWeight};
 `;
 

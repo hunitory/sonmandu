@@ -40,7 +40,7 @@ function BaseFontCard(props: FontCard) {
     <S.FontCardWrapper onClick={onClick} className={className}>
       <S.FontCardContainer name={name}>
         <S.FontName>{name}</S.FontName>
-        {letter.isShow && <BaseLetterField fontSize={14} letterImgUrl={`/image/letter-${letter.idx % 7}.png`} />}
+        {letter.isShow && <BaseLetterField fontSize={20} letterImgUrl={`/image/letter-${letter.idx % 7}.png`} />}
         <S.EtcInfomationWrapper>
           <S.IconTextsWrapper>
             <S.IconWithNumberContainer disabled={false} type="button" onClick={handleLikeClick}>

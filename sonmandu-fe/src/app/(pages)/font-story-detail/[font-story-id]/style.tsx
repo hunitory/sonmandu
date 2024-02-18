@@ -90,7 +90,7 @@ export const HeartWrapper = styled.div`
 `;
 
 export const TitleSpan = styled.span<{ name: string }>`
-  font-size: 1.6vw;
+  font-size: max(30px, 1.6vw);
   font-weight: ${notoSansKr.bold.style.fontWeight};
   font-family: ${(props) => (props.name ? props.name : notoSansKr.extraBold.style.fontFamily)};
 `;
@@ -105,7 +105,7 @@ export const FontDateWrapper = styled.div`
 export const FontLinkWrapper = styled.div<{ name: string }>`
   width: fit-content;
   height: fit-content;
-  font-size: max(14px, 0.8vw);
+  font-size: max(20px, 0.8vw);
   text-decoration: underline;
   font-weight: ${notoSansKr.bold.style.fontWeight};
   display: flex;
@@ -118,7 +118,7 @@ export const FontLinkWrapper = styled.div<{ name: string }>`
 `;
 
 export const FontStoryDateWrapper = styled.span`
-  font-size: max(14px, 0.8vw);
+  font-size: max(18px, 0.8vw);
 `;
 
 export const FontStoryTextWrapper = styled.div`
@@ -137,7 +137,7 @@ export const TagsWrapper = styled.div`
 export const FontStoryText = styled.div<{ name: string }>`
   width: 95%;
   height: fit-content;
-  font-size: max(14px, 1vw);
+  font-size: max(24px, 1vw);
   line-height: 1.5;
   white-space: pre-line;
   font-family: ${(props) => (props.name ? props.name : notoSansKr.extraBold.style.fontFamily)};

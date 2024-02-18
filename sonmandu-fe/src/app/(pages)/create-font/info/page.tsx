@@ -21,7 +21,7 @@ export default function FontInfo() {
   const [fontInfo, setfontNameState] = useRecoilState(fontInfoState);
   const uploadedFiles = useRecoilValue(uploadedFilesState);
 
-  const [isFontNameDuplicated, setIsFontNameDuplicated] = useState<boolean>(false);
+  const [isFontNameDuplicated, setIsFontNameDuplicated] = useState<boolean>(true);
 
   useEffect(() => {
     const token = !!localStorage.getItem('access_token');

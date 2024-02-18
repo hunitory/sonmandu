@@ -20,6 +20,7 @@ function BaseFontCard(props: FontCard) {
     onClick,
     className,
   } = props;
+  console.log(`${name} :`, props);
   const [copyIsLikeAndCount, setCopyIsLikeAndCount] = useState({ isLike: isLike, count: likeCount });
   const { mutate, data: resLikeClick } = useMutation({
     mutationKey: ['font-gallery-click-like', handwritingId],

@@ -15,7 +15,8 @@ export async function fontListInGallery({ startIdx, takeCount, tagId, sort, name
 }
 
 export async function getFontFileFromS3({ url }: { url: string }) {
-  const resourceExtension = url.slice(url.length - 3, url.length);
+  // const resourceExtension = url.slice(url.length - 3, url.length);
+  const resourceExtension = 'woff2';
   return axios.get(url, {
     responseType: 'arraybuffer',
     headers: {

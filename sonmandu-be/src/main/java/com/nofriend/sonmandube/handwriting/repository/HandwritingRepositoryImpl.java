@@ -43,6 +43,9 @@ public class HandwritingRepositoryImpl implements HandwritingRepositoryCustom {
             builder.and(handwriting.handwritingApplication.handwritingApplicationId.in(handwritingApplicationIds));
         }
 
+        builder.and(handwriting.isSelected.isTrue());
+
+        System.out.println("condition");
         List<Handwriting> result = jpaQueryFactory.selectFrom(handwriting)
                 .where(builder)
                 .offset(start)

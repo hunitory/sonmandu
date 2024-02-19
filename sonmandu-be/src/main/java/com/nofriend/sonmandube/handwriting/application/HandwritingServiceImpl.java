@@ -233,7 +233,7 @@ public class HandwritingServiceImpl implements HandwritingService{
         List<MyHandwritingResponse> myHandwritingResponses = new ArrayList<>();
         for (int i=0; i<handwritingApplicationList.size(); i++) {
             HandwritingApplication handwritingApplication = handwritingApplicationList.get(i);
-            Optional<Handwriting> handwriting = handwritingRepository.findById(handwritingApplication.getHandwritingApplicationId());
+            Optional<Handwriting> handwriting = handwritingRepository.findByHandwritingApplicationHandwritingApplicationIdAndIsSelected(handwritingApplication.getHandwritingApplicationId(), true);
             boolean isLike = false;
             if(handwriting.isPresent()) {
                 if(handwritingLikeRepository.existsById(new HandwritingCountId(memberId, handwriting.get().getHandwritingId()))){

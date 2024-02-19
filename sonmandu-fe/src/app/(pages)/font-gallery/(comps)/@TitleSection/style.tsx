@@ -11,11 +11,11 @@ export const PageTitleWrapper = styled.section`
 
   div {
     h1 {
-      font-size: 28px;
+      font-size: 36px;
       font-weight: ${notoSansKr.bold.style.fontWeight};
     }
     p {
-      font-size: 14px;
+      font-size: 18px;
       font-weight: ${notoSansKr.extraLight.style.fontWeight};
       color: ${PALETTE.LIGHT_BLACK};
     }
@@ -24,11 +24,11 @@ export const PageTitleWrapper = styled.section`
   @media (max-width: 1024px) {
     div {
       h1 {
-        font-size: 24px;
+        font-size: 32px;
         font-weight: ${notoSansKr.bold.style.fontWeight};
       }
       p {
-        font-size: 12px;
+        font-size: 16px;
         color: ${PALETTE.LIGHT_BLACK};
       }
     }

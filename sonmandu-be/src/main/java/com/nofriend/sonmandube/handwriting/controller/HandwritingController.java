@@ -26,7 +26,6 @@ public class HandwritingController {
 
     private final HandwritingService handwritingService;
 
-//    @PreAuthorize("hasRole('USER')")
     @PostMapping
     public ResponseEntity<Void> applyHandwriting(
             @RequestPart(name = "image") MultipartFile image,
@@ -42,8 +41,7 @@ public class HandwritingController {
     // TODO : 테스트용 폰트 저장 API
     @PreAuthorize("hasRole('USER')")
     @PostMapping("/save")
-    public ResponseEntity<Void> saveFont(//@RequestPart(name = "name") String name,
-                                         @RequestPart(name = "handwritingApplicationId") String handwritingApplicationId,
+    public ResponseEntity<Void> saveFont(@RequestPart(name = "handwritingApplicationId") String handwritingApplicationId,
                                          @RequestPart(name = "font") MultipartFile font) {
 
         handwritingService.saveFont(Long.parseLong(handwritingApplicationId), font);

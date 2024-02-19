@@ -11,6 +11,7 @@ import java.util.List;
 @Builder
 @Getter
 public class MemberInformationResponse {
+    private Long memberId;
     private String imageUrl;
     private String nickname;
     private boolean badge;

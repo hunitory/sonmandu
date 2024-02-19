@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface HandwritingRepository extends JpaRepository<Handwriting, Long>, HandwritingRepositoryCustom {
@@ -38,4 +39,5 @@ public interface HandwritingRepository extends JpaRepository<Handwriting, Long>,
     List<Handwriting> findAllByHandwritingApplicationMemberMemberIdAndIsSelectedAndHandwritingApplicationStateGreaterThanEqual(Long targetId, boolean b, int i);
 
     HandwritingNameDownloadUrlProjection findNameDownloadUrlByHandwritingId(Long handwritingId);
+    Optional<Handwriting> findByHandwritingApplicationHandwritingApplicationIdAndIsSelected(Long handwritingApplicationId, boolean b);
 }

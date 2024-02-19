@@ -20,7 +20,7 @@ function FontTesting({ fontName, isAllResourcesLoad }: FontTestingProps) {
   const handleSelectedLetter = (latterNumber: number) => {
     setSelectedLetter((prev) => ({
       ...prev,
-      letterSrc: `/image/letter-${latterNumber}.png`,
+      letterSrc: `/image/letter-${latterNumber * 2}.png`,
       idx: latterNumber,
     }));
   };
@@ -39,7 +39,7 @@ function FontTesting({ fontName, isAllResourcesLoad }: FontTestingProps) {
   return (
     <S.TestingWrapper>
       <S.TestingLetterArea $fontName={fontName} $show={isAllResourcesLoad()} ref={letterImageRef}>
-        {isAllResourcesLoad() && <Comp.BaseLetterField fontSize={36} letterImgUrl={selectedLetter.letterSrc} />}
+        {isAllResourcesLoad() && <Comp.BaseLetterField fontSize={24} letterImgUrl={selectedLetter.letterSrc} />}
       </S.TestingLetterArea>
       <S.SideBoxWrapper>
         <p>편지지 배경</p>

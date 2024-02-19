@@ -96,7 +96,7 @@ export default function PostersSection() {
     queryFn: async () => {
       const requestArgs = {
         startIdx: curItemList.length,
-        takeCount: 5,
+        takeCount: 4,
         tagId: searchParams.get('tagId') || '',
         name: searchParams.get('name') || '',
         sort: searchParams.get('sort') || '',

@@ -11,7 +11,7 @@ export const LetterImageArea = styled.div`
   }
 `;
 
-export const TextField = styled.textarea<{ $fontSize: number }>`
+export const TextField = styled.textarea<{ $fontSize: number; $backgroundImage: string }>`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -19,6 +19,7 @@ export const TextField = styled.textarea<{ $fontSize: number }>`
   width: 70%;
   height: 70%;
   background-color: inherit;
+  /* background: center / contain no-repeat url(${({ $backgroundImage }) => $backgroundImage}); */
 
   &,
   &::placeholder {

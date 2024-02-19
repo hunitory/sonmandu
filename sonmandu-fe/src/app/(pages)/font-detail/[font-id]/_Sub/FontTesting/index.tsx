@@ -39,7 +39,7 @@ function FontTesting({ fontName, isAllResourcesLoad }: FontTestingProps) {
   return (
     <S.TestingWrapper>
       <S.TestingLetterArea $fontName={fontName} $show={isAllResourcesLoad()} ref={letterImageRef}>
-        {isAllResourcesLoad() && <Comp.BaseLetterField fontSize={24} letterImgUrl={selectedLetter.letterSrc} />}
+        {isAllResourcesLoad() && <Comp.BaseLetterField fontSize={36} letterImgUrl={selectedLetter.letterSrc} />}
       </S.TestingLetterArea>
       <S.SideBoxWrapper>
         <p>편지지 배경</p>
@@ -51,7 +51,7 @@ function FontTesting({ fontName, isAllResourcesLoad }: FontTestingProps) {
               onClick={() => handleSelectedLetter(i)}
               selected={i === selectedLetter.idx}
             >
-              <Comp.CustomImage src={`/image/letter-${i}.png`} alt={`편지지-${i}`} width={126} height={86} />
+              <Comp.CustomImage src={`/image/letter-${i * 2}.png`} alt={`편지지-${i * 2}`} width={126} height={86} />
             </S.LatterContainerButton>
           ))}
         </S.SideBoxContainer>

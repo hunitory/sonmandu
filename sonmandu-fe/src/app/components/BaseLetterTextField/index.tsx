@@ -8,7 +8,11 @@ function BaseLetterField({ letterImgUrl, fontSize }: BaseLetterFieldProps) {
   return (
     <S.LetterImageArea onClick={(e) => e.stopPropagation()}>
       <Comp.CustomImage src={letterImgUrl} alt="편지지" fill={true} sizes="100" quality={50} />
-      <S.TextField $fontSize={fontSize} placeholder="글씨를 편지지에 써보세요!"></S.TextField>
+      <S.TextField
+        $backgroundImage={letterImgUrl}
+        $fontSize={fontSize}
+        placeholder="글씨를 편지지에 써보세요!"
+      ></S.TextField>
     </S.LetterImageArea>
   );
 }

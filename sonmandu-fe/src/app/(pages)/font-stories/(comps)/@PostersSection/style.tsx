@@ -5,7 +5,7 @@ import styled from 'styled-components';
 export const CardsGridWrapper = styled.section`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 52px;
   transition: padding 0.5s ease;
   padding-bottom: 48px;

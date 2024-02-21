@@ -43,9 +43,11 @@ export const ImageArea = styled.div`
 
 export const StoryTextContentWrapper = styled.div`
   p {
+    font-size: 16px;
     color: ${PALETTE.LIGHT_BLACK};
   }
   h3 {
+    font-size: 20px;
     height: fit-content;
     font-weight: ${notoSansKr.semiBold.style.fontWeight};
   }

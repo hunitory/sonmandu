@@ -29,10 +29,9 @@ export default function SideBar({ isLike, count, setCopyIsLikeAndCount, handwrit
     navigator.clipboard
       .writeText(window.location.href)
       .then(() => {
-        console.log('url이 클립보드에 복사됨');
+        alert('클립보드에 저장되었습니다.')
       })
-      .catch((error) => {
-        console.log('에러발생');
+      .catch(() => {
       });
   };
 

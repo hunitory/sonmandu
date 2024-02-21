@@ -34,7 +34,7 @@ export const UserInteractionWrapper = styled.nav`
 
 export const LinkWrapper = styled.div`
   width: calc(100% - 72px);
-  min-width: 374px;
+  min-width: 380px;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -45,6 +45,8 @@ export const LinkWrapper = styled.div`
     border-radius: 12px;
     padding: 12px;
     font-size: 14px;
+    font-family: ${notoSansKr.bold.style.fontFamily};
+    font-weight: ${notoSansKr.bold.style.fontWeight};
 
     &:hover {
       background-color: ${PALETTE.SUB_WHITE};

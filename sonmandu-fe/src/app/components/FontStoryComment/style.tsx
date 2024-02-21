@@ -35,7 +35,7 @@ export const CommentContentWrapper = styled.div`
   white-space: pre-line;
   height: fit-content;
   padding-left: 40px;
-  font-size: max(14px, 0.9vw);
+  font-size: max(16px, 0.9vw);
 `;
 
 export const CommentInputAreaWrapper = styled.div`

@@ -39,7 +39,6 @@ export default function FontStoryDetailPage() {
     queryKey: queryKey,
     queryFn: () => API.handwritingStory.handwritingStoryDetail({ fontStoryId: params['font-story-id'] as string }),
   });
-  // console.log(`response :`, response);
   const {
     data: resFromS3,
     isFetching: isFileFetching,
@@ -177,7 +176,7 @@ export default function FontStoryDetailPage() {
         content: comment,
       }),
     onSuccess: () => storyRefetch(),
-    onError: () => console.log(comment),
+    onError: () => {},
   });
 
   const handleCommentButtonClick = async () => {
@@ -215,7 +214,7 @@ export default function FontStoryDetailPage() {
             <S.UpperWrapper>
               <S.UpperHeadWrapper>
                 <S.ProfileBoxDiv>
-                  <Comp.ProfileBox {...ProfileBoxProps} />
+                  <Comp.ProfileBox {...ProfileBoxProps} fontSize="20px" />
                 </S.ProfileBoxDiv>
                 <S.DetailInfoWrapper>
                   <S.HeartWrapper>
@@ -268,7 +267,7 @@ export default function FontStoryDetailPage() {
               <S.VerticalProfileBoxDiv>
                 <S.Line />
                 <S.WhiteSquare />
-                <Comp.ProfileBox {...VerticalProfileBoxProps} />
+                <Comp.ProfileBox {...VerticalProfileBoxProps} fontSize="20px" />
               </S.VerticalProfileBoxDiv>
               <S.ProfileIntroduction>{response?.data.member.introduction}</S.ProfileIntroduction>
               <Link href={`/profile/${response?.data.member.memberId}`}>
@@ -315,7 +314,7 @@ export default function FontStoryDetailPage() {
                             nickname: StoryComment.member.nickname || '',
                             badge: StoryComment.member.badge,
                             imgSize: 'max(40px, 2.2vw)',
-                            fontSize: 'max(14px, 0.8vw)',
+                            fontSize: 'max(16px, 0.8vw)',
                           }}
                           commentProps={{
                             handwritingStoryId: response?.data.handwritingStoryId,

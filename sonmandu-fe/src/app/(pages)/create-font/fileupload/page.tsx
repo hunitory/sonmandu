@@ -25,7 +25,11 @@ export default function FontFileUpload() {
     if (event.target.files) {
       const fileList = Array.from(event.target.files);
       const validFiles = fileList.filter(
-        (file) => file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/gif',
+        (file) =>
+          file.type === 'image/png' ||
+          file.type === 'image/jpeg' ||
+          file.type === 'image/gif' ||
+          file.type === 'application/pdf',
       );
 
       if (fileList.length !== validFiles.length) {
@@ -39,7 +43,11 @@ export default function FontFileUpload() {
   const DropFileUpload = (files: FileList) => {
     const fileList = Array.from(files);
     const validFiles = fileList.filter(
-      (file) => file.type === 'image/png' || file.type === 'image/jpeg' || file.type === 'image/gif',
+      (file) =>
+        file.type === 'image/png' ||
+        file.type === 'image/jpeg' ||
+        file.type === 'image/gif' ||
+        file.type === 'application/pdf',
     );
 
     if (fileList.length !== validFiles.length) {
@@ -108,7 +116,7 @@ export default function FontFileUpload() {
             type="file"
             value=""
             onChange={OnFileUpload}
-            accept=".png,.jpg,.jpeg,.gif"
+            accept=".png,.jpg,.jpeg,.gif,.pdf"
           />
           <Styled.ContentFileUploadLabel
             id="file-upload"

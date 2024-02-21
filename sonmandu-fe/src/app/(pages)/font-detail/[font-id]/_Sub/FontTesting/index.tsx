@@ -20,7 +20,7 @@ function FontTesting({ fontName, isAllResourcesLoad }: FontTestingProps) {
   const handleSelectedLetter = (latterNumber: number) => {
     setSelectedLetter((prev) => ({
       ...prev,
-      letterSrc: `/image/letter-${latterNumber}.png`,
+      letterSrc: `/image/letter-${latterNumber * 2}.png`,
       idx: latterNumber,
     }));
   };
@@ -51,7 +51,7 @@ function FontTesting({ fontName, isAllResourcesLoad }: FontTestingProps) {
               onClick={() => handleSelectedLetter(i)}
               selected={i === selectedLetter.idx}
             >
-              <Comp.CustomImage src={`/image/letter-${i}.png`} alt={`편지지-${i}`} width={126} height={86} />
+              <Comp.CustomImage src={`/image/letter-${i * 2}.png`} alt={`편지지-${i * 2}`} width={126} height={86} />
             </S.LatterContainerButton>
           ))}
         </S.SideBoxContainer>

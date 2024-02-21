@@ -116,7 +116,7 @@ export default function FontFileUpload() {
             type="file"
             value=""
             onChange={OnFileUpload}
-            accept=".png,.jpg,.jpeg,.gif"
+            accept=".png,.jpg,.jpeg,.gif,.pdf"
           />
           <Styled.ContentFileUploadLabel
             id="file-upload"

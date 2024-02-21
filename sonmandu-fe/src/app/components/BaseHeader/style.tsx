@@ -45,6 +45,8 @@ export const LinkWrapper = styled.div`
     border-radius: 12px;
     padding: 12px;
     font-size: 14px;
+    font-family: ${notoSansKr.bold.style.fontFamily};
+    font-weight: ${notoSansKr.bold.style.fontWeight};
 
     &:hover {
       background-color: ${PALETTE.SUB_WHITE};

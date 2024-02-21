@@ -19,9 +19,11 @@ export const TextField = styled.textarea<{ $fontSize: number }>`
   width: 70%;
   height: 70%;
   background-color: inherit;
+  line-height: 170%;
 
   &,
   &::placeholder {
     font-size: ${({ $fontSize }) => $fontSize}px;
+    vertical-align: text-top;
   }
 `;

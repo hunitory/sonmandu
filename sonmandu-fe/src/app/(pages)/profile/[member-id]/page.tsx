@@ -58,7 +58,6 @@ export default function ProfilePage() {
     queryKey: queryKey,
     queryFn: () => API.member.getProfileMember({ memberId: params['member-id'] as string }),
   });
-  console.log(memberRes?.data)
 
   // 만든 폰트 목록 조회
   const {

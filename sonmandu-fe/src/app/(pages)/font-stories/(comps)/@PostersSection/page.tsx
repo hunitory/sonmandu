@@ -52,7 +52,7 @@ export default function PosterSection() {
       }
       const requestArgs = {
         startIdx: 0,
-        takeCount: 5,
+        takeCount: 4,
         title: searchParams.get('title') || '',
         sort: searchParams.get('sort') || '',
       };

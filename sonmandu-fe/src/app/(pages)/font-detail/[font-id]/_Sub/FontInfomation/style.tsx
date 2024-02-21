@@ -25,7 +25,7 @@ export const Title = styled.h1<{ name: string }>`
   align-items: center;
   width: 100%;
   min-height: 56px;
-  font-size: 24px;
+  font-size: 52px;
   font-family: ${(props) => (props.name ? props.name : notoSansKr.extraBold.style.fontFamily)};
   font-weight: ${notoSansKr.extraBold.style.fontWeight};
 `;
@@ -101,7 +101,7 @@ export const CustomProfileBox = styled.div`
   display: flex;
   gap: 12px;
   width: 100%;
-  height: 78px;
+  height: 128px;
   margin: 12px 0px;
   padding: 12px 0px;
 
@@ -112,6 +112,7 @@ export const CustomProfileBox = styled.div`
   }
 
   img {
+    align-self: center;
     border-radius: 50%;
   }
 
@@ -130,11 +131,11 @@ export const CustomProfileBox = styled.div`
   p:nth-of-type(1) {
     font-family: ${notoSansKr.bold.style.fontFamily};
     font-weight: ${notoSansKr.bold.style.fontWeight};
-    font-size: 14px;
+    font-size: 20px;
   }
 
   p:nth-of-type(2) {
-    font-size: 12px;
+    font-size: 16px;
     color: ${PALETTE.LIGHT_BLACK};
   }
 

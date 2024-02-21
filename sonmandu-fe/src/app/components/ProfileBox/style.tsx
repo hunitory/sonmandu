@@ -61,9 +61,9 @@ export const BadgeNameDiv = styled.div<BadgeWrapperProps>`
   font-family: ${notoSansKr.semiBold.style.fontFamily};
   @media screen and (max-width: 1150px) {
     & .vertical {
-      font-size: clamp(17px, 0.8vw, 24px);
+      font-size: clamp(18px, 0.8vw, 24px);
     }
-    font-size: clamp(14px, 0.9vw, 20px);
+    font-size: clamp(16px, 0.9vw, 20px);
   }
 
   justify-content: center;
@@ -76,7 +76,7 @@ export const BadgeWrapper = styled.div<BadgeWrapperProps>`
   width: ${({ fontSize }) => fontSize};
   height: ${({ fontSize }) => fontSize};
   @media screen and (max-width: 1150px) {
-    width: clamp(17px, 2.5vw, 24px);
-    height: clamp(17px, 2.5vw, 24px);
+    width: clamp(20px, 2.5vw, 24px);
+    height: clamp(20px, 2.5vw, 24px);
   }
 `;

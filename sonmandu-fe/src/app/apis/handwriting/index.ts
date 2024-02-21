@@ -15,7 +15,8 @@ export async function fontListInGallery({ startIdx, takeCount, tagId, sort, name
 }
 
 export async function getFontFileFromS3({ url }: { url: string }) {
-  const resourceExtension = url.slice(url.length - 3, url.length);
+  // const resourceExtension = url.slice(url.length - 3, url.length);
+  const resourceExtension = 'woff2';
   return axios.get(url, {
     responseType: 'arraybuffer',
     headers: {
@@ -31,7 +32,6 @@ export async function loadFontInService({
   getFontResponse: AxiosResponse | undefined;
   name: string;
 }) {
-  // console.log(`${name} : ${getFontResponse?.data}`);
   const fontBuffer = getFontResponse?.data;
   const fontBase64 = Buffer.from(fontBuffer).toString('base64');
   const customFont = new FontFace(name, `url(data:${getFontResponse?.headers['content-type']};base64,${fontBase64})`, {

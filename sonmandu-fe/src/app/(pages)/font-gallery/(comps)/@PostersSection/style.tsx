@@ -6,7 +6,7 @@ import * as Comp from '@/components';
 export const CardsGridWrapper = styled.section`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 52px;
   transition: padding 0.5s ease;
   padding-bottom: 48px;
@@ -32,6 +32,6 @@ export const CardsGridWrapper = styled.section`
 
 export const CustomFontCard = styled(Comp.BaseFontCard)`
   & > article > p {
-    font-size: 20px;
+    font-size: 28px;
   }
 `;

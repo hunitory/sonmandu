@@ -19,14 +19,14 @@ export const TestingWrapper = styled.section`
 `;
 
 export const TestingLetterArea = styled.article<{ $fontName: string; $show: boolean }>`
-  width: calc(60% - 8px);
+  width: calc(70% - 8px);
   border-radius: 12px;
   border: 2px solid ${PALETTE.SUB_WHITE};
   overflow: hidden;
 
   textarea {
     font-family: ${(props) => (props.$fontName ? props.$fontName : notoSansKr.regular.style.fontFamily)};
-    padding: 12px;
+    padding: 24px;
   }
 
   background-color: ${(props) => !props.$show && PALETTE.SUB_WHITE};

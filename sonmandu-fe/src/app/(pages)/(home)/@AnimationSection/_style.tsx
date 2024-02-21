@@ -25,15 +25,15 @@ export const LeftSideWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${fadeInOut} 9s infinite;
+  animation: ${fadeInOut} 8s infinite;
 `;
 
 export const RightSideWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${fadeInOut} 9s infinite;
-  animation-delay: 4.5s;
+  animation: ${fadeInOut} 8s infinite;
+  animation-delay: 4s;
 `;
 
 export const ContentWrapper = styled.div`

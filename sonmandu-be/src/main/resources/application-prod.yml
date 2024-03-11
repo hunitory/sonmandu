@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: "MYSQL_URL"
+    username: ${mysql.username}
+    password: ${mysql.password}
+
+
+client:
+  url: "CLIENT_URL"
+
+server:
+  url: "SERVER_URL"
+
+logging:
+  level:
+    root: info
+
